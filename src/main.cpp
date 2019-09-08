@@ -15,6 +15,8 @@
 void setup() {
     SerialDBG.begin(115200);
     SerialDBG.println("Startup called...");
+    ArduinoPlatform::SerialDebug = SerialDBG;
+    
     pinMode(LED_YELLOW, OUTPUT);
     digitalWrite(38, HIGH);
 
