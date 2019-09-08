@@ -1,0 +1,35 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build on Linux",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "linux"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "MultiplyChannels",
+            "type": "shell",
+            "command": "C:/Users/d019748/bin/MultiplyChannels.exe",
+            "args": [
+                "--ets5",
+                "src/Sensormodul"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}
