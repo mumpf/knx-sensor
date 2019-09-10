@@ -13,10 +13,10 @@
 #define LED_YELLOW 38
 
 void setup() {
-    SerialDBG.begin(115200);
-    SerialDBG.println("Startup called...");
-    ArduinoPlatform::SerialDebug = SerialDBG;
-    
+    Serial.begin(115200);
+    Serial.println("Startup called...");
+    ArduinoPlatform::SerialDebug = Serial;
+
     pinMode(LED_YELLOW, OUTPUT);
     digitalWrite(38, HIGH);
 

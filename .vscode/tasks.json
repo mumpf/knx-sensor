@@ -22,7 +22,6 @@
             "type": "shell",
             "command": "C:/Users/d019748/bin/MultiplyChannels.exe",
             "args": [
-                "--ets5",
                 "src/Sensormodul"
             ],
             "problemMatcher": [],

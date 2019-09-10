@@ -294,7 +294,7 @@
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%064" Name="f%C%ODpt" ParameterType="M-00FA_A-0001-01-0000_PT-OutputDpt" Text="DPT für Ausgang" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="79" BitOffset="0" />
     </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%065" Name="f%C%OOn" ParameterType="M-00FA_A-0001-01-0000_PT-OutputSend" Text="Wert für EIN senden?" Value="1">
+    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%065" Name="f%C%OOn" ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendOn" Text="Wert für EIN senden?" Value="1">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="80" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%066" Name="f%C%OOnDpt1" ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt1" Text="Wert für EIN senden als" Value="1">
@@ -339,7 +339,7 @@
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%123" Name="f%C%OOnPADevice" ParameterType="M-00FA_A-0001-01-0000_PT-PADevice" Text="PA Gerät" Value="1">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="82" BitOffset="0" />
     </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%077" Name="f%C%OOff" ParameterType="M-00FA_A-0001-01-0000_PT-OutputSend" Text="Wert für AUS senden?" Value="1">
+    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%077" Name="f%C%OOff" ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendOff" Text="Wert für AUS senden?" Value="1">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="95" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%078" Name="f%C%OOffDpt1" ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt1" Text="Wert für AUS senden als" Value="0">

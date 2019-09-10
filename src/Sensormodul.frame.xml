@@ -6,11 +6,11 @@
     <Manufacturer RefId="M-00FA">
       <Catalog>
         <CatalogSection Id="M-00FA_CS-1" Name="Geräte" Number="1" DefaultLanguage="de">
-          <CatalogItem Id="M-00FA_H-MFKNX001-1_HP-0001-01-0000_CI-SENSEFULL-1" Name="Sensormodul" Number="1" ProductRefId="M-00FA_H-MFKNX001-1_P-SENSEFULL" Hardware2ProgramRefId="M-00FA_H-MFKNX001-1_HP-0001-01-0000" DefaultLanguage="de" />
+          <CatalogItem Id="M-00FA_H-WPKNX103-1_HP-0001-01-0000_CI-SELFSENSOR-1" Name="Sensormodul" Number="1" ProductRefId="M-00FA_H-WPKNX103-1_P-SELFSENSOR" Hardware2ProgramRefId="M-00FA_H-WPKNX103-1_HP-0001-01-0000" DefaultLanguage="de" />
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="10" ApplicationVersion="1" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="MFTempHumPreVoc1W" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="10" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="%S%" LoadStateMachine="4" />
@@ -189,14 +189,26 @@
                   <Enumeration Text="Keine Wiederholungen durchlassen" Value="3" Id="M-00FA_A-0001-01-0000_PT-OutputFilter_EN-3" />
                 </TypeRestriction>
               </ParameterType>
-              <ParameterType Id="M-00FA_A-0001-01-0000_PT-OutputSend" Name="OutputSend">
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-OutputSendOn" Name="OutputSendOn">
                 <TypeRestriction Base="Value" SizeInBit="8">
-                  <Enumeration Text="Nein" Value="0" Id="M-00FA_A-0001-01-0000_PT-OutputSend_EN-0" />
-                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="M-00FA_A-0001-01-0000_PT-OutputSend_EN-1" />
-                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="M-00FA_A-0001-01-0000_PT-OutputSend_EN-2" />
-                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="M-00FA_A-0001-01-0000_PT-OutputSend_EN-3" />
-                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="M-00FA_A-0001-01-0000_PT-OutputSend_EN-4" />
-                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="M-00FA_A-0001-01-0000_PT-OutputSend_EN-5" />
+                  <Enumeration Text="Nein" Value="0" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-0" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-1" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-2" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-3" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-4" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-5" />
+                  <Enumeration Text="Ja - Tonwiedegabe (Buzzer) starten" Value="6" Id="M-00FA_A-0001-01-0000_PT-OutputSendOn_EN-6" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-OutputSendOff" Name="OutputSendOff">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Nein" Value="0" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-0" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-1" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-2" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-3" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-4" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-5" />
+                  <Enumeration Text="Ja - Tonwiedergabe (Buzzer) stoppen" Value="6" Id="M-00FA_A-0001-01-0000_PT-OutputSendOff_EN-6" />
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-ValueDpt6" Name="ValueDpt6">
@@ -760,14 +772,14 @@
         </ApplicationProgram>
       </ApplicationPrograms>
       <Hardware>
-        <Hardware Id="M-00FA_H-MFKNX001-1" Name="MFSensormodul" SerialNumber="MFKNX001" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
+        <Hardware Id="M-00FA_H-WPKNX103-1" Name="WP-Sensormodul" SerialNumber="WPKNX103" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
-            <Product Id="M-00FA_H-MFKNX001-1_P-SENSEFULL" Text="Sensormodul" OrderNumber="SENSEFULL" IsRailMounted="false" DefaultLanguage="de">
+            <Product Id="M-00FA_H-WPKNX103-1_P-SELFSENSOR" Text="Sensormodul" OrderNumber="SELFSENSOR" IsRailMounted="false" DefaultLanguage="de">
               <RegistrationInfo RegistrationStatus="Registered" />
             </Product>
           </Products>
           <Hardware2Programs>
-            <Hardware2Program Id="M-00FA_H-MFKNX001-1_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
+            <Hardware2Program Id="M-00FA_H-WPKNX103-1_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
               <ApplicationProgramRef RefId="M-00FA_A-0001-01-0000" />
               <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/%HardwareVersion%%ApplicationVersion%" />
             </Hardware2Program>
