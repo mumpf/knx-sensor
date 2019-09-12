@@ -184,7 +184,3 @@
 // parameter offset indicators (calculated)
 #define NUM_paramOffset 59
 #define NUM_paramBlockSize 110
-
-// static function stubs
-void appSetup();
-void appLoop();

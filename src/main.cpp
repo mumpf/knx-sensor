@@ -1,4 +1,3 @@
-#include "Sensormodul.h"
 #include <knx.h>
 
 #ifdef ARDUINO_ARCH_ESP8266
@@ -11,6 +10,9 @@
 #define PROG_LED_PIN 13
 #define PROG_BUTTON_PIN 11
 #define LED_YELLOW 38
+
+void appSetup();
+void appLoop();
 
 void setup() {
     Serial.begin(115200);
