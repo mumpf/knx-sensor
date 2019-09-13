@@ -227,13 +227,13 @@
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%048" Name="f%C%I1" ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="39" BitOffset="0" />
     </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%049" Name="f%C%I1Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang X als Eingang, X =" Value="1">
+    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%049" Name="f%C%I1Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang X als Eingang, X =" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="40" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%050" Name="f%C%I2" ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable" Text="Kanalausgang Y" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="44" BitOffset="0" />
     </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%051" Name="f%C%I2Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang Y als Eingang, Y =" Value="1">
+    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%051" Name="f%C%I2Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang Y als Eingang, Y =" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="45" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%052" Name="f%C%OStair" ParameterType="M-00FA_A-0001-01-0000_PT-YesNo" Text="Ausgang hat eine Treppenlichtfunktion" Value="0">
@@ -380,6 +380,8 @@
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%126" Name="f%C%OOffPADevice" ParameterType="M-00FA_A-0001-01-0000_PT-PADevice" Text="PA Gerät" Value="1">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="97" BitOffset="0" />
     </Parameter>
+    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%128" Name="f%C%NameInput1" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Eingang 1" Value="" />
+    <Parameter Id="M-00FA_A-0001-01-0000_P-%C%129" Name="f%C%NameInput2" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Eingang 2" Value="" />
   </Parameters>
   <ParameterRefs>
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%001_R-%C%0010" RefId="M-00FA_A-0001-01-0000_P-%C%001" />
@@ -458,9 +460,9 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%046_R-%C%0461" RefId="M-00FA_A-0001-01-0000_P-%C%046" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%047_R-%C%0471" RefId="M-00FA_A-0001-01-0000_P-%C%047" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%048_R-%C%0481" RefId="M-00FA_A-0001-01-0000_P-%C%048" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%049_R-%C%0491" RefId="M-00FA_A-0001-01-0000_P-%C%049" Value="%C%" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%049_R-%C%0491" RefId="M-00FA_A-0001-01-0000_P-%C%049" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%050_R-%C%0501" RefId="M-00FA_A-0001-01-0000_P-%C%050" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%051_R-%C%0511" RefId="M-00FA_A-0001-01-0000_P-%C%051" Value="%C%" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%051_R-%C%0511" RefId="M-00FA_A-0001-01-0000_P-%C%051" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%052_R-%C%0521" RefId="M-00FA_A-0001-01-0000_P-%C%052" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%053_R-%C%0531" RefId="M-00FA_A-0001-01-0000_P-%C%053" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%054_R-%C%0541" RefId="M-00FA_A-0001-01-0000_P-%C%054" Value="50" SuffixText="/10 Sekunden" />
@@ -542,6 +544,8 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%125_R-%C%1251" RefId="M-00FA_A-0001-01-0000_P-%C%125" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%126_R-%C%1261" RefId="M-00FA_A-0001-01-0000_P-%C%126" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%127_R-%C%1271" RefId="M-00FA_A-0001-01-0000_P-%C%127" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%128_R-%C%1281" RefId="M-00FA_A-0001-01-0000_P-%C%128" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%C%129_R-%C%1291" RefId="M-00FA_A-0001-01-0000_P-%C%129" />
   </ParameterRefs>
   <ComObjectTable>
     <ComObject Id="M-00FA_A-0001-01-0000_O-%C1%" Name="KOf%C%E1" Number="%C1%" FunctionText="Eingang 1" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" />
@@ -560,26 +564,26 @@
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C3%_R-%C3%09" RefId="M-00FA_A-0001-01-0000_O-%C3%" Text="L %C%: {{%C%0010}}" ObjectSize="14 Bytes" DatapointType="DPST-16-1" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C3%_R-%C3%10" RefId="M-00FA_A-0001-01-0000_O-%C3%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-17-1" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C3%_R-%C3%11" RefId="M-00FA_A-0001-01-0000_O-%C3%" Text="L %C%: {{%C%0010}}" ObjectSize="3 Bytes" DatapointType="DPST-232-600" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%01" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Bit" DatapointType="DPST-1-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%02" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bit" DatapointType="DPST-2-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%03" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-10" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%04" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%05" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-6-10" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%06" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-7-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%07" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-8-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%08" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-9-2" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%09" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-17-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%10" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="3 Bytes" DatapointType="DPST-232-600" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%01" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Bit" DatapointType="DPST-1-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%02" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bit" DatapointType="DPST-2-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%03" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-10" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%04" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%05" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-6-10" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%06" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-7-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%07" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-8-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%08" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-9-2" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%09" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-17-1" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%10" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="3 Bytes" DatapointType="DPST-232-600" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%01" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Bit" DatapointType="DPST-1-1" FunctionText="Eingang 1: Binärwert" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%02" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bit" DatapointType="DPST-2-1" FunctionText="Eingang 1: Zwangsführung" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%03" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-10" FunctionText="Eingang 1: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%04" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-1" FunctionText="Eingang 1: Prozentwert" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%05" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-6-10" FunctionText="Eingang 1: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%06" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-7-1" FunctionText="Eingang 1: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%07" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-8-1" FunctionText="Eingang 1: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%08" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-9-2" FunctionText="Eingang 1: Kommmazahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%09" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-17-1" FunctionText="Eingang 1: Szene" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C1%_R-%C1%10" RefId="M-00FA_A-0001-01-0000_O-%C1%" Text="L %C%: {{%C%0010}}" ObjectSize="3 Bytes" DatapointType="DPST-232-600" FunctionText="Eingang 1: RGB-Wert" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%01" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Bit" DatapointType="DPST-1-1" FunctionText="Eingang 2: Binärwert" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%02" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bit" DatapointType="DPST-2-1" FunctionText="Eingang 2: Zwangsführung" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%03" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-10" FunctionText="Eingang 2: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%04" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-5-1" FunctionText="Eingang 2: Prozentwert" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%05" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-6-10" FunctionText="Eingang 2: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%06" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-7-1" FunctionText="Eingang 2: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%07" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-8-1" FunctionText="Eingang 2: Zahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%08" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="2 Bytes" DatapointType="DPST-9-2" FunctionText="Eingang 2: Kommazahl" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%09" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="1 Byte" DatapointType="DPST-17-1" FunctionText="Eingang 2: Szene" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%C2%_R-%C2%10" RefId="M-00FA_A-0001-01-0000_O-%C2%" Text="L %C%: {{%C%0010}}" ObjectSize="3 Bytes" DatapointType="DPST-232-600" FunctionText="Eingang 2: RGB-Wert" />
   </ComObjectRefs>
   <Dynamic>
     <choose ParamRefId="M-00FA_A-0001-01-0000_P-61_R-61">
@@ -590,7 +594,8 @@
             <when test="0">
               <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%094_R-%C%0941">
                 <when test="1 3">
-                  <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%11" Name="f%C%ExtInput1Delta" Text="    Eingang 1">
+                  <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%11" Name="f%C%ExtInput1Delta" Text="    Eingang 1: {{%C%1281:Differenzwert}}">
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%128_R-%C%1281" />
                     <!-- E1 dpt -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091">
@@ -643,7 +648,8 @@
           <!-- Full ext 1 Input -->
           <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%008_R-%C%0081">
             <when test="!=0">
-              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%12" Name="f%C%ExtInput1" Text="    Eingang 1">
+              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%12" Name="f%C%ExtInput1" Text="    Eingang 1: {{%C%1281:Wert}}">
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%128_R-%C%1281" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%003_R-%C%0031">
                   <when test="4">
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Bei TOR gilt: Dateneingang ist Eingang 1 (ODER Kanalausgang X)" />
@@ -871,7 +877,8 @@
             <when test="0">
               <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%093_R-%C%0931">
                 <when test="1 3">
-                  <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%13" Name="f%C%ExtInput2Delta" Text="    Eingang 2">
+                  <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%13" Name="f%C%ExtInput2Delta" Text="    Eingang 2: {{%C%1291:Differenzwert}}">
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%129_R-%C%1291" />
                     <!-- E2 dpt -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291">
@@ -924,7 +931,8 @@
           <!-- Full ext. 2 Input -->
           <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%028_R-%C%0281">
             <when test="!=0">
-              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%14" Name="f%C%ExtInput2" Text="    Eingang 2">
+              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%14" Name="f%C%ExtInput2" Text="    Eingang 2: {{%C%1291:Wert}}">
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%129_R-%C%1291" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%003_R-%C%0031">
                   <when test="4">
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Bei TOR gilt: Toreingang ist Eingang 2 (ODER Kanalausgang Y)" />
@@ -1158,6 +1166,9 @@
                 </choose>
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%049_R-%C%0491" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%049_R-%C%0491">
+                  <when test="0">
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Hinweis: Solange hier kein Kanalausgang zwischen 1 und %N% zugewiesen wurde, bleibt dieser Eingang inaktiv" />
+                  </when>
                   <when test="%C%">
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Warnung: In den meisten Fällen führt eine Rückkopplung vom Ausgang einer Funktion auf den eigenen Eingang zu unerwarteten Ergebnissen!" />
                   </when>
@@ -1167,6 +1178,9 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text=" " />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%051_R-%C%0511" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%051_R-%C%0511">
+                      <when test="0">
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Hinweis: Solange hier kein Kanalausgang zwischen 1 und %N% zugewiesen wurde, bleibt dieser Eingang inaktiv" />
+                      </when>
                       <when test="%C%">
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Warnung: In den meisten Fällen führt eine Rückkopplung vom Ausgang einer Funktion auf den eigenen Eingang zu unerwarteten Ergebnissen!" />
                       </when>

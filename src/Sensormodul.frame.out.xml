@@ -143,7 +143,7 @@
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-InputFunction" Name="InputFunction">
-                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="1" maxInclusive="%N%" />
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="%N%" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-TimeBase" Name="TimeBase">
                 <TypeRestriction Base="Value" SizeInBit="8">
