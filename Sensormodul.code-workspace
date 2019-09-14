@@ -7,7 +7,7 @@
 			"path": "../knx-logic"
 		},
 		{
-			"path": "../../../Arduino/libraries/knx"
+			"path": "../../../PlatformIO/Projects/knx"
 		}
 	],
 	"settings": {
