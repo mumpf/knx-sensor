@@ -20,7 +20,7 @@
         {
             "label": "MultiplyChannels",
             "type": "shell",
-            "command": "C:/Users/d019748/bin/MultiplyChannels.exe",
+            "command": "${env:USERPROFILE}\\bin\\MultiplyChannels.exe",
             "args": [
                 "src/Sensormodul"
             ],

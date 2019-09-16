@@ -1,4 +1,4 @@
-#include <knx.h>
+#include <Sensormodul.h>
 
 #ifdef ARDUINO_ARCH_ESP8266
 #include <WiFiManager.h>
@@ -14,7 +14,8 @@
 void appSetup();
 void appLoop();
 
-void setup() {
+void setup()
+{
     Serial.begin(115200);
     Serial.println("Startup called...");
     ArduinoPlatform::SerialDebug = &Serial;
@@ -38,7 +39,8 @@ void setup() {
     knx.buttonPinInterruptOn(FALLING);
 
     // print values of parameters if device is already configured
-    if (knx.configured()) {
+    if (knx.configured())
+    {
         appSetup();
     }
 
@@ -47,7 +49,8 @@ void setup() {
     digitalWrite(38, LOW);
 }
 
-void loop() {
+void loop()
+{
     // don't delay here to much. Otherwise you might lose packages or mess up the timing with ETS
     knx.loop();
 

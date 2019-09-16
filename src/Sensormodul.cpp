@@ -6,7 +6,6 @@
 #include <ClosedCube_HDC1080.h>
 #endif
 
-
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
 #include "Sensormodul.h"
 // ... auf jeden Fall Vorrang haben (beeinflussen auch die Logik)
@@ -31,7 +30,6 @@
 #define SENSOR_CO2_BME680 0x3E
 #define SENSOR_FILTER_INT 0x7E
 
-
 #ifdef __linux__
 extern KnxFacade<LinuxPlatform, Bau57B0> knx;
 #else
@@ -41,13 +39,15 @@ Adafruit_BME280 gBME280;
 #endif
 
 // runtime information for the whole logik module
-struct sSensorInfo {
+struct sSensorInfo
+{
     double currentValue;
     unsigned long sendDelay;
     unsigned long readDelay;
 };
 
-struct sRuntimeInfo {
+struct sRuntimeInfo
+{
     uint16_t currentPipeline;
     sSensorInfo temp;
     sSensorInfo hum;
@@ -65,88 +65,98 @@ uint8_t gSensor = 0;
 typedef double (*getSensorValue)(void);
 
 // Stubs for specific sensor apis
-bool StartSensor() {
+bool StartSensor()
+{
 #ifdef __linux__
     return true;
 #else
     bool lResult = true;
-    switch (gSensor & SENSOR_FILTER_INT) {
-        case SENSOR_HDC1080:
-            lResult = true;
-            gHDC1080.begin(0x40); //insert correct address here
-            break;
-        case SENSOR_BME280:
-        case SENSOR_CO2_BME280:
-            lResult = gBME280.begin(0x76);
-            if (!lResult && knx.paramByte(PAR_Error) & 128) {
-                uint16_t lError = (uint16_t)knx.getGroupObject(KO_Error).value() | BIT_Temp | BIT_Hum | BIT_Pre;
-                knx.getGroupObject(KO_Error).value(lError);
-            }
-            break;
-        default:
-            lResult = false;
-            break;
+    switch (gSensor & SENSOR_FILTER_INT)
+    {
+    case SENSOR_HDC1080:
+        lResult = true;
+        gHDC1080.begin(0x40); //insert correct address here
+        break;
+    case SENSOR_BME280:
+    case SENSOR_CO2_BME280:
+        lResult = gBME280.begin(0x76);
+        if (!lResult && knx.paramByte(PAR_Error) & 128)
+        {
+            uint16_t lError = (uint16_t)knx.getGroupObject(KO_Error).value() | BIT_Temp | BIT_Hum | BIT_Pre;
+            knx.getGroupObject(KO_Error).value(lError);
+        }
+        break;
+    default:
+        lResult = false;
+        break;
     }
     return lResult;
 #endif
 }
 
-double ReadTemperature() {
+double ReadTemperature()
+{
 #ifdef __linux__
     return 22.7;
 #else
-    switch (gSensor & SENSOR_FILTER_INT) {
-        case SENSOR_HDC1080:
-            return gHDC1080.readTemperature();
-            break;
-        case SENSOR_BME280:
-        case SENSOR_CO2_BME280:
-            return gBME280.readTemperature();
-            break;
-        default:
-            break;
+    switch (gSensor & SENSOR_FILTER_INT)
+    {
+    case SENSOR_HDC1080:
+        return gHDC1080.readTemperature();
+        break;
+    case SENSOR_BME280:
+    case SENSOR_CO2_BME280:
+        return gBME280.readTemperature();
+        break;
+    default:
+        break;
     }
     return -50.0;
 #endif
 }
 
-double ReadHumidity() {
+double ReadHumidity()
+{
 #ifdef __linux__
     return 55.3;
 #else
-    switch (gSensor & SENSOR_FILTER_INT) {
-        case SENSOR_HDC1080:
-            return gHDC1080.readHumidity();
-            break;
-        case SENSOR_BME280:
-        case SENSOR_CO2_BME280:
-            return gBME280.readHumidity();
-            break;
-        default:
-            break;
+    switch (gSensor & SENSOR_FILTER_INT)
+    {
+    case SENSOR_HDC1080:
+        return gHDC1080.readHumidity();
+        break;
+    case SENSOR_BME280:
+    case SENSOR_CO2_BME280:
+        return gBME280.readHumidity();
+        break;
+    default:
+        break;
     }
     return -1.0;
 #endif
 }
 
-double ReadPressure() {
+double ReadPressure()
+{
 #ifdef __linux__
     return 1023.3;
 #else
-    switch (gSensor & SENSOR_FILTER_INT) {
-        case SENSOR_BME280:
-        case SENSOR_CO2_BME280:
-            return gBME280.readPressure();
-            break;
-        default:
-            break;
+    switch (gSensor & SENSOR_FILTER_INT)
+    {
+    case SENSOR_BME280:
+    case SENSOR_CO2_BME280:
+        return gBME280.readPressure();
+        break;
+    default:
+        break;
     }
     return -1.0;
 #endif
 }
 
 // generic sensor processing
-void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iOffsetFactor, double iValueFactor, uint16_t iParamIndex, uint16_t iKoNumber, bool iForce = false) {
+void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iOffsetFactor, double iValueFactor, uint16_t iParamIndex, uint16_t iKoNumber, bool iForce = false)
+{
     bool lSend = iForce;
     // process send cycle
     uint32_t lCycle = knx.paramInt(iParamIndex + 1) * 1000;
@@ -156,7 +166,8 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iO
         lSend = true;
 
     // process read cycle
-    if (iForce || millis() - cData->readDelay > 1000) {
+    if (iForce || millis() - cData->readDelay > 1000)
+    {
         // we waited enough, let's read the sensor
         int32_t lOffset = (int)knx.paramByte(iParamIndex);
         double lValue = fGetSensorValue() + (lOffset / iOffsetFactor);
@@ -174,13 +185,15 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iO
         cData->currentValue = lValue;
         cData->readDelay = millis();
     }
-    if (lSend) {
+    if (lSend)
+    {
         knx.getGroupObject(iKoNumber).value(cData->currentValue);
         cData->sendDelay = millis();
     }
 }
 
-struct sPoint {
+struct sPoint
+{
     double x;
     double y;
 };
@@ -188,12 +201,15 @@ struct sPoint {
 sPoint comfort1[8] = {{17, 88.8}, {21.4, 84.1}, {25, 60}, {27.1, 30.5}, {25.9, 29.5}, {20, 29.5}, {17.1, 48.8}, {15.9, 78.8}};
 sPoint comfort2[4] = {{17.5, 74.7}, {22, 72.9}, {24.3, 37.6}, {18.9, 41.8}};
 
-bool InPolygon(sPoint *iPoly, uint8_t iLen, double iX, double iY) {
+bool InPolygon(sPoint *iPoly, uint8_t iLen, double iX, double iY)
+{
 
     int j = iLen - 1;
     bool lResult = false;
-    for (int i = 0; i < iLen; i++) {
-        if (((iPoly[i].y > iY) != (iPoly[j].y > iY)) && (iX < (iPoly[j].x - iPoly[i].x) * (iY - iPoly[i].y) / (iPoly[j].y - iPoly[i].y) + iPoly[i].x)) {
+    for (int i = 0; i < iLen; i++)
+    {
+        if (((iPoly[i].y > iY) != (iPoly[j].y > iY)) && (iX < (iPoly[j].x - iPoly[i].x) * (iY - iPoly[i].y) / (iPoly[j].y - iPoly[i].y) + iPoly[i].x))
+        {
             lResult = !lResult;
         }
         j = i;
@@ -201,13 +217,16 @@ bool InPolygon(sPoint *iPoly, uint8_t iLen, double iX, double iY) {
     return lResult;
 }
 
-void ProcessCalculatedValues(bool iForce = false) {
+void ProcessCalculatedValues(bool iForce = false)
+{
     static uint32_t sMillis = 0;
     bool lSend = iForce;
-    if (iForce || millis() - sMillis > 1000) {
+    if (iForce || millis() - sMillis > 1000)
+    {
         double lTemp = gRuntimeData.temp.currentValue;
         double lHum = gRuntimeData.hum.currentValue;
-        if (knx.paramByte(PAR_Dewpoint) & 64) {
+        if (knx.paramByte(PAR_Dewpoint) & 64)
+        {
             // Taupunkt
             double lLogHum = log(lHum / 100.0);
             double lDewpoint = 243.12 * ((17.62 * lTemp) / (243.12 + lTemp) + lLogHum) / ((17.62 * 243.12) / (243.12 + lTemp) - lLogHum);
@@ -217,12 +236,16 @@ void ProcessCalculatedValues(bool iForce = false) {
                 knx.getGroupObject(KO_Dewpoint).value(lDewpoint);
         }
         lSend = iForce;
-        if (knx.paramByte(PAR_Comfort) & 32) {
+        if (knx.paramByte(PAR_Comfort) & 32)
+        {
             // comfortzone
             uint8_t lComfort = 0;
-            if (InPolygon(comfort2, 4, lTemp, lHum)) {
+            if (InPolygon(comfort2, 4, lTemp, lHum))
+            {
                 lComfort = 2;
-            } else if (InPolygon(comfort1, 8, lTemp, lHum)) {
+            }
+            else if (InPolygon(comfort1, 8, lTemp, lHum))
+            {
                 lComfort = 1;
             }
             if ((uint8_t)knx.getGroupObject(KO_Comfort).value() != lComfort)
@@ -235,17 +258,21 @@ void ProcessCalculatedValues(bool iForce = false) {
 }
 
 // true solgange der Start des gesamten Moduls verzögert werden soll
-bool startupDelay() {
+bool startupDelay()
+{
     return (millis() - gRuntimeData.startupDelay < knx.paramInt(PAR_StartupDelay) * 1000);
 }
 
-void ProcessHeartbeat() {
+void ProcessHeartbeat()
+{
     // the first heartbeat is send directly after startup delay of the device
-    if (gRuntimeData.heartbeatDelay == 0 || millis() - gRuntimeData.heartbeatDelay > knx.paramInt(PAR_Heartbeat) * 1000) {
+    if (gRuntimeData.heartbeatDelay == 0 || millis() - gRuntimeData.heartbeatDelay > knx.paramInt(PAR_Heartbeat) * 1000)
+    {
         // we waited enough, let's send a heartbeat signal
         knx.getGroupObject(KO_Heartbeat).value(true);
         // if there is an error, we send it, too
-        if (knx.paramByte(PAR_Error) & 128) {
+        if (knx.paramByte(PAR_Error) & 128)
+        {
             uint16_t lError = (uint16_t)knx.getGroupObject(KO_Error).value();
             if (lError)
                 knx.getGroupObject(KO_Error).value(lError);
@@ -258,7 +285,8 @@ void ProcessHeartbeat() {
     }
 }
 
-void ProcessSensors(bool iForce = false) {
+void ProcessSensors(bool iForce = false)
+{
     if (gSensor & BIT_Temp)
         ProcessSensor(&gRuntimeData.temp, ReadTemperature, 10.0, 1.0, PAR_TempOffset, KO_Temp, iForce);
     if (gSensor & BIT_Hum)
@@ -270,18 +298,21 @@ void ProcessSensors(bool iForce = false) {
         ProcessCalculatedValues(iForce);
 }
 
-void ProcessRequestValues(GroupObject &iKo) {
+void ProcessRequestValues(GroupObject &iKo)
+{
     println("Request values called");
     print("KO-Value is ");
     println((bool)iKo.value());
-    if ((bool)iKo.value()) {
+    if ((bool)iKo.value())
+    {
         ProcessSensors(true);
     }
 }
 
 bool gForceAtStartup = true;
 
-void appLoop() {
+void appLoop()
+{
     if (!knx.configured())
         return;
 
@@ -301,14 +332,16 @@ void appLoop() {
         logikLoop();
 }
 
-void appSetup() {
+void appSetup()
+{
 
     gSensor = (knx.paramByte(PAR_SensorDevice));
 
     if (gSensor & BIT_LOGIC)
         logikSetup();
 
-    if (knx.configured()) {
+    if (knx.configured())
+    {
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         // init KO-DPTs
