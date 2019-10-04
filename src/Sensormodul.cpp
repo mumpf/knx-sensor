@@ -36,6 +36,7 @@ extern KnxFacade<LinuxPlatform, Bau57B0> knx;
 #else
 ClosedCube_HDC1080 gHDC1080;
 Adafruit_BME280 gBME280;
+SCD30 gSCD30;
 
 #endif
 
@@ -87,6 +88,9 @@ bool StartSensor()
                 knx.getGroupObject(LOG_KoError).value(lError);
             }
             break;
+        case SENSOR_CO2:
+            gSCD30.begin(); //This will cause readings to occur every two seconds
+        break; 
         default:
             lResult = false;
             break;
@@ -107,8 +111,11 @@ double ReadTemperature()
             break;
         case SENSOR_BME280:
         case SENSOR_CO2_BME280:
-            return gBME280.readTemperature();
+            return gSCD30.getTemperature();
             break;
+        case SENSOR_CO2:
+            return gSCD30.getTemperature();
+        break;    
         default:
             break;
     }
@@ -128,8 +135,11 @@ double ReadHumidity()
             break;
         case SENSOR_BME280:
         case SENSOR_CO2_BME280:
-            return gBME280.readHumidity();
+            return gSCD30.getHumidity();
             break;
+        case SENSOR_CO2:
+            return gSCD30.getHumidity();
+        break;  
         default:
             break;
     }
@@ -155,6 +165,26 @@ double ReadPressure()
 #endif
 }
 
+double ReadCO2()
+{
+#ifdef __linux__
+    return 1000;
+#else
+    switch (gSensor & SENSOR_FILTER_INT)
+    {
+        case SENSOR_CO2_BME280:
+            return (double) gSCD30.getCO2();
+            break;
+        case SENSOR_CO2: 
+            return (double) gSCD30.getCO2();
+            break;    
+        default:
+            break;
+    }
+    return -1.0;
+#endif
+}
+
 // generic sensor processing
 void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iOffsetFactor, double iValueFactor, uint16_t iParamIndex, uint16_t iKoNumber, bool iForce = false)
 {
@@ -167,7 +197,7 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iO
         lSend = true;
 
     // process read cycle
-    if (iForce || millis() - cData->readDelay > 1000)
+    if (iForce || millis() - cData->readDelay > 5000)
     {
         // we waited enough, let's read the sensor
         int32_t lOffset = (int)knx.paramByte(iParamIndex);
@@ -187,7 +217,7 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iO
         cData->readDelay = millis();
     }
     if (lSend)
-    {
+    {  
         knx.getGroupObject(iKoNumber).value(cData->currentValue);
         cData->sendDelay = millis();
     }
@@ -294,6 +324,8 @@ void ProcessSensors(bool iForce = false)
         ProcessSensor(&gRuntimeData.hum, ReadHumidity, 1.0, 1.0, LOG_HumOffset, LOG_KoHum, iForce);
     if (gSensor & BIT_Pre)
         ProcessSensor(&gRuntimeData.pre, ReadPressure, 1.0, 100.0, LOG_PreOffset, LOG_KoPre, iForce);
+    if (gSensor & BIT_Co2)
+        ProcessSensor(&gRuntimeData.pre, ReadCO2, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2, iForce);    
 
     if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
         ProcessCalculatedValues(iForce);
@@ -351,6 +383,7 @@ void appSetup()
         knx.getGroupObject(LOG_KoTemp).dataPointType(Dpt(9, 1));
         knx.getGroupObject(LOG_KoHum).dataPointType(Dpt(9, 7));
         knx.getGroupObject(LOG_KoPre).dataPointType(Dpt(9, 6));
+        knx.getGroupObject(LOG_KoCo2).dataPointType(Dpt(9, 8));
         knx.getGroupObject(LOG_KoDewpoint).dataPointType(Dpt(9, 1));
         knx.getGroupObject(LOG_KoComfort).dataPointType(Dpt(5, 5));
         GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
