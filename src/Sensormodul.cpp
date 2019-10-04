@@ -4,6 +4,7 @@
 #include <Adafruit_BME280.h>
 #include <Adafruit_Sensor.h>
 #include <ClosedCube_HDC1080.h>
+#include <SparkFun_SCD30_Arduino_Library.h>
 #endif
 
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
@@ -73,22 +74,22 @@ bool StartSensor()
     bool lResult = true;
     switch (gSensor & SENSOR_FILTER_INT)
     {
-    case SENSOR_HDC1080:
-        lResult = true;
-        gHDC1080.begin(0x40); //insert correct address here
-        break;
-    case SENSOR_BME280:
-    case SENSOR_CO2_BME280:
-        lResult = gBME280.begin(0x76);
-        if (!lResult && knx.paramByte(PAR_Error) & 128)
-        {
-            uint16_t lError = (uint16_t)knx.getGroupObject(KO_Error).value() | BIT_Temp | BIT_Hum | BIT_Pre;
-            knx.getGroupObject(KO_Error).value(lError);
-        }
-        break;
-    default:
-        lResult = false;
-        break;
+        case SENSOR_HDC1080:
+            lResult = true;
+            gHDC1080.begin(0x40); //insert correct address here
+            break;
+        case SENSOR_BME280:
+        case SENSOR_CO2_BME280:
+            lResult = gBME280.begin(0x76);
+            if (!lResult && knx.paramByte(LOG_Error) & 128)
+            {
+                uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value() | BIT_Temp | BIT_Hum | BIT_Pre;
+                knx.getGroupObject(LOG_KoError).value(lError);
+            }
+            break;
+        default:
+            lResult = false;
+            break;
     }
     return lResult;
 #endif
@@ -101,15 +102,15 @@ double ReadTemperature()
 #else
     switch (gSensor & SENSOR_FILTER_INT)
     {
-    case SENSOR_HDC1080:
-        return gHDC1080.readTemperature();
-        break;
-    case SENSOR_BME280:
-    case SENSOR_CO2_BME280:
-        return gBME280.readTemperature();
-        break;
-    default:
-        break;
+        case SENSOR_HDC1080:
+            return gHDC1080.readTemperature();
+            break;
+        case SENSOR_BME280:
+        case SENSOR_CO2_BME280:
+            return gBME280.readTemperature();
+            break;
+        default:
+            break;
     }
     return -50.0;
 #endif
@@ -122,15 +123,15 @@ double ReadHumidity()
 #else
     switch (gSensor & SENSOR_FILTER_INT)
     {
-    case SENSOR_HDC1080:
-        return gHDC1080.readHumidity();
-        break;
-    case SENSOR_BME280:
-    case SENSOR_CO2_BME280:
-        return gBME280.readHumidity();
-        break;
-    default:
-        break;
+        case SENSOR_HDC1080:
+            return gHDC1080.readHumidity();
+            break;
+        case SENSOR_BME280:
+        case SENSOR_CO2_BME280:
+            return gBME280.readHumidity();
+            break;
+        default:
+            break;
     }
     return -1.0;
 #endif
@@ -143,12 +144,12 @@ double ReadPressure()
 #else
     switch (gSensor & SENSOR_FILTER_INT)
     {
-    case SENSOR_BME280:
-    case SENSOR_CO2_BME280:
-        return gBME280.readPressure();
-        break;
-    default:
-        break;
+        case SENSOR_BME280:
+        case SENSOR_CO2_BME280:
+            return gBME280.readPressure();
+            break;
+        default:
+            break;
     }
     return -1.0;
 #endif
@@ -225,18 +226,18 @@ void ProcessCalculatedValues(bool iForce = false)
     {
         double lTemp = gRuntimeData.temp.currentValue;
         double lHum = gRuntimeData.hum.currentValue;
-        if (knx.paramByte(PAR_Dewpoint) & 64)
+        if (knx.paramByte(LOG_Dewpoint) & 64)
         {
             // Taupunkt
             double lLogHum = log(lHum / 100.0);
             double lDewpoint = 243.12 * ((17.62 * lTemp) / (243.12 + lTemp) + lLogHum) / ((17.62 * 243.12) / (243.12 + lTemp) - lLogHum);
-            if ((uint8_t)knx.getGroupObject(KO_Dewpoint).value() != (uint8_t)lDewpoint)
+            if ((uint8_t)knx.getGroupObject(LOG_KoDewpoint).value() != (uint8_t)lDewpoint)
                 lSend = true;
             if (lSend)
-                knx.getGroupObject(KO_Dewpoint).value(lDewpoint);
+                knx.getGroupObject(LOG_KoDewpoint).value(lDewpoint);
         }
         lSend = iForce;
-        if (knx.paramByte(PAR_Comfort) & 32)
+        if (knx.paramByte(LOG_Comfort) & 32)
         {
             // comfortzone
             uint8_t lComfort = 0;
@@ -248,10 +249,10 @@ void ProcessCalculatedValues(bool iForce = false)
             {
                 lComfort = 1;
             }
-            if ((uint8_t)knx.getGroupObject(KO_Comfort).value() != lComfort)
+            if ((uint8_t)knx.getGroupObject(LOG_KoComfort).value() != lComfort)
                 lSend = true;
             if (lSend)
-                knx.getGroupObject(KO_Comfort).value(lComfort);
+                knx.getGroupObject(LOG_KoComfort).value(lComfort);
         }
         sMillis = millis();
     }
@@ -260,27 +261,27 @@ void ProcessCalculatedValues(bool iForce = false)
 // true solgange der Start des gesamten Moduls verzögert werden soll
 bool startupDelay()
 {
-    return (millis() - gRuntimeData.startupDelay < knx.paramInt(PAR_StartupDelay) * 1000);
+    return (millis() - gRuntimeData.startupDelay < knx.paramInt(LOG_StartupDelay) * 1000);
 }
 
 void ProcessHeartbeat()
 {
     // the first heartbeat is send directly after startup delay of the device
-    if (gRuntimeData.heartbeatDelay == 0 || millis() - gRuntimeData.heartbeatDelay > knx.paramInt(PAR_Heartbeat) * 1000)
+    if (gRuntimeData.heartbeatDelay == 0 || millis() - gRuntimeData.heartbeatDelay > knx.paramInt(LOG_Heartbeat) * 1000)
     {
         // we waited enough, let's send a heartbeat signal
-        knx.getGroupObject(KO_Heartbeat).value(true);
+        knx.getGroupObject(LOG_KoHeartbeat).value(true);
         // if there is an error, we send it, too
-        if (knx.paramByte(PAR_Error) & 128)
+        if (knx.paramByte(LOG_Error) & 128)
         {
-            uint16_t lError = (uint16_t)knx.getGroupObject(KO_Error).value();
+            uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value();
             if (lError)
-                knx.getGroupObject(KO_Error).value(lError);
+                knx.getGroupObject(LOG_KoError).value(lError);
         }
         gRuntimeData.heartbeatDelay = millis();
         // debug-helber for logic module
         // print("ParDewpoint: ");
-        // println(knx.paramByte(PAR_Dewpoint));
+        // println(knx.paramByte(LOG_Dewpoint));
         logikDebug();
     }
 }
@@ -288,11 +289,11 @@ void ProcessHeartbeat()
 void ProcessSensors(bool iForce = false)
 {
     if (gSensor & BIT_Temp)
-        ProcessSensor(&gRuntimeData.temp, ReadTemperature, 10.0, 1.0, PAR_TempOffset, KO_Temp, iForce);
+        ProcessSensor(&gRuntimeData.temp, ReadTemperature, 10.0, 1.0, LOG_TempOffset, LOG_KoTemp, iForce);
     if (gSensor & BIT_Hum)
-        ProcessSensor(&gRuntimeData.hum, ReadHumidity, 1.0, 1.0, PAR_HumOffset, KO_Hum, iForce);
+        ProcessSensor(&gRuntimeData.hum, ReadHumidity, 1.0, 1.0, LOG_HumOffset, LOG_KoHum, iForce);
     if (gSensor & BIT_Pre)
-        ProcessSensor(&gRuntimeData.pre, ReadPressure, 1.0, 100.0, PAR_PreOffset, KO_Pre, iForce);
+        ProcessSensor(&gRuntimeData.pre, ReadPressure, 1.0, 100.0, LOG_PreOffset, LOG_KoPre, iForce);
 
     if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
         ProcessCalculatedValues(iForce);
@@ -335,7 +336,7 @@ void appLoop()
 void appSetup()
 {
 
-    gSensor = (knx.paramByte(PAR_SensorDevice));
+    gSensor = (knx.paramByte(LOG_SensorDevice));
 
     if (gSensor & BIT_LOGIC)
         logikSetup();
@@ -345,14 +346,14 @@ void appSetup()
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         // init KO-DPTs
-        knx.getGroupObject(KO_Heartbeat).dataPointType(Dpt(1, 2));
-        knx.getGroupObject(KO_Error).dataPointType(Dpt(237, 600));
-        knx.getGroupObject(KO_Temp).dataPointType(Dpt(9, 1));
-        knx.getGroupObject(KO_Hum).dataPointType(Dpt(9, 7));
-        knx.getGroupObject(KO_Pre).dataPointType(Dpt(9, 6));
-        knx.getGroupObject(KO_Dewpoint).dataPointType(Dpt(9, 1));
-        knx.getGroupObject(KO_Comfort).dataPointType(Dpt(5, 5));
-        GroupObject &lKoRequestValues = knx.getGroupObject(KO_RequestValues);
+        knx.getGroupObject(LOG_KoHeartbeat).dataPointType(Dpt(1, 2));
+        knx.getGroupObject(LOG_KoError).dataPointType(Dpt(237, 600));
+        knx.getGroupObject(LOG_KoTemp).dataPointType(Dpt(9, 1));
+        knx.getGroupObject(LOG_KoHum).dataPointType(Dpt(9, 7));
+        knx.getGroupObject(LOG_KoPre).dataPointType(Dpt(9, 6));
+        knx.getGroupObject(LOG_KoDewpoint).dataPointType(Dpt(9, 1));
+        knx.getGroupObject(LOG_KoComfort).dataPointType(Dpt(5, 5));
+        GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
         lKoRequestValues.dataPointType(Dpt(1, 1));
         lKoRequestValues.callback(ProcessRequestValues);
         StartSensor();

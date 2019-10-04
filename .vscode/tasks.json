@@ -22,6 +22,7 @@
             "type": "shell",
             "command": "${env:USERPROFILE}\\bin\\MultiplyChannels.exe",
             "args": [
+                "create",
                 "src/Sensormodul"
             ],
             "problemMatcher": [],
