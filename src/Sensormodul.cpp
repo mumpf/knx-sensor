@@ -43,7 +43,7 @@ SCD30 gSCD30;
 // runtime information for the whole logik module
 struct sSensorInfo
 {
-    double currentValue;
+    // double currentValue;
     unsigned long sendDelay;
     unsigned long readDelay;
 };
@@ -66,6 +66,34 @@ uint8_t gSensor = 0;
 
 typedef double (*getSensorValue)(void);
 
+bool StartSensorBME280(uint16_t* iError) {
+    bool lResult = gBME280.begin(0x76);
+    if (lResult) {
+        println("BME280 successully started!");
+    }
+    else 
+    {
+        *iError |= BIT_Temp | BIT_Hum | BIT_Pre;
+        print("Error BME280: ");
+        println(*iError);
+    }
+    return lResult;
+}
+
+bool StartSensorSCD30(uint16_t* iError) {
+    bool lResult = gSCD30.begin(); //This will cause readings to occur every two seconds
+    if (lResult) {
+        println("SCD30 successully started!");
+    } 
+    else 
+    {
+        *iError |= BIT_Temp | BIT_Hum | BIT_Co2;
+        print("Error SCD30: ");
+        println(*iError);
+    }
+    return lResult;
+}
+
 // Stubs for specific sensor apis
 bool StartSensor()
 {
@@ -73,6 +101,7 @@ bool StartSensor()
     return true;
 #else
     bool lResult = true;
+    uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value();
     switch (gSensor & SENSOR_FILTER_INT)
     {
         case SENSOR_HDC1080:
@@ -80,21 +109,23 @@ bool StartSensor()
             gHDC1080.begin(0x40); //insert correct address here
             break;
         case SENSOR_BME280:
+            lResult = StartSensorBME280(&lError);
+            break;
         case SENSOR_CO2_BME280:
-            lResult = gBME280.begin(0x76);
-            if (!lResult && knx.paramByte(LOG_Error) & 128)
-            {
-                uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value() | BIT_Temp | BIT_Hum | BIT_Pre;
-                knx.getGroupObject(LOG_KoError).value(lError);
-            }
+            lResult = StartSensorBME280(&lError);
+            lResult &= StartSensorSCD30(&lError);
             break;
         case SENSOR_CO2:
-            gSCD30.begin(); //This will cause readings to occur every two seconds
-        break; 
+            lResult = StartSensorSCD30(&lError);
+            break; 
         default:
             lResult = false;
             break;
     }
+    if (lError > 0 && (knx.paramByte(LOG_Error) & 128) > 0) {
+        knx.getGroupObject(LOG_KoError).value(lError);
+    }
+
     return lResult;
 #endif
 }
@@ -110,12 +141,15 @@ double ReadTemperature()
             return gHDC1080.readTemperature();
             break;
         case SENSOR_BME280:
+            return gBME280.readTemperature();
+            break;
         case SENSOR_CO2_BME280:
+            // here we can decide if the temperature is taken from BME or SCD
             return gSCD30.getTemperature();
             break;
         case SENSOR_CO2:
             return gSCD30.getTemperature();
-        break;    
+            break;    
         default:
             break;
     }
@@ -134,12 +168,15 @@ double ReadHumidity()
             return gHDC1080.readHumidity();
             break;
         case SENSOR_BME280:
+            return gBME280.readHumidity();
+            break;
         case SENSOR_CO2_BME280:
+            // here we can decide if the humidity is taken from BME or SCD
             return gSCD30.getHumidity();
             break;
         case SENSOR_CO2:
             return gSCD30.getHumidity();
-        break;  
+            break;  
         default:
             break;
     }
@@ -173,8 +210,6 @@ double ReadCO2()
     switch (gSensor & SENSOR_FILTER_INT)
     {
         case SENSOR_CO2_BME280:
-            return (double) gSCD30.getCO2();
-            break;
         case SENSOR_CO2: 
             return (double) gSCD30.getCO2();
             break;    
@@ -200,25 +235,27 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, double iO
     if (iForce || millis() - cData->readDelay > 5000)
     {
         // we waited enough, let's read the sensor
-        int32_t lOffset = (int)knx.paramByte(iParamIndex);
+        int32_t lOffset = (int8_t)knx.paramByte(iParamIndex);
         double lValue = fGetSensorValue() + (lOffset / iOffsetFactor);
         lValue = lValue / iValueFactor;
         // smoothing (? glätten ?) of the new value
-        lValue = cData->currentValue + (lValue - cData->currentValue) / knx.paramByte(iParamIndex + 8);
+        lValue = (double)knx.getGroupObject(iKoNumber).value() + (lValue - (double)knx.getGroupObject(iKoNumber).value()) / knx.paramByte(iParamIndex + 8);
         // evaluate sending conditions
-        double lDelta = 100.0 - lValue / cData->currentValue * 100.0;
+        double lDelta = 100.0 - lValue / (double)knx.getGroupObject(iKoNumber).value() * 100.0;
         uint32_t lPercent = knx.paramByte(iParamIndex + 7);
         if (lPercent && (uint32_t)abs(lDelta) >= lPercent)
             lSend = true;
         float lAbsolute = knx.paramWord(iParamIndex + 5) / iOffsetFactor;
-        if (lAbsolute > 0.0 && abs(lValue - cData->currentValue) >= lAbsolute)
+        if (lAbsolute > 0.0 && abs(lValue - (float)knx.getGroupObject(iKoNumber).value()) >= lAbsolute)
             lSend = true;
-        cData->currentValue = lValue;
+        // cData->currentValue = lValue;
+        knx.getGroupObject(iKoNumber).valueNoSend(lValue);
         cData->readDelay = millis();
     }
     if (lSend)
     {  
-        knx.getGroupObject(iKoNumber).value(cData->currentValue);
+        // knx.getGroupObject(iKoNumber).value(cData->currentValue);
+        knx.getGroupObject(iKoNumber).objectWritten();
         cData->sendDelay = millis();
     }
 }
@@ -254,8 +291,8 @@ void ProcessCalculatedValues(bool iForce = false)
     bool lSend = iForce;
     if (iForce || millis() - sMillis > 1000)
     {
-        double lTemp = gRuntimeData.temp.currentValue;
-        double lHum = gRuntimeData.hum.currentValue;
+        double lTemp =  knx.getGroupObject(LOG_KoTemp).value(); //gRuntimeData.temp.currentValue;
+        double lHum = knx.getGroupObject(LOG_KoHum).value(); //gRuntimeData.hum.currentValue;
         if (knx.paramByte(LOG_Dewpoint) & 64)
         {
             // Taupunkt
