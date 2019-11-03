@@ -37,7 +37,7 @@
 #define LOG_Dewpoint                  12      // 1 Bit, Bit 6
 #define LOG_Comfort                   12      // 1 Bit, Bit 5
 
-#define LOG_Channels 40
+#define LOG_Channels 10
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 59
@@ -170,7 +170,7 @@
 #define LOG_fOOffPADevice             97      // uint8_t
 
 // Communication objects per channel (multiple occurance)
-#define LOG_KoOffset 100
+#define LOG_KoOffset 30
 #define LOG_KoBlockSize 3
 #define LOG_KoKOfE1 0
 #define LOG_KoKOfE2 1

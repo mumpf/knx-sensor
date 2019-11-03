@@ -40,8 +40,8 @@
               <mc:include href="Sensormodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="SENS" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectRefs/ComObjectRef" header="Sensormodul.h" prefix="LOG" />
             </ComObjectRefs>
-            <AddressTable MaxEntries="255" />
-            <AssociationTable MaxEntries="255" />
+            <AddressTable MaxEntries="65535" />
+            <AssociationTable MaxEntries="65535" />
             <LoadProcedures>
               <LoadProcedure MergeId="2">
                 <LdCtrlRelSegment AppliesTo="full" LsmIdx="4" Size="0" Mode="0" Fill="0" />

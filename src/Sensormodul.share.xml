@@ -231,7 +231,7 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-81_R-81" RefId="M-00FA_A-0001-01-0000_P-81" />
             </ParameterRefs>
             <ComObjectTable>
-              <ComObject Id="M-00FA_A-0001-01-0000_O-2" Name="Error" Text="Sensorfehler" Number="2" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-237-600" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-2" Name="Error" Text="Sensorfehler" Number="2" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-5" Name="Temp" Text="Temperatur" Number="5" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-6" Name="Hum" Text="Luftfeuchte" Number="6" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-7" Name="Pre" Text="Luftdruck" Number="7" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
@@ -278,7 +278,7 @@
                     <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-1_R-1" />
                   </when>
                 </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text=" " />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-60_R-60" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-60_R-60">
                   <when test="0">
@@ -332,9 +332,9 @@
                   </when>
                 </choose>
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-68_R-68" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-1" Text=" " />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-1" Text="" UIHint="HorizontalRuler" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-61_R-61" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-2" Text=" " />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-2" Text="" UIHint="HorizontalRuler" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-4_R-4" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-4_R-4">
                   <when test="1">
@@ -362,7 +362,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-11_R-11" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-12_R-12" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-13_R-13" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-14_R-14" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-14" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-15" Text="  Xneu: neu errechneter Messwert" />
@@ -379,7 +379,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-21_R-21" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-22_R-22" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-23_R-23" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-20" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-20" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-24_R-24" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-21" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-22" Text="  Xneu: neu errechneter Messwert" />
@@ -396,7 +396,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-31_R-31" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-32_R-32" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-33_R-33" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-27" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-27" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-34_R-34" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-28" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-29" Text="  Xneu: neu errechneter Messwert" />
@@ -413,7 +413,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-41_R-41" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-42_R-42" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-43_R-43" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-34" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-34" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-44_R-44" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-35" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-36" Text="  Xneu: neu errechneter Messwert" />
@@ -430,7 +430,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-51_R-51" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-52_R-52" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-53_R-53" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-41" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-41" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-54_R-54" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-42" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-43" Text="  Xneu: neu errechneter Messwert" />
@@ -450,7 +450,7 @@
                         <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-11_R-11" />
                       </when>
                     </choose>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-48" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-48" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-81_R-81" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-81_R-81">
                       <when test="1">
@@ -469,9 +469,9 @@
               <when test="1">
                 <Channel Id="M-00FA_A-0001-01-0000_CH-2" Name="OW" Number="2" Text="Externe Sensoren (1 Wire)">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-20" Name="OWConfig" Text="Sensorkonfiguration">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-53" Text=" " />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-54" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-55" Text=" " />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-53" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-54" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-55" Text="" UIHint="HorizontalRuler" />
                   </ParameterBlock>
                 </Channel>
               </when>
