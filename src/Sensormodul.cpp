@@ -391,7 +391,7 @@ void ProcessSensors(bool iForce = false)
     if (gSensor & BIT_Hum)
         ProcessSensor(&gRuntimeData.hum, ReadHumidity, 1.0, 1.0, LOG_HumOffset, LOG_KoHum, iForce);
     if (gSensor & BIT_Pre)
-        ProcessSensor(&gRuntimeData.pre, ReadPressure, 1.0, 100.0, LOG_PreOffset, LOG_KoPre, iForce);
+        ProcessSensor(&gRuntimeData.pre, ReadPressure, 1.0, 1.0, LOG_PreOffset, LOG_KoPre, iForce);
     if (gSensor & BIT_Co2)
         ProcessSensor(&gRuntimeData.pre, ReadCO2, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2, iForce);
 
