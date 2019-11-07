@@ -36,11 +36,16 @@
 #define LOG_Sensor1Wire               58      // 1 Bit, Bit 0
 #define LOG_Dewpoint                  12      // 1 Bit, Bit 6
 #define LOG_Comfort                   12      // 1 Bit, Bit 5
+#define LOG_DewOffset                 59      // int8_t
+#define LOG_DewCycle                  60      // int32_t
+#define LOG_DewDeltaAbs               64      // uint16_t
+#define LOG_DewDeltaPercent           66      // uint8_t
+#define LOG_DewSmooth                 67      // uint8_t
 
 #define LOG_Channels 10
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 59
+#define LOG_ParamBlockOffset 68
 #define LOG_ParamBlockSize 110
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0

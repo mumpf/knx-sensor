@@ -163,6 +163,7 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-61" Name="Logic" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Logikfunktionen freischalten" Value="0">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="58" BitOffset="0" />
               </Parameter>
+
               <!-- the following parameters are just for visualization reasons -->
               <Parameter Id="M-00FA_A-0001-01-0000_P-62" Name="SensorTemp" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="Temperatur" Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-63" Name="SensorHum" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="Luftfeuchte" Value="0" />
@@ -179,6 +180,22 @@
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-81" Name="Comfort" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Behaglichkeitszone ausgeben" Value="0">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="2" />
+              </Parameter>
+
+              <Parameter Id="M-00FA_A-0001-01-0000_P-90" Name="DewOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="/10 °C">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="59" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-91" Name="DewCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Taupunkt zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="60" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-92" Name="DewDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="/10 °C">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="64" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-93" Name="DewDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelTemp" Text="Taupunkt bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="66" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-94" Name="DewSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Taupunkt glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="67" BitOffset="0" />
               </Parameter>
             </Parameters>
             <ParameterRefs>
@@ -229,6 +246,12 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-68_R-68" RefId="M-00FA_A-0001-01-0000_P-68" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-80_R-80" RefId="M-00FA_A-0001-01-0000_P-80" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-81_R-81" RefId="M-00FA_A-0001-01-0000_P-81" />
+              <!-- Dewpoint -->
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-90_R-90" RefId="M-00FA_A-0001-01-0000_P-90" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-91_R-91" RefId="M-00FA_A-0001-01-0000_P-91" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-92_R-92" RefId="M-00FA_A-0001-01-0000_P-92" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-93_R-93" RefId="M-00FA_A-0001-01-0000_P-93" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-94_R-94" RefId="M-00FA_A-0001-01-0000_P-94" />
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="M-00FA_A-0001-01-0000_O-2" Name="Error" Text="Sensorfehler" Number="2" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
@@ -447,18 +470,30 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-80_R-80" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-80_R-80">
                       <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-90_R-90" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-91_R-91" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-92_R-92" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-93_R-93" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-48" Text="" UIHint="HorizontalRuler" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-94_R-94" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-49" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-50" Text="  Xneu: neu errechneter Messwert" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-51" Text="  Xalt: letzter errechneter Messwert" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-52" Text="     M: aktueller Messwert vom Sensor" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-53" Text="     P: einzugebender Parameter" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-54" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
                         <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-11_R-11" />
                       </when>
                     </choose>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-48" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-55" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-81_R-81" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-81_R-81">
                       <when test="1">
                         <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-12_R-12" />
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-49" Text="Es gib 3 Behaglichkeitszonen, die von Temperatur und Luftfeuchte abhängen: " />
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-50" Text="  2 - Behaglich " />
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-51" Text="  1 - noch Behaglich " />
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-52" Text="  0 - Unbehaglich" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-56" Text="Es gib 3 Behaglichkeitszonen, die von Temperatur und Luftfeuchte abhängen: " />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-57" Text="  2 - Behaglich " />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-58" Text="  1 - noch Behaglich " />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-59" Text="  0 - Unbehaglich" />
                       </when>
                     </choose>
                   </ParameterBlock>
@@ -469,9 +504,9 @@
               <when test="1">
                 <Channel Id="M-00FA_A-0001-01-0000_CH-2" Name="OW" Number="2" Text="Externe Sensoren (1 Wire)">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-20" Name="OWConfig" Text="Sensorkonfiguration">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-53" Text="" UIHint="HorizontalRuler" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-54" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-55" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-60" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-61" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-62" Text="" UIHint="HorizontalRuler" />
                   </ParameterBlock>
                 </Channel>
               </when>
