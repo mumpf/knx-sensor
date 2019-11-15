@@ -11,15 +11,19 @@
 #define PROG_LED_PIN_ACTIVE_ON LOW
 #define PROG_BUTTON_PIN 10
 #define PROG_BUTTON_PIN_INTERRUPT_ON RISING
+#define SAVE_INTERRUPT_PIN 0
+#define BUZZER_PIN 0
 #endif
 #ifdef BOARD_BERKER
 #define PROG_LED_PIN 13
 #define PROG_LED_PIN_ACTIVE_ON HIGH
 #define PROG_BUTTON_PIN 11
 #define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
-#define LED_YELLOW 38
+#define SAVE_INTERRUPT_PIN 8
+#define BUZZER_PIN 9
+#define LED_YELLOW_PIN 38
 #endif
-void appSetup();
+void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin);
 void appLoop();
 
 void setup()
@@ -32,9 +36,9 @@ void setup()
     SerialUSB.println("Startup called...");
     ArduinoPlatform::SerialDebug = &SerialUSB;
 
-#ifdef LED_YELLOW
-    pinMode(LED_YELLOW, OUTPUT);
-    digitalWrite(LED_YELLOW, HIGH);
+#ifdef LED_YELLOW_PIN
+    pinMode(LED_YELLOW_PIN, OUTPUT);
+    digitalWrite(LED_YELLOW_PIN, HIGH);
 #endif    
 
     Wire.begin();    
@@ -51,12 +55,12 @@ void setup()
 
     // print values of parameters if device is already configured
     if (knx.configured())
-        appSetup();
+        appSetup(BUZZER_PIN, SAVE_INTERRUPT_PIN);
 
     // start the framework.
     knx.start();
-#ifdef LED_YELLOW
-    digitalWrite(LED_YELLOW, LOW);
+#ifdef LED_YELLOW_PIN
+    digitalWrite(LED_YELLOW_PIN, LOW);
 #endif
 }
 

@@ -36,10 +36,6 @@
 
 #ifdef __linux__
 extern KnxFacade<LinuxPlatform, Bau57B0> knx;
-#else
-// ClosedCube_HDC1080 gHDC1080;
-// Adafruit_BME280 gBME280;
-// SCD30 gSCD30;
 #endif
 
 // runtime information for the whole logik module
@@ -283,8 +279,8 @@ void ProcessSensors(bool iForce = false)
 
 void ProcessRequestValues(GroupObject &iKo)
 {
-    println("Request values called");
     if (iKo.asap() == LOG_KoRequestValues) {
+        println("Request values called");
         print("KO-Value is ");
         println((bool)iKo.value(getDPT(VAL_DPT_1)));
         if ((bool)iKo.value(getDPT(VAL_DPT_1)))
@@ -319,20 +315,20 @@ void appLoop()
     Sensor::sensorLoop();
 }
 
-void appSetup()
+void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
 {
 
     gSensor = (knx.paramByte(LOG_SensorDevice));
 
     if (gSensor & BIT_LOGIC)
-        logikSetup();
+        logikSetup(iBuzzerPin, iSavePin);
 
     if (knx.configured())
     {
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
-        GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
-        lKoRequestValues.callback(ProcessRequestValues);
+        // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
+        GroupObject::classCallback(ProcessRequestValues);
         StartSensor();
     }
 }
