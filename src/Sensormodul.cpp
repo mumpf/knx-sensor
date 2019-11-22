@@ -277,8 +277,9 @@ void ProcessSensors(bool iForce = false)
     }
 }
 
-void ProcessRequestValues(GroupObject &iKo)
+void ProcessKoCallback(GroupObject &iKo)
 {
+    // check if we evaluate own KO
     if (iKo.asap() == LOG_KoRequestValues) {
         println("Request values called");
         print("KO-Value is ");
@@ -287,6 +288,9 @@ void ProcessRequestValues(GroupObject &iKo)
         {
             ProcessSensors(true);
         }
+    } else {
+        // else dispatch to logicmodule
+        processInputKo(iKo);
     }
 }
 
@@ -315,20 +319,36 @@ void appLoop()
     Sensor::sensorLoop();
 }
 
+// handle interrupt from save pin
+void onSafePinInterruptHandler() {
+    // for the moment, we send only en Info on error object in case of an save interrumpt
+    uint16_t lError = getError();
+    setError(lError | 128);
+    sendError();
+    // switch off all energy intensive hardware to gain time for EEPROM write
+    // savePower();
+    // call according logic interrupt handler
+    logicOnSafePinInterruptHandler();
+}
+
 void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
 {
 
     gSensor = (knx.paramByte(LOG_SensorDevice));
 
-    if (gSensor & BIT_LOGIC)
-        logikSetup(iBuzzerPin, iSavePin);
+    if (gSensor & BIT_LOGIC) {
+        if (iSavePin) {
+            attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
+        }
+        logikSetup(iBuzzerPin, false);
+    }
 
     if (knx.configured())
     {
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
-        GroupObject::classCallback(ProcessRequestValues);
+        GroupObject::classCallback(ProcessKoCallback);
         StartSensor();
     }
 }
