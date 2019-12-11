@@ -18,6 +18,9 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-Smooth" Name="Smooth">
                 <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="240" />
               </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-Percent" Name="Percent">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
+              </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-SensorDevices" Name="SensorDevices">
                 <TypeRestriction Base="Value" SizeInBit="6">
                   <Enumeration Text="None" Value="0" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-0" />
@@ -35,17 +38,11 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Name="DeltaAbsTemp">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="500" />
               </ParameterType>
-              <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaRelTemp" Name="DeltaRelTemp">
-                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
-              </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetHum" Name="OffsetHum">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-10" maxInclusive="10" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsHum" Name="DeltaAbsHum">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="50" />
-              </ParameterType>
-              <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaRelHum" Name="DeltaRelHum">
-                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetPre" Name="OffsetPre">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-10" maxInclusive="10" />
@@ -53,17 +50,11 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsPre" Name="DeltaAbsPre">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="50" />
               </ParameterType>
-              <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaRelPre" Name="DeltaRelPre">
-                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
-              </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetVoc" Name="OffsetVoc">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsVoc" Name="DeltaAbsVoc">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="400" />
-              </ParameterType>
-              <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaRelVoc" Name="DeltaRelVoc">
-                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetCo2" Name="OffsetCo2">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
@@ -71,8 +62,12 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2" Name="DeltaAbsCo2">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="400" />
               </ParameterType>
-              <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaRelCo2" Name="DeltaRelCo2">
-                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-ExtCount" Name="ExternalCount">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="0" Value="0" Id="M-00FA_A-0001-01-0000_PT-ExtCount_EN-0" />
+                  <Enumeration Text="1" Value="1" Id="M-00FA_A-0001-01-0000_PT-ExtCount_EN-1" />
+                  <Enumeration Text="2" Value="2" Id="M-00FA_A-0001-01-0000_PT-ExtCount_EN-2" />
+                </TypeRestriction>
               </ParameterType>
             </ParameterTypes>
             <Parameters>
@@ -80,88 +75,166 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-4" Name="Error" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Fehlerobjekt anzeigen" Value="0">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-10" Name="TempOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Temperatur anpassen" Value="0" SuffixText="/10 °C">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-10" Name="TempOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Temperatur anpassen (interner Messwert)" Value="0" SuffixText="x 0.1 °C">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="13" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-11" Name="TempCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Temperatur zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="14" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-12" Name="TempDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Temperatur bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="/10 °C">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-12" Name="TempDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Temperatur bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="18" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-13" Name="TempDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelTemp" Text="Temperatur bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-13" Name="TempDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Temperatur bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="20" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-14" Name="TempSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Temperatur glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="21" BitOffset="0" />
               </Parameter>
-
-              <Parameter Id="M-00FA_A-0001-01-0000_P-20" Name="HumOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetHum" Text="Luftfeuchte anpassen" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="22" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-15" Name="TempExtCount" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="22" BitOffset="6" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-21" Name="HumCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftfeuchte zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-16" Name="TempIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="23" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-22" Name="HumDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsHum" Text="Luftfeuchte bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="%">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-17" Name="TempExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="24" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-18" Name="TempExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="25" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-19" Name="TempExtRead" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="22" BitOffset="5" />
+              </Parameter>
+
+              <Parameter Id="M-00FA_A-0001-01-0000_P-20" Name="HumOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetHum" Text="Luftfeuchte anpassen (interner Messwert)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="26" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-21" Name="HumCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftfeuchte zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="27" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-23" Name="HumDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelHum" Text="Luftfeuchte bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="29" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-24" Name="HumSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftfeuchte glätten: P =" Value="1" SuffixText="">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="30" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-30" Name="PreOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetPre" Text="Luftdruck anpassen" Value="0" SuffixText="mbar">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-22" Name="HumDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsHum" Text="Luftfeuchte bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="%">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="31" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-31" Name="PreCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftdruck zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="32" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-23" Name="HumDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Luftfeuchte bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="33" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-32" Name="PreDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsPre" Text="Luftdruck bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="mbar">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-24" Name="HumSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftfeuchte glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="34" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-25" Name="HumExtCount" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="6" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-26" Name="HumIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-33" Name="PreDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelPre" Text="Luftdruck bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-27" Name="HumExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="37" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-28" Name="HumExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="38" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-34" Name="PreSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftdruck glätten: P =" Value="1" SuffixText="">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-29" Name="HumExtRead" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="5" />
+              </Parameter>
+
+              <Parameter Id="M-00FA_A-0001-01-0000_P-30" Name="PreOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetPre" Text="Luftdruck anpassen (interner Messwert)" Value="0" SuffixText="mbar">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="39" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-40" Name="VocOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetVoc" Text="Voc anpassen" Value="0" SuffixText="ppm">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-31" Name="PreCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftdruck zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="40" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-41" Name="VocCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Voc zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="41" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-32" Name="PreDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsPre" Text="Luftdruck bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="mbar">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="44" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-42" Name="VocDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsVoc" Text="Voc bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="ppm">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="45" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-33" Name="PreDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Luftdruck bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="46" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-43" Name="VocDeltPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelVoc" Text="Voc bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-34" Name="PreSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftdruck glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="47" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-44" Name="VocSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Voc glätten: P =" Value="1" SuffixText="">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="48" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-35" Name="PreExtCount" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="48" BitOffset="6" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-50" Name="Co2Offset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetCo2" Text="CO2 anpassen" Value="0" SuffixText="ppm">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-36" Name="PreIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="49" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-51" Name="Co2Cycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="CO2 zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-37" Name="PreExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="50" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-52" Name="Co2DeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2" Text="CO2 bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="ppm">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="54" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-38" Name="PreExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="51" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-53" Name="Co2DeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelCo2" Text="CO2 bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="56" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-39" Name="PreExtRead" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="48" BitOffset="5" />
+              </Parameter>
+
+              <Parameter Id="M-00FA_A-0001-01-0000_P-40" Name="VocOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetVoc" Text="Voc anpassen (interner Messwert)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-41" Name="VocCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Voc zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="53" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-42" Name="VocDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsVoc" Text="Voc bei absoluter Abweichung senden (0=nicht senden)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="57" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-43" Name="VocDeltPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Voc bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="59" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-44" Name="VocSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Voc glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="60" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-45" Name="VocExtCount" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="61" BitOffset="6" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-46" Name="VocIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="62" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-47" Name="VocExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="63" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-48" Name="VocExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="64" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-49" Name="VocExtRead" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="61" BitOffset="5" />
+              </Parameter>
+
+              <Parameter Id="M-00FA_A-0001-01-0000_P-50" Name="Co2Offset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetCo2" Text="CO2 anpassen (interner Messwert)" Value="0" SuffixText="ppm">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="65" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-51" Name="Co2Cycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="CO2 zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="66" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-52" Name="Co2DeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2" Text="CO2 bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="ppm">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="70" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-53" Name="Co2DeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="CO2 bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="72" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-54" Name="Co2Smooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="CO2 glätten: P =" Value="1" SuffixText="">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="57" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="73" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-55" Name="Co2ExtCount" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="74" BitOffset="6" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-56" Name="Co2IntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="75" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-57" Name="Co2Ext1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="76" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-58" Name="Co2Ext2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="77" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-59" Name="Co2ExtRead" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="74" BitOffset="5" />
               </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-60" Name="SensorDevice" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Text="Sensor" Value="7">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="58" BitOffset="1" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="78" BitOffset="1" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-61" Name="Logic" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Logikfunktionen freischalten" Value="0">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="58" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="78" BitOffset="0" />
               </Parameter>
 
               <!-- the following parameters are just for visualization reasons -->
@@ -172,7 +245,7 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-66" Name="SensorCo2" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="CO2" Value="0" />
               <!-- P-67 reserved -->
               <Parameter Id="M-00FA_A-0001-01-0000_P-68" Name="Sensor1Wire" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="1 Wire" Value="0">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="58" BitOffset="7" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="78" BitOffset="7" />
               </Parameter>
               <!-- do not use parameters 70-79, they numbers are used in refref's -->
               <Parameter Id="M-00FA_A-0001-01-0000_P-80" Name="Dewpoint" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Taupunkt berechnen" Value="0">
@@ -181,21 +254,27 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-81" Name="Comfort" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Behaglichkeitszone ausgeben" Value="0">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="2" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-82" Name="Airquality" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Luftqualitätsampel ausgeben" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="3" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-83" Name="Accuracy" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsfortschritt ausgeben" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="4" />
+              </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-90" Name="DewOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="/10 °C">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="59" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="79" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-91" Name="DewCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Taupunkt zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="60" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="80" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-92" Name="DewDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="/10 °C">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="64" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="84" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-93" Name="DewDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaRelTemp" Text="Taupunkt bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="66" BitOffset="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-93" Name="DewDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Taupunkt bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="86" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-94" Name="DewSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Taupunkt glätten: P =" Value="1" SuffixText="">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="67" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="87" BitOffset="0" />
               </Parameter>
             </Parameters>
             <ParameterRefs>
@@ -206,30 +285,55 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-12_R-12" RefId="M-00FA_A-0001-01-0000_P-12" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-13_R-13" RefId="M-00FA_A-0001-01-0000_P-13" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-14_R-14" RefId="M-00FA_A-0001-01-0000_P-14" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-15_R-15" RefId="M-00FA_A-0001-01-0000_P-15" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-16_R-16" RefId="M-00FA_A-0001-01-0000_P-16" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-17_R-17" RefId="M-00FA_A-0001-01-0000_P-17" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-18_R-18" RefId="M-00FA_A-0001-01-0000_P-18" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-19_R-19" RefId="M-00FA_A-0001-01-0000_P-19" />
               <!-- Hum -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-20_R-20" RefId="M-00FA_A-0001-01-0000_P-20" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-21_R-21" RefId="M-00FA_A-0001-01-0000_P-21" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-22_R-22" RefId="M-00FA_A-0001-01-0000_P-22" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-23_R-23" RefId="M-00FA_A-0001-01-0000_P-23" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-24_R-24" RefId="M-00FA_A-0001-01-0000_P-24" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-25_R-25" RefId="M-00FA_A-0001-01-0000_P-25" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-26_R-26" RefId="M-00FA_A-0001-01-0000_P-26" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-27_R-27" RefId="M-00FA_A-0001-01-0000_P-27" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-28_R-28" RefId="M-00FA_A-0001-01-0000_P-28" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-29_R-29" RefId="M-00FA_A-0001-01-0000_P-29" />
               <!-- Pre -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-30_R-30" RefId="M-00FA_A-0001-01-0000_P-30" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-31_R-31" RefId="M-00FA_A-0001-01-0000_P-31" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-32_R-32" RefId="M-00FA_A-0001-01-0000_P-32" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-33_R-33" RefId="M-00FA_A-0001-01-0000_P-33" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-34_R-34" RefId="M-00FA_A-0001-01-0000_P-34" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-35_R-35" RefId="M-00FA_A-0001-01-0000_P-35" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-36_R-36" RefId="M-00FA_A-0001-01-0000_P-36" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-37_R-37" RefId="M-00FA_A-0001-01-0000_P-37" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-38_R-38" RefId="M-00FA_A-0001-01-0000_P-38" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-39_R-39" RefId="M-00FA_A-0001-01-0000_P-39" />
               <!-- Voc -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-40_R-40" RefId="M-00FA_A-0001-01-0000_P-40" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-41_R-41" RefId="M-00FA_A-0001-01-0000_P-41" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-42_R-42" RefId="M-00FA_A-0001-01-0000_P-42" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-43_R-43" RefId="M-00FA_A-0001-01-0000_P-43" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-44_R-44" RefId="M-00FA_A-0001-01-0000_P-44" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-45_R-45" RefId="M-00FA_A-0001-01-0000_P-45" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-46_R-46" RefId="M-00FA_A-0001-01-0000_P-46" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-47_R-47" RefId="M-00FA_A-0001-01-0000_P-47" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-48_R-48" RefId="M-00FA_A-0001-01-0000_P-48" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-49_R-49" RefId="M-00FA_A-0001-01-0000_P-49" />
               <!-- Co2 -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-50_R-50" RefId="M-00FA_A-0001-01-0000_P-50" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-51_R-51" RefId="M-00FA_A-0001-01-0000_P-51" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-52_R-52" RefId="M-00FA_A-0001-01-0000_P-52" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-53_R-53" RefId="M-00FA_A-0001-01-0000_P-53" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-54_R-54" RefId="M-00FA_A-0001-01-0000_P-54" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-55_R-55" RefId="M-00FA_A-0001-01-0000_P-55" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-56_R-56" RefId="M-00FA_A-0001-01-0000_P-56" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-57_R-57" RefId="M-00FA_A-0001-01-0000_P-57" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-58_R-58" RefId="M-00FA_A-0001-01-0000_P-58" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-59_R-59" RefId="M-00FA_A-0001-01-0000_P-59" />
               <!-- checkboxes -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-60_R-60" RefId="M-00FA_A-0001-01-0000_P-60" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-61_R-61" RefId="M-00FA_A-0001-01-0000_P-61" />
@@ -246,6 +350,8 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-68_R-68" RefId="M-00FA_A-0001-01-0000_P-68" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-80_R-80" RefId="M-00FA_A-0001-01-0000_P-80" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-81_R-81" RefId="M-00FA_A-0001-01-0000_P-81" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-82_R-82" RefId="M-00FA_A-0001-01-0000_P-82" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-83_R-83" RefId="M-00FA_A-0001-01-0000_P-83" />
               <!-- Dewpoint -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-90_R-90" RefId="M-00FA_A-0001-01-0000_P-90" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-91_R-91" RefId="M-00FA_A-0001-01-0000_P-91" />
@@ -258,12 +364,24 @@
               <ComObject Id="M-00FA_A-0001-01-0000_O-5" Name="Temp" Text="Temperatur" Number="5" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-6" Name="Hum" Text="Luftfeuchte" Number="6" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-7" Name="Pre" Text="Luftdruck" Number="7" FunctionText="Messwert in Pascal" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-8" Name="VOC" Text="VOC" Number="8" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-8" Name="VOC" Text="VOC" Number="8" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-9" Name="Co2" Text="CO2" Number="9" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
               <!-- KO 10 reserved -->
               <ComObject Id="M-00FA_A-0001-01-0000_O-11" Name="Dewpoint" Text="Taupunkt" Number="11" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-12" Name="Comfort" Text="Behaglichkeit" Number="12" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-13" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="13" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-14" Name="SensorAccuracy" Text="Kalibrierungsgrad" Number="14" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-15" Name="RequestValues" Text="Sensorwerte anfordern" Number="15" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-16" Name="Ext1Temp" Text="Externe Temperatur 1" Number="16" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-17" Name="Ext2Temp" Text="Externe Temperatur 2" Number="17" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-18" Name="Ext1Hum" Text="Externe Luftfeuchte 1" Number="18" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-19" Name="Ext2Hum" Text="Externe Luftfeuchte 2" Number="19" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-20" Name="Ext1Pre" Text="Externer Luftdruck 1" Number="20" FunctionText="Messwert in Pascal" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-21" Name="Ext2Pre" Text="Externer Luftdruck 2" Number="21" FunctionText="Messwert in Pascal" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-22" Name="Ext1VOC" Text="Externer VOC 1" Number="22" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-23" Name="Ext2VOC" Text="Externer VOC 2" Number="23" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-24" Name="Ext1Co2" Text="Externer CO2 1" Number="24" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-25" Name="Ext2Co2" Text="Externer CO2 2" Number="25" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
             </ComObjectTable>
             <ComObjectRefs>
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-2_R-2" RefId="M-00FA_A-0001-01-0000_O-2" />
@@ -274,7 +392,19 @@
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-9_R-9" RefId="M-00FA_A-0001-01-0000_O-9" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-11_R-11" RefId="M-00FA_A-0001-01-0000_O-11" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-12_R-12" RefId="M-00FA_A-0001-01-0000_O-12" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-13_R-13" RefId="M-00FA_A-0001-01-0000_O-13" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-14_R-14" RefId="M-00FA_A-0001-01-0000_O-14" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-15_R-15" RefId="M-00FA_A-0001-01-0000_O-15" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-16_R-16" RefId="M-00FA_A-0001-01-0000_O-16" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-17_R-17" RefId="M-00FA_A-0001-01-0000_O-17" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-18_R-18" RefId="M-00FA_A-0001-01-0000_O-18" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-19_R-19" RefId="M-00FA_A-0001-01-0000_O-19" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-20_R-20" RefId="M-00FA_A-0001-01-0000_O-20" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-21_R-21" RefId="M-00FA_A-0001-01-0000_O-21" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-22_R-22" RefId="M-00FA_A-0001-01-0000_O-22" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-23_R-23" RefId="M-00FA_A-0001-01-0000_O-23" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-24_R-24" RefId="M-00FA_A-0001-01-0000_O-24" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-25_R-25" RefId="M-00FA_A-0001-01-0000_O-25" />
             </ComObjectRefs>
             <AddressTable MaxEntries="255" />
             <AssociationTable MaxEntries="255" />
@@ -382,6 +512,26 @@
                 <when test=">0">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-70" Name="Temperatur" Text="Temperatur">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-10_R-10" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-79" Text="" UIHint="HorizontalRuler" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-15_R-15" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-15_R-15">
+                      <when test=">0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-16_R-16" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-17_R-17" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-16_R-16" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-19_R-19" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-78" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                      </when>
+                      <when test="2">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-18_R-18" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-19_R-19" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-85" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-17_R-17" />
+                      </when>
+                    </choose>
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-80" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-11_R-11" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-12_R-12" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-13_R-13" />
@@ -399,6 +549,26 @@
                 <when test=">0">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-71" Name="Luftfeuchte" Text="Luftfeuchte">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-20_R-20" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-81" Text="" UIHint="HorizontalRuler" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-25_R-25" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-25_R-25">
+                      <when test=">0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-26_R-26" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-27_R-27" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-18_R-18" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-29_R-29" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-77" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                      </when>
+                      <when test="2">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-28_R-28" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-29_R-29" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-86" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-19_R-19" />
+                      </when>
+                    </choose>
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-82" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-21_R-21" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-22_R-22" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-23_R-23" />
@@ -416,6 +586,26 @@
                 <when test="7 15 23 31">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-72" Name="Luftdruck" Text="Luftdruck">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-30_R-30" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-83" Text="" UIHint="HorizontalRuler" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-35_R-35" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-35_R-35">
+                      <when test=">0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-36_R-36" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-37_R-37" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-20_R-20" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-39_R-39" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-76" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                      </when>
+                      <when test="2">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-38_R-38" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-39_R-39" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-87" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-21_R-21" />
+                      </when>
+                    </choose>
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-84" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-31_R-31" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-32_R-32" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-33_R-33" />
@@ -433,6 +623,26 @@
                 <when test="15 31">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-73" Name="Voc" Text="Voc">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-40_R-40" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-70" Text="" UIHint="HorizontalRuler" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-45_R-45" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-45_R-45">
+                      <when test=">0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-46_R-46" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-47_R-47" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-22_R-22" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-49_R-49" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-72" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                      </when>
+                      <when test="2">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-48_R-48" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-49_R-49" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-88" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-23_R-23" />
+                      </when>
+                    </choose>
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-71" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-41_R-41" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-42_R-42" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-43_R-43" />
@@ -450,6 +660,26 @@
                 <when test="19 23 31">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-74" Name="Co2" Text="CO2">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-50_R-50" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-74" Text="" UIHint="HorizontalRuler" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-55_R-55" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-55_R-55">
+                      <when test=">0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-56_R-56" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-57_R-57" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-24_R-24" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-59_R-59" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-73" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                      </when>
+                      <when test="2">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-58_R-58" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-59_R-59" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-89" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-25_R-25" />
+                      </when>
+                    </choose>
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-75" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-51_R-51" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-52_R-52" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-53_R-53" />
@@ -490,10 +720,38 @@
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-81_R-81">
                       <when test="1">
                         <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-12_R-12" />
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-56" Text="Es gib 3 Behaglichkeitszonen, die von Temperatur und Luftfeuchte abhängen: " />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-56" Text="Es gibt 3 Behaglichkeitszonen, die von Temperatur und Luftfeuchte abhängen: " />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-57" Text="  2 - Behaglich " />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-58" Text="  1 - noch Behaglich " />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-59" Text="  0 - Unbehaglich" />
+                      </when>
+                    </choose>
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-60_R-60">
+                      <when test="15 19 23 31">
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-60" Text="" UIHint="HorizontalRuler" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-82_R-82" />
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_P-82_R-82">
+                          <when test="1">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-13_R-13" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-61" Text="Es gibt 6 Luftqualitätsgrade, analog zu deutschen Schulnoten: " />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-62" Text="  1 - sehr gut " />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-63" Text="  2 - gut " />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-64" Text="  3 - befriedigend (bei nächster Gelegenheit lüften)" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-65" Text="  4 - ausreichend (lüften empfohlen)" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-66" Text="  5 - ungenügend (lüften)" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-67" Text="  6 - mangelhaft (dringend lüften)" />
+                          </when>
+                        </choose>
+                      </when>
+                      <when test="15 31">
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-68" Text="" UIHint="HorizontalRuler" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-83_R-83" />
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_P-83_R-83">
+                          <when test="1">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-14_R-14" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-69" Text="Der Voc-Sensor braucht bis zu 2 Tage für die Kalibrierung, das KO 14 gibt den Fortschritt in % aus" />
+                          </when>
+                        </choose>
                       </when>
                     </choose>
                   </ParameterBlock>
@@ -504,9 +762,9 @@
               <when test="1">
                 <Channel Id="M-00FA_A-0001-01-0000_CH-2" Name="OW" Number="2" Text="Externe Sensoren (1 Wire)">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-20" Name="OWConfig" Text="Sensorkonfiguration">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-60" Text="" UIHint="HorizontalRuler" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-61" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-62" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="" UIHint="HorizontalRuler" />
                   </ParameterBlock>
                 </Channel>
               </when>

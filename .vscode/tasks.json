@@ -11,10 +11,50 @@
                 "--build",
                 "linux"
             ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build PlatformIO",
+            "type": "shell",
+            "command": "pio",
+            "args": [
+                "run",
+                "-e",
+                "build"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "Upload JLINK",
+            "type": "shell",
+            "command": "pio",
+            "args": [
+                "run",
+                "-e",
+                "uploadJLINK",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Upload USB",
+            "type": "shell",
+            "command": "pio",
+            "args": [
+                "run",
+                "-e",
+                "uploadUSB",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
             "problemMatcher": []
         },
         {

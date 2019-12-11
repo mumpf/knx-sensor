@@ -11,41 +11,68 @@
 #define LOG_TempDeltaAbs              18      // uint16_t
 #define LOG_TempDeltaPercent          20      // uint8_t
 #define LOG_TempSmooth                21      // uint8_t
-#define LOG_HumOffset                 22      // int8_t
-#define LOG_HumCycle                  23      // int32_t
-#define LOG_HumDeltaAbs               27      // uint16_t
-#define LOG_HumDeltaPercent           29      // uint8_t
-#define LOG_HumSmooth                 30      // uint8_t
-#define LOG_PreOffset                 31      // int8_t
-#define LOG_PreCycle                  32      // int32_t
-#define LOG_PreDeltaAbs               36      // uint16_t
-#define LOG_PreDeltaPercent           38      // uint8_t
-#define LOG_PreSmooth                 39      // uint8_t
-#define LOG_VocOffset                 40      // int8_t
-#define LOG_VocCycle                  41      // int32_t
-#define LOG_VocDeltaAbs               45      // uint16_t
-#define LOG_VocDeltPercent            47      // uint8_t
-#define LOG_VocSmooth                 48      // uint8_t
-#define LOG_Co2Offset                 49      // int8_t
-#define LOG_Co2Cycle                  50      // int32_t
-#define LOG_Co2DeltaAbs               54      // uint16_t
-#define LOG_Co2DeltaPercent           56      // uint8_t
-#define LOG_Co2Smooth                 57      // uint8_t
-#define LOG_SensorDevice              58      // 6 Bits, Bit 6-1
-#define LOG_Logic                     58      // 1 Bit, Bit 7
-#define LOG_Sensor1Wire               58      // 1 Bit, Bit 0
+#define LOG_TempExtCount              22      // 2 Bits, Bit 1-0
+#define LOG_TempIntPercent            23      // uint8_t
+#define LOG_TempExt1Percent           24      // uint8_t
+#define LOG_TempExt2Percent           25      // uint8_t
+#define LOG_TempExtRead               22      // 1 Bit, Bit 2
+#define LOG_HumOffset                 26      // int8_t
+#define LOG_HumCycle                  27      // int32_t
+#define LOG_HumDeltaAbs               31      // uint16_t
+#define LOG_HumDeltaPercent           33      // uint8_t
+#define LOG_HumSmooth                 34      // uint8_t
+#define LOG_HumExtCount               35      // 2 Bits, Bit 1-0
+#define LOG_HumIntPercent             36      // uint8_t
+#define LOG_HumExt1Percent            37      // uint8_t
+#define LOG_HumExt2Percent            38      // uint8_t
+#define LOG_HumExtRead                35      // 1 Bit, Bit 2
+#define LOG_PreOffset                 39      // int8_t
+#define LOG_PreCycle                  40      // int32_t
+#define LOG_PreDeltaAbs               44      // uint16_t
+#define LOG_PreDeltaPercent           46      // uint8_t
+#define LOG_PreSmooth                 47      // uint8_t
+#define LOG_PreExtCount               48      // 2 Bits, Bit 1-0
+#define LOG_PreIntPercent             49      // uint8_t
+#define LOG_PreExt1Percent            50      // uint8_t
+#define LOG_PreExt2Percent            51      // uint8_t
+#define LOG_PreExtRead                48      // 1 Bit, Bit 2
+#define LOG_VocOffset                 52      // int8_t
+#define LOG_VocCycle                  53      // int32_t
+#define LOG_VocDeltaAbs               57      // uint16_t
+#define LOG_VocDeltPercent            59      // uint8_t
+#define LOG_VocSmooth                 60      // uint8_t
+#define LOG_VocExtCount               61      // 2 Bits, Bit 1-0
+#define LOG_VocIntPercent             62      // uint8_t
+#define LOG_VocExt1Percent            63      // uint8_t
+#define LOG_VocExt2Percent            64      // uint8_t
+#define LOG_VocExtRead                61      // 1 Bit, Bit 2
+#define LOG_Co2Offset                 65      // int8_t
+#define LOG_Co2Cycle                  66      // int32_t
+#define LOG_Co2DeltaAbs               70      // uint16_t
+#define LOG_Co2DeltaPercent           72      // uint8_t
+#define LOG_Co2Smooth                 73      // uint8_t
+#define LOG_Co2ExtCount               74      // 2 Bits, Bit 1-0
+#define LOG_Co2IntPercent             75      // uint8_t
+#define LOG_Co2Ext1Percent            76      // uint8_t
+#define LOG_Co2Ext2Percent            77      // uint8_t
+#define LOG_Co2ExtRead                74      // 1 Bit, Bit 2
+#define LOG_SensorDevice              78      // 6 Bits, Bit 6-1
+#define LOG_Logic                     78      // 1 Bit, Bit 7
+#define LOG_Sensor1Wire               78      // 1 Bit, Bit 0
 #define LOG_Dewpoint                  12      // 1 Bit, Bit 6
 #define LOG_Comfort                   12      // 1 Bit, Bit 5
-#define LOG_DewOffset                 59      // int8_t
-#define LOG_DewCycle                  60      // int32_t
-#define LOG_DewDeltaAbs               64      // uint16_t
-#define LOG_DewDeltaPercent           66      // uint8_t
-#define LOG_DewSmooth                 67      // uint8_t
+#define LOG_Airquality                12      // 1 Bit, Bit 4
+#define LOG_Accuracy                  12      // 1 Bit, Bit 3
+#define LOG_DewOffset                 79      // int8_t
+#define LOG_DewCycle                  80      // int32_t
+#define LOG_DewDeltaAbs               84      // uint16_t
+#define LOG_DewDeltaPercent           86      // uint8_t
+#define LOG_DewSmooth                 87      // uint8_t
 
 #define LOG_Channels 10
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 68
+#define LOG_ParamBlockOffset 88
 #define LOG_ParamBlockSize 110
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
@@ -193,5 +220,17 @@
 #define LOG_KoCo2 9
 #define LOG_KoDewpoint 11
 #define LOG_KoComfort 12
+#define LOG_KoAirquality 13
+#define LOG_KoSensorAccuracy 14
 #define LOG_KoRequestValues 15
+#define LOG_KoExt1Temp 16
+#define LOG_KoExt2Temp 17
+#define LOG_KoExt1Hum 18
+#define LOG_KoExt2Hum 19
+#define LOG_KoExt1Pre 20
+#define LOG_KoExt2Pre 21
+#define LOG_KoExt1VOC 22
+#define LOG_KoExt2VOC 23
+#define LOG_KoExt1Co2 24
+#define LOG_KoExt2Co2 25
 
