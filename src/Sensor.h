@@ -26,7 +26,7 @@ enum MeasureType {
     Voc = 16,
     Co2 = 32,
     Accuracy = 64,
-    Reserved = 128
+    Reserved = 128 // temporary: co2 from voc
 };
 
 class Sensor
@@ -45,6 +45,7 @@ class Sensor
     bool CheckSensorConnection();
     virtual double measureValue(MeasureType iMeasureType) = 0; //pure
     virtual void sensorLoopInternal();
+    virtual void sensorSaveState(bool iIsInterrupt);
     // non blocking restart approach for a sensor
     void restartSensor();
 
@@ -56,6 +57,7 @@ class Sensor
     static void sensorLoop();
     static bool measureValue(MeasureType iMeasureType, double& eValue);
     static uint8_t getError();
+    static void saveState(bool iIsInterrupt);
 
-    virtual bool begin(); // first initialization, may be blocking
+    virtual bool begin(); // first initialization, may be blocking, should be callde druing setup(), not during loop()
 };

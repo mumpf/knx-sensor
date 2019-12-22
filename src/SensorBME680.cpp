@@ -25,13 +25,28 @@ bsec_virtual_sensor_t SensorBME680::sensorList[] = {
     BSEC_OUTPUT_GAS_PERCENTAGE
 };
 
-uint8_t SensorBME680::gMagicWord[] = {0xCA, 0xFE, 0x3D, 0x74};
+// from 33v_3s_4d example
+uint8_t SensorBME680::bsec_config_iaq[454] =
+       {4, 7, 4, 1, 61, 0, 0, 0, 0, 0, 0, 0, 174, 1, 0, 0, 48, 0, 1, 0, 0, 192, 168, 71, 64, 49, 119, 76, 0, 0, 225, 68, 137, 65, 0, 63, 205, 204, 204, 62, 0, 0, 64, 63, 205, 204, 204, 62, 0, 0, 0, 0, 216, 85, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 2, 0, 0, 244, 1, 225, 0, 25, 0, 0, 128, 64, 0, 0, 32, 65, 144, 1, 0, 0, 112, 65, 0, 0, 0, 63, 16, 0, 3, 0, 10, 215, 163, 60, 10, 215, 35, 59, 10, 215, 35, 59, 9, 0, 5, 0, 0, 0, 0, 0, 1, 88, 0, 9, 0, 229, 208, 34, 62, 0, 0, 0, 0, 0, 0, 0, 0, 218, 27, 156, 62, 225, 11, 67, 64, 0, 0, 160, 64, 0, 0, 0, 0, 0, 0, 0, 0, 94, 75, 72, 189, 93, 254, 159, 64, 66, 62, 160, 191, 0, 0, 0, 0, 0, 0, 0, 0, 33, 31, 180, 190, 138, 176, 97, 64, 65, 241, 99, 190, 0, 0, 0, 0, 0, 0, 0, 0, 167, 121, 71, 61, 165, 189, 41, 192, 184, 30, 189, 64, 12, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 229, 0, 254, 0, 2, 1, 5, 48, 117, 100, 0, 44, 1, 112, 23, 151, 7, 132, 3, 197, 0, 92, 4, 144, 1, 64, 1, 64, 1, 144, 1, 48, 117, 48, 117, 48, 117, 48, 117, 100, 0, 100, 0, 100, 0, 48, 117, 48, 117, 48, 117, 100, 0, 100, 0, 48, 117, 48, 117, 100, 0, 100, 0, 100, 0, 100, 0, 48, 117, 48, 117, 48, 117, 100, 0, 100, 0, 100, 0, 48, 117, 48, 117, 100, 0, 100, 0, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 255, 255, 255, 255, 255, 255, 255, 255, 220, 5, 220, 5, 220, 5, 255, 255, 255, 255, 255, 255, 220, 5, 220, 5, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 44, 1, 0, 0, 0, 0, 138, 80, 0, 0};
+    // {3, 7, 4, 1, 61, 0, 0, 0, 0, 0, 0, 0, 174, 1, 0, 0, 48, 0, 1, 0, 0, 168,  19, 73, 64, 49, 119, 76, 0, 0, 225, 68, 137, 65, 0, 63, 205, 204, 204, 62, 0, 0, 64, 63, 205, 204, 204, 62, 0, 0, 0, 0,   0, 80, 5,  95, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 2, 0, 0, 244, 1, 225, 0, 25, 0, 0, 128, 64, 0, 0, 32, 65, 144, 1, 0, 0, 112, 65, 0, 0, 0, 63, 16, 0, 3, 0, 10, 215, 163, 60, 10, 215, 35, 59, 10, 215, 35, 59, 9, 0, 5, 0, 0, 0, 0, 0, 1, 88, 0, 9, 0, 229, 208, 34, 62, 0, 0, 0, 0, 0, 0, 0, 0, 218, 27, 156, 62, 225, 11, 67, 64, 0, 0, 160, 64, 0, 0, 0, 0, 0, 0, 0, 0, 94, 75, 72, 189, 93, 254, 159, 64, 66, 62, 160, 191, 0, 0, 0, 0, 0, 0, 0, 0, 33, 31, 180, 190, 138, 176, 97, 64, 65, 241, 99, 190, 0, 0, 0, 0, 0, 0, 0, 0, 167, 121, 71, 61, 165, 189, 41, 192, 184, 30, 189, 64, 12, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 229, 0, 254, 0, 2, 1, 5, 48, 117, 100, 0, 44, 1, 112, 23, 151, 7, 132, 3, 197, 0, 92, 4, 144, 1, 64, 1, 64, 1, 144, 1, 48, 117, 48, 117, 48, 117, 48, 117, 100, 0, 100, 0, 100, 0, 48, 117, 48, 117, 48, 117, 100, 0, 100, 0, 48, 117, 48, 117, 100, 0, 100, 0, 100, 0, 100, 0, 48, 117, 48, 117, 48, 117, 100, 0, 100, 0, 100, 0, 48, 117, 48, 117, 100, 0, 100, 0, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 44, 1, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 8, 7, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 112, 23, 255, 255, 255, 255, 255, 255, 255, 255, 220, 5, 220, 5, 220, 5, 255, 255, 255, 255, 255, 255, 220, 5, 220, 5, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 44, 1, 0, 0, 0, 0, 222, 38, 0, 0};
+
+// EEPROM memory start id
+uint8_t SensorBME680::sMagicWord[] = {0xCA, 0xFE, 0x3D, 0x77};
+
+void SensorBME680::sensorLoopInternal() {
+    if (gSensorState == Running) {
+        Bsec::run();
+    }
+}
 
 double SensorBME680::measureValue(MeasureType iMeasureType) {
     // run() uses gDelayCallback to call timing critical methods (knx communication, logic evaluation)
     // in cases where measurement needs longer time
-    run();
-    updateState();
+    // if (run()) {
+    //     sensorUpdateState();
+    // } else {
+    //     checkIaqSensorStatus();
+    // };
     switch (iMeasureType)
     {
     case Temperature:
@@ -46,8 +61,11 @@ double SensorBME680::measureValue(MeasureType iMeasureType) {
     case Voc:
         return Bsec::iaq;
         break;
+    case Reserved:
+        return Bsec::co2Equivalent;
+        break;
     case Accuracy:
-        return (Bsec::iaqAccuracy / 3) * 100.0 ;
+        return (Bsec::iaqAccuracy / 3.0) * 100.0 ;
         break;
     default:
         break;
@@ -59,11 +77,15 @@ bool SensorBME680::begin() {
     Bsec::begin(BME680_I2C_ADDR_PRIMARY, Wire, gDelayCallback);
     bool lResult = checkIaqSensorStatus();
     if (lResult) {
+        Bsec::setConfig(bsec_config_iaq);
+        lResult = checkIaqSensorStatus();
+    }
+    if (lResult) {
         Bsec::updateSubscription(sensorList, sizeof(sensorList)/sizeof(bsec_virtual_sensor_t), BSEC_SAMPLE_RATE_LP);
         lResult = checkIaqSensorStatus();
     }
     if (lResult) {
-        loadBme680State();
+        sensorLoadState();
         lResult = checkIaqSensorStatus();
     }
     if (lResult)
@@ -97,21 +119,19 @@ bool SensorBME680::checkIaqSensorStatus(void)
 #define EEPROM_BME680_START_ADDRESS 0xC80
 #define EEPROM_BLOB_SIZE BSEC_MAX_STATE_BLOB_SIZE + (BSEC_MAX_STATE_BLOB_SIZE % 16)
 
-void SensorBME680::loadBme680State()
+void SensorBME680::sensorLoadState()
 {
     uint8_t buffer[144]; //[BSEC_MAX_STATE_BLOB_SIZE];
     // Existing state in EEPROM
-    println("Reading state from EEPROM");
-    prepareReadEEPROM(EEPROM_BME680_START_ADDRESS, BSEC_MAX_STATE_BLOB_SIZE);
-    if (Wire.available()) Wire.readBytes(buffer, BSEC_MAX_STATE_BLOB_SIZE);
+    println("Reading BME680 state from EEPROM");
+    prepareReadEEPROM(EEPROM_BME680_START_ADDRESS, 144);
+    if (Wire.available()) Wire.readBytes(buffer, 144);
 
-    // for (uint8_t i = 0; i < BSEC_MAX_STATE_BLOB_SIZE; i++)
-    // {
-    //     SerialUSB.println(buffer[i], HEX);
-    // }
+    for (uint8_t i = 0; i < 144; i+=16)
+        printHex("<-- ", buffer + i, 16);
     bool lCheck = true;
     for (uint8_t lIndex = 0; lIndex < 4 && lCheck; lIndex++)
-        lCheck = (buffer[lIndex] == gMagicWord[lIndex]);
+        lCheck = (buffer[lIndex] == sMagicWord[lIndex]);
     
     if (lCheck) {
         Bsec::setState(buffer + 4);
@@ -122,35 +142,34 @@ void SensorBME680::loadBme680State()
 // We store sensor data in EEPROM stating at page 100 (100 * 32 = 3200 = 0xC80).
 // We write in 16 Byte chunks, a maximum of 139 bytes, means 139/16 = 9 chunks (which is in fact 144 Bytes).
 // Timing is 9 * 5 ms = 45 ms write time
-void SensorBME680::saveBme680State(bool iIsInterrupt)
+void SensorBME680::sensorSaveState(bool iIsInterrupt)
 {
     // buffer gets freed inside knx object after saved
     uint8_t buffer[144] = {0}; //[BSEC_MAX_STATE_BLOB_SIZE];
     for (uint8_t lIndex = 0; lIndex < 4; lIndex++)
-        buffer[lIndex] = gMagicWord[lIndex];
+        buffer[lIndex] = sMagicWord[lIndex];
 
     Bsec::getState(buffer + 4);
     if (!iIsInterrupt) checkIaqSensorStatus();
-    println("Writing state to EEPROM");
+    println("Writing BME680 state to EEPROM");
 
     for (uint8_t lCount = 0; lCount < 144; lCount += 16)
     {
         beginPageEEPROM(EEPROM_BME680_START_ADDRESS + lCount);
         Wire.write(buffer + lCount, 16);
         endPageEEPROM(iIsInterrupt);
+        printHex("--> ", buffer + lCount, 16);
     }
-    
-    // for (uint8_t i = 0; i < BSEC_MAX_STATE_BLOB_SIZE; i++)
-    // {
-    //     println(buffer[i], HEX);
-    // }
 }
 
-void SensorBME680::updateState(void)
+void SensorBME680::sensorUpdateState(void)
 {
-    if ((stateUpdateTimer == 0 && Bsec::iaqAccuracy >= 3) || delayCheck(stateUpdateTimer, STATE_SAVE_PERIOD))
+    // we save the sensor state each time accuracy is raised 
+    // and 4 times a day if accuracy is 3 (this might be senseless, if we save with each restart)
+    if ((Bsec::iaqAccuracy > gLastAccuracy) || (Bsec::iaqAccuracy >= 3 && delayCheck(stateUpdateTimer, STATE_SAVE_PERIOD)))
     {
-        saveBme680State(false);
+        sensorSaveState(false);
         stateUpdateTimer = millis();
     }
+    gLastAccuracy = Bsec::iaqAccuracy;
 }

@@ -7,10 +7,11 @@ class SensorBME680 : public Sensor, protected Bsec
 
 protected:
     double measureValue(MeasureType iMeasureType) override;
+    void sensorSaveState(bool iIsInterrupt) override;
+    void sensorLoopInternal() override;
     bool checkIaqSensorStatus(void);
-    void saveBme680State(bool iIsInterrupt);
-    void loadBme680State();
-    void updateState();
+    void sensorLoadState();
+    void sensorUpdateState();
     uint32_t stateUpdateTimer = 0;
     static bsec_virtual_sensor_t sensorList[];
     bme680_delay_fptr_t gDelayCallback = 0;
@@ -21,6 +22,8 @@ protected:
     bool begin() override;
 
   private:
-    static uint8_t gMagicWord[];
+    static uint8_t sMagicWord[];
+    static uint8_t bsec_config_iaq[454];
+    uint8_t gLastAccuracy = 0;
 
 };

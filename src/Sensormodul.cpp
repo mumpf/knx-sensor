@@ -190,7 +190,7 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
         lSend = true;
 
     // process read cycle
-    if (iForce || delayCheck(cData->readDelay, 5000))
+    if (iForce || delayCheck(cData->readDelay, 3100))
     {
         // we waited enough, let's read the sensor
         int32_t lOffset = (int8_t)knx.paramByte(iParamIndex);
@@ -202,9 +202,9 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
             lValue = lValue / iValueFactor;
             // if there are external values to take into account, we do it here
             uint8_t lNumExternalValues = knx.paramByte(iParamIndex + 9) & 3;
-            uint16_t lDivisor = 0;
+            double lDivisor = 0.0;
             double lDivident = 0.0;
-            uint8_t lFactor = 0;
+            double lFactor = 0.0;
             switch (lNumExternalValues)
             {
                 case 2:
@@ -218,13 +218,13 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
                     lFactor = knx.paramByte(iParamIndex + 10); // factor for internal value
                     lDivident += lValue * lFactor;
                     lDivisor += lFactor;
-                    if (lDivisor > 0) lValue = lDivisor / lDivisor;
+                    if (lDivisor > 0.0) lValue = lDivident / lDivisor;
                     break;
                 default:
                     lDivisor = 1;
                     break;
             }
-            if (lDivisor > 0) {
+            if (lDivisor > 0.1) {
                 // smoothing (? glätten ?) of the new value
                 lValue = (double)knx.getGroupObject(iKoNumber).value(getDPT(VAL_DPT_9)) + (lValue - (double)knx.getGroupObject(iKoNumber).value(getDPT(VAL_DPT_9))) / knx.paramByte(iParamIndex + 8);
                 // evaluate sending conditions (relative delta / absolute delta)
@@ -330,11 +330,12 @@ void CalculateAccuracy(bool iForce = false)
             double lAccuracyMeasure;
             bool lSuccess = Sensor::measureValue(Accuracy, lAccuracyMeasure);
             if (lSuccess) {
-                uint8_t lAccuracy = (int)lAccuracyMeasure;
-                if ((uint8_t)knx.getGroupObject(LOG_KoSensorAccuracy).value(getDPT(VAL_DPT_5001)) != lAccuracy)
+                uint8_t lAccuracy = (uint8_t)lAccuracyMeasure;
+                uint8_t lOldAccuracy = (uint8_t)knx.getGroupObject(LOG_KoSensorAccuracy).value(getDPT(VAL_DPT_5001));
+                if (lOldAccuracy != lAccuracy)
                     lSend = true;
                 if (lSend)
-                    knx.getGroupObject(LOG_KoComfort).value(lAccuracy, getDPT(VAL_DPT_5001));
+                    knx.getGroupObject(LOG_KoSensorAccuracy).value(lAccuracy, getDPT(VAL_DPT_5001));
             }
         }
     }
@@ -379,7 +380,7 @@ void CalculateAirquality(bool iForce = false)
             if ((uint8_t)knx.getGroupObject(LOG_KoAirquality).value(getDPT(VAL_DPT_5)) != lAirquality)
                 lSend = true;
             if (lSend)
-                knx.getGroupObject(LOG_KoComfort).value(lAirquality, getDPT(VAL_DPT_5));
+                knx.getGroupObject(LOG_KoAirquality).value(lAirquality, getDPT(VAL_DPT_5));
         }
     }
 }
@@ -473,6 +474,7 @@ void onSafePinInterruptHandler() {
     savePower();
     // call according logic interrupt handler
     logicOnSafePinInterruptHandler();
+    Sensor::saveState(true);
     // in case, SaveInterrupt was a false positive
     Wire.end();
     delay(1000);
@@ -480,24 +482,49 @@ void onSafePinInterruptHandler() {
     Wire.begin();
 }
 
+void beforeRestartHandler() {
+    DbgWrite("before Restart called");
+    Sensor::saveState(false);
+    logicBeforeRestartHandler();
+    // we try get a clean state on I2C bus
+    Wire.end();
+}
+
+void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
+    static uint32_t sLastCalled = 0;
+    DbgWrite("Table changed called with state %d", iNewState);
+    
+    if (iNewState == 0) {
+        DbgWrite("Table unload called");
+        if (sLastCalled == 0 || sLastCalled + 10000 < millis()) {
+            Sensor::saveState(false);
+            logicBeforeTableUnloadHandler(iTableObject, iNewState);
+            sLastCalled = millis();
+        }
+    }
+}
+
+
 void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
 {
 
     gSensor = (knx.paramByte(LOG_SensorDevice));
 
-    if (gSensor & BIT_LOGIC) {
-        if (iSavePin) {
-            attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
-        }
-        logikSetup(iBuzzerPin, false);
-    }
 
     if (knx.configured())
     {
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
-        GroupObject::classCallback(ProcessKoCallback);
+        if (GroupObject::classCallback() == 0) GroupObject::classCallback(ProcessKoCallback);
+        if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
+        if (TableObject::getBeforeTableUnloadCallback() == 0) TableObject::addBeforeTableUnloadCallback(beforeTableUnloadHandler);
         StartSensor();
+        if (gSensor & BIT_LOGIC) {
+            if (iSavePin) {
+                attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
+            }
+            logikSetup(iBuzzerPin, false);
+        }
     }
 }

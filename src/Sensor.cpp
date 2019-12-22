@@ -69,6 +69,16 @@ bool Sensor::begin() {
     return CheckSensorConnection();
 }
 
+// should be overridden, if there is a state to save before power failure
+void Sensor::sensorSaveState(bool iIsInterrupt) {};
+
+// static
+void Sensor::saveState(bool iIsInterrupt) {
+    // dispatch the call to all sensors
+    for (uint8_t lCounter = 0; lCounter < sNumSensors; lCounter++)
+        sSensors[lCounter]->sensorSaveState(iIsInterrupt);
+}
+
 // static
 bool Sensor::measureValue(MeasureType iMeasureType, double& eValue) {
     bool lResult = false;
