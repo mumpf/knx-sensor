@@ -20,10 +20,13 @@ Sensor::Sensor(uint8_t iMeasureTypes, uint8_t iAddress)
 // static
 void Sensor::sensorLoop() {
     for (uint8_t lCounter = 0; lCounter < sNumSensors; lCounter++)
-    {
         sSensors[lCounter]->sensorLoopInternal();
     }
-    
+
+// static
+void Sensor::restartSensors() {
+    for (uint8_t lCounter = 0; lCounter < sNumSensors; lCounter++)
+        sSensors[lCounter]->restartSensor();
 }
 
 void Sensor::restartSensor() {

@@ -58,6 +58,7 @@ class Sensor
     static bool measureValue(MeasureType iMeasureType, double& eValue);
     static uint8_t getError();
     static void saveState(bool iIsInterrupt);
+    static void restartSensors();
 
     virtual bool begin(); // first initialization, may be blocking, should be callde druing setup(), not during loop()
 };

@@ -56,10 +56,13 @@ struct sRuntimeInfo
     sSensorInfo pre;
     sSensorInfo voc;
     sSensorInfo co2;
+    sSensorInfo co2b;
     sSensorInfo dew;
     sSensorInfo wire[8];
     unsigned long startupDelay;
     unsigned long heartbeatDelay;
+    uint16_t countSaveInterrupt = 0;
+    uint16_t countSaveOld = 999;
 };
 
 sRuntimeInfo gRuntimeData;
@@ -87,8 +90,16 @@ void ProcessHeartbeat()
         // we waited enough, let's send a heartbeat signal
         knx.getGroupObject(LOG_KoHeartbeat).value(true, getDPT(VAL_DPT_1));
         // if there is an error, we send it with heartbeat, too
-        if (knx.paramByte(LOG_Error) & 128)
+        if (knx.paramByte(LOG_Error) & 128) {
             if (getError()) sendError();
+            // write diagnose object
+            if (gRuntimeData.countSaveInterrupt != gRuntimeData.countSaveOld) {
+                char buffer[15];
+                sprintf(buffer, "SAVE %d", gRuntimeData.countSaveInterrupt);
+                knx.getGroupObject(LOG_KoDiagnose).value(buffer, getDPT(VAL_DPT_16));
+                gRuntimeData.countSaveOld = gRuntimeData.countSaveInterrupt;
+            }
+        }
         gRuntimeData.heartbeatDelay = millis();
         // debug-helper for logic module
         // print("ParDewpoint: ");
@@ -98,6 +109,7 @@ void ProcessHeartbeat()
 }
 
 void ProcessReadRequests() {
+    // we evaluate only Bit 2 here, which holds the information about read external values on startup
     if (knx.paramByte(LOG_TempExtRead) & 4) {
         knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
         knx.getGroupObject(LOG_KoExt2Temp).requestObjectRead();
@@ -159,15 +171,24 @@ void StartSensor()
     }
     if (lSensorFlags == SENSOR_BME680 || lSensorFlags == SENSOR_CO2_BME680)
     {
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy);
+        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy | Co2);
         lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback);
         lSensor->begin();
+        gSensor |= BIT_Co2;
     }
-    if (lSensorFlags == SENSOR_CO2)
+    if (lSensorFlags == SENSOR_CO2 || lSensorFlags == SENSOR_CO2_BME280)
     {
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
         lSensor = new SensorSCD30(lMeasureTypes, 0x61);
         lSensor->begin();
+    }
+    // Tempoary for compare both co2 values
+    if (lSensorFlags == SENSOR_CO2_BME680) 
+    {
+        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Reserved);
+        lSensor = new SensorSCD30(lMeasureTypes, 0x61);
+        lSensor->begin();
+        gSensor |= BIT_RESERVE;
     }
 #endif
 }
@@ -176,7 +197,7 @@ bool ReadSensorValue(MeasureType iMeasureType, double& eValue) {
 }
 
 // the entries have the same order as the KOs starting with "Ext"
-uint8_t gIsExternalValueValid[10] = {0,0,0,0,0,0,0,0,0,0};
+uint8_t gIsExternalValueValid[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 // generic sensor processing
 void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureType iMeasureType, double iOffsetFactor, double iValueFactor, uint16_t iParamIndex, uint16_t iKoNumber, bool iForce = false)
@@ -403,6 +424,8 @@ void ProcessSensors(bool iForce = false)
         ProcessSensor(&gRuntimeData.voc, ReadSensorValue, Voc, 1.0, 1.0, LOG_VocOffset, LOG_KoVOC, iForce);
     if (gSensor & BIT_Co2)
         ProcessSensor(&gRuntimeData.co2, ReadSensorValue, Co2, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2, iForce);
+    if (gSensor & BIT_RESERVE)
+        ProcessSensor(&gRuntimeData.co2b, ReadSensorValue, Reserved, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2b, iForce);
 
     if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum)) {
         ProcessSensor(&gRuntimeData.dew, CalculateDewValue, static_cast<MeasureType>(Temperature | Humidity), 10.0, 1.0, LOG_DewOffset, LOG_KoDewpoint, iForce);
@@ -466,6 +489,7 @@ void appLoop()
 
 // handle interrupt from save pin
 void onSafePinInterruptHandler() {
+    gRuntimeData.countSaveInterrupt += 1;
     // for the moment, we send only en Info on error object in case of an save interrumpt
     uint16_t lError = getError();
     setError(lError | 128);
@@ -479,7 +503,9 @@ void onSafePinInterruptHandler() {
     Wire.end();
     delay(1000);
     restorePower();
+    delay(100);
     Wire.begin();
+    Sensor::restartSensors();
 }
 
 void beforeRestartHandler() {
@@ -510,11 +536,15 @@ void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
 
     gSensor = (knx.paramByte(LOG_SensorDevice));
 
-
     if (knx.configured())
     {
+        // try to get rid of occasional I2C lock...
+        savePower();
+        delay(100);
+        restorePower();
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
+        gRuntimeData.countSaveInterrupt = 0;
         // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
         if (GroupObject::classCallback() == 0) GroupObject::classCallback(ProcessKoCallback);
         if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
@@ -522,7 +552,7 @@ void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
         StartSensor();
         if (gSensor & BIT_LOGIC) {
             if (iSavePin) {
-                attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
+                logicAttachSaveInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
             }
             logikSetup(iBuzzerPin, false);
         }

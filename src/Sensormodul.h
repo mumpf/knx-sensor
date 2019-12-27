@@ -213,11 +213,13 @@
 // Communication objects with single occurance
 #define LOG_KoHeartbeat 1
 #define LOG_KoError 2
+#define LOG_KoDiagnose 3
 #define LOG_KoTemp 5
 #define LOG_KoHum 6
 #define LOG_KoPre 7
 #define LOG_KoVOC 8
 #define LOG_KoCo2 9
+#define LOG_KoCo2b 10
 #define LOG_KoDewpoint 11
 #define LOG_KoComfort 12
 #define LOG_KoAirquality 13
