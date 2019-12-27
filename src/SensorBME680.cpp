@@ -152,15 +152,17 @@ void SensorBME680::sensorSaveState(bool iIsInterrupt)
         buffer[lIndex] = sMagicWord[lIndex];
 
     Bsec::getState(buffer + 4);
-    if (!iIsInterrupt) checkIaqSensorStatus();
+    bool lCheck = checkIaqSensorStatus();
+    if (lCheck) { 
     println("Writing BME680 state to EEPROM");
 
     for (uint8_t lCount = 0; lCount < 144; lCount += 16)
-    {
-        beginPageEEPROM(EEPROM_BME680_START_ADDRESS + lCount);
-        Wire.write(buffer + lCount, 16);
-        endPageEEPROM(iIsInterrupt);
-        printHex("--> ", buffer + lCount, 16);
+        {
+            beginPageEEPROM(EEPROM_BME680_START_ADDRESS + lCount);
+            Wire.write(buffer + lCount, 16);
+            endPageEEPROM(iIsInterrupt);
+            printHex("--> ", buffer + lCount, 16);
+        }
     }
 }
 

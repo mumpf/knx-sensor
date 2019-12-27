@@ -501,9 +501,13 @@ void onSafePinInterruptHandler() {
     Sensor::saveState(true);
     // in case, SaveInterrupt was a false positive
     Wire.end();
-    delay(1000);
+    // wait 1 Second in interrupt handler
+    for (uint8_t lWait = 0; lWait < 200; lWait++)
+        delayEEPROMWrite(true);
     restorePower();
-    delay(100);
+    // wait 100ms in interrupt handler
+    for (uint8_t lWait = 0; lWait < 200; lWait++)
+        delayEEPROMWrite(true);
     Wire.begin();
     Sensor::restartSensors();
 }
