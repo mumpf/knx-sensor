@@ -509,7 +509,7 @@ void onSafePinInterruptHandler() {
     for (uint8_t lWait = 0; lWait < 200; lWait++)
         delayEEPROMWrite(true);
     Wire.begin();
-    Sensor::restartSensors();
+    // Sensor::restartSensors();
 }
 
 void beforeRestartHandler() {
