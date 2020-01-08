@@ -1,5 +1,6 @@
 #pragma once
 #include <knx/bits.h>
+#include "../../knx-logic/src/Board.h"
 
 #define BIT_1WIRE 1
 #define BIT_Temp 2
@@ -45,7 +46,7 @@ class Sensor
     bool CheckSensorConnection();
     virtual double measureValue(MeasureType iMeasureType) = 0; //pure
     virtual void sensorLoopInternal();
-    virtual void sensorSaveState(bool iIsInterrupt);
+    virtual void sensorSaveState();
     // non blocking restart approach for a sensor
     void restartSensor();
 
@@ -57,8 +58,8 @@ class Sensor
     static void sensorLoop();
     static bool measureValue(MeasureType iMeasureType, double& eValue);
     static uint8_t getError();
-    static void saveState(bool iIsInterrupt);
+    static void saveState();
     static void restartSensors();
 
-    virtual bool begin(); // first initialization, may be blocking, should be callde druing setup(), not during loop()
+    virtual bool begin(); // first initialization, may be blocking, should be called druing setup(), not during loop()
 };

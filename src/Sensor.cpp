@@ -73,13 +73,13 @@ bool Sensor::begin() {
 }
 
 // should be overridden, if there is a state to save before power failure
-void Sensor::sensorSaveState(bool iIsInterrupt) {};
+void Sensor::sensorSaveState() {};
 
 // static
-void Sensor::saveState(bool iIsInterrupt) {
+void Sensor::saveState() {
     // dispatch the call to all sensors
     for (uint8_t lCounter = 0; lCounter < sNumSensors; lCounter++)
-        sSensors[lCounter]->sensorSaveState(iIsInterrupt);
+        sSensors[lCounter]->sensorSaveState();
 }
 
 // static

@@ -79,6 +79,7 @@ double SensorBME680::measureValue(MeasureType iMeasureType) {
 }
 
 bool SensorBME680::begin() {
+    print("Starting sensor BME680... ");
     Bsec::begin(BME680_I2C_ADDR_PRIMARY, Wire, gDelayCallback);
     bool lResult = checkIaqSensorStatus();
     if (lResult) {
@@ -95,6 +96,7 @@ bool SensorBME680::begin() {
     }
     if (lResult)
         lResult = Sensor::begin();
+    printResult(lResult);
     return lResult;
 }
 
@@ -144,7 +146,7 @@ void SensorBME680::sensorLoadState()
 // We store sensor data in EEPROM stating at page 100 (100 * 32 = 3200 = 0xC80).
 // We write in 16 Byte chunks, a maximum of 139 bytes, means 139/16 = 9 chunks (which is in fact 144 Bytes).
 // Timing is 9 * 5 ms = 45 ms write time
-void SensorBME680::sensorSaveState(bool iIsInterrupt)
+void SensorBME680::sensorSaveState()
 {
     // buffer gets freed inside knx object after saved
     uint8_t buffer[144] = {0}; //[BSEC_MAX_STATE_BLOB_SIZE];
@@ -160,7 +162,7 @@ void SensorBME680::sensorSaveState(bool iIsInterrupt)
         {
             beginPageEEPROM(EEPROM_BME680_START_ADDRESS + lCount);
             Wire.write(buffer + lCount, 16);
-            endPageEEPROM(iIsInterrupt);
+            endPageEEPROM();
             printHex("--> ", buffer + lCount, 16);
         }
     }
@@ -172,7 +174,7 @@ void SensorBME680::sensorUpdateState(void)
     // and 4 times a day if accuracy is 3 (this might be senseless, if we save with each restart)
     if ((Bsec::iaqAccuracy > gLastAccuracy) || (Bsec::iaqAccuracy >= 3 && delayCheck(stateUpdateTimer, STATE_SAVE_PERIOD)))
     {
-        sensorSaveState(false);
+        sensorSaveState();
         stateUpdateTimer = millis();
     }
     gLastAccuracy = Bsec::iaqAccuracy;

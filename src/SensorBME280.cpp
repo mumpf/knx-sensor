@@ -78,8 +78,10 @@ double SensorBME280::measureValue(MeasureType iMeasureType) {
 }
 
 bool SensorBME280::begin() {
+    print("Starting sensor BME280... ");
     bool lResult = Adafruit_BME280::begin(gAddress);
     if (lResult)
         lResult = Sensor::begin();
+    printResult(lResult);
     return lResult;
 }

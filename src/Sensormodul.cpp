@@ -63,6 +63,7 @@ struct sRuntimeInfo
     unsigned long heartbeatDelay;
     uint16_t countSaveInterrupt = 0;
     uint16_t countSaveOld = 999;
+    uint32_t saveInterruptTimestamp = 0;
 };
 
 sRuntimeInfo gRuntimeData;
@@ -135,7 +136,7 @@ void ProcessReadRequests() {
 // this callback is used by BME680 during delays while mesauring
 // we implement this delay, but keep normal loop processing alive
 void sensorDelayCallback(uint32_t iMillis) {
-    printf("sensorDelayCallback: Called with a delay of %li ms", iMillis);
+    printf("sensorDelayCallback: Called with a delay of %lu ms", iMillis);
     uint32_t lMillis = millis();
     while (millis() - lMillis < iMillis) {
         knx.loop();
@@ -143,7 +144,7 @@ void sensorDelayCallback(uint32_t iMillis) {
         if (gSensor & BIT_LOGIC)
             logikLoop();
     } 
-    printf("sensorDelayCallback: Left after %li ms", millis() - lMillis);
+    printf("sensorDelayCallback: Left after %lu ms", millis() - lMillis);
 }
 
 // Starting all required sensors, this call may be blocking (with delay)
@@ -461,6 +462,31 @@ void ProcessKoCallback(GroupObject &iKo)
     }
 }
 
+void ProcessInterrupt() {
+    if (gRuntimeData.saveInterruptTimestamp) {
+        printf("Sensormodul: SAVE-Interrupt processing started after %lu ms", millis() - gRuntimeData.saveInterruptTimestamp);
+        gRuntimeData.saveInterruptTimestamp = millis();
+        // for the moment, we send only en Info on error object in case of an save interrumpt
+        uint16_t lError = getError();
+        setError(lError | 128);
+        sendError();
+        // switch off all energy intensive hardware to gain time for EEPROM write
+        savePower();
+        // call according logic interrupt handler
+        logicProcessInterrupt(true);
+        Sensor::saveState();
+        // in case, SaveInterrupt was a false positive
+        Wire.end();
+        // wait 1 Second in interrupt handler
+        delay(1000);
+        restorePower();
+        delay(100);
+        Wire.begin();
+        // Sensor::restartSensors();
+        printf("Sensormodul: SAVE-Interrupt processing duration was %lu ms", millis() - gRuntimeData.saveInterruptTimestamp);
+        gRuntimeData.saveInterruptTimestamp = 0;
+    }
+}
 
 void appLoop()
 {
@@ -472,6 +498,8 @@ void appLoop()
     // handle KNX stuff
     if (startupDelay())
         return;
+
+    ProcessInterrupt();
 
     // at this point startup-delay is done
     // we process heartbeat
@@ -490,31 +518,12 @@ void appLoop()
 // handle interrupt from save pin
 void onSafePinInterruptHandler() {
     gRuntimeData.countSaveInterrupt += 1;
-    // for the moment, we send only en Info on error object in case of an save interrumpt
-    uint16_t lError = getError();
-    setError(lError | 128);
-    sendError();
-    // switch off all energy intensive hardware to gain time for EEPROM write
-    savePower();
-    // call according logic interrupt handler
-    logicOnSafePinInterruptHandler();
-    Sensor::saveState(true);
-    // in case, SaveInterrupt was a false positive
-    Wire.end();
-    // wait 1 Second in interrupt handler
-    for (uint8_t lWait = 0; lWait < 200; lWait++)
-        delayEEPROMWrite(true);
-    restorePower();
-    // wait 100ms in interrupt handler
-    for (uint8_t lWait = 0; lWait < 200; lWait++)
-        delayEEPROMWrite(true);
-    Wire.begin();
-    // Sensor::restartSensors();
+    gRuntimeData.saveInterruptTimestamp = millis();;
 }
 
 void beforeRestartHandler() {
-    DbgWrite("before Restart called");
-    Sensor::saveState(false);
+    printf("before Restart called");
+    Sensor::saveState();
     logicBeforeRestartHandler();
     // we try get a clean state on I2C bus
     Wire.end();
@@ -522,12 +531,12 @@ void beforeRestartHandler() {
 
 void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
     static uint32_t sLastCalled = 0;
-    DbgWrite("Table changed called with state %d", iNewState);
+    printf("Table changed called with state %d", iNewState);
     
     if (iNewState == 0) {
-        DbgWrite("Table unload called");
-        if (sLastCalled == 0 || sLastCalled + 10000 < millis()) {
-            Sensor::saveState(false);
+        printf("Table unload called");
+        if (sLastCalled == 0 || delayCheck(sLastCalled, 10000)) {
+            Sensor::saveState();
             logicBeforeTableUnloadHandler(iTableObject, iNewState);
             sLastCalled = millis();
         }
@@ -542,6 +551,8 @@ void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
 
     if (knx.configured())
     {
+        // check hardware availability
+        boardCheck();
         // try to get rid of occasional I2C lock...
         savePower();
         delay(100);
