@@ -7,6 +7,9 @@
 			"path": "../knx-logic"
 		},
 		{
+			"path": "../knx-common"
+		},
+		{
 			"path": "../knx"
 		}
 	],
@@ -25,7 +28,8 @@
 			"string_view": "cpp",
 			"initializer_list": "cpp",
 			"xiosbase": "cpp",
-			"*.cppbak": "cpp"
+			"*.cppbak": "cpp",
+			"cstdint": "cpp"
 		}
 	}
 }

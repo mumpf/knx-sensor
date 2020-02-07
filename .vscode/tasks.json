@@ -17,7 +17,7 @@
         {
             "label": "Build PlatformIO",
             "type": "shell",
-            "command": "pio",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
@@ -32,7 +32,7 @@
         {
             "label": "Upload JLINK",
             "type": "shell",
-            "command": "pio",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
@@ -46,7 +46,7 @@
         {
             "label": "Upload USB",
             "type": "shell",
-            "command": "pio",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
