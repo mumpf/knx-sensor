@@ -141,7 +141,7 @@ void ProcessReadRequests() {
 // this callback is used by BME680 during delays while mesauring
 // we implement this delay, but keep normal loop processing alive
 void sensorDelayCallback(uint32_t iMillis) {
-    printDebug("sensorDelayCallback: Called with a delay of %lu ms\n", iMillis);
+    // printDebug("sensorDelayCallback: Called with a delay of %lu ms\n", iMillis);
     uint32_t lMillis = millis();
     while (millis() - lMillis < iMillis) {
         knx.loop();
@@ -149,7 +149,7 @@ void sensorDelayCallback(uint32_t iMillis) {
         if (gSensor & BIT_LOGIC)
             gLogic.loop();
     }
-    printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
+    // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
 }
 
 // Starting all required sensors, this call may be blocking (with delay)
@@ -529,7 +529,7 @@ void ProcessInterrupt() {
     if (gRuntimeData.saveInterruptTimestamp) {
         printDebug("Sensormodul: SAVE-Interrupt processing started after %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
         gRuntimeData.saveInterruptTimestamp = millis();
-        // for the moment, we send only en Info on error object in case of an save interrumpt
+        // for the moment, we send only an Info on error object in case of an save interrumpt
         uint16_t lError = getError();
         setError(lError | 128);
         sendError();
@@ -538,15 +538,16 @@ void ProcessInterrupt() {
         // call according logic interrupt handler
         gLogic.processInterrupt(true);
         Sensor::saveState();
+        printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
         // in case, SaveInterrupt was a false positive
+        // we restore power and I2C-Bus
         Wire.end();
-        // wait 1 Second in interrupt handler
-        delay(1000);
+        // wait another 200 ms
+        delay(200);
         restorePower();
         delay(100);
         Wire.begin();
         // Sensor::restartSensors();
-        printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
         gRuntimeData.saveInterruptTimestamp = 0;
     }
 }
@@ -608,19 +609,19 @@ void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
 }
 
 
-void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin)
+void appSetup(uint8_t iSavePin)
 {
 
-    gSensor = (knx.paramByte(LOG_SensorDevice));
+    // check hardware availability
+    boardCheck();
+    // try to get rid of occasional I2C lock...
+    savePower();
+    delay(100);
+    restorePower();
 
     if (knx.configured())
     {
-        // check hardware availability
-        boardCheck();
-        // try to get rid of occasional I2C lock...
-        savePower();
-        delay(100);
-        restorePower();
+        gSensor = (knx.paramByte(LOG_SensorDevice));
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         gRuntimeData.countSaveInterrupt = 0;

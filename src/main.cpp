@@ -1,29 +1,8 @@
 #include <knx.h>
 #include <Wire.h>
+#include "Board.h"
 
-// #define BOARD_DEVEL 1
-#define BOARD_BERKER 1
-// ################################################
-// ### IO Configuration
-// ################################################
-#ifdef BOARD_DEVEL
-#define PROG_LED_PIN 26
-#define PROG_LED_PIN_ACTIVE_ON LOW
-#define PROG_BUTTON_PIN 10
-#define PROG_BUTTON_PIN_INTERRUPT_ON RISING
-#define SAVE_INTERRUPT_PIN 0
-#define BUZZER_PIN 0
-#endif
-#ifdef BOARD_BERKER
-#define PROG_LED_PIN 13
-#define PROG_LED_PIN_ACTIVE_ON HIGH
-#define PROG_BUTTON_PIN 11
-#define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
-#define SAVE_INTERRUPT_PIN 8 // A2 // 8
-#define BUZZER_PIN 9
-#define LED_YELLOW_PIN 38
-#endif
-void appSetup(uint8_t iBuzzerPin, uint8_t iSavePin);
+void appSetup(uint8_t iSavePin);
 void appLoop();
 
 void setup()
@@ -55,7 +34,7 @@ void setup()
 
     // print values of parameters if device is already configured
     if (knx.configured())
-        appSetup(BUZZER_PIN, SAVE_INTERRUPT_PIN);
+        appSetup(SAVE_INTERRUPT_PIN);
 
     // start the framework.
     knx.start();
