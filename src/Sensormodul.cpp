@@ -583,7 +583,7 @@ void appLoop()
 void onSafePinInterruptHandler() {
     gRuntimeData.countSaveInterrupt += 1;
     gRuntimeData.saveInterruptTimestamp = millis();
-    gLogic.onSafePinInterruptHandler();
+    // gLogic.onSafePinInterruptHandler();
 }
 
 void beforeRestartHandler() {
