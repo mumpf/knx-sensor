@@ -181,7 +181,7 @@
 #define LOG_fOOnDpt9                  81      // float
 #define LOG_fOOnDpt16                 81      // char*, 14 Byte
 #define LOG_fOOnDpt17                 81      // uint8_t
-#define LOG_fOOnRGB                   81      // int32_t
+#define LOG_fOOnRGB                   81      // 0 Bits, Bit 7
 #define LOG_fOOnPAArea                81      // 4 Bits, Bit 7-4
 #define LOG_fOOnPALine                81      // 4 Bits, Bit 3-0
 #define LOG_fOOnPADevice              82      // uint8_t
@@ -196,7 +196,7 @@
 #define LOG_fOOffDpt9                 96      // float
 #define LOG_fOOffDpt16                96      // char*, 14 Byte
 #define LOG_fOOffDpt17                96      // uint8_t
-#define LOG_fOOffRGB                  96      // int32_t
+#define LOG_fOOffRGB                  96      // 0 Bits, Bit 7
 #define LOG_fOOffPAArea               96      // 4 Bits, Bit 7-4
 #define LOG_fOOffPALine               96      // 4 Bits, Bit 3-0
 #define LOG_fOOffPADevice             97      // uint8_t
@@ -212,6 +212,8 @@
 
 // Communication objects with single occurance
 #define LOG_KoHeartbeat 1
+#define LOG_KoTime 28
+#define LOG_KoDate 29
 #define LOG_KoError 2
 #define LOG_KoDiagnose 3
 #define LOG_KoTemp 5

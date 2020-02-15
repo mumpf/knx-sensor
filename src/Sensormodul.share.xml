@@ -424,6 +424,8 @@
           <Dynamic>
             <ChannelIndependentBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="ParameterPage" Text="Allgemeine Parameter">
+                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-28_R-28" />
+                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-29_R-29" />
                 <!-- the following parameter is invisible, but necessary (number of logik channels used in knxdprod) -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-1_R-1" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-2_R-2" />

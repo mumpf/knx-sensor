@@ -612,12 +612,12 @@ void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
 void appSetup(uint8_t iSavePin)
 {
 
-    // check hardware availability
-    boardCheck();
     // try to get rid of occasional I2C lock...
     savePower();
     delay(100);
     restorePower();
+    // check hardware availability
+    boardCheck();
 
     if (knx.configured())
     {
