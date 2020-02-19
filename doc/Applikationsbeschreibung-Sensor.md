@@ -11,7 +11,7 @@ Sie ist in die Bereiche
 
 gegliedert.
 
-Die letzeren beiden sind in der Applikationsbeschreibung Logik beschrieben.
+Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 
 ## Allgemeine Parameter
 
