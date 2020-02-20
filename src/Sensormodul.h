@@ -63,6 +63,7 @@
 #define LOG_Comfort                   12      // 1 Bit, Bit 5
 #define LOG_Airquality                12      // 1 Bit, Bit 4
 #define LOG_Accuracy                  12      // 1 Bit, Bit 3
+#define LOG_DeleteData                12      // 1 Bit, Bit 2
 #define LOG_DewOffset                 79      // int8_t
 #define LOG_DewCycle                  80      // int32_t
 #define LOG_DewDeltaAbs               84      // uint16_t

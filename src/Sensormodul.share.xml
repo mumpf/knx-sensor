@@ -69,6 +69,12 @@
                   <Enumeration Text="2" Value="2" Id="M-00FA_A-0001-01-0000_PT-ExtCount_EN-2" />
                 </TypeRestriction>
               </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeleteData" Name="DeleteData">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="17" Value="0" Id="M-00FA_A-0001-01-0000_PT-DeleteData_EN-0" />
+                  <Enumeration Text="23" Value="1" Id="M-00FA_A-0001-01-0000_PT-DeleteData_EN-1" />
+                </TypeRestriction>
+              </ParameterType>
             </ParameterTypes>
             <Parameters>
               <!-- Parameter for this device, channel independent -->
@@ -260,6 +266,9 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-83" Name="Accuracy" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsfortschritt ausgeben" Value="0">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="4" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-84" Name="DeleteData" ParameterType="M-00FA_A-0001-01-0000_PT-DeleteData" Text="Kalibrierungsdaten löschen" Value="0">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="5" />
+              </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-90" Name="DewOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="/10 °C">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="79" BitOffset="0" />
@@ -352,6 +361,7 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-81_R-81" RefId="M-00FA_A-0001-01-0000_P-81" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-82_R-82" RefId="M-00FA_A-0001-01-0000_P-82" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-83_R-83" RefId="M-00FA_A-0001-01-0000_P-83" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-84_R-84" RefId="M-00FA_A-0001-01-0000_P-84" />
               <!-- Dewpoint -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-90_R-90" RefId="M-00FA_A-0001-01-0000_P-90" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-91_R-91" RefId="M-00FA_A-0001-01-0000_P-91" />
@@ -770,6 +780,9 @@
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-69" Text="Der Voc-Sensor braucht bis zu 2 Tage für die Kalibrierung, das KO 14 gibt den Fortschritt in % aus" />
                           </when>
                         </choose>
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-95" Text="" UIHint="HorizontalRuler" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-84_R-84" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-94" Text="Es ist vollkommen egal, welchen Wert dieser Parameter hat. Die Kalibrierungsdaten werden zurückgesetzt, wenn sich der Wert dieses Parameters ändert und die Applikation hochgeladen wurde. Danach bleiben die Daten erhalten, bis sich der Wert wieder ändert." UIHint="Information" />
                       </when>
                     </choose>
                   </ParameterBlock>

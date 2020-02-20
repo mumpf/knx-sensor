@@ -177,8 +177,9 @@ void StartSensor()
     }
     if (lSensorFlags == SENSOR_BME680 || lSensorFlags == SENSOR_CO2_BME680)
     {
+        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy | Co2);
-        lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback);
+        lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback, lMagicWordOffset);
         lSensor->begin();
         gSensor |= BIT_Co2;
     }
