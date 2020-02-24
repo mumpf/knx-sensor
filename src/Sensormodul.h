@@ -2,9 +2,13 @@
 #include <knx.h>
 
 // Parameter with single occurance
-#define LOG_NumChannels                0      // int32_t
-#define LOG_StartupDelay               4      // int32_t
-#define LOG_Heartbeat                  8      // int32_t
+#define LOG_NumChannels                0      // uint8_t
+#define LOG_StartupDelay               1      // int32_t
+#define LOG_Heartbeat                  5      // int32_t
+#define LOG_ReadTimeDate               9      // 1 Bit, Bit 7
+#define LOG_BuzzerInstalled            9      // 1 Bit, Bit 6
+#define LOG_LedInstalled               9      // 1 Bit, Bit 5
+#define LOG_EepromInstalled            9      // 1 Bit, Bit 4
 #define LOG_Error                     12      // 1 Bit, Bit 7
 #define LOG_TempOffset                13      // int8_t
 #define LOG_TempCycle                 14      // int32_t
@@ -57,7 +61,6 @@
 #define LOG_Co2Ext2Percent            77      // uint8_t
 #define LOG_Co2ExtRead                74      // 1 Bit, Bit 2
 #define LOG_SensorDevice              78      // 6 Bits, Bit 6-1
-#define LOG_Logic                     78      // 1 Bit, Bit 7
 #define LOG_Sensor1Wire               78      // 1 Bit, Bit 0
 #define LOG_Dewpoint                  12      // 1 Bit, Bit 6
 #define LOG_Comfort                   12      // 1 Bit, Bit 5
@@ -172,6 +175,10 @@
 #define LOG_fOOutputFilter            70      // 2 Bits, Bit 6-5
 #define LOG_fODpt                     79      // 8 Bits, Bit 7-0
 #define LOG_fOOn                      80      // 8 Bits, Bit 7-0
+#define LOG_fOOnBuzzer                80      // 8 Bits, Bit 7-0
+#define LOG_fOOnLed                   80      // 8 Bits, Bit 7-0
+#define LOG_fOOnAll                   80      // 8 Bits, Bit 7-0
+#define LOG_fOOnTone                  81      // 8 Bits, Bit 7-0
 #define LOG_fOOnDpt1                  81      // 8 Bits, Bit 7-0
 #define LOG_fOOnDpt2                  81      // 8 Bits, Bit 7-0
 #define LOG_fOOnDpt5                  81      // uint8_t
@@ -187,6 +194,10 @@
 #define LOG_fOOnPALine                81      // 4 Bits, Bit 3-0
 #define LOG_fOOnPADevice              82      // uint8_t
 #define LOG_fOOff                     95      // 8 Bits, Bit 7-0
+#define LOG_fOOffBuzzer               95      // 8 Bits, Bit 7-0
+#define LOG_fOOffLed                  95      // 8 Bits, Bit 7-0
+#define LOG_fOOffAll                  95      // 8 Bits, Bit 7-0
+#define LOG_fOOffTone                 96      // 8 Bits, Bit 7-0
 #define LOG_fOOffDpt1                 96      // 8 Bits, Bit 7-0
 #define LOG_fOOffDpt2                 96      // 8 Bits, Bit 7-0
 #define LOG_fOOffDpt5                 96      // uint8_t
@@ -205,7 +216,7 @@
 #define LOG_fE2DefaultEEPROM          34      // 1 Bit, Bit 2
 
 // Communication objects per channel (multiple occurance)
-#define LOG_KoOffset 30
+#define LOG_KoOffset 40
 #define LOG_KoBlockSize 3
 #define LOG_KoKOfE1 0
 #define LOG_KoKOfE2 1
@@ -213,29 +224,29 @@
 
 // Communication objects with single occurance
 #define LOG_KoHeartbeat 1
-#define LOG_KoTime 28
-#define LOG_KoDate 29
-#define LOG_KoError 2
-#define LOG_KoDiagnose 3
-#define LOG_KoTemp 5
-#define LOG_KoHum 6
-#define LOG_KoPre 7
-#define LOG_KoVOC 8
-#define LOG_KoCo2 9
-#define LOG_KoCo2b 10
-#define LOG_KoDewpoint 11
-#define LOG_KoComfort 12
-#define LOG_KoAirquality 13
-#define LOG_KoSensorAccuracy 14
-#define LOG_KoRequestValues 15
-#define LOG_KoExt1Temp 16
-#define LOG_KoExt2Temp 17
-#define LOG_KoExt1Hum 18
-#define LOG_KoExt2Hum 19
-#define LOG_KoExt1Pre 20
-#define LOG_KoExt2Pre 21
-#define LOG_KoExt1VOC 22
-#define LOG_KoExt2VOC 23
-#define LOG_KoExt1Co2 24
-#define LOG_KoExt2Co2 25
+#define LOG_KoTime 2
+#define LOG_KoDate 3
+#define LOG_KoRequestValues 7
+#define LOG_KoError 8
+#define LOG_KoDiagnose 9
+#define LOG_KoTemp 10
+#define LOG_KoHum 11
+#define LOG_KoPre 12
+#define LOG_KoVOC 13
+#define LOG_KoCo2 14
+#define LOG_KoCo2b 15
+#define LOG_KoDewpoint 16
+#define LOG_KoComfort 17
+#define LOG_KoAirquality 18
+#define LOG_KoSensorAccuracy 19
+#define LOG_KoExt1Temp 24
+#define LOG_KoExt2Temp 25
+#define LOG_KoExt1Hum 26
+#define LOG_KoExt2Hum 27
+#define LOG_KoExt1Pre 28
+#define LOG_KoExt2Pre 29
+#define LOG_KoExt1VOC 30
+#define LOG_KoExt2VOC 31
+#define LOG_KoExt1Co2 32
+#define LOG_KoExt2Co2 33
 

@@ -7,7 +7,7 @@
 #include "SensorSCD30.h"
 #endif
 
-#include "Board.h"
+#include "Hardware.h"
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
 #include "Sensormodul.h"
 // ... auf jeden Fall Vorrang haben (beeinflussen auch die Logik)
@@ -113,6 +113,10 @@ void ProcessReadRequests() {
     static bool sCalled = false;
     // the following code should be called only once
     if (!sCalled) {
+        if (knx.paramByte(LOG_ReadTimeDate) & 0x80) {
+            knx.getGroupObject(LOG_KoTime).requestObjectRead();
+            knx.getGroupObject(LOG_KoDate).requestObjectRead();
+        }
         // we evaluate only Bit 2 here, which holds the information about read external values on startup
         if (knx.paramByte(LOG_TempExtRead) & 4) {
             knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
@@ -146,8 +150,7 @@ void sensorDelayCallback(uint32_t iMillis) {
     while (millis() - lMillis < iMillis) {
         knx.loop();
         ProcessHeartbeat();
-        if (gSensor & BIT_LOGIC)
-            gLogic.loop();
+        gLogic.loop();
     }
     // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
 }
@@ -570,8 +573,7 @@ void appLoop()
     // we process heartbeat
     ProcessHeartbeat();
     ProcessReadRequests();
-    if (gSensor & BIT_LOGIC)
-        gLogic.loop();
+    gLogic.loop();
 
     // at Startup, we want to send all values immediately
     ProcessSensors(gForceSensorRead);
@@ -631,11 +633,8 @@ void appSetup(uint8_t iSavePin)
         if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
         if (TableObject::getBeforeTableUnloadCallback() == 0) TableObject::addBeforeTableUnloadCallback(beforeTableUnloadHandler);
         StartSensor();
-        if (iSavePin) {
+        if (iSavePin) 
             attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
-        }
-        if (gSensor & BIT_LOGIC) {
-            gLogic.setup(false);
-        }
+        gLogic.setup(false);
     }
 }

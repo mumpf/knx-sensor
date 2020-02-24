@@ -57,14 +57,14 @@
           </Static>
           <Dynamic>
             <mc:include href="Sensormodul.share.xml" xpath="//Dynamic/*" prefix="SENS" />
-            <choose ParamRefId="M-00FA_A-0001-01-0000_P-61_R-61">
-              <when test="1">
+            <!-- <choose ParamRefId="M-00FA_A-0001-01-0000_P-61_R-61"> -->
+              <!-- <when test="1"> -->
                 <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel" header="Sensormodul.h" prefix="LOG" />
                 <Channel Id="M-00FA_A-0001-01-0000_CH-4" Name="Logikkanaele" Number="4" Text="Logikkanäle">
                   <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Dynamic/*" header="Sensormodul.h" prefix="LOG" />
                 </Channel>
-              </when>
-            </choose>
+              <!-- </when> -->
+            <!-- </choose> -->
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
