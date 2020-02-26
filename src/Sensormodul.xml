@@ -20,8 +20,8 @@
             </ParameterTypes>
             <Parameters>
               <!-- Standard parameter in any of our devices -->
-              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Parameters/Parameter" prefix="LOG" />
-              <mc:include href="Sensormodul.share.xml" xpath="//Parameters/Parameter" prefix="SENS" />
+              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="LOG" />
+              <mc:include href="Sensormodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="SENS" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" header="Sensormodul.h" prefix="LOG" />
             </Parameters>
             <ParameterRefs>
