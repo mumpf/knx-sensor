@@ -724,8 +724,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-1009" Name="f1E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="98" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="99" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-1026" Name="f1E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-1130" Name="f1E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-1027" Name="f1E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="100" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="104" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-1028" Name="f1E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-1094" Name="f1E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-1029" Name="f1E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="105" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="106" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-1046" Name="f1E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-1131" Name="f1E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-1047" Name="f1E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="107" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="111" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1115" Name="f1E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1116" Name="f1E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1010" Name="f1E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -755,24 +779,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1024" Name="f1E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1025" Name="f1E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="107" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-1026" Name="f1E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-1130" Name="f1E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-1027" Name="f1E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="108" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="112" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-1028" Name="f1E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-1094" Name="f1E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-1029" Name="f1E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="113" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="114" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="119" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1030" Name="f1E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1095" Name="f1E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1096" Name="f1E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -800,14 +808,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1044" Name="f1E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-1045" Name="f1E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="122" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-1046" Name="f1E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-1131" Name="f1E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-1047" Name="f1E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="123" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-1048" Name="f1I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="127" BitOffset="0" />
               </Parameter>
@@ -952,8 +952,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-2009" Name="f2E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="208" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="209" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-2026" Name="f2E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-2130" Name="f2E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-2027" Name="f2E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="210" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="214" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-2028" Name="f2E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-2094" Name="f2E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-2029" Name="f2E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="215" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="216" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-2046" Name="f2E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-2131" Name="f2E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-2047" Name="f2E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="217" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="221" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2115" Name="f2E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2116" Name="f2E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2010" Name="f2E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -983,24 +1007,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2024" Name="f2E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2025" Name="f2E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="217" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-2026" Name="f2E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-2130" Name="f2E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-2027" Name="f2E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="218" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="222" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-2028" Name="f2E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-2094" Name="f2E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-2029" Name="f2E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="223" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="224" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="229" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2030" Name="f2E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2095" Name="f2E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2096" Name="f2E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -1028,14 +1036,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2044" Name="f2E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-2045" Name="f2E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="232" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-2046" Name="f2E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-2131" Name="f2E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-2047" Name="f2E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="233" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-2048" Name="f2I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="237" BitOffset="0" />
               </Parameter>
@@ -1180,8 +1180,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-3009" Name="f3E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="318" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="319" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-3026" Name="f3E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-3130" Name="f3E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-3027" Name="f3E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="320" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="324" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-3028" Name="f3E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-3094" Name="f3E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-3029" Name="f3E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="325" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="326" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-3046" Name="f3E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-3131" Name="f3E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-3047" Name="f3E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="327" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="331" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3115" Name="f3E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3116" Name="f3E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3010" Name="f3E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -1211,24 +1235,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3024" Name="f3E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3025" Name="f3E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="327" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-3026" Name="f3E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-3130" Name="f3E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-3027" Name="f3E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="328" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="332" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-3028" Name="f3E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-3094" Name="f3E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-3029" Name="f3E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="333" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="334" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="339" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3030" Name="f3E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3095" Name="f3E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3096" Name="f3E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -1256,14 +1264,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3044" Name="f3E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-3045" Name="f3E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="342" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-3046" Name="f3E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-3131" Name="f3E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-3047" Name="f3E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="343" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-3048" Name="f3I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="347" BitOffset="0" />
               </Parameter>
@@ -1408,8 +1408,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-4009" Name="f4E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="428" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="429" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-4026" Name="f4E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-4130" Name="f4E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-4027" Name="f4E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="430" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="434" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-4028" Name="f4E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-4094" Name="f4E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-4029" Name="f4E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="435" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="436" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-4046" Name="f4E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-4131" Name="f4E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-4047" Name="f4E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="437" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="441" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4115" Name="f4E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4116" Name="f4E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4010" Name="f4E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -1439,24 +1463,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4024" Name="f4E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4025" Name="f4E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="437" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-4026" Name="f4E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-4130" Name="f4E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-4027" Name="f4E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="438" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="442" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-4028" Name="f4E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-4094" Name="f4E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-4029" Name="f4E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="443" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="444" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="449" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4030" Name="f4E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4095" Name="f4E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4096" Name="f4E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -1484,14 +1492,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4044" Name="f4E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-4045" Name="f4E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="452" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-4046" Name="f4E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-4131" Name="f4E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-4047" Name="f4E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="453" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-4048" Name="f4I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="457" BitOffset="0" />
               </Parameter>
@@ -1636,8 +1636,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-5009" Name="f5E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="538" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="539" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-5026" Name="f5E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-5130" Name="f5E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-5027" Name="f5E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="540" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="544" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-5028" Name="f5E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-5094" Name="f5E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-5029" Name="f5E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="545" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="546" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-5046" Name="f5E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-5131" Name="f5E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-5047" Name="f5E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="547" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="551" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5115" Name="f5E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5116" Name="f5E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5010" Name="f5E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -1667,24 +1691,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5024" Name="f5E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5025" Name="f5E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="547" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-5026" Name="f5E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-5130" Name="f5E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-5027" Name="f5E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="548" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="552" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-5028" Name="f5E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-5094" Name="f5E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-5029" Name="f5E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="553" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="554" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="559" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5030" Name="f5E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5095" Name="f5E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5096" Name="f5E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -1712,14 +1720,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5044" Name="f5E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-5045" Name="f5E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="562" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-5046" Name="f5E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-5131" Name="f5E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-5047" Name="f5E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="563" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-5048" Name="f5I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="567" BitOffset="0" />
               </Parameter>
@@ -1864,8 +1864,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-6009" Name="f6E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="648" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="649" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-6026" Name="f6E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-6130" Name="f6E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-6027" Name="f6E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="650" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="654" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-6028" Name="f6E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-6094" Name="f6E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-6029" Name="f6E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="655" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="656" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-6046" Name="f6E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-6131" Name="f6E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-6047" Name="f6E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="657" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="661" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6115" Name="f6E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6116" Name="f6E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6010" Name="f6E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -1895,24 +1919,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6024" Name="f6E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6025" Name="f6E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="657" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-6026" Name="f6E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-6130" Name="f6E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-6027" Name="f6E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="658" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="662" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-6028" Name="f6E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-6094" Name="f6E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-6029" Name="f6E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="663" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="664" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="669" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6030" Name="f6E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6095" Name="f6E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6096" Name="f6E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -1940,14 +1948,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6044" Name="f6E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-6045" Name="f6E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="672" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-6046" Name="f6E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-6131" Name="f6E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-6047" Name="f6E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="673" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-6048" Name="f6I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="677" BitOffset="0" />
               </Parameter>
@@ -2092,8 +2092,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-7009" Name="f7E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="758" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="759" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-7026" Name="f7E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-7130" Name="f7E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-7027" Name="f7E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="760" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="764" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-7028" Name="f7E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-7094" Name="f7E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-7029" Name="f7E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="765" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="766" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-7046" Name="f7E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-7131" Name="f7E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-7047" Name="f7E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="767" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="771" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7115" Name="f7E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7116" Name="f7E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7010" Name="f7E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -2123,24 +2147,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7024" Name="f7E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7025" Name="f7E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="767" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-7026" Name="f7E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-7130" Name="f7E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-7027" Name="f7E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="768" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="772" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-7028" Name="f7E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-7094" Name="f7E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-7029" Name="f7E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="773" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="774" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="779" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7030" Name="f7E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7095" Name="f7E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7096" Name="f7E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -2168,14 +2176,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7044" Name="f7E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-7045" Name="f7E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="782" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-7046" Name="f7E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-7131" Name="f7E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-7047" Name="f7E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="783" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-7048" Name="f7I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="787" BitOffset="0" />
               </Parameter>
@@ -2320,8 +2320,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-8009" Name="f8E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="868" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="869" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-8026" Name="f8E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-8130" Name="f8E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-8027" Name="f8E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="870" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="874" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-8028" Name="f8E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-8094" Name="f8E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-8029" Name="f8E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="875" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="876" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-8046" Name="f8E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-8131" Name="f8E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-8047" Name="f8E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="877" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="881" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8115" Name="f8E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8116" Name="f8E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8010" Name="f8E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -2351,24 +2375,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8024" Name="f8E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8025" Name="f8E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="877" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-8026" Name="f8E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-8130" Name="f8E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-8027" Name="f8E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="878" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="882" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-8028" Name="f8E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-8094" Name="f8E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-8029" Name="f8E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="883" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="884" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="889" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8030" Name="f8E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8095" Name="f8E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8096" Name="f8E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -2396,14 +2404,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8044" Name="f8E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-8045" Name="f8E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="892" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-8046" Name="f8E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-8131" Name="f8E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-8047" Name="f8E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="893" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-8048" Name="f8I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="897" BitOffset="0" />
               </Parameter>
@@ -2548,8 +2548,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-9009" Name="f9E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="978" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="979" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-9026" Name="f9E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-9130" Name="f9E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-9027" Name="f9E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="980" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="984" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-9028" Name="f9E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-9094" Name="f9E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-9029" Name="f9E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="985" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="986" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-9046" Name="f9E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-9131" Name="f9E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-9047" Name="f9E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="987" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="991" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9115" Name="f9E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9116" Name="f9E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9010" Name="f9E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -2579,24 +2603,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9024" Name="f9E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9025" Name="f9E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="987" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-9026" Name="f9E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-9130" Name="f9E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-9027" Name="f9E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="988" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="992" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-9028" Name="f9E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-9094" Name="f9E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-9029" Name="f9E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="993" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="994" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="999" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9030" Name="f9E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9095" Name="f9E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9096" Name="f9E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -2624,14 +2632,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9044" Name="f9E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-9045" Name="f9E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1002" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-9046" Name="f9E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-9131" Name="f9E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-9047" Name="f9E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1003" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-9048" Name="f9I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1007" BitOffset="0" />
               </Parameter>
@@ -2776,8 +2776,32 @@
               <Parameter Id="M-00FA_A-0067-11-0000_P-10009" Name="f10E1Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1088" BitOffset="0" />
               </Parameter>
-              <Union SizeInBit="64">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1089" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-10026" Name="f10E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-10130" Name="f10E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-10027" Name="f10E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1090" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1094" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-10028" Name="f10E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-10094" Name="f10E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-10029" Name="f10E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1095" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="8">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1096" BitOffset="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-10046" Name="f10E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+                <Parameter Id="M-00FA_A-0067-11-0000_P-10131" Name="f10E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+              </Union>
+              <Parameter Id="M-00FA_A-0067-11-0000_P-10047" Name="f10E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1097" BitOffset="0" />
+              </Parameter>
+              <Union SizeInBit="64">
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1101" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10115" Name="f10E1LowDelta" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Von-Wert" Value="-10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10116" Name="f10E1HighDelta" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-Delta" Text="Bis-Wert" Value="10" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10010" Name="f10E1LowDpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 1 ist EIN, wenn Wert gleich" Value="1" />
@@ -2807,24 +2831,8 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10024" Name="f10E1LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10025" Name="f10E1HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1097" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-10026" Name="f10E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-10130" Name="f10E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-10027" Name="f10E1Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1098" BitOffset="0" />
-              </Parameter>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1102" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-10028" Name="f10E2" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Eingang 2" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-10094" Name="f10E2Convert" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-InputConv" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-10029" Name="f10E2Dpt" ParameterType="M-00FA_A-0067-11-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1103" BitOffset="0" />
-              </Parameter>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1104" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1109" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10030" Name="f10E2Low0Dpt2" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="Eingang 2 ist EIN, wenn Wert gleich " Value="1" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10095" Name="f10E2Low1Dpt2" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10096" Name="f10E2Low2Dpt2" Offset="2" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueDpt2" Text="... oder wenn Wert gleich " Value="4" />
@@ -2852,14 +2860,6 @@
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10044" Name="f10E2LowDptRGB" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Von-Wert" Value="8388608" />
                 <Parameter Id="M-00FA_A-0067-11-0000_P-10045" Name="f10E2HighDptRGB" Offset="4" BitOffset="0" ParameterType="M-00FA_A-0067-11-0000_PT-ValueRGB" Text="Bis-Wert" Value="16777216" />
               </Union>
-              <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1112" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-10046" Name="f10E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-11-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-                <Parameter Id="M-00FA_A-0067-11-0000_P-10131" Name="f10E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-11-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-              </Union>
-              <Parameter Id="M-00FA_A-0067-11-0000_P-10047" Name="f10E2Repeat" ParameterType="M-00FA_A-0067-11-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1113" BitOffset="0" />
-              </Parameter>
               <Parameter Id="M-00FA_A-0067-11-0000_P-10048" Name="f10I1" ParameterType="M-00FA_A-0067-11-0000_PT-InputEnable" Text="Kanalausgang X" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-11-0000_RS-04-00000" Offset="1117" BitOffset="0" />
               </Parameter>

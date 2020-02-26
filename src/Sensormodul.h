@@ -92,69 +92,69 @@
 #define LOG_fE1                        9      // 4 Bits, Bit 3-0
 #define LOG_fE1Convert                 9      // 4 Bits, Bit 7-4
 #define LOG_fE1Dpt                    10      // 8 Bits, Bit 7-0
-#define LOG_fE1LowDelta               11      // int32_t
-#define LOG_fE1HighDelta              15      // int32_t
-#define LOG_fE1LowDpt2                11      // 8 Bits, Bit 7-0
-#define LOG_fE1Low1Dpt2               12      // 8 Bits, Bit 7-0
-#define LOG_fE1Low2Dpt2               13      // 8 Bits, Bit 7-0
-#define LOG_fE1Low3Dpt2               14      // 8 Bits, Bit 7-0
-#define LOG_fE1LowDpt5                11      // uint8_t
-#define LOG_fE1HighDpt5               15      // uint8_t
-#define LOG_fE1LowDpt5001             11      // uint8_t
-#define LOG_fE1HighDpt5001            15      // uint8_t
-#define LOG_fE1LowDpt6                11      // int8_t
-#define LOG_fE1HighDpt6               15      // int8_t
-#define LOG_fE1LowDpt7                11      // uint16_t
-#define LOG_fE1HighDpt7               15      // uint16_t
-#define LOG_fE1LowDpt8                11      // int16_t
-#define LOG_fE1HighDpt8               15      // int16_t
-#define LOG_fE1LowDpt9                11      // float
-#define LOG_fE1HighDpt9               15      // float
-#define LOG_fE1Low0Dpt17              11      // uint8_t
-#define LOG_fE1Low1Dpt17              12      // uint8_t
-#define LOG_fE1Low2Dpt17              13      // uint8_t
-#define LOG_fE1Low3Dpt17              14      // uint8_t
-#define LOG_fE1Low4Dpt17              15      // uint8_t
-#define LOG_fE1Low5Dpt17              16      // uint8_t
-#define LOG_fE1Low6Dpt17              17      // uint8_t
-#define LOG_fE1Low7Dpt17              18      // uint8_t
-#define LOG_fE1LowDptRGB              11      // int32_t
-#define LOG_fE1HighDptRGB             15      // int32_t
-#define LOG_fE1Default                19      // 2 Bits, Bit 1-0
-#define LOG_fE1DefaultEEPROM          19      // 1 Bit, Bit 2
-#define LOG_fE1Repeat                 20      // int32_t
-#define LOG_fE2                       24      // 4 Bits, Bit 3-0
-#define LOG_fE2Convert                24      // 4 Bits, Bit 7-4
-#define LOG_fE2Dpt                    25      // 8 Bits, Bit 7-0
-#define LOG_fE2Low0Dpt2               26      // 8 Bits, Bit 7-0
-#define LOG_fE2Low1Dpt2               27      // 8 Bits, Bit 7-0
-#define LOG_fE2Low2Dpt2               28      // 8 Bits, Bit 7-0
-#define LOG_fE2Low3Dpt2               29      // 8 Bits, Bit 7-0
-#define LOG_fE2LowDpt5                26      // uint8_t
-#define LOG_fE2HighDpt5               30      // uint8_t
-#define LOG_fE2LowDpt5001             26      // uint8_t
-#define LOG_fE2HighDpt5001            30      // uint8_t
-#define LOG_fE2LowDpt6                26      // int8_t
-#define LOG_fE2HighDpt6               30      // int8_t
-#define LOG_fE2LowDpt7                26      // uint16_t
-#define LOG_fE2HighDpt7               30      // uint16_t
-#define LOG_fE2LowDpt8                26      // int16_t
-#define LOG_fE2HighDpt8               30      // int16_t
-#define LOG_fE2LowDpt9                26      // float
-#define LOG_fE2HighDpt9               30      // float
-#define LOG_fE2Low0Dpt17              26      // uint8_t
-#define LOG_fE2Low1Dpt17              27      // uint8_t
-#define LOG_fE2Low2Dpt17              28      // uint8_t
-#define LOG_fE2Low3Dpt17              29      // uint8_t
-#define LOG_fE2Low4Dpt17              30      // uint8_t
-#define LOG_fE2Low5Dpt17              31      // uint8_t
-#define LOG_fE2Low6Dpt17              32      // uint8_t
-#define LOG_fE2Low7Dpt17              33      // uint8_t
-#define LOG_fE2LowDptRGB              26      // int32_t
-#define LOG_fE2HighDptRGB             30      // int32_t
-#define LOG_fE2Default                34      // 2 Bits, Bit 1-0
-#define LOG_fE2DefaultEEPROM          34      // 1 Bit, Bit 2
-#define LOG_fE2Repeat                 35      // int32_t
+#define LOG_fE1Default                11      // 2 Bits, Bit 1-0
+#define LOG_fE1DefaultEEPROM          11      // 1 Bit, Bit 2
+#define LOG_fE1Repeat                 12      // int32_t
+#define LOG_fE2                       16      // 4 Bits, Bit 3-0
+#define LOG_fE2Convert                16      // 4 Bits, Bit 7-4
+#define LOG_fE2Dpt                    17      // 8 Bits, Bit 7-0
+#define LOG_fE2Default                18      // 2 Bits, Bit 1-0
+#define LOG_fE2DefaultEEPROM          18      // 1 Bit, Bit 2
+#define LOG_fE2Repeat                 19      // int32_t
+#define LOG_fE1LowDelta               23      // int32_t
+#define LOG_fE1HighDelta              27      // int32_t
+#define LOG_fE1LowDpt2                23      // 8 Bits, Bit 7-0
+#define LOG_fE1Low1Dpt2               24      // 8 Bits, Bit 7-0
+#define LOG_fE1Low2Dpt2               25      // 8 Bits, Bit 7-0
+#define LOG_fE1Low3Dpt2               26      // 8 Bits, Bit 7-0
+#define LOG_fE1LowDpt5                23      // uint8_t
+#define LOG_fE1HighDpt5               27      // uint8_t
+#define LOG_fE1LowDpt5001             23      // uint8_t
+#define LOG_fE1HighDpt5001            27      // uint8_t
+#define LOG_fE1LowDpt6                23      // int8_t
+#define LOG_fE1HighDpt6               27      // int8_t
+#define LOG_fE1LowDpt7                23      // uint16_t
+#define LOG_fE1HighDpt7               27      // uint16_t
+#define LOG_fE1LowDpt8                23      // int16_t
+#define LOG_fE1HighDpt8               27      // int16_t
+#define LOG_fE1LowDpt9                23      // float
+#define LOG_fE1HighDpt9               27      // float
+#define LOG_fE1Low0Dpt17              23      // uint8_t
+#define LOG_fE1Low1Dpt17              24      // uint8_t
+#define LOG_fE1Low2Dpt17              25      // uint8_t
+#define LOG_fE1Low3Dpt17              26      // uint8_t
+#define LOG_fE1Low4Dpt17              27      // uint8_t
+#define LOG_fE1Low5Dpt17              28      // uint8_t
+#define LOG_fE1Low6Dpt17              29      // uint8_t
+#define LOG_fE1Low7Dpt17              30      // uint8_t
+#define LOG_fE1LowDptRGB              23      // int32_t
+#define LOG_fE1HighDptRGB             27      // int32_t
+#define LOG_fE2Low0Dpt2               31      // 8 Bits, Bit 7-0
+#define LOG_fE2Low1Dpt2               32      // 8 Bits, Bit 7-0
+#define LOG_fE2Low2Dpt2               33      // 8 Bits, Bit 7-0
+#define LOG_fE2Low3Dpt2               34      // 8 Bits, Bit 7-0
+#define LOG_fE2LowDpt5                31      // uint8_t
+#define LOG_fE2HighDpt5               35      // uint8_t
+#define LOG_fE2LowDpt5001             31      // uint8_t
+#define LOG_fE2HighDpt5001            35      // uint8_t
+#define LOG_fE2LowDpt6                31      // int8_t
+#define LOG_fE2HighDpt6               35      // int8_t
+#define LOG_fE2LowDpt7                31      // uint16_t
+#define LOG_fE2HighDpt7               35      // uint16_t
+#define LOG_fE2LowDpt8                31      // int16_t
+#define LOG_fE2HighDpt8               35      // int16_t
+#define LOG_fE2LowDpt9                31      // float
+#define LOG_fE2HighDpt9               35      // float
+#define LOG_fE2Low0Dpt17              31      // uint8_t
+#define LOG_fE2Low1Dpt17              32      // uint8_t
+#define LOG_fE2Low2Dpt17              33      // uint8_t
+#define LOG_fE2Low3Dpt17              34      // uint8_t
+#define LOG_fE2Low4Dpt17              35      // uint8_t
+#define LOG_fE2Low5Dpt17              36      // uint8_t
+#define LOG_fE2Low6Dpt17              37      // uint8_t
+#define LOG_fE2Low7Dpt17              38      // uint8_t
+#define LOG_fE2LowDptRGB              31      // int32_t
+#define LOG_fE2HighDptRGB             35      // int32_t
 #define LOG_fI1                       39      // 4 Bits, Bit 7-4
 #define LOG_fI1Function               40      // int32_t
 #define LOG_fI2                       44      // 4 Bits, Bit 7-4
