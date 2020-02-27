@@ -217,7 +217,7 @@
 #define LOG_fOOffPADevice             97      // uint8_t
 
 // Communication objects per channel (multiple occurance)
-#define LOG_KoOffset 40
+#define LOG_KoOffset 50
 #define LOG_KoBlockSize 3
 #define LOG_KoKOfE1 0
 #define LOG_KoKOfE2 1
@@ -227,27 +227,27 @@
 #define LOG_KoHeartbeat 1
 #define LOG_KoTime 2
 #define LOG_KoDate 3
-#define LOG_KoRequestValues 7
-#define LOG_KoError 8
-#define LOG_KoDiagnose 9
-#define LOG_KoTemp 10
-#define LOG_KoHum 11
-#define LOG_KoPre 12
-#define LOG_KoVOC 13
-#define LOG_KoCo2 14
-#define LOG_KoCo2b 15
-#define LOG_KoDewpoint 16
-#define LOG_KoComfort 17
-#define LOG_KoAirquality 18
-#define LOG_KoSensorAccuracy 19
-#define LOG_KoExt1Temp 24
-#define LOG_KoExt2Temp 25
-#define LOG_KoExt1Hum 26
-#define LOG_KoExt2Hum 27
-#define LOG_KoExt1Pre 28
-#define LOG_KoExt2Pre 29
-#define LOG_KoExt1VOC 30
-#define LOG_KoExt2VOC 31
-#define LOG_KoExt1Co2 32
-#define LOG_KoExt2Co2 33
+#define LOG_KoRequestValues 10
+#define LOG_KoError 11
+#define LOG_KoDiagnose 12
+#define LOG_KoTemp 15
+#define LOG_KoHum 16
+#define LOG_KoPre 17
+#define LOG_KoVOC 18
+#define LOG_KoCo2 19
+#define LOG_KoCo2b 20
+#define LOG_KoDewpoint 21
+#define LOG_KoComfort 22
+#define LOG_KoAirquality 23
+#define LOG_KoSensorAccuracy 24
+#define LOG_KoExt1Temp 30
+#define LOG_KoExt2Temp 31
+#define LOG_KoExt1Hum 32
+#define LOG_KoExt2Hum 33
+#define LOG_KoExt1Pre 34
+#define LOG_KoExt2Pre 35
+#define LOG_KoExt1VOC 36
+#define LOG_KoExt2VOC 37
+#define LOG_KoExt1Co2 38
+#define LOG_KoExt2Co2 39
 
