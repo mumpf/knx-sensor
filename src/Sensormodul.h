@@ -78,7 +78,7 @@
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 88
-#define LOG_ParamBlockSize 110
+#define LOG_ParamBlockSize 100
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
 #define LOG_fCalculate                 5      // 8 Bits, Bit 7-0
@@ -129,6 +129,8 @@
 #define LOG_fE1Low7Dpt17              30      // uint8_t
 #define LOG_fE1LowDptRGB              23      // int32_t
 #define LOG_fE1HighDptRGB             27      // int32_t
+#define LOG_fE2LowDelta               31      // int32_t
+#define LOG_fE2HighDelta              35      // int32_t
 #define LOG_fE2Low0Dpt2               31      // 8 Bits, Bit 7-0
 #define LOG_fE2Low1Dpt2               32      // 8 Bits, Bit 7-0
 #define LOG_fE2Low2Dpt2               33      // 8 Bits, Bit 7-0
@@ -156,65 +158,65 @@
 #define LOG_fE2LowDptRGB              31      // int32_t
 #define LOG_fE2HighDptRGB             35      // int32_t
 #define LOG_fI1                       39      // 4 Bits, Bit 7-4
-#define LOG_fI1Function               40      // int32_t
-#define LOG_fI2                       44      // 4 Bits, Bit 7-4
-#define LOG_fI2Function               45      // int32_t
-#define LOG_fOStair                   49      // 8 Bits, Bit 7-0
-#define LOG_fOTimeBase                50      // 8 Bits, Bit 7-0
-#define LOG_fOTime                    51      // int32_t
-#define LOG_fORetrigger               55      // 8 Bits, Bit 7-0
-#define LOG_fOStairOff                56      // 8 Bits, Bit 7-0
-#define LOG_fOBlink                   57      // int32_t
-#define LOG_fODelay                   61      // 1 Bit, Bit 7
-#define LOG_fODelayOnRepeat           61      // 2 Bits, Bit 6-5
-#define LOG_fODelayOnReset            61      // 1 Bit, Bit 4
-#define LOG_fODelayOffRepeat          61      // 2 Bits, Bit 3-2
-#define LOG_fODelayOffReset           61      // 1 Bit, Bit 1
-#define LOG_fODelayOn                 62      // int32_t
-#define LOG_fODelayOff                66      // int32_t
-#define LOG_fORepeat                  70      // 1 Bit, Bit 7
-#define LOG_fOOutputFilter            70      // 2 Bits, Bit 6-5
-#define LOG_fORepeatOn                71      // int32_t
-#define LOG_fORepeatOff               75      // int32_t
-#define LOG_fODpt                     79      // 8 Bits, Bit 7-0
-#define LOG_fOOn                      80      // 8 Bits, Bit 7-0
-#define LOG_fOOnBuzzer                80      // 8 Bits, Bit 7-0
-#define LOG_fOOnLed                   80      // 8 Bits, Bit 7-0
-#define LOG_fOOnAll                   80      // 8 Bits, Bit 7-0
-#define LOG_fOOnTone                  81      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt1                  81      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt2                  81      // 8 Bits, Bit 7-0
-#define LOG_fOOnDpt5                  81      // uint8_t
-#define LOG_fOOnDpt5001               81      // uint8_t
-#define LOG_fOOnDpt6                  81      // int8_t
-#define LOG_fOOnDpt7                  81      // uint16_t
-#define LOG_fOOnDpt8                  81      // int16_t
-#define LOG_fOOnDpt9                  81      // float
-#define LOG_fOOnDpt16                 81      // char*, 14 Byte
-#define LOG_fOOnDpt17                 81      // uint8_t
-#define LOG_fOOnRGB                   81      // color, uint, 3 Byte
-#define LOG_fOOnPAArea                81      // 4 Bits, Bit 7-4
-#define LOG_fOOnPALine                81      // 4 Bits, Bit 3-0
-#define LOG_fOOnPADevice              82      // uint8_t
-#define LOG_fOOff                     95      // 8 Bits, Bit 7-0
-#define LOG_fOOffBuzzer               95      // 8 Bits, Bit 7-0
-#define LOG_fOOffLed                  95      // 8 Bits, Bit 7-0
-#define LOG_fOOffAll                  95      // 8 Bits, Bit 7-0
-#define LOG_fOOffTone                 96      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt1                 96      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt2                 96      // 8 Bits, Bit 7-0
-#define LOG_fOOffDpt5                 96      // uint8_t
-#define LOG_fOOffDpt5001              96      // uint8_t
-#define LOG_fOOffDpt6                 96      // int8_t
-#define LOG_fOOffDpt7                 96      // uint16_t
-#define LOG_fOOffDpt8                 96      // int16_t
-#define LOG_fOOffDpt9                 96      // float
-#define LOG_fOOffDpt16                96      // char*, 14 Byte
-#define LOG_fOOffDpt17                96      // uint8_t
-#define LOG_fOOffRGB                  96      // color, uint, 3 Byte
-#define LOG_fOOffPAArea               96      // 4 Bits, Bit 7-4
-#define LOG_fOOffPALine               96      // 4 Bits, Bit 3-0
-#define LOG_fOOffPADevice             97      // uint8_t
+#define LOG_fI2                       39      // 4 Bits, Bit 3-0
+#define LOG_fI1Function               40      // uint8_t
+#define LOG_fI2Function               41      // uint8_t
+#define LOG_fOTimeBase                42      // 8 Bits, Bit 7-0
+#define LOG_fOTime                    43      // int32_t
+#define LOG_fOBlink                   47      // int32_t
+#define LOG_fODelay                   51      // 1 Bit, Bit 7
+#define LOG_fODelayOnRepeat           51      // 2 Bits, Bit 6-5
+#define LOG_fODelayOnReset            51      // 1 Bit, Bit 4
+#define LOG_fODelayOffRepeat          51      // 2 Bits, Bit 3-2
+#define LOG_fODelayOffReset           51      // 1 Bit, Bit 1
+#define LOG_fODelayOn                 52      // int32_t
+#define LOG_fODelayOff                56      // int32_t
+#define LOG_fOStair                   60      // 1 Bit, Bit 7
+#define LOG_fORetrigger               60      // 1 Bit, Bit 6
+#define LOG_fOStairOff                60      // 1 Bit, Bit 5
+#define LOG_fORepeat                  60      // 1 Bit, Bit 4
+#define LOG_fOOutputFilter            60      // 2 Bits, Bit 3-2
+#define LOG_fORepeatOn                61      // int32_t
+#define LOG_fORepeatOff               65      // int32_t
+#define LOG_fODpt                     69      // 8 Bits, Bit 7-0
+#define LOG_fOOn                      70      // 8 Bits, Bit 7-0
+#define LOG_fOOnBuzzer                70      // 8 Bits, Bit 7-0
+#define LOG_fOOnLed                   70      // 8 Bits, Bit 7-0
+#define LOG_fOOnAll                   70      // 8 Bits, Bit 7-0
+#define LOG_fOOnTone                  71      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt1                  71      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt2                  71      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt5                  71      // uint8_t
+#define LOG_fOOnDpt5001               71      // uint8_t
+#define LOG_fOOnDpt6                  71      // int8_t
+#define LOG_fOOnDpt7                  71      // uint16_t
+#define LOG_fOOnDpt8                  71      // int16_t
+#define LOG_fOOnDpt9                  71      // float
+#define LOG_fOOnDpt16                 71      // char*, 14 Byte
+#define LOG_fOOnDpt17                 71      // uint8_t
+#define LOG_fOOnRGB                   71      // color, uint, 3 Byte
+#define LOG_fOOnPAArea                71      // 4 Bits, Bit 7-4
+#define LOG_fOOnPALine                71      // 4 Bits, Bit 3-0
+#define LOG_fOOnPADevice              72      // uint8_t
+#define LOG_fOOff                     85      // 8 Bits, Bit 7-0
+#define LOG_fOOffBuzzer               85      // 8 Bits, Bit 7-0
+#define LOG_fOOffLed                  85      // 8 Bits, Bit 7-0
+#define LOG_fOOffAll                  85      // 8 Bits, Bit 7-0
+#define LOG_fOOffTone                 86      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt1                 86      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt2                 86      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt5                 86      // uint8_t
+#define LOG_fOOffDpt5001              86      // uint8_t
+#define LOG_fOOffDpt6                 86      // int8_t
+#define LOG_fOOffDpt7                 86      // uint16_t
+#define LOG_fOOffDpt8                 86      // int16_t
+#define LOG_fOOffDpt9                 86      // float
+#define LOG_fOOffDpt16                86      // char*, 14 Byte
+#define LOG_fOOffDpt17                86      // uint8_t
+#define LOG_fOOffRGB                  86      // color, uint, 3 Byte
+#define LOG_fOOffPAArea               86      // 4 Bits, Bit 7-4
+#define LOG_fOOffPALine               86      // 4 Bits, Bit 3-0
+#define LOG_fOOffPADevice             87      // uint8_t
 
 // Communication objects per channel (multiple occurance)
 #define LOG_KoOffset 50

@@ -433,6 +433,8 @@
                   </when>
                 </choose>
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-160_R-1" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-160_R-1">
                   <when test="0">
@@ -496,7 +498,22 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-5_R-1" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-6_R-1" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-7_R-1" />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_P-7_R-1">
+                  <when test="0">
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Ohne EEPROM kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-160_R-1">
+                      <when test="15 31">
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Ohne EEPROM kann der BME680 seine Kalibrierungswerte nicht speichern und muss sich nach einem Neustart jedesmal neu kalibrieren. Das kann jedesmal bis zu 2 Tagen dauern." UIHint="Information" />
+                      </when>
+                    </choose>
+                  </when>
+                </choose>
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-8_R-1" />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_P-8_R-1">
+                  <when test="0">
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Ohne Abschaltmöglichkeit der Zusatzhardware (Sensoren, LED, Buzzer, 1-Wire) kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
+                  </when>
+                </choose>
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-2" Text="" UIHint="HorizontalRuler" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-100_R-1" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_P-100_R-1">
