@@ -8,7 +8,7 @@
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="17" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="10 11 13 14">
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="18" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />

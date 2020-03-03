@@ -16,8 +16,13 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 ## Allgemeine Parameter
 
 ![Allgemeine Parameter](./AllgemeineParameter.png)
-Hier werden Einstellungen getroffen, die die genere
-lle Arbeitsweise des Sensormoduls bestimmen. 
+Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Sensormoduls bestimmen.
+
+### Anzahl verfügbarer Logikkanäle
+
+Dieses Feld gibt an, für wie viele Logikkanäle dieses Applikationsprogramm erstellt wurde.
+
+Es stehen ETS-Applikationen mit 10, 30, 50 und 80 Logikkanälen zur Verfügung. Für die Sensorapplikation macht die Anzahl der Logikkanäle keinen funktionalen Unterschied. Allerdings beeinflußt die Anzahl der Logikkanäle wesentlich die Programmierzeit mit der ETS. Ein Sensormodul mit 10 Logikkanälen braucht ca. 30 Sekunden für die Programmierung, mit 80 Logikkanälen weit über 3 Minuten. Die Programmierzeit hängt immer von der Anzahl der verfügbaren Logikkanäle ab, nicht von der Anzahl der genutzen.
 
 ### Zeit bis das Gerät nach einem Neustart aktiv wird
 
@@ -29,11 +34,27 @@ Da das Gerät prinzipiell (sofern parametriert) auch Lesetelegramme auf den Bus 
 
 Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hier wird das Sendeintervall in Sekunden eingestellt.
 
-### Sensor
+### Uhrzeit und Datum nach einem Neustart vom Bus lesen
 
-Mit dem Auswahlfeld Sensor wird der angeschlossene Sensor ausgewählt. In den folgenden Anzeigefeldern wird angezeigt, welche Messungen von dem Sensor vorgenommen werden. Um alle unterstützten Messungen vornehmen zu können, muss man Sensorkombinationen (CO2 + BME280 oder CO2 + BME680) benutzen.
+Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
+
+Derzeit werden die Informationen über Uhrzeit und Datum noch nicht verarbeitet. Sie sind für zukünftige Erweiterungen vorgesehen, vor allem für eine Zeitschaltuhrfunktion.
+
+### Vorhandene Hardware
+
+Die Firmware im Sensormodul unterstützt eine Vielzahl an Hardwarevarianten. Um nicht für jede Hardwarekombination ein eigenes Applikationsprogramm zu benötigen, kann über die folgenden Felder die Hardwareausstattung des Sensormoduls bestimmt werden.
+
+Die Angaben in diesem Teil müssen der vorhandenen Hardware entsprechen, da sie das Verhalten der Applikation und auch der Firmware bestimmen. Das Applikationsprogramm hat keine Möglichkeit, die Korrektheit der Angaben zu überprüfen.
+
+Falsche Angaben können zu falschern Konfigurationen der Applikation und somit zum Fehlverhalten des Sensormoduls führen.
+
+#### Sensor
+
+Mit dem Auswahlfeld Sensor wird der direkt an das Board angeschlossene Sensor ausgewählt. In den folgenden Anzeigefeldern wird angezeigt, welche Messungen von dem Sensor vorgenommen werden. Um alle unterstützten Messungen vornehmen zu können, muss man Sensorkombinationen (CO2 + BME280 oder CO2 + BME680) benutzen.
 
 Die Auswahl von 1-Wire-Sensoren ist auch möglich, wird aber derzeit weder von der Applikation noch von der Firmware im Sensormodul unterstützt (zukünftige Erweiterung).
+
+Wird beim Sensor "None" ausgewählt, ist kein Sensor direkt auf dem Board installiert. Dann wird das Modul ausschließlich als Logikmodul oder 1-Wire-Busmaster verwendet.
 
 #### Temperatur
 
@@ -63,13 +84,34 @@ Dieses Eingabefeld kann bei jedem Sensor zusätzlich ausgewählt werden, falls a
 
 Anmerkung: Die Einstellungen und die Abfrage von 1-Wire-Sensoren sind derzeit noch nicht unterstützt.
 
-### Logikfunktionen freischalten
+#### Akustischer Signalgeber vorhanden (Buzzer)?
 
-Mit einem "Ja" können hier die vom Sensormodul unterstützten Logikkanäle zur Benutzung freigeschaltet werden. Es werden weitere Konfigurationsseiten für die einzelnen Logikkanäle freigeschatet.
+Das Sensormodul unterstützt auch die Ausgabe von Pieptönen mittels eines Buzzers. Mit einem Haken in diesem Feld wird angegeben, ob ein Buzzer installiert ist.
 
-Die Anzahl der verfügbaren Logikkanäle hängt von der verwendeten ETS-Applikation ab. Es stehen ETS-Applikationen mit 10, 20, 40 und 60 Logikkanälen zur Verfügung. Für die Sensorapplikation macht die Anzahl der Logikkanäle keinen funktionalen Unterschied. Allerdings beeinflußt die Anzahl der Logikkanäle wesentlich die Programmierzeit mit der ETS. Ein Sensormodul mit 10 Logikkanälen braucht ca. 30 Sekunden für die Programmierung, mit 60 Logikkanälen ca. 3 Minuten. Die Programmierzeit hängt immer von der Anzahl der verfügbaren Logikkanälen ab, nicht von der Anzahl der genutzen.
+#### Optischer Signalgeber vorhanden (RGB-LED)?
 
-Diese Einstellung dient nur der Übersichtlichkeit der ETS-Applikation und hat keine funktionalen Auswrikungen.
+Das Sensormodul unterstützt auch die Ausgabe eines Lichtsignals mittels einer RGB-LED. Mit einem Haken in diesem Feld wird angegeben, ob eine RGB-LED installiert ist.
+
+Wird eine RGB-LED und der CO<sub>2</sub>-Sensor ausgewählt, erscheint folgende Information:
+![Info RGB-LED](InfoRgbLed.png)
+
+Diese Information besagt, dass der Betrieb einer RBG-LED und des CO<sub>2</sub>-Sensors gleichzeitig nicht empfohlen wird, sofern das Sensormodul vom KNX-Bus gespeist werden soll. Da der vom KNX-Bus gelieferte Strom nicht für den Betrieb beider ausreicht, kann es zu Funktionsstörungen kommen, bis hin zu Resets des Sensormoduls und zum Funktionsausfall. Falls das Sensormodul über eine zusätzliche Stromversorgung verfügt (z.B. USB), kann diese Einstellung so belassen werden. Die Applikation wird bei dieser Einstellung nicht weiter eingeschränkt.
+
+#### Nichtflüchtiger Speicher vorhanden (EEPROM)
+
+Ein EEPROM ist ein Speicher, der seine Informationen auch nach einem Stromausfall nicht verliert. Ein solches EEPROM wird von der Firmware genutzt, um Werte von bestimmten Kommunikationsobjekten zu speichern und die Kalibrierungsdaten vom Voc-Sensor (BME 680).
+
+Ist kein EEPROM auf dem Board vorhanden, können diese Informationen nicht gespeichert werden. Die Applikation wird dann alle Einstellungen, die ein Speichern erlauben, nicht anbieten. In einem solchen Fall erscheinen eine oder zwei der folgenden Informationen:
+![Info EEPROM](InfoEeprom.png)
+
+#### Zusatzhardware abschaltbar (z.B. mit dem NCN5130)?
+
+Damit bei einem Stromausfall Daten in einem EEPROM gespeichert werden können, muss nicht nur ein EEPROM vorhanden sein, sondern auch genügend lange Strom zum Speichern vorhanden sein. Angeschlossene Hardware (Sensoren, LED, Buzzer, 1-Wire-Busmaster) verbrauchen aber viel Strom und verhindern somit die Speicherung bei Stromausfall.
+
+Die Firmware unterstützt aber eine Abschaltung der Hardware, falls der Strom ausfällt. Derzeit wird die Abschaltung nur über den NCN5130 (KNX-Bus-Interface) unterstützt, kann aber bei Bedarf entsprechend um weitere Abschaltmöglichkeiten erweitert werden.
+
+Ist keine Möglichkeit zur Abschaltung vorhanden, wird die Speicherung ins EEPROM unterbunden. Die Applikation wird dann alle Einstellungen, die ein Speichern erlauben, nicht anbieten. In einem solchen Fall erscheint die folgende Information:
+![Info Stromabschaltung](InfoPower.png)
 
 ### Fehler- und Diagnoseobjekt anzeigen
 
@@ -155,12 +197,12 @@ wobei
 
 * X<sub>neu</sub> der geglättete Wert,
 * X<sub>alt</sub> der zuvor ermittelte geglättete Wert,
-* M der aktuelle Messwert und 
+* M der aktuelle Messwert und
 * P der einzugebende Glättungsfaktor
 
 ist. Intern wird alle 5 Sekunden ein neuer Messwert ermittelt, der dann mittels dieser Formel geglättet wird. Ein P von 1 führt zu keiner Glättung, jeder Messwert wird übernommen. Ein Wert von 12 führt zu einer Glättung über die Werte einer Minute (5s * 12 = 60s), ein Wert von 120 zu einer Glättung von 10 Minuten und 720 zu einer Glättung von einer Stunde.
 
-Die Glättung wird durchgeführt, bevor eine Sendebedingung für die absolute oder relative Abweichung ermittelt wird. 
+Die Glättung wird durchgeführt, bevor eine Sendebedingung für die absolute oder relative Abweichung ermittelt wird.
 
 Der neu ermittelete Wert wird alle 5 Sekunden auf das entsprechende KO geschrieben, ganz egal, ob das KO diesen Wert sendet oder nicht. Somit können vom Sensormdul alle 5 Sekunden aktuelle Sensorwerte gelesen werden, unabhängig von parametriesierten Sendebedingungen.
 
@@ -268,7 +310,7 @@ Es gibt verschiedene Versionen dieser Applikation:
 * Sensormodul-v1.2-50.knxprod
 * Sensormodul-v1.3-80.knxprod
 
-Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle, angegeben durch die Zahl, die direkt vor der Endung "knxprod" steht. Dies ist sinnvoll, da sich die Anzahl der Logikkanäle erheblich auf die Zeit auswirkt, die die ETS zum programmieren benötigt. Eine Applikation mit 10 Logikkanälen braucht ca. 30 Sekunden zum programmieren, mit 50 Logikkanälen aber bereits 3 Minuten.
+Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle, angegeben durch die Zahl, die direkt vor der Endung "knxprod" steht. Dies ist sinnvoll, da sich die Anzahl der Logikkanäle erheblich auf die Zeit auswirkt, die die ETS zum programmieren benötigt. Eine Applikation mit 10 Logikkanälen braucht ca. 30 Sekunden zum programmieren, mit 80 Logikkanälen aber weit über 3 Minuten.
 
 Da man bei der Erstinbetriebnahme des Sensormoduls nicht unbedingt wissen kann, wie viele Logikkanäle man benötigen wird, würde man potentiell die Applikation mit den meisten Logikkanälen nehmen. Dies erkauft man aber mit eine langen Programmierzeit bei jeder Programmierung - die erfahrungsgemäß häufig vorkommen, wenn man Logiken ausprobiert.
 
@@ -322,27 +364,52 @@ Die ETS läßt leider keine Auswahl, auf welche Version man eine Aktualisierung 
 ## Hardware
 
 Dieses Kapital beschreibt die von dieser Firmware unterstützte Hardware
-
 (noch nicht ausgearbeitet)
+
+Sensormodul Masifi
+
+HCD1080
+
+BME280
+
+BME680
+
+SCD30
 
 Buzzer
 
 RGB-LED
+
+NCN5130
+
+DS2484
 
 ## Übersicht der vorhandenen Kommunikationsobjekte
 
 KO | Name | DPT | Bedeutung
 :---:|:---|---:|:--
 1 | in Betrieb | 1.002 | Meldet zyklisch auf den Bus, dass das Gerät noch funktioniert
-2 | Sensorfehler | 7.001 | Gibt über eine Bitleiste an, welche Messwerte aufgrund eines aufgetretenen Fehlers nicht erfasst werden können. Falls ein ganzer Sensor ausfällt, werden mehrere Bits gleichzeitig gesetzt
-3 | Diagnose | 16.001 | Nur für internen Gebrauch (Debug)
-5 | Temperatur | 9.001 | Temperaturmesswert
-6 | Luftfeuchte | 9.007 | Luftfeuchte
-7 | Luftdruck | 9.006 | Luftdruck
-8 | VOC | 9.* | Voc-Messwert
-9 | CO2 | 9.008 | CO2-Messwert
-11 | Taupunkt | 9.001 | Berechneter Taupunkt
-12 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur
-13 | Luftqualitätsampel | 5.005 | Luftgüte entsprechend deutscher Schulnoten (1-6)
-14 | Kalibrierungsgrad | 5.001 | Kalibrierungsfortschritt vom BME680 in %
-15 | Sensorwerte anfordern | 1.016 | Beim Empfang vom Trigger (1) werden alle Sensorwerte auf den Bus gesendet. So kann man mehrere Leseanforderungen sparen.
+2 | Uhrzeit | 10.001 | Eingnang zum empfangen der Uhrzeit
+3 | Datum | 11.001 | Eingang zum empfangen des Datums
+10 | Sensorwerte anfordern | 1.016 | Beim Empfang vom Trigger (1) werden alle Sensorwerte auf den Bus gesendet. So kann man mehrere Leseanforderungen sparen.
+11 | Sensorfehler | 7.001 | Gibt über eine Bitleiste an, welche Messwerte aufgrund eines aufgetretenen Fehlers nicht erfasst werden können. Falls ein ganzer Sensor ausfällt, werden mehrere Bits gleichzeitig gesetzt
+12 | Diagnose | 16.001 | Nur für internen Gebrauch (Debug)
+15 | Temperatur | 9.001 | Temperaturmesswert
+16 | Luftfeuchte | 9.007 | Luftfeuchte
+17 | Luftdruck | 9.006 | Luftdruck
+18 | VOC | 9.* | Voc-Messwert
+19 | CO2 | 9.008 | CO2-Messwert
+21 | Taupunkt | 9.001 | Berechneter Taupunkt
+22 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur
+23 | Luftqualitätsampel | 5.005 | Luftgüte entsprechend deutscher Schulnoten (1-6)
+24 | Kalibrierungsgrad | 5.001 | Kalibrierungsfortschritt vom BME680 in %
+30 | Externe Temperatur 1 | 9.001 | Eingang für externe Temperatur 1
+31 | Externe Temperatur 2 | 9.001 | Eingang für externe Temperatur 2
+32 | Externe Luftfeuchte 1 | 9.007 | Eingang für externe Luftfeuchte 1
+33 | Externe Luftfeuchte 2 | 9.007 | Eingang für externe Luftfeuchte 2
+34 | Externer Lufttdruck 1 | 9.006 | Eingang für externen Luftdruck 1
+35 | Externer Lufttdruck 2 | 9.006 | Eingang für externen Luftdruck 2
+36 | Externer VOC 1 | 9.* | Eingang für externen VOC-Wert 1
+37 | Externer VOC 2 | 9.* | Eingang für externen VOC-Wert 2
+38 | Externe CO2 1 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 1
+39 | Externe CO2 2 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 2
