@@ -363,7 +363,7 @@
               <ComObject Id="M-00FA_A-0001-01-0000_O-17" Name="Pre" Text="Luftdruck" Number="17" FunctionText="Messwert in Pascal" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-18" Name="VOC" Text="VOC" Number="18" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-19" Name="Co2" Text="CO2" Number="19" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-20" Name="Co2b" Text="CO2-SCD30" Number="20" FunctionText="Vergleichswert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-20" Name="Co2b" Text="CO2-b" Number="20" FunctionText="Messwert (berechnet) in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-21" Name="Dewpoint" Text="Taupunkt" Number="21" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-22" Name="Comfort" Text="Behaglichkeit" Number="22" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-23" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="23" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
@@ -388,6 +388,7 @@
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-17_R-1" RefId="M-00FA_A-0001-01-0000_O-17" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-18_R-1" RefId="M-00FA_A-0001-01-0000_O-18" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-19_R-1" RefId="M-00FA_A-0001-01-0000_O-19" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-19_R-2" RefId="M-00FA_A-0001-01-0000_O-19" FunctionText="Messwert (berechnet) in ppm" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-20_R-1" RefId="M-00FA_A-0001-01-0000_O-20" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-21_R-1" RefId="M-00FA_A-0001-01-0000_O-21" />
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-22_R-1" RefId="M-00FA_A-0001-01-0000_O-22" />
@@ -730,8 +731,15 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-45" Text="     M: aktueller Messwert vom Sensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-46" Text="     P: einzugebender Parameter" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-47" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-19_R-1" />
                   </ParameterBlock>
+                </when>
+                <when test="15">
+                  <!-- BME680 output to KO19 -->
+                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-19_R-2" />
+                </when>
+                <when test="19 23 31">
+                  <!-- SCD30 output to KO19 -->
+                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-19_R-1" />
                 </when>
                 <when test="31">
                   <!-- Compare object for CO2 comparison -->

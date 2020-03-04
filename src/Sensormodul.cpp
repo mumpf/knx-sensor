@@ -47,7 +47,7 @@ struct sSensorInfo
 
 struct sRuntimeInfo
 {
-    uint16_t currentPipeline;
+    bool isRunning = false;
     sSensorInfo temp;
     sSensorInfo hum;
     sSensorInfo pre;
@@ -61,13 +61,12 @@ struct sRuntimeInfo
     uint16_t countSaveInterrupt = 0;
     uint16_t countSaveOld = 999;
     uint32_t saveInterruptTimestamp = 0;
+    bool forceSensorRead = true;
 };
 
 sRuntimeInfo gRuntimeData;
 uint8_t gSensor = 0;
 Logic gLogic;
-
-bool gForceSensorRead = true;
 
 typedef bool (*getSensorValue)(MeasureType, double&);
 
@@ -95,7 +94,7 @@ void ProcessHeartbeat()
             if (getError()) sendError();
             // write diagnose object
             if (gRuntimeData.countSaveInterrupt != gRuntimeData.countSaveOld) {
-                char buffer[15];
+                char buffer[16];
                 sprintf(buffer, "SAVE %d", gRuntimeData.countSaveInterrupt);
                 knx.getGroupObject(LOG_KoDiagnose).value(buffer, getDPT(VAL_DPT_16));
                 gRuntimeData.countSaveOld = gRuntimeData.countSaveInterrupt;
@@ -148,9 +147,11 @@ void sensorDelayCallback(uint32_t iMillis) {
     // printDebug("sensorDelayCallback: Called with a delay of %lu ms\n", iMillis);
     uint32_t lMillis = millis();
     while (millis() - lMillis < iMillis) {
-        knx.loop();
-        ProcessHeartbeat();
-        gLogic.loop();
+        if (gRuntimeData.isRunning) {
+            knx.loop();
+            ProcessHeartbeat();
+            gLogic.loop();
+        }
     }
     // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
 }
@@ -178,7 +179,7 @@ void StartSensor()
         lSensor = new SensorBME280(lMeasureTypes, 0x76);
         lSensor->begin();
     }
-    if (lSensorFlags == SENSOR_BME680 || lSensorFlags == SENSOR_CO2_BME680)
+    if (lSensorFlags == SENSOR_BME680)
     {
         uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy | Co2);
@@ -195,10 +196,16 @@ void StartSensor()
     // Tempoary for compare both co2 values
     if (lSensorFlags == SENSOR_CO2_BME680) 
     {
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Reserved);
-        lSensor = new SensorSCD30(lMeasureTypes, 0x61);
+        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
+        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy | Reserved);
+        lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback, lMagicWordOffset);
         lSensor->begin();
         gSensor |= BIT_RESERVE;
+
+        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
+        lSensor = new SensorSCD30(lMeasureTypes, 0x61);
+        lSensor->begin();
+        gSensor |= BIT_Co2;
     }
 #endif
 }
@@ -281,6 +288,8 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
                 // we always store the new value in KO, even it it is not sent (to satisfy potential read request)
                 knx.getGroupObject(iKoNumber).valueNoSend(lValue, getDPT(VAL_DPT_9));
             }
+        } else {
+            lSend = false;
         }
         cData->readDelay = millis();
     }
@@ -320,13 +329,18 @@ bool InPolygon(sPoint *iPoly, uint8_t iLen, double iX, double iY)
     return lResult;
 }
 
+static bool sTempHumValid = false;
+
 // Dewpoint is a vitual sensor and might be implemented on sensor class level, but we implement it here (easier and shorter)
 bool CalculateDewValue(MeasureType iMeasureType, double& eValue) {
     double lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)); //gRuntimeData.temp.currentValue;
     double lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));   //gRuntimeData.hum.currentValue;
-    double lLogHum = log(lHum / 100.0);
-    eValue = 243.12 * ((17.62 * lTemp) / (243.12 + lTemp) + lLogHum) / ((17.62 * 243.12) / (243.12 + lTemp) - lLogHum);
-    return true;
+    sTempHumValid = sTempHumValid || (lTemp > 0.0 && lHum > 0.0 && !sTempHumValid);
+    if (sTempHumValid) {
+        double lLogHum = log(lHum / 100.0);
+        eValue = 243.12 * ((17.62 * lTemp) / (243.12 + lTemp) + lLogHum) / ((17.62 * 243.12) / (243.12 + lTemp) - lLogHum);
+    }
+    return sTempHumValid;
 }
 
 void CalculateComfort(bool iForce = false)
@@ -341,7 +355,8 @@ void CalculateComfort(bool iForce = false)
 
         double lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)); //gRuntimeData.temp.currentValue;
         double lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));   //gRuntimeData.hum.currentValue;
-        if (knx.paramByte(LOG_Comfort) & 32)
+        sTempHumValid = sTempHumValid || (lTemp > 0.0 && lHum > 0.0 && !sTempHumValid);
+        if ((knx.paramByte(LOG_Comfort) & 32) && sTempHumValid)
         {
             // comfortzone
             uint8_t lComfort = 0;
@@ -477,6 +492,7 @@ void ProcessSensors(bool iForce = false)
         break;
     case BIT_RESERVE: //Co2b
         ProcessSensor(&gRuntimeData.co2b, ReadSensorValue, Reserved, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2b);
+        break;
     case 0x80:
         if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
             ProcessSensor(&gRuntimeData.dew, CalculateDewValue, static_cast<MeasureType>(Temperature | Humidity), 10.0, 1.0, LOG_DewOffset, LOG_KoDewpoint);
@@ -519,7 +535,7 @@ void ProcessKoCallback(GroupObject &iKo)
         // print("KO-Value is ");
         // println((bool)iKo.value(getDpt(VAL_DPT_1)));
         if ((bool)iKo.value(getDPT(VAL_DPT_1)))
-            gForceSensorRead = true;
+            gRuntimeData.forceSensorRead = true;
     } else if (iKo.asap() >= LOG_KoExt1Temp && iKo.asap() <= LOG_KoExt2Co2) {
         // as soon as we receive any external sensor value, we mark this in our validity map
         gIsExternalValueValid[iKo.asap() - LOG_KoExt1Temp] = 1;
@@ -567,6 +583,7 @@ void appLoop()
     if (startupDelay())
         return;
 
+    gRuntimeData.isRunning = true;
     ProcessInterrupt();
 
     // at this point startup-delay is done
@@ -576,8 +593,8 @@ void appLoop()
     gLogic.loop();
 
     // at Startup, we want to send all values immediately
-    ProcessSensors(gForceSensorRead);
-    gForceSensorRead = false;
+    ProcessSensors(gRuntimeData.forceSensorRead);
+    gRuntimeData.forceSensorRead = false;
 
     Sensor::sensorLoop();
 }
