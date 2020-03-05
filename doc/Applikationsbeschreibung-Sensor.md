@@ -22,7 +22,7 @@ Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Sensormo
 
 Dieses Feld gibt an, für wie viele Logikkanäle dieses Applikationsprogramm erstellt wurde.
 
-Es stehen ETS-Applikationen mit 10, 30, 50 und 80 Logikkanälen zur Verfügung. Für die Sensorapplikation macht die Anzahl der Logikkanäle keinen funktionalen Unterschied. Allerdings beeinflußt die Anzahl der Logikkanäle wesentlich die Programmierzeit mit der ETS. Ein Sensormodul mit 10 Logikkanälen braucht ca. 30 Sekunden für die Programmierung, mit 80 Logikkanälen weit über 3 Minuten. Die Programmierzeit hängt immer von der Anzahl der verfügbaren Logikkanäle ab, nicht von der Anzahl der genutzen.
+Es stehen ETS-Applikationen mit 10, 20, 40 und 80 Logikkanälen zur Verfügung. Für die Sensorapplikation macht die Anzahl der Logikkanäle keinen funktionalen Unterschied. Allerdings beeinflußt die Anzahl der Logikkanäle wesentlich die Programmierzeit mit der ETS. Ein Sensormodul mit 10 Logikkanälen braucht ca. 30 Sekunden für die Programmierung, mit 80 Logikkanälen weit über 3 Minuten. Die Programmierzeit hängt immer von der Anzahl der verfügbaren Logikkanäle ab, nicht von der Anzahl der genutzen.
 
 ### Zeit bis das Gerät nach einem Neustart aktiv wird
 
@@ -306,8 +306,8 @@ Im Allgemeinen sollte es nicht nötig sein, die Kalibrierungsdaten zu löschen. 
 Es gibt verschiedene Versionen dieser Applikation:
 
 * Sensormodul-v1.0-10.knxprod
-* Sensormodul-v1.1-30.knxprod
-* Sensormodul-v1.2-50.knxprod
+* Sensormodul-v1.1-20.knxprod
+* Sensormodul-v1.2-40.knxprod
 * Sensormodul-v1.3-80.knxprod
 
 Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle, angegeben durch die Zahl, die direkt vor der Endung "knxprod" steht. Dies ist sinnvoll, da sich die Anzahl der Logikkanäle erheblich auf die Zeit auswirkt, die die ETS zum programmieren benötigt. Eine Applikation mit 10 Logikkanälen braucht ca. 30 Sekunden zum programmieren, mit 80 Logikkanälen aber weit über 3 Minuten.

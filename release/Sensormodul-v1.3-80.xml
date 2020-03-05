@@ -4,40 +4,41 @@
     <Manufacturer RefId="M-00FA">
       <Catalog>
         <CatalogSection Id="M-00FA_CS-1" Name="Geräte" Number="1" DefaultLanguage="de">
-          <CatalogItem Id="M-00FA_H-WPKNX104-1_HP-0001-01-0000_CI-SELFSENSORETS-1" Name="Sensormodul-ETS-Test" Number="1" ProductRefId="M-00FA_H-WPKNX104-1_P-SELFSENSORETS" Hardware2ProgramRefId="M-00FA_H-WPKNX104-1_HP-0001-01-0000" DefaultLanguage="de" />
+          <CatalogItem Id="M-00FA_H-WPKNX106-1_HP-0001-01-0000_CI-WPSELFSENSOR-1" Name="WP-Sensormodul" Number="1" ProductRefId="M-00FA_H-WPKNX106-1_P-WPSELFSENSOR" Hardware2ProgramRefId="M-00FA_H-WPKNX106-1_HP-0001-01-0000" DefaultLanguage="de" />
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="104" ApplicationVersion="1" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic-ETS-Test" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="106" ApplicationVersion="19" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="16 17 18" > 
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
             </Code>
+            <mc:define NumChannels="80" KoOffset="50" />
             <ParameterTypes>
               <!-- generic parameter types from logicmodule -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
-              <mc:include href="Sensormodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="SENS" />
+              <mc:include href="../src/Sensormodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="SENS" />
             </ParameterTypes>
             <Parameters>
               <!-- Standard parameter in any of our devices -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="LOG" />
-              <mc:include href="Sensormodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="SENS" />
+              <mc:include href="../src/Sensormodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="SENS" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" header="Sensormodul.h" prefix="LOG" />
             </Parameters>
             <ParameterRefs>
               <!-- General -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
-              <mc:include href="Sensormodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="SENS"/>
+              <mc:include href="../src/Sensormodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="SENS"/>
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ParameterRefs/ParameterRef" header="Sensormodul.h" prefix="LOG" />
             </ParameterRefs>
             <ComObjectTable>
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ComObjectTable/ComObject" prefix="LOG" />
-              <mc:include href="Sensormodul.share.xml" xpath="//ComObjectTable/ComObject" prefix="SENS" />
+              <mc:include href="../src/Sensormodul.share.xml" xpath="//ComObjectTable/ComObject" prefix="SENS" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectTable/ComObject" header="Sensormodul.h" prefix="LOG" />
             </ComObjectTable>
             <ComObjectRefs>
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="LOG" />
-              <mc:include href="Sensormodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="SENS" />
+              <mc:include href="../src/Sensormodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="SENS" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectRefs/ComObjectRef" header="Sensormodul.h" prefix="LOG" />
             </ComObjectRefs>
             <AddressTable MaxEntries="65535" />
@@ -53,7 +54,7 @@
             <Options />
           </Static>
           <Dynamic>
-            <mc:include href="Sensormodul.share.xml" xpath="//Dynamic/*" prefix="SENS" />
+            <mc:include href="../src/Sensormodul.share.xml" xpath="//Dynamic/*" prefix="SENS" />
             <!-- <choose ParamRefId="M-00FA_A-0001-01-0000_P-61_R-61"> -->
               <!-- <when test="1"> -->
                 <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel" header="Sensormodul.h" prefix="LOG" />
@@ -66,14 +67,14 @@
         </ApplicationProgram>
       </ApplicationPrograms>
       <Hardware>
-        <Hardware Id="M-00FA_H-WPKNX104-1" Name="WP-Sensormodul" SerialNumber="WPKNX104" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
+        <Hardware Id="M-00FA_H-WPKNX106-1" Name="WP-Sensormodul" SerialNumber="WPKNX106" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
-            <Product Id="M-00FA_H-WPKNX104-1_P-SELFSENSORETS" Text="Sensormodul-ETS-Test" OrderNumber="SELFSENSORETS" IsRailMounted="false" DefaultLanguage="de">
+            <Product Id="M-00FA_H-WPKNX106-1_P-WPSELFSENSOR" Text="WP-Sensormodul" OrderNumber="WPSELFSENSOR" IsRailMounted="false" DefaultLanguage="de">
               <RegistrationInfo RegistrationStatus="Registered" />
             </Product>
           </Products>
           <Hardware2Programs>
-            <Hardware2Program Id="M-00FA_H-WPKNX104-1_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
+            <Hardware2Program Id="M-00FA_H-WPKNX106-1_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
               <ApplicationProgramRef RefId="M-00FA_A-0001-01-0000" />
               <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/110" />
             </Hardware2Program>

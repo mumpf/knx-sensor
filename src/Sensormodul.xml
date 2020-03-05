@@ -8,11 +8,12 @@
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="19" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="18">
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="22" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="21"> 
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
             </Code>
+            <mc:define NumChannels="10" KoOffset="50"/>
             <ParameterTypes>
               <!-- generic parameter types from logicmodule -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
@@ -50,9 +51,6 @@
                 <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="0" Verify="true" />
               </LoadProcedure>
             </LoadProcedures>
-            <Extension>
-              <Baggage RefId="M-00FA_BG--Symbol7.5FAnwesend.2Epng" />
-            </Extension>
             <Options />
           </Static>
           <Dynamic>
@@ -68,11 +66,6 @@
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
-      <Baggages>
-        <Baggage TargetPath="" Name="Symbol7_Anwesend.png" Id="M-00FA_BG--Symbol7.5FAnwesend.2Epng">
-          <FileInfo TimeInfo="2018-12-13T11:21:18.0439219Z" />
-        </Baggage>
-      </Baggages>
       <Hardware>
         <Hardware Id="M-00FA_H-WPKNX103-1" Name="WP-Sensormodul" SerialNumber="WPKNX103" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>

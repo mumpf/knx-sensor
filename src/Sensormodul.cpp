@@ -22,16 +22,18 @@
 #define BIT_Pre 8
 #define BIT_Voc 16
 #define BIT_Co2 32
-#define BIT_RESERVE 64
+#define BIT_Co2Calc 64
 #define BIT_LOGIC 128
 
-#define SENSOR_HDC1080 0x06
-#define SENSOR_BME280 0x0E
-#define SENSOR_BME680 0x1E
-#define SENSOR_CO2 0x26
-#define SENSOR_CO2_BME280 0x2E
-#define SENSOR_CO2_BME680 0x3E
-#define SENSOR_FILTER_INT 0x7E
+#define SENSOR_HDC1080 1
+#define SENSOR_BME280 2
+#define SENSOR_BME280_CO2 3
+#define SENSOR_BME680 4
+#define SENSOR_BME680_CO2 5
+#define SENSOR_CO2 6
+#define SENSOR_CO2_BME280 7
+#define SENSOR_CO2_BME680 8
+#define SENSOR_MASK 0x7E
 
 #ifdef __linux__
 extern KnxFacade<LinuxPlatform, Bau57B0> knx;
@@ -166,46 +168,41 @@ void StartSensor()
     // bool lResult = true;
     uint8_t lMeasureTypes;
     // uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value(getDpt(VAL_DPT_7));
-    uint8_t lSensorFlags = gSensor & SENSOR_FILTER_INT;
-    if (lSensorFlags == SENSOR_HDC1080)
+    uint8_t lSensorInstalled = (knx.paramByte(LOG_SensorDevice) & SENSOR_MASK) >> 1;
+    // usually all sensors have temp and hum
+    gSensor = (lSensorInstalled) ? BIT_Temp | BIT_Hum : 0;
+    if (lSensorInstalled == SENSOR_HDC1080)
     {
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity);
         lSensor = new SensorHDC1080(lMeasureTypes, 0x40);
         lSensor->begin();
     }
-    if (lSensorFlags == SENSOR_BME280 || lSensorFlags == SENSOR_CO2_BME280)
+    if (lSensorInstalled == SENSOR_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME280)
     {
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure);
+        gSensor |= BIT_Pre;
+        lMeasureTypes = static_cast<MeasureType>(Pressure | Temperature | Humidity);
         lSensor = new SensorBME280(lMeasureTypes, 0x76);
         lSensor->begin();
     }
-    if (lSensorFlags == SENSOR_BME680)
+    if (lSensorInstalled == SENSOR_BME680 || lSensorInstalled == SENSOR_BME680_CO2 || lSensorInstalled == SENSOR_CO2_BME680)
     {
         uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy | Co2);
+        gSensor |= BIT_Pre | BIT_Voc | BIT_Co2Calc;
+        // in case temp, hum shoud be taken from co2 sensor, we remove them from known measure types
+        lMeasureTypes = static_cast<MeasureType>(Pressure | Voc | Accuracy | Co2Calc |  Temperature | Humidity);
         lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback, lMagicWordOffset);
         lSensor->begin();
-        gSensor |= BIT_Co2;
     }
-    if (lSensorFlags == SENSOR_CO2 || lSensorFlags == SENSOR_CO2_BME280)
+    if (lSensorInstalled == SENSOR_CO2 || lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME680 || lSensorInstalled == SENSOR_BME680_CO2)
     {
+        gSensor |= BIT_Co2;
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
         lSensor = new SensorSCD30(lMeasureTypes, 0x61);
         lSensor->begin();
-    }
-    // Tempoary for compare both co2 values
-    if (lSensorFlags == SENSOR_CO2_BME680) 
-    {
-        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Pressure | Voc | Accuracy | Reserved);
-        lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback, lMagicWordOffset);
-        lSensor->begin();
-        gSensor |= BIT_RESERVE;
-
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
-        lSensor = new SensorSCD30(lMeasureTypes, 0x61);
-        lSensor->begin();
-        gSensor |= BIT_Co2;
+        if (lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_CO2_BME680) {
+            // if CO2-Sensor should measure Temp/Hum, it has to be set on first position in Sensor array
+            Sensor::changeSensorOrder(lSensor, 0);
+        }
     }
 #endif
 }
@@ -432,12 +429,12 @@ void CalculateAirquality(bool iForce = false)
         {
             // get airquality
             uint8_t lAirquality = 6;
-            if (gSensor & BIT_Voc) {
-                double lVoc = knx.getGroupObject(LOG_KoVOC).value(getDPT(VAL_DPT_9));
-                lAirquality = getAirquality(lVoc, sVocLimits);
-            } else if (gSensor & BIT_Co2) {
+            if (gSensor & BIT_Co2) {
                 double lCo2 = knx.getGroupObject(LOG_KoCo2).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lCo2, sCo2Limits);
+            } else if (gSensor & BIT_Voc) {
+                double lVoc = knx.getGroupObject(LOG_KoVOC).value(getDPT(VAL_DPT_9));
+                lAirquality = getAirquality(lVoc, sVocLimits);
             }
             if ((uint8_t)knx.getGroupObject(LOG_KoAirquality).value(getDPT(VAL_DPT_5)) != lAirquality)
                 lSend = true;
@@ -490,8 +487,8 @@ void ProcessSensors(bool iForce = false)
     case BIT_Co2:
         ProcessSensor(&gRuntimeData.co2, ReadSensorValue, Co2, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2);
         break;
-    case BIT_RESERVE: //Co2b
-        ProcessSensor(&gRuntimeData.co2b, ReadSensorValue, Reserved, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2b);
+    case BIT_Co2Calc:
+        ProcessSensor(&gRuntimeData.co2b, ReadSensorValue, Co2Calc, 1.0, 1.0, LOG_Co2Offset, LOG_KoCo2b);
         break;
     case 0x80:
         if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
@@ -503,7 +500,7 @@ void ProcessSensors(bool iForce = false)
         sForceComfort = false;
         break;
     case 0x200:
-        if (gSensor & (BIT_Voc | BIT_Co2)) 
+        if (gSensor & (BIT_Voc | BIT_Co2 | BIT_Co2Calc)) 
             CalculateAirquality(sForceAirquality);
         sForceAirquality = false;
         break;
@@ -641,7 +638,7 @@ void appSetup(uint8_t iSavePin)
 
     if (knx.configured())
     {
-        gSensor = (knx.paramByte(LOG_SensorDevice));
+        // gSensor = (knx.paramByte(LOG_SensorDevice));
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         gRuntimeData.countSaveInterrupt = 0;

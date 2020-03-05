@@ -85,6 +85,15 @@
                 "kind": "test",
                 "isDefault": true
             }
+        },
+        {
+            "label": "MultiplyChannels-Release",
+            "type": "shell",
+            "command": "release\\BuildRelease.cmd",
+            "args": [
+            ],
+            "problemMatcher": [],
+            "group": "test"
         }
     ]
 }
