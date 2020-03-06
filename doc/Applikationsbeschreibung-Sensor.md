@@ -1,6 +1,6 @@
 # Applikationsbeschreibung Sensor
 
-Die Applikation Sensor ist im File Sensormodul.knxprod enthalten und erlaubt die Parametrisierung des Sensormoduls mittels der ETS.
+Die Applikation Sensor ist im File Sensormodul-v1.x-xx.knxprod enthalten und erlaubt die Parametrisierung des Sensormoduls mittels der ETS.
 
 Sie ist in die Bereiche
 
@@ -50,19 +50,54 @@ Falsche Angaben können zu falschern Konfigurationen der Applikation und somit z
 
 #### Sensor
 
-Mit dem Auswahlfeld Sensor wird der direkt an das Board angeschlossene Sensor ausgewählt. In den folgenden Anzeigefeldern wird angezeigt, welche Messungen von dem Sensor vorgenommen werden. Um alle unterstützten Messungen vornehmen zu können, muss man Sensorkombinationen (CO2 + BME280 oder CO2 + BME680) benutzen.
+Mit dem Auswahlfeld Sensor wird der direkt an das Board angeschlossene Sensor ausgewählt. In den folgenden Anzeigefeldern wird angezeigt, welche Messungen von dem Sensor vorgenommen werden. Um alle unterstützten Messungen vornehmen zu können, muss man Sensorkombinationen (SCD30+BME280 oder SCD30+BME680) benutzen.
+
+Die unterstützten Sensoren liefern folgende Messwerte:
+
+Sensorauswahl | Temperatur | Luftfeuchte | Luftdruck | VOC | CO<sub>2</sub> | CO<sub>2</sub> (berechnet)
+---|:---:|:---:|:---:|:---:|:---:|:---:
+HDC1080 | X | X |   |   |   |
+BME280  | X | X | X |   |   |
+BME680  | X | X | X | X |   | X
+SCD30   | X | X |   |   | X |
+BME280+SCD30 | X | X | X |   | X |
+BME680+SCD30 | X | X | X | X | X | X
 
 Die Auswahl von 1-Wire-Sensoren ist auch möglich, wird aber derzeit weder von der Applikation noch von der Firmware im Sensormodul unterstützt (zukünftige Erweiterung).
 
-Wird beim Sensor "None" ausgewählt, ist kein Sensor direkt auf dem Board installiert. Dann wird das Modul ausschließlich als Logikmodul oder 1-Wire-Busmaster verwendet.
+Wird beim Sensor "Kein Sensor" ausgewählt, ist kein Sensor direkt auf dem Board installiert. Dann wird das Modul ausschließlich als Logikmodul oder 1-Wire-Busmaster verwendet.
 
 #### Temperatur
 
 Dieses Anzeigefeld zeigt einen Haken, wenn der ausgewählte Sensor eine Temperaturmessung unterstützt.
 
+Wird eine Sensorkombination ausgewählt, wird hinter dem Feld angezeigt, von welchem Sensor die Temperaturmessung kommt. Folgende Varianten sind möglich:
+
+Sensorkombination | Temperaturmessung vom
+---|---
+BME280+SCD30 | BME280
+BME680+SCD30 | BME680
+SCD30+BME280 | SCD30
+SCD30+BME680 | SCD30
+
+Somit wird immer der zuerst angegebene Sensor für die Temperaturmessung herangezogen. Die Temperatur sollte immer von dem Sensor gemessen werden, der möglichst wenig von anderen Bauteilen beeinflußt wird und möglichst frei im Luftstrom hängt. Dementsprechend muss die passende Kombination ausgewählt werden.
+
 #### Luftfeuchte
 
 Dieses Anzeigefeld zeigt einen Haken, wenn der ausgewählte Sensor eine Messung der Luftfeuchtigkeit unterstützt.
+
+Wird eine Sensorkombination ausgewählt, wird hinter dem Feld angezeigt, von welchem Sensor die Luftfeuchtemessung kommt. Folgende Varianten sind möglich:
+
+Sensorkombination | Luftfeuchtemessung vom
+---|---
+BME280+SCD30 | BME280
+BME680+SCD30 | BME680
+SCD30+BME280 | SCD30
+SCD30+BME680 | SCD30
+
+Somit wird immer der zuerst angegebene Sensor für die Luftfeuchtemessung herangezogen. Die Luftfeuchte sollte immer von dem Sensor gemessen werden, der möglichst wenig von anderen Bauteilen beeinflußt wird und möglichst frei im Luftstrom hängt. Dementsprechend muss die passende Kombination ausgewählt werden.
+
+Es ist nicht möglich, die Temperatur und die Luftfeuchte von verschiedenen Sensoren messen zu lassen.
 
 #### Luftdruck
 
@@ -115,7 +150,7 @@ Ist keine Möglichkeit zur Abschaltung vorhanden, wird die Speicherung ins EEPRO
 
 ### Fehler- und Diagnoseobjekt anzeigen
 
-Das Fehlerobjekt (KO 2) meldet bitweise Sensorfehler. 
+Das Fehlerobjekt (KO 11) meldet bitweise Sensorfehler. 
 
 * Bit 0: Fehler in der Logik (zyklus, der nicht aufgelöst werden kann)
 * Bit 1: Fehler bei der Messung der Temperatur
@@ -127,7 +162,7 @@ Das Fehlerobjekt (KO 2) meldet bitweise Sensorfehler.
 * Bit 7: Fehler im 1-Wire-Busmaster
 * Bit 8-15: Fehler des jeweiligen 1-Wire-Sensors
 
-Das Diagnoseobjekt (KO 3) ist derzeit für interne Verwendung (für Debug-Zwecke) vorgesehen und sollte in der Praxis nicht mit einer GA belegt werden.
+Das Diagnoseobjekt (KO 12) ist derzeit für interne Verwendung (für Debug-Zwecke) vorgesehen und sollte in der Praxis nicht mit einer GA belegt werden.
 
 ## Standardsensoren
 
@@ -137,7 +172,7 @@ Zu den Standardsensoren zählen die Sensoren, die unter den Allgemeinen Einstell
 
 ### Temperatur anpassen (interner Messwert)
 
-Mit dieser Einstellung kann der Sensor kalibriert werden. Der eingegebene Wert wird zum gemessenen Wert addiert. Man kann die Temperatur um -5°C absenken und bis zu +5°C erhöhen. Die Werte werden in  1/10°C angegeben, so dass die Eingabe von -50 bis +50 in ganzen Zahlen zu erfolgen hat.
+Mit dieser Einstellung kann der Sensor kalibriert werden. Der eingegebene Wert wird zum gemessenen Wert addiert. Man kann die Temperatur um -5°C absenken und bis zu +5°C erhöhen. Die Werte werden in  0.1°C angegeben, so dass die Eingabe von -50 bis +50 in ganzen Zahlen zu erfolgen hat.
 
 ### Externe Messwerte berücksichtigen
 
@@ -173,7 +208,7 @@ Wird eine 0 angegeben, wird die Temperatur nicht zyklisch gesendet.
 
 Die Temperatur kann auch gesendet werden, wenn der aktuell gemessene Wert um eine festgelegte Temperatur von dem zuletzt gesendeten Wert nach oben oder unten abweicht.
 
-Hier wird die Abweichung in 1/10°C angegeben. Soll also bei einer Abweichung von 0.5°C gesendet werden, muss hier eine 5 angegeben werden.
+Hier wird die Abweichung in 0.1°C angegeben. Soll also bei einer Abweichung von 0.5°C gesendet werden, muss hier eine 5 angegeben werden.
 
 Wird eine 0 angegeben, wird bei einer absoluten Abweichung nicht gesendet.
 
@@ -208,7 +243,7 @@ Der neu ermittelete Wert wird alle 5 Sekunden auf das entsprechende KO geschrieb
 
 ## Standardsensoren - Temperatur
 
-Die Temperatureinstellungen sind wie unter Standardsensoren beschrieben. Alle Temperaturangaben werden in 1/10°C vorgenommen.
+Die Temperatureinstellungen sind wie unter Standardsensoren beschrieben. Alle Temperaturangaben werden in 0.1°C vorgenommen.
 
 ## Standardsensoren - Luftfeuchte
 
@@ -232,7 +267,9 @@ Erscheint nur, wenn der angeschlossene Sensor auch einen Messwert für CO<sub>2<
 
 Einstellungen für CO<sub>2</sub> werden wie unter Standardsensoren beschrieben vorgenommen. Alle Angaben für CO<sub>2</sub> werden in Parts-Per-Million (ppm) vorgenommen.
 
-Anmerkung zum BME680: Dieser Sensor liefert nur ein berechnetes CO<sub>2</sub>-Äquivalent passend zum gemessenen Voc-Wert und keinen gemessenen CO<sub>2</sub>-Wert.
+Anmerkung zum BME680: Dieser Sensor liefert nur ein berechnetes CO<sub>2</sub>-Äquivalent passend zum gemessenen Voc-Wert und keinen gemessenen CO<sub>2</sub>-Wert. Dieser berechnete CO<sub>2</sub>-Wert wird über ein zusätzliches KO 20 ausgegeben.
+
+Ist die Sensorkombination BME680+SCD30 installiert, werden beide CO<sub>2</sub>-Werte augegeben, der gemessene und der berechnete.
 
 ## Standardsensoren - Zusatzfunktionen
 
@@ -241,12 +278,12 @@ Das Sensormodul kann neben gemessenen Werten auch noch einige berechnete Werte l
 ### Taupunkt berechnen
 
 ![Taupunkt](Taupunkt.png)
-Wenn man hier "Ja" auswählt, kann man für den Taupunkt Einstellungen wie unter Standardsensoren beschrieben vornehmen. Alle Angaben für den Taupunkt werden in 1/10°C vorgenommen.
+Wenn man hier "Ja" auswählt, kann man für den Taupunkt Einstellungen wie unter Standardsensoren beschrieben vornehmen. Alle Angaben für den Taupunkt werden in 0.1°C vorgenommen.
 
 ### Behaglichkeitszone ausgeben
 
 ![Behaglichkeit](Behaglichkeit.png)
-Wenn man hier "Ja" auswählt, wird anhand der Temperatur und Luftfeuchte eine Behaglichkeitszone berechnet und über KO 12 ausgegeben. Die Behaglichkeitszone kann jederzeit gelesen werden, wird aber nur bei Änderungen gesendet.
+Wenn man hier "Ja" auswählt, wird anhand der Temperatur und Luftfeuchte eine Behaglichkeitszone berechnet und über KO 22 ausgegeben. Die Behaglichkeitszone kann jederzeit gelesen werden, wird aber nur bei Änderungen gesendet.
 
 Falls zyklisches Senden gewünscht wird, kann man dies über die im Sensormodul enthaltenen Logikkanäle realisieren. Beispiele sind in der Applikationsbeschreibung Logik enthalten.
 
@@ -259,9 +296,9 @@ Folgende Behaglichkeitszonen werden berechnet:
 ### Luftqualitätsampel ausgeben
 
 ![Luftqualitätsampel](Luftqualitätsampel.png)
-Dieser Punkt ist nur sichtbar, wenn ein angeschlossener Sensor Messwerte zur Luftqualität liefert, also nur beim BME680 oder CO<sub>2</sub>.
+Dieser Punkt ist nur sichtbar, wenn ein angeschlossener Sensor Messwerte zur Luftqualität liefert, also nur beim BME680 oder SCD30.
 
-Wenn man hier "Ja" auswählt, wird anhand des gemessenen Voc-Werts (beim BME680) oder des gemessenen CO<sub>2</sub>-Werts eine Luftqualitätsampel berechnet und über KO 13 ausgegeben. Die Luftqualitätsampel kann jederzeit gelesen werden, wird aber nur bei Änderungen gesendet.
+Wenn man hier "Ja" auswählt, wird anhand des gemessenen Voc-Werts (beim BME680) oder des gemessenen CO<sub>2</sub>-Werts eine Luftqualitätsampel berechnet und über KO 23 ausgegeben. Die Luftqualitätsampel kann jederzeit gelesen werden, wird aber nur bei Änderungen gesendet.
 
 Falls zyklisches Senden gewünscht wird, kann man dies über die im Sensormodul enthaltenen Logikkanäle realisieren. Beispiele sind in der Applikationsbeschreibung Logik enthalten.
 
@@ -281,13 +318,13 @@ Wird nur sichtbar, wenn als Sensor BME680 ausgewählt ist.
 
 Manche Sensoren benötigen eine Klaibrierung, bevor sie zuverlässige Werte ausgeben können. Dies ist besonders für die Erfassung von Voc-Werten notwendig. Das Sensormodul hat für den BME680 eine Selbstkalibrierung implementiert, die ununterbrochen parallel zur Messwerterfassung läuft und alle 6 Stunden die bisher ermittelten Kalibrierungswerte in einem eigens hierfür eingebauten EEPROM speichert. Somit wird verhindert, dass nach einem Neustart des Gerätes eine erneute Kalibrierung notwendig wird.
 
-Bei einer Erstinbetriebnahme, nach dem Einspielen einen neuen Firmware oder in seltenen Fällen auch im normalen Betrieb ist es notwendig, dass sich der Sensor BME680 neu kalibriert. Dies ist daran zu erkennen, dass der Sensor für den Voc-Wert konstant eine 25 liefert und als Kalibrierungsfortschritt über das KO 14 der Wert 0% geliefert wird.
+Bei einer Erstinbetriebnahme, nach dem Einspielen einen neuen Firmware oder in seltenen Fällen auch im normalen Betrieb ist es notwendig, dass sich der Sensor BME680 neu kalibriert. Dies ist daran zu erkennen, dass der Sensor für den Voc-Wert konstant eine 25 liefert und als Kalibrierungsfortschritt über das KO 24 der Wert 0% geliefert wird.
 
 Nach ca. 5 Minuten werden die ersten Voc-Werte ungleich 25 geliefert mit einem Kalibrierungsfortschritt von 33%. Diese ersten Werte sind noch immer nicht sinnvoll zu verwenden.
 
 Nach einiger Zeit (hängt von der Raumgröße, Luftqualität, Lüftungszustand etc. ab) geht der Kalibrierungsfortschritt auf 66%, gefolgt von einem Wert von 100%. Dies kann insgesamt 6 bis 48 Stunden dauern und entspricht einer normalen Funktion des BME680.
 
-Der Kalibrierungsfortschritt kann mit dieser Einstellung zur Information über KO 14 ausgegeben werden, hat aber auf die Funktion keinerlei Einfluss.
+Der Kalibrierungsfortschritt kann mit dieser Einstellung zur Information über KO 24 ausgegeben werden, hat aber auf die Funktion keinerlei Einfluss.
 
 ### Kalibrierungsdaten löschen
 
@@ -399,6 +436,7 @@ KO | Name | DPT | Bedeutung
 17 | Luftdruck | 9.006 | Luftdruck
 18 | VOC | 9.* | Voc-Messwert
 19 | CO2 | 9.008 | CO2-Messwert
+20 | CO2-VOC | 9.008 | Berechneter CO2-Messwert vom VOC
 21 | Taupunkt | 9.001 | Berechneter Taupunkt
 22 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur
 23 | Luftqualitätsampel | 5.005 | Luftgüte entsprechend deutscher Schulnoten (1-6)
