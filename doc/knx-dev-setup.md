@@ -2,9 +2,9 @@
 
 Only tested on Windows 10!
 
-Download and install git from https://git-scm.com/downloads with default options
+Download and install git from [https://git-scm.com/downloads](https://git-scm.com/downloads) with default options
 
-Download and install visual studio code from https://code.visualstudio.com/download (User installer, 64 bit)
+Download and install visual studio code from [https://code.visualstudio.com/download](https://code.visualstudio.com/download) (User installer, 64 bit)
 
 Start visual studio code
 
@@ -54,12 +54,12 @@ These commands should install following libraries:
     git clone https://github.com/mumpf/knx-sensor.git
     cd knx
     git checkout release
-    cd ../knx-sensor
+    cd ..\knx-sensor
     code Sensormodul.code-workspace
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-Press Ctrl-Shift-B, select the "Build PlatformIO knx-sensor" build task and press enter.
+Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 
 Now the compiler starts, this may take a while, there will be many yellow warnings, they can be ignored.
 
@@ -75,19 +75,19 @@ At the end, there should be a message like
 
 Now you successfully build the Firmware for the Sensormodule, containing up to 80 logic channels.
 
-## How to upload the Firmware to your Hardware:
+## How to upload the Firmware to your Hardware
 
 Connect your device via USB to your PC
 
 Open (again) the file Sensormodul/src/Sensormodul.cpp
 
-Press Ctrl-Shift-B, select "Upload USB knx-sensor" build task and press enter.
+Press Ctrl-Shift-B, select "**Upload USB** knx-sensor" build task and press enter.
 
 Wait until file is uploaded.
 
-## How to build a knxprod for this firmware:
+## How to build a knxprod for this firmware
 
-Open https://github.com/mumpf/multiply-channels/releases
+Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
 Download the newest release of multiply-channels, currently it is the first final.
 
@@ -101,11 +101,11 @@ Go to the Visual Studio Code instance, which is containing the knx-sensor projec
 
 Press Ctrl-Shift-P, enter "run test task" and click the appearing "Tasks: Run Test Task"
 
-In the following dropdown select "MultiplyChannels-Release knx-sensor"
+In the following dropdown select "**MultiplyChannels-Release** knx-sensor"
 
 Wait for the success message in the terminal window
 
-The freshly build 
+The freshly build
 
 * Sensormodul-v1.0-10.knxprod
 * Sensormodul-v1.1-20.knxprod
