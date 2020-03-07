@@ -1,8 +1,10 @@
 # Installation of dev-Environment for Sensormodule
 
-Download and install git from https://git-scm.com/downloads
+Only tested on Windows 10!
 
-Download and install visual studio code from https://code.visualstudio.com/download
+Download and install git from https://git-scm.com/downloads with default options
+
+Download and install visual studio code from https://code.visualstudio.com/download (User installer, 64 bit)
 
 Start visual studio code
 
@@ -22,9 +24,9 @@ In the new "PIO Home" tab, click on "New Project..."
 
 In the upcoming dialog, provide the name "Test", Board "Sparkfun SAMD21 Dev Breakout", Framework "Arduino" and Location "Use default location"
 
-Click "Finish" and wait until finished. Visuals Studio Code will open the newly created project afterwards.
+Click "Finish" and wait until finished. Visuals Studio Code will open the newly created project afterwards. The new project is just used to create default envoronment and can be deleted afterwards.
 
-On the left side (Activity Bar) there is a PlatformIO Icon, click on it
+Click again the PlatformIO Icon ![PIO-Icon](PIO2.png)
 
 Again "Quick Access" appears, click "Miscellaneous->PlatformIO Core CLI"
 
@@ -38,7 +40,7 @@ You should be now in a directory ending with ...\Documents\PlatformIO\Projects
     pio lib -g install 805
     pio lib -g install 166
     pio lib -g install 31
-    pio lib -g install 5449@1.0.3 
+    pio lib -g install 5449 
 
 These commands should install following libraries:  
 "ClosedCube_HDC1080" Library  
@@ -50,24 +52,28 @@ These commands should install following libraries:
     git clone https://github.com/mumpf/knx-common.git
     git clone https://github.com/mumpf/knx-logic.git
     git clone https://github.com/mumpf/knx-sensor.git
-    cd knx-sensor
+    cd knx
+    git checkout release
+    cd ../knx-sensor
     code Sensormodul.code-workspace
 
-Go to SENSORMODUL (WORKSPACE), open the "src" folder and click on Sensormodul.cpp file
+Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-Press Ctrl-Shift-P, enter "platformio build" and select the appearing Task "PlatformIO: Build"
+Press Ctrl-Shift-B, select the "Build PlatformIO knx-sensor" build task and press enter.
 
 Now the compiler starts, this may take a while, there will be many yellow warnings, they can be ignored.
 
 At the end, there should be a message like
 
+    Linking .pio\build\build\firmware.elf
+    Building .pio\build\build\firmware.bin
     Checking size .pio\build\build\firmware.elf
     Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
-    RAM:   [==        ]  21.7% (used 7096 bytes from 32768 bytes)
-    Flash: [======    ]  61.8% (used 161904 bytes from 262144 bytes)
-    ================== [SUCCESS] Took 62.08 seconds ============
+    RAM:   [==        ]  22.0% (used 7216 bytes from 32768 bytes)
+    Flash: [======    ]  55.7% (used 145892 bytes from 262144 bytes)
+    ============================ [SUCCESS] Took 34.60 seconds ======
 
-Now you successfully build the Firmware for the Sensormodule, containing up to 50 logic blocks.
+Now you successfully build the Firmware for the Sensormodule, containing up to 80 logic channels.
 
 ## How to upload the Firmware to your Hardware:
 
@@ -75,7 +81,7 @@ Connect your device via USB to your PC
 
 Open (again) the file Sensormodul/src/Sensormodul.cpp
 
-Press Ctrl-Shift-P, enter platformio upload and click on the appearing "PlatformIO: Upload"
+Press Ctrl-Shift-B, select "Upload USB knx-sensor" build task and press enter.
 
 Wait until file is uploaded.
 
@@ -83,25 +89,30 @@ Wait until file is uploaded.
 
 Open https://github.com/mumpf/multiply-channels/releases
 
-Download the newest release of multiply-channels, currently it is the fourth beta
+Download the newest release of multiply-channels, currently it is the first final.
 
 The executable is MultiplyChannels.exe
 
-Ideally you save it to C:\Users\\\<username>\bin (usually you have to create bin directory)
+Save it to C:\Users\\\<username>\bin (usually you have to create bin directory)
 
 If this is not your ETS-PC, install ETS5 on this PC (ETS5.7.x demo is sufficient, even any 5.6.x should do)
 
 Go to the Visual Studio Code instance, which is containing the knx-sensor project
 
-Open file Sensormodul/src/Sensormodul.cpp
-
 Press Ctrl-Shift-P, enter "run test task" and click the appearing "Tasks: Run Test Task"
 
-In the following dropdown select "MultiplyChannels knx-sensor"
+In the following dropdown select "MultiplyChannels-Release knx-sensor"
 
 Wait for the success message in the terminal window
 
-The freshly build Sensormodul.knxprod you will find in the src directory
+The freshly build 
+
+* Sensormodul-v1.0-10.knxprod
+* Sensormodul-v1.1-20.knxprod
+* Sensormodul-v1.2-40.knxprod
+* Sensormodul-v1.3-80.knxprod
+
+you will find in the release directory of the knx-sensor project
 
 You can import this knxprod in your ETS (minimum 5.6) like any other knxprod.
 
@@ -110,4 +121,3 @@ You can import this knxprod in your ETS (minimum 5.6) like any other knxprod.
 This works the same way as with all other KNX devices. For the initial programming you should program the physical address (PA) first, then transfer the application program (do not use ETS function "PA + Application program").
 
 Afterwards you can use partial programming as usual.
-

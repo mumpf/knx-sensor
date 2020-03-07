@@ -1,13 +1,15 @@
 knx-sensor
 ===
 
-Impelemtation of an knx sensor module combined with an 80 channel knx logic module based on the [knx stack](https://github.com/thelsing/knx) from thelsing.
+Impelemtation of an knx sensor module combined with an 80 channel knx logic module based on the [knx stack](https://github.com/thelsing/knx) from thelsing. The used knx stack allows a parametrization via ETS in general, this project requires ETS 5.6 or higher.
 
-It supports the SAMD version of the stack. Currently it uses my fork of the [knx stack](https://github.com/mumpf/knx), this will change in future.
+Itis implemented for the SAMD21 version of the knx stack. Currently it uses my fork of the [knx stack](https://github.com/mumpf/knx), this will change in future.
 
 It is a PlatformIO project and needs a working ETS 5.6 (or higher) installed on the same PC.
 
-Dependent Projects are:
+Installation and build instructions can be found in the [project itself](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-dev-setup.pdf).
+
+This project depends on following projects:
 
 * [knx-logic](https://github.com/mumpf/knx-logic)
 * [knx-common](https://github.com/mumpf/knx-common)
@@ -16,5 +18,10 @@ Dependent Projects are:
 Hardware to use the software with is described in [knx-user-forum/KONNEKTING](https://knx-user-forum.de/forum/projektforen/konnekting/1114105-konnekting-raum-sensormodul-temp-hum-voc-co2-onewire-buzzer?p=1460098#post1460098).
 
 With small changes it should be possible to use it on any SAMD21 board.
+
+There are application descriptions available:
+
+* [Applicasion Sensor](https://github.com/mumpf/knx-sensor/blob/release/doc/Applikationsbeschreibung-Sensor.pdf) describes features of the sensor part of application and firmware (in German).
+* [Application Logic](https://github.com/mumpf/knx-logic/blob/release/doc/Applikationsbeschreibung-Logik.pdf) describes features of the logic part of application and firmware (in German).
 
 Thanks to all, who made this project successful.
