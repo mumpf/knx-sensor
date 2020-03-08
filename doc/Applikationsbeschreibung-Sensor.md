@@ -351,23 +351,23 @@ Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle,
 
 Da man bei der Erstinbetriebnahme des Sensormoduls nicht unbedingt wissen kann, wie viele Logikkanäle man benötigen wird, würde man potentiell die Applikation mit den meisten Logikkanälen nehmen. Dies erkauft man aber mit eine langen Programmierzeit bei jeder Programmierung - die erfahrungsgemäß häufig vorkommen, wenn man Logiken ausprobiert.
 
-Der bessere Weg ist, mit der Applikation mit 10 Logikkanälen zu beginnen und wenn man mehr als 10 Logikkanäle braucht, die Arbeit mit 30 Logikkanälen fortzusetzen, dann mit 50 und abschließend mit 80.
+Der bessere Weg ist, mit der Applikation mit 10 Logikkanälen zu beginnen und wenn man mehr als 10 Logikkanäle braucht, die Arbeit mit 20 Logikkanälen fortzusetzen, dann mit 40 und abschließend mit 80.
 
-Allerdings will keiner, der in einer Applikation 50 Logikkanäle parametriert hat, diese 50 Kanäle manuell auf eine neue Applikation mit 80 Kanälen übertragen. Deswegen sind diese Applikationen gleich vom Beginn an für die von der ETS unterstützte "Update"-Funktionalität designed:
+Allerdings will keiner, der in einer Applikation 40 Logikkanäle parametriert hat, diese 40 Kanäle manuell auf eine neue Applikation mit 80 Kanälen übertragen. Deswegen sind diese Applikationen gleich vom Beginn an für die von der ETS unterstützte "Update"-Funktionalität designed:
 
 * Jede Applikation mit mehr Logikkanälen kann immer als "Update" für eine Applikation mit weniger Logikkanälen fungieren.
 * Jede Applikation mit einer höheren Haupt-Versionsnummer (v1.x, v2.x) kann immer als "Update" für eine Applikation mit einer geringeren Haupt-Versionsnummer fungieren, solange sie gleich viele oder mehr Logikkanäle hat.
 
 Das ergibt folgende "Update"-Matrix (In den Spalten steht die Version, die man hat, in den Zeilen die Version, die man haben möchte):
 
-| | v1.0 (10) | v1.1 (30) | v1.2 (50) | v1.3 (80)
+| | v1.0 (10) | v1.1 (20) | v1.2 (40) | v1.3 (80)
 :---:|:---:|:---:|:---:|:---:
-v1.1 (30) | U | | |
-v1.2 (50) | U | U | |
+v1.1 (20) | U | | |
+v1.2 (40) | U | U | |
 v1.3 (80) | U | U | U |
 v2.0 (10) | U | | |
-v2.1 (30) | U | U | |
-v2.2 (50) | U | U | U |
+v2.1 (20) | U | U | |
+v2.2 (40) | U | U | U |
 v2.3 (80) | U | U | U | U
 
 Ein "U" zeigt für aktuelle (v1.x) und zukünftige (v2.x) Versionen, wenn ein Update stattfinden kann, ohne die bisher vorgegebene Parametrierung zu löschen.
@@ -376,27 +376,27 @@ Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS
 
 ### Neue knxprod in den Produktkatalog importieren
 
-In der Annahme, dass die Sensormodul-v1.0-10.knxprod bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine Version mit 30 Kanälen wechseln.
+In der Annahme, dass die Sensormodul-v1.0-10.knxprod bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine Version mit 40 Kanälen wechseln.
 
-Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v1.2-50.knxprod" in die ETS.
+Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v1.2-40.knxprod" in die ETS.
 
-Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul-30" mit der Version 1.2 im Katalog. Das bereits genutzte "Sensormodul-10" mit der Version 1.0 steht auch da.
+Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul" mit der Version 1.2 im Katalog. Das bereits genutzte "Sensormodul" mit der Version 1.0 steht auch da.
 
 ## Das neue Sensormodul ins eigene Projekt einfügen
 
-Als nächstes wird das Produkt "Sensormodul-30" ins eigene Projekt eingefügt. Das neue Produkt muss nicht parametriert werden, es muss nur im eigenen Projekt existieren.
+Als nächstes wird das Produkt "Sensormodul" mit der Version 1.2 ins eigene Projekt eingefügt. Das neue Produkt muss nicht parametriert werden, es muss nur im eigenen Projekt existieren.
 
 ## Das "alte" Sensormodul aktualisieren
 
-Jetzt wählt man das bereits benutzte und parametrierte "Sensormodul-10" aus. Jetzt clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.0". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V1.2" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
+Jetzt wählt man das bereits benutzte und parametrierte "Sensormodul" v1.0 aus. Jetzt clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.0". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V1.2" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
 
 Stattdessen clickt man auf den "Aktualisieren"-Button darunter. Jetzt wird die Applikation von der ETS aktualisiert und alle Parameter bzw. GA-Zuordnungen übernommen.
 
-Jetzt kann man - um beim Beispiel zu bleiben - weitere 40 Logikkanäle parametrieren, bevor man auf die Version mit 80 Kanälen gehen muss.
+Jetzt kann man - um beim Beispiel zu bleiben - weitere 30 Logikkanäle parametrieren, bevor man auf die Version mit 80 Kanälen gehen muss.
 
 ## Einschränkungen beim Aktualisieren mit der ETS
 
-Die ETS läßt leider keine Auswahl, auf welche Version man eine Aktualisierung machen will. Habe ich im Projekt 2 man das "Sensormodul-10" verwendet und ich mache beim Ersten eine Aktualisierung auf 50 Kanäle, kann ich nicht beim zweiten auf 30 Kanäle aktualisieren, auch wenn die passende knxprod im Projekt vorhanden ist. Die ETS wird immer auf die "neueste" Version aktualisieren, in diesem Fall also auf 50 Logikkanäle.
+Die ETS läßt leider keine Auswahl, auf welche Version man eine Aktualisierung machen will. Habe ich im Projekt 2 mal das "Sensormodul" v1.0 verwendet und ich mache beim Ersten eine Aktualisierung auf 40 Kanäle, kann ich nicht beim zweiten auf 20 Kanäle aktualisieren, auch wenn die passende knxprod im Projekt vorhanden ist. Die ETS wird immer auf die "neueste" Version aktualisieren, in diesem Fall also auf 40 Logikkanäle.
 
 ## Hardware
 
