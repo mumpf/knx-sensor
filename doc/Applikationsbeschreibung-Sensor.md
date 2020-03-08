@@ -30,7 +30,7 @@ Nach einem Neustart des Geräts, sei es durch Busspannungsausfall, Reset über d
 
 Da das Gerät prinzipiell (sofern parametriert) auch Lesetelegramme auf den Bus senden kann, kann mit dieser Einstellung verhindert werden, dass bei einem Busneustart von vielen Geräten viele Lesetelegramme auf einmal gesendet werden und so der Bus überlastet wird.
 
-### In Betrieb senden alle ...
+### In Betrieb senden alle
 
 Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hier wird das Sendeintervall in Sekunden eingestellt.
 
@@ -150,7 +150,7 @@ Ist keine Möglichkeit zur Abschaltung vorhanden, wird die Speicherung ins EEPRO
 
 ### Fehler- und Diagnoseobjekt anzeigen
 
-Das Fehlerobjekt (KO 11) meldet bitweise Sensorfehler. 
+Das Fehlerobjekt (KO 11) meldet bitweise Sensorfehler.
 
 * Bit 0: Fehler in der Logik (zyklus, der nicht aufgelöst werden kann)
 * Bit 1: Fehler bei der Messung der Temperatur
@@ -228,7 +228,7 @@ Es wird folgende Glättungsformel verwendet:
 
 X<sub>neu</sub> = X<sub>alt</sub> + (M - X<sub>alt</sub>) / P
 
-wobei 
+wobei
 
 * X<sub>neu</sub> der geglättete Wert,
 * X<sub>alt</sub> der zuvor ermittelte geglättete Wert,
@@ -308,8 +308,8 @@ Es gibt 6 Luftqualitätsgrade, entsprechend deutschen Schulnoten:
 * 2 - gut
 * 3 - befriedigend (bei Gelegenheit lüften)
 * 4 - ausreichend (lüften empfohlen)
-* 5 - ungenügend (lüften)
-* 6 - mangelhaft (unbedingt lüften)
+* 5 - mangelhaft (lüften)
+* 6 - ungenügend (unbedingt lüften)
 
 ### Kalibrierungsfortschritt ausgeben
 
