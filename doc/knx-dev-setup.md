@@ -59,11 +59,20 @@ These commands should install following libraries:
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-If you use the board from MASIFI version v1 or v2, you need to change a setting:
+If you use the board from MASIFI version v1 or v2, you need to change two settings:
 
-    In knx-sensor, edit the file platformio.ini
-    change there the line -DBOARD_MASIFI_V3 
-    to -DBOARD_MASIFI_V2 or -DBOARD_MASIFI_V1
+    In knx-sensor, edit the file platformio.ini:  
+    - change the line
+            -DBOARD_MASIFI_V3 
+      to 
+            -DBOARD_MASIFI_V2 
+      or 
+            -DBOARD_MASIFI_V1
+
+    - change the line 
+            -DCRYSTALLESS 
+      to 
+            ;-DCRYSTALLESS 
 
 Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 
