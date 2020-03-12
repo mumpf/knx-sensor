@@ -816,8 +816,8 @@
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-63" Text="  2 - gut " />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-64" Text="  3 - befriedigend (bei nächster Gelegenheit lüften)" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-65" Text="  4 - ausreichend (lüften empfohlen)" />
-                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-66" Text="  5 - ungenügend (lüften)" />
-                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-67" Text="  6 - mangelhaft (dringend lüften)" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-66" Text="  5 - mangelhaft (lüften)" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-67" Text="  6 - ungenügend (dringend lüften)" />
                           </when>
                         </choose>
                       </when>
