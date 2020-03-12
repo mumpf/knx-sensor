@@ -8,6 +8,8 @@
 #endif
 
 #include "Hardware.h"
+#include "OneWireDS2482.h"
+
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
 #include "Sensormodul.h"
 // ... auf jeden Fall Vorrang haben (beeinflussen auch die Logik)
@@ -69,6 +71,7 @@ struct sRuntimeInfo
 sRuntimeInfo gRuntimeData;
 uint8_t gSensor = 0;
 Logic gLogic;
+OneWireDS2482 gBM;
 
 typedef bool (*getSensorValue)(MeasureType, double&);
 
@@ -628,7 +631,6 @@ void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
 
 void appSetup(uint8_t iSavePin)
 {
-
     // try to get rid of occasional I2C lock...
     savePower();
     delay(100);
@@ -636,6 +638,8 @@ void appSetup(uint8_t iSavePin)
     // check hardware availability
     boardCheck();
 
+    gBM.setup();
+    
     if (knx.configured())
     {
         // gSensor = (knx.paramByte(LOG_SensorDevice));
