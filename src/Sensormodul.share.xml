@@ -375,7 +375,7 @@
               <ComObject Id="M-00FA_A-0001-01-0000_O-21" Name="Dewpoint" Text="Taupunkt" Number="21" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-22" Name="Comfort" Text="Behaglichkeit" Number="22" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-23" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="23" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-24" Name="SensorAccuracy" Text="Kalibrierungsgrad" Number="24" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-24" Name="SensorAccuracy" Text="Kalibrierungfortschritt" Number="24" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-30" Name="Ext1Temp" Text="Externe Temperatur 1" Number="30" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-31" Name="Ext2Temp" Text="Externe Temperatur 2" Number="31" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-32" Name="Ext1Hum" Text="Externe Luftfeuchte 1" Number="32" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
@@ -562,7 +562,7 @@
                   <when test="1">
                     <!-- show error object only if it is parametrized -->
                     <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-11_R-111" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-3" Text="Das Fehlerobjekt KO-2 ist eine Bitleiste, bei der ein Bit auf 1 gesetzt wird, wenn der entsprechende Sensor einen Fehler aufweist:" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-3" Text="Das Fehlerobjekt KO-11 ist eine Bitleiste, bei der ein Bit auf 1 gesetzt wird, wenn der entsprechende Sensor einen Fehler aufweist:" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-4" Text="  Bit 0: Fehler in der Logik (zyklus definiert, der nicht aufgelöst werden kann)" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-5" Text="  Bit 1: Fehler Temperatursensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-6" Text="  Bit 2: Fehler Luftfeuchtesensor" />
@@ -827,7 +827,7 @@
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-104_R-1041">
                           <when test="1">
                             <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-24_R-241" />
-                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-69" Text="Der Voc-Sensor braucht bis zu 2 Tage für die Kalibrierung, das KO 14 gibt den Fortschritt in % aus" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-69" Text="Der Voc-Sensor braucht bis zu 2 Tage für die Kalibrierung, das KO 24 gibt den Fortschritt in % aus" />
                           </when>
                         </choose>
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-95" Text="" UIHint="HorizontalRuler" />
