@@ -1,14 +1,16 @@
 #define SEALEVELPREASURE_HPA (1013.25)
 
 #ifndef __linux__
+#include "Sensor.h"
 #include "SensorHDC1080.h"
 #include "SensorBME280.h"
 #include "SensorBME680.h"
 #include "SensorSCD30.h"
+#include "OneWire.h"
+#include "OneWireDS2482.h"
 #endif
 
 #include "Hardware.h"
-#include "OneWireDS2482.h"
 
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
 #include "Sensormodul.h"
@@ -41,6 +43,9 @@
 extern KnxFacade<LinuxPlatform, Bau57B0> knx;
 #endif
 
+// Forward declarations
+bool ProcessNewIdCallback(OneWire *iOneWireSensor);
+
 // runtime information for the whole logik module
 struct sSensorInfo
 {
@@ -71,7 +76,7 @@ struct sRuntimeInfo
 sRuntimeInfo gRuntimeData;
 uint8_t gSensor = 0;
 Logic gLogic;
-OneWireDS2482 gBM;
+OneWireDS2482 gOneWireBM(ProcessNewIdCallback);
 
 typedef bool (*getSensorValue)(MeasureType, double&);
 
@@ -527,6 +532,16 @@ void ProcessSensors(bool iForce = false)
     sMeasureType <<= 1;
 }
 
+bool ProcessNewIdCallback(OneWire *iOneWireSensor) {
+    // temporär
+    uint8_t lLocalId[7] = {0x28, 0xDC, 0xA5, 0x88, 0x0B, 0x00, 0x00};
+
+    if (equalId(iOneWireSensor->Id(), lLocalId)) {
+        iOneWireSensor->setModeKnown();
+    }
+    return true;
+}
+
 void ProcessKoCallback(GroupObject &iKo)
 {
     // check if we evaluate own KO
@@ -591,7 +606,8 @@ void appLoop()
     ProcessHeartbeat();
     ProcessReadRequests();
     gLogic.loop();
-
+    gOneWireBM.loop();
+    
     // at Startup, we want to send all values immediately
     ProcessSensors(gRuntimeData.forceSensorRead);
     gRuntimeData.forceSensorRead = false;
@@ -638,8 +654,6 @@ void appSetup(uint8_t iSavePin)
     // check hardware availability
     boardCheck();
 
-    gBM.setup();
-    
     if (knx.configured())
     {
         // gSensor = (knx.paramByte(LOG_SensorDevice));
@@ -654,5 +668,6 @@ void appSetup(uint8_t iSavePin)
         if (iSavePin) 
             attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
         gLogic.setup(false);
+        gOneWireBM.setup();
     }
 }
