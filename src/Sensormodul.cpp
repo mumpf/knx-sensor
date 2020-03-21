@@ -645,7 +645,7 @@ void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
 }
 
 
-void appSetup(uint8_t iSavePin)
+void appSetup(bool iSaveSupported)
 {
     // try to get rid of occasional I2C lock...
     savePower();
@@ -665,8 +665,10 @@ void appSetup(uint8_t iSavePin)
         if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
         if (TableObject::getBeforeTableUnloadCallback() == 0) TableObject::addBeforeTableUnloadCallback(beforeTableUnloadHandler);
         StartSensor();
-        if (iSavePin) 
-            attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
+#ifdef SAVE_INTERRUPT_PIN
+        if (iSaveSupported)
+            attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
+#endif
         gLogic.setup(false);
         gOneWireBM.setup();
     }

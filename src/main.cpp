@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include "Hardware.h"
 
-void appSetup(uint8_t iSavePin);
+void appSetup(bool iSaveSupported);
 void appLoop();
 
 void setup()
@@ -34,7 +34,7 @@ void setup()
 
     // print values of parameters if device is already configured
     if (knx.configured())
-        appSetup(SAVE_INTERRUPT_PIN);
+        appSetup(true);
 
     // start the framework.
     knx.start();
