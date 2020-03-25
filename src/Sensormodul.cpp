@@ -537,7 +537,7 @@ bool ProcessNewIdCallback(OneWire *iOneWireSensor) {
     uint8_t lLocalId[7] = {0x28, 0xDC, 0xA5, 0x88, 0x0B, 0x00, 0x00};
 
     if (equalId(iOneWireSensor->Id(), lLocalId)) {
-        iOneWireSensor->setModeKnown();
+        iOneWireSensor->setModeConnected();
     }
     return true;
 }
