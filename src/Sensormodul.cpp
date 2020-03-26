@@ -1,6 +1,6 @@
 #define SEALEVELPREASURE_HPA (1013.25)
 
-const char* cFirmwareVersion = "VERS 1.0.1";
+const char* cFirmwareVersion = "VERS 2.0.0";
 
 #ifndef __linux__
 #include "Sensor.h"
