@@ -253,7 +253,7 @@ Einstellungen für Luftfeuchte werden wie unter Standardsensoren beschrieben vor
 
 Erscheint nur, wenn der angeschlossene Sensor auch einen Messwert für Luftdruck liefert.
 
-Einstellungen für Luftdruck werden wie unter Standardsensoren beschrieben vorgenommen. Alle Angaben für Luftdruck werden in Pascal (Pa) vorgenommen.
+Einstellungen für Luftdruck werden wie unter Standardsensoren beschrieben vorgenommen. Alle Angaben für Luftdruck werden in Millibar (mBar) vorgenommen.
 
 ## Standardsensoren - Voc
 
@@ -431,23 +431,23 @@ KO | Name | DPT | Bedeutung
 10 | Sensorwerte anfordern | 1.016 | Beim Empfang vom Trigger (1) werden alle Sensorwerte auf den Bus gesendet. So kann man mehrere Leseanforderungen sparen.
 11 | Sensorfehler | 7.001 | Gibt über eine Bitleiste an, welche Messwerte aufgrund eines aufgetretenen Fehlers nicht erfasst werden können. Falls ein ganzer Sensor ausfällt, werden mehrere Bits gleichzeitig gesetzt
 12 | Diagnose | 16.001 | Nur für internen Gebrauch (Debug)
-15 | Temperatur | 9.001 | Temperaturmesswert
-16 | Luftfeuchte | 9.007 | Luftfeuchte
-17 | Luftdruck | 9.006 | Luftdruck
-18 | VOC | 9.* | Voc-Messwert
-19 | CO2 | 9.008 | CO2-Messwert
-20 | CO2-VOC | 9.008 | Berechneter CO2-Messwert vom VOC
-21 | Taupunkt | 9.001 | Berechneter Taupunkt
-22 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur
+15 | Temperatur | 9.001 | Temperaturmesswert (in °C)
+16 | Luftfeuchte | 9.007 | Luftfeuchte (in %)
+17 | Luftdruck | 9.006 | Luftdruck (in mBar, nicht Pa!!! mBar = Pa / 100)
+18 | VOC | 9.* | Voc-Messwert (einheitenlos)
+19 | CO2 | 9.008 | CO2-Messwert (in ppm)
+20 | CO2-VOC | 9.008 | Berechneter CO2-Messwert vom VOC (in ppm)
+21 | Taupunkt | 9.001 | Berechneter Taupunkt (in °C)
+22 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur (0-2)
 23 | Luftqualitätsampel | 5.005 | Luftgüte entsprechend deutscher Schulnoten (1-6)
-24 | Kalibrierungsgrad | 5.001 | Kalibrierungsfortschritt vom BME680 in %
-30 | Externe Temperatur 1 | 9.001 | Eingang für externe Temperatur 1
-31 | Externe Temperatur 2 | 9.001 | Eingang für externe Temperatur 2
-32 | Externe Luftfeuchte 1 | 9.007 | Eingang für externe Luftfeuchte 1
-33 | Externe Luftfeuchte 2 | 9.007 | Eingang für externe Luftfeuchte 2
-34 | Externer Lufttdruck 1 | 9.006 | Eingang für externen Luftdruck 1
-35 | Externer Lufttdruck 2 | 9.006 | Eingang für externen Luftdruck 2
-36 | Externer VOC 1 | 9.* | Eingang für externen VOC-Wert 1
-37 | Externer VOC 2 | 9.* | Eingang für externen VOC-Wert 2
-38 | Externe CO2 1 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 1
-39 | Externe CO2 2 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 2
+24 | Kalibrierungsgrad | 5.001 | Kalibrierungsfortschritt vom BME680 (in %)
+30 | Externe Temperatur 1 | 9.001 | Eingang für externe Temperatur 1 (in °C)
+31 | Externe Temperatur 2 | 9.001 | Eingang für externe Temperatur 2 (in °C)
+32 | Externe Luftfeuchte 1 | 9.007 | Eingang für externe Luftfeuchte 1 (in %)
+33 | Externe Luftfeuchte 2 | 9.007 | Eingang für externe Luftfeuchte 2 (in %)
+34 | Externer Lufttdruck 1 | 9.006 | Eingang für externen Luftdruck 1 (in mBar)
+35 | Externer Lufttdruck 2 | 9.006 | Eingang für externen Luftdruck 2 (in mBar)
+36 | Externer VOC 1 | 9.* | Eingang für externen VOC-Wert 1 (einheitenlos)
+37 | Externer VOC 2 | 9.* | Eingang für externen VOC-Wert 2 (einheitenlos)
+38 | Externe CO2 1 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 1 (in ppm)
+39 | Externe CO2 2 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 2 (in ppm)

@@ -29,7 +29,8 @@
 			"initializer_list": "cpp",
 			"xiosbase": "cpp",
 			"*.cppbak": "cpp",
-			"cstdint": "cpp"
+			"cstdint": "cpp",
+			"cmath": "cpp"
 		}
 	}
 }
