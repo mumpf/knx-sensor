@@ -59,7 +59,7 @@ These commands should install following libraries:
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-If you use the board from MASIFI version v1 or v2, you need to change two settings:
+If you use the board from MASIFI version v1 or v2, you need to change one or two settings:
 
     In knx-sensor, edit the file platformio.ini:  
     - change the line
@@ -69,10 +69,12 @@ If you use the board from MASIFI version v1 or v2, you need to change two settin
       or 
             -DBOARD_MASIFI_V1
 
-    - change the line 
+    - there exist different versions with CRYSTALLESS setting.
+      Ensure that
             -DCRYSTALLESS 
-      to 
-            ;-DCRYSTALLESS 
+      is always  
+            ;-DCRYSTALLESS
+      or the line is removed.
 
 Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 
@@ -90,6 +92,8 @@ At the end, there should be a message like
 
 Now you successfully build the Firmware for the Sensormodule, containing up to 80 logic channels.
 
+There is also a precompiled version of the firmware available on github for the different module versions.
+
 ## How to upload the Firmware to your Hardware
 
 Connect your device via USB to your PC
@@ -99,6 +103,8 @@ Open (again) the file Sensormodul/src/Sensormodul.cpp
 Press Ctrl-Shift-B, select "**Upload USB** knx-sensor" build task and press enter.
 
 Wait until file is uploaded.
+
+If you use a precompiled version of the firmware, you will find  a description how to upload the precompiled firmware to your device in release informations.
 
 ## How to build a knxprod for this firmware
 
