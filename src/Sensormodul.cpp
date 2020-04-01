@@ -1,7 +1,5 @@
 #define SEALEVELPREASURE_HPA (1013.25)
 
-const char* cFirmwareVersion = "VERS 1.0.1";
-
 #ifndef __linux__
 #include "SensorHDC1080.h"
 #include "SensorBME280.h"
@@ -15,6 +13,10 @@ const char* cFirmwareVersion = "VERS 1.0.1";
 // ... auf jeden Fall Vorrang haben (beeinflussen auch die Logik)
 // #include "../../knx-logic/src/LogikmodulCore.h"
 #include "Logic.h"
+
+const uint8_t cFirmwareMajor = 1;    // 0-31
+const uint8_t cFirmwareMinor = 0;    // 0-31
+const uint8_t cFirmwareRevision = 2; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -528,11 +530,12 @@ void ProcessDiagnoseCommand(GroupObject &iKo) {
     char lBuffer[16];
     if (lCommand[0] == 'v') {
         // Command v: retrun fimware version
-        iKo.value(cFirmwareVersion, getDPT(VAL_DPT_16));
+        sprintf(lBuffer, "VER [%d] %d.%d", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
+        iKo.value(lBuffer, getDPT(VAL_DPT_16));
     } else if (lCommand[0] == 's') {
         // Command s: Number of save-Interupts (= false-save)
         sprintf(lBuffer, "SAVE %d", gRuntimeData.countSaveInterrupt);
-        knx.getGroupObject(LOG_KoDiagnose).value(lBuffer, getDPT(VAL_DPT_16));
+        iKo.value(lBuffer, getDPT(VAL_DPT_16));
     }
 };
 
@@ -651,6 +654,8 @@ void appSetup(uint8_t iSavePin)
 
     if (knx.configured())
     {
+        // 5 bit major, 5 bit minor, 6 bit revision
+        knx.bau().deviceObject().version(cFirmwareMajor << 11 | cFirmwareMinor << 6 | cFirmwareRevision);
         // gSensor = (knx.paramByte(LOG_SensorDevice));
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
