@@ -232,8 +232,8 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
         bool lValid = fGetSensorValue(iMeasureType, lValue);
         if (lValid) {
             // we have now the internal sensor value, we correct it now
-            lValue += (lOffset / iOffsetFactor);
             lValue = lValue / iValueFactor;
+            lValue += (lOffset / iOffsetFactor);
             // if there are external values to take into account, we do it here
             uint8_t lNumExternalValues = knx.paramByte(iParamIndex + 9) & 3;
             float lDivisor = 0.0f;
