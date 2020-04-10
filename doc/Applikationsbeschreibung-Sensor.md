@@ -13,6 +13,14 @@ gegliedert.
 
 Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 
+## Änderungshistorie
+
+11.04.2020: Firmware 1.1.0, Applikation 1.4 - 1.7
+
+* Temperaturgrenzen in 'Temperatur anpassen (interner Messwert)' auf +-10°C erhöht. Auch für die anderen Messwerte wurden die Anpassungsintervalle erhöht.
+* **inkompatible Änderung**: Statt dem Sensor HDC1080 wird jetzt der Sensor SHT3x unterstützt.
+* Detailänderungen in der Logik, siehe Applikationsbeschreibung Logik.
+
 ## Allgemeine Parameter
 
 ![Allgemeine Parameter](./AllgemeineParameter.png)
@@ -56,7 +64,7 @@ Die unterstützten Sensoren liefern folgende Messwerte:
 
 Sensorauswahl | Temperatur | Luftfeuchte | Luftdruck | VOC | CO<sub>2</sub> | CO<sub>2</sub> (berechnet)
 ---|:---:|:---:|:---:|:---:|:---:|:---:
-HDC1080 | X | X |   |   |   |
+SHT3x   | X | X |   |   |   |
 BME280  | X | X | X |   |   |
 BME680  | X | X | X | X |   | X
 SCD30   | X | X |   |   | X |
@@ -172,7 +180,7 @@ Zu den Standardsensoren zählen die Sensoren, die unter den Allgemeinen Einstell
 
 ### Temperatur anpassen (interner Messwert)
 
-Mit dieser Einstellung kann der Sensor kalibriert werden. Der eingegebene Wert wird zum gemessenen Wert addiert. Man kann die Temperatur um -5°C absenken und bis zu +5°C erhöhen. Die Werte werden in  0.1°C angegeben, so dass die Eingabe von -50 bis +50 in ganzen Zahlen zu erfolgen hat.
+Mit dieser Einstellung kann der Sensor kalibriert werden. Der eingegebene Wert wird zum gemessenen Wert addiert. Man kann die Temperatur um -10°C absenken und bis zu +10°C erhöhen. Die Werte werden in  0.1°C angegeben, so dass die Eingabe von -100 bis +100 in ganzen Zahlen zu erfolgen hat.
 
 ### Externe Messwerte berücksichtigen
 

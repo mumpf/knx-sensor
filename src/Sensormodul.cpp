@@ -15,8 +15,8 @@
 #include "Logic.h"
 
 const uint8_t cFirmwareMajor = 1;    // 0-31
-const uint8_t cFirmwareMinor = 0;    // 0-31
-const uint8_t cFirmwareRevision = 2; // 0-63
+const uint8_t cFirmwareMinor = 1;    // 0-31
+const uint8_t cFirmwareRevision = 0; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -194,7 +194,7 @@ void StartSensor()
         gSensor |= BIT_Co2;
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
         lSensor = new SensorSCD30(lMeasureTypes, 0x61);
-        // lSensor->begin();
+        lSensor->begin();
         if (lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_CO2_BME680) {
             // if CO2-Sensor should measure Temp/Hum, it has to be set on first position in Sensor array
             Sensor::changeSensorOrder(lSensor, 0);
@@ -325,8 +325,8 @@ static bool sTempHumValid = false;
 
 // Dewpoint is a vitual sensor and might be implemented on sensor class level, but we implement it here (easier and shorter)
 bool CalculateDewValue(MeasureType iMeasureType, float& eValue) {
-    float lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)); //gRuntimeData.temp.currentValue;
-    float lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));   //gRuntimeData.hum.currentValue;
+    float lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9));
+    float lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));
     sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f && !sTempHumValid);
     if (sTempHumValid) {
         float lLogHum = log(lHum / 100.0f);
@@ -345,10 +345,10 @@ void CalculateComfort(bool iForce = false)
         // do not calculate if underlying measures are corrupt
         if (getError() & (Temperature | Humidity)) return;
 
-        float lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)); //gRuntimeData.temp.currentValue;
-        float lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));   //gRuntimeData.hum.currentValue;
-        sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f && !sTempHumValid);
-        if ((knx.paramByte(LOG_Comfort) & 32) && sTempHumValid)
+        float lTemp = roundf(knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)));
+        float lHum = roundf(knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9)));
+        sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f);
+        if (sTempHumValid && (knx.paramByte(LOG_Comfort) & 32))
         {
             // comfortzone
             uint8_t lComfort = 0;

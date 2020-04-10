@@ -24,7 +24,7 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-SensorDevices" Name="SensorDevices">
                 <TypeRestriction Base="Value" SizeInBit="6">
                   <Enumeration Text="Kein Sensor" Value="0" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-0" />
-                  <Enumeration Text="HDC1080" Value="1" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-1" />
+                  <Enumeration Text="SHT3x" Value="1" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-1" />
                   <Enumeration Text="BME280" Value="2" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-2" />
                   <Enumeration Text="BME280+SCD30" Value="3" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-3" />
                   <Enumeration Text="BME680" Value="4" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-4" />
@@ -35,22 +35,22 @@
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetTemp" Name="OffsetTemp">
-                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-50" maxInclusive="50" />
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Name="DeltaAbsTemp">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="500" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetHum" Name="OffsetHum">
-                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-10" maxInclusive="10" />
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-50" maxInclusive="50" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsHum" Name="DeltaAbsHum">
-                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="50" />
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetPre" Name="OffsetPre">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-80" maxInclusive="80" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsPre" Name="DeltaAbsPre">
-                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="50" />
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="80" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetVoc" Name="OffsetVoc">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
@@ -59,10 +59,10 @@
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="400" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-OffsetCo2" Name="OffsetCo2">
-                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-120" maxInclusive="120" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2" Name="DeltaAbsCo2">
-                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="400" />
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="600" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-ExtCount" Name="ExternalCount">
                 <TypeRestriction Base="Value" SizeInBit="2">
@@ -253,13 +253,13 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-166" Name="SensorCo2" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="CO2" Value="0" />
               <!-- P-67 reserved -->
 
-              <Parameter Id="M-00FA_A-0001-01-0000_P-170" Name="DewOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="/10 °C">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-170" Name="DewOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="x 0.1 °C">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="79" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-171" Name="DewCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Taupunkt zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="80" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-172" Name="DewDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="/10 °C">
+              <Parameter Id="M-00FA_A-0001-01-0000_P-172" Name="DewDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="84" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-173" Name="DewDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Taupunkt bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
@@ -463,7 +463,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
                   </when>
                   <when test="1">
-                    <!-- HDC1080: Temp, Hum -->
+                    <!-- SHT3x: Temp, Hum -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
