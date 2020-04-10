@@ -46,7 +46,7 @@
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-Calculate" Name="Calculate">
-                <TypeRestriction Base="Value" SizeInBit="8">
+                <TypeRestriction Base="Value" SizeInBit="2">
                   <Enumeration Text="auch wenn noch nicht alle Werte gültig sind" Value="0" Id="M-00FA_A-0067-18-0000_PT-Calculate_EN-0" />
                   <Enumeration Text="erst wenn alle Werte gültig sind" Value="1" Id="M-00FA_A-0067-18-0000_PT-Calculate_EN-1" />
                 </TypeRestriction>
@@ -54,6 +54,8 @@
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-Trigger" Name="Trigger">
                 <TypeRestriction Base="Value" SizeInBit="8">
                   <Enumeration Text="nur bei geändertem Ergebnis" Value="0" Id="M-00FA_A-0067-18-0000_PT-Trigger_EN-0" />
+                  <Enumeration Text="nur bei geändertem Ergebnis, aber erstes Telegramm immer senden" Value="32" Id="M-00FA_A-0067-18-0000_PT-Trigger_EN-2" />
+                  <Enumeration Text="nur bei geändertem Ergebnis, aber erstes Telegramm nicht senden" Value="16" Id="M-00FA_A-0067-18-0000_PT-Trigger_EN-3" />
                   <Enumeration Text="bei jedem Eingangstelegramm" Value="15" Id="M-00FA_A-0067-18-0000_PT-Trigger_EN-15" />
                   <Enumeration Text="bei folgenden Eingangstelegrammen" Value="1" Id="M-00FA_A-0067-18-0000_PT-Trigger_EN-1" />
                 </TypeRestriction>
@@ -113,7 +115,9 @@
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-ValueBuzzer" Name="ValueBuzzer">
                 <TypeRestriction Base="Value" SizeInBit="8">
                   <Enumeration Text="Ton ausschalten" Value="0" Id="M-00FA_A-0067-18-0000_PT-ValueBuzzer_EN-0" />
-                  <Enumeration Text="Ton einschalten" Value="1" Id="M-00FA_A-0067-18-0000_PT-ValueBuzzer_EN-1" />
+                  <Enumeration Text="Ton leise einschalten" Value="2" Id="M-00FA_A-0067-18-0000_PT-ValueBuzzer_EN-2" />
+                  <Enumeration Text="Ton normal einschalten" Value="3" Id="M-00FA_A-0067-18-0000_PT-ValueBuzzer_EN-3" />
+                  <Enumeration Text="Ton laut einschalten" Value="1" Id="M-00FA_A-0067-18-0000_PT-ValueBuzzer_EN-1" />
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-ValueDpt1" Name="ValueDpt1">
@@ -569,7 +573,7 @@
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-SensorDevices" Name="SensorDevices">
                 <TypeRestriction Base="Value" SizeInBit="6">
                   <Enumeration Text="Kein Sensor" Value="0" Id="M-00FA_A-0067-18-0000_PT-SensorDevices_EN-0" />
-                  <Enumeration Text="HDC1080" Value="1" Id="M-00FA_A-0067-18-0000_PT-SensorDevices_EN-1" />
+                  <Enumeration Text="SHT3x" Value="1" Id="M-00FA_A-0067-18-0000_PT-SensorDevices_EN-1" />
                   <Enumeration Text="BME280" Value="2" Id="M-00FA_A-0067-18-0000_PT-SensorDevices_EN-2" />
                   <Enumeration Text="BME280+SCD30" Value="3" Id="M-00FA_A-0067-18-0000_PT-SensorDevices_EN-3" />
                   <Enumeration Text="BME680" Value="4" Id="M-00FA_A-0067-18-0000_PT-SensorDevices_EN-4" />
@@ -580,22 +584,22 @@
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-OffsetTemp" Name="OffsetTemp">
-                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-50" maxInclusive="50" />
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-DeltaAbsTemp" Name="DeltaAbsTemp">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="500" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-OffsetHum" Name="OffsetHum">
-                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-10" maxInclusive="10" />
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-50" maxInclusive="50" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-DeltaAbsHum" Name="DeltaAbsHum">
-                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="50" />
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-OffsetPre" Name="OffsetPre">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-80" maxInclusive="80" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-DeltaAbsPre" Name="DeltaAbsPre">
-                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="50" />
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="80" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-OffsetVoc" Name="OffsetVoc">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
@@ -604,10 +608,10 @@
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="400" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-OffsetCo2" Name="OffsetCo2">
-                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-120" maxInclusive="120" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-DeltaAbsCo2" Name="DeltaAbsCo2">
-                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="400" />
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="600" />
               </ParameterType>
               <ParameterType Id="M-00FA_A-0067-18-0000_PT-ExtCount" Name="ExternalCount">
                 <TypeRestriction Base="Value" SizeInBit="2">
@@ -807,13 +811,13 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-164" Name="SensorPre" ParameterType="M-00FA_A-0067-18-0000_PT-CheckBox" Text="Luftdruck" Value="0" />
               <Parameter Id="M-00FA_A-0067-18-0000_P-165" Name="SensorVoc" ParameterType="M-00FA_A-0067-18-0000_PT-CheckBox" Text="Voc" Value="0" />
               <Parameter Id="M-00FA_A-0067-18-0000_P-166" Name="SensorCo2" ParameterType="M-00FA_A-0067-18-0000_PT-CheckBox" Text="CO2" Value="0" />
-              <Parameter Id="M-00FA_A-0067-18-0000_P-170" Name="DewOffset" ParameterType="M-00FA_A-0067-18-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="/10 °C">
+              <Parameter Id="M-00FA_A-0067-18-0000_P-170" Name="DewOffset" ParameterType="M-00FA_A-0067-18-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="x 0.1 °C">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="79" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0067-18-0000_P-171" Name="DewCycle" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Taupunkt zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="80" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-172" Name="DewDeltaAbs" ParameterType="M-00FA_A-0067-18-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="/10 °C">
+              <Parameter Id="M-00FA_A-0067-18-0000_P-172" Name="DewDeltaAbs" ParameterType="M-00FA_A-0067-18-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="84" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0067-18-0000_P-173" Name="DewDeltaPercent" ParameterType="M-00FA_A-0067-18-0000_PT-Percent" Text="Taupunkt bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
@@ -829,9 +833,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-1003" Name="f1Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="92" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-1004" Name="f1Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="93" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-1004" Name="f1Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="94" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-1005" Name="f1Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -858,6 +863,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="99" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-1026" Name="f1E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-1130" Name="f1E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-1164" Name="f1E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-1027" Name="f1E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="100" BitOffset="0" />
@@ -874,6 +880,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="106" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-1046" Name="f1E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-1131" Name="f1E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-1165" Name="f1E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-1047" Name="f1E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="107" BitOffset="0" />
@@ -1085,9 +1092,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-2003" Name="f2Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="192" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-2004" Name="f2Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="193" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-2004" Name="f2Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="194" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-2005" Name="f2Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -1114,6 +1122,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="199" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-2026" Name="f2E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-2130" Name="f2E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-2164" Name="f2E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-2027" Name="f2E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="200" BitOffset="0" />
@@ -1130,6 +1139,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="206" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-2046" Name="f2E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-2131" Name="f2E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-2165" Name="f2E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-2047" Name="f2E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="207" BitOffset="0" />
@@ -1341,9 +1351,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-3003" Name="f3Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="292" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-3004" Name="f3Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="293" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-3004" Name="f3Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="294" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-3005" Name="f3Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -1370,6 +1381,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="299" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-3026" Name="f3E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-3130" Name="f3E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-3164" Name="f3E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-3027" Name="f3E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="300" BitOffset="0" />
@@ -1386,6 +1398,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="306" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-3046" Name="f3E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-3131" Name="f3E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-3165" Name="f3E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-3047" Name="f3E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="307" BitOffset="0" />
@@ -1597,9 +1610,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-4003" Name="f4Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="392" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-4004" Name="f4Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="393" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-4004" Name="f4Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="394" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-4005" Name="f4Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -1626,6 +1640,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="399" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-4026" Name="f4E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-4130" Name="f4E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-4164" Name="f4E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-4027" Name="f4E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="400" BitOffset="0" />
@@ -1642,6 +1657,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="406" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-4046" Name="f4E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-4131" Name="f4E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-4165" Name="f4E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-4047" Name="f4E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="407" BitOffset="0" />
@@ -1853,9 +1869,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-5003" Name="f5Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="492" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-5004" Name="f5Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="493" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-5004" Name="f5Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="494" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-5005" Name="f5Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -1882,6 +1899,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="499" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-5026" Name="f5E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-5130" Name="f5E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-5164" Name="f5E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-5027" Name="f5E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="500" BitOffset="0" />
@@ -1898,6 +1916,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="506" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-5046" Name="f5E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-5131" Name="f5E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-5165" Name="f5E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-5047" Name="f5E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="507" BitOffset="0" />
@@ -2109,9 +2128,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-6003" Name="f6Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="592" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-6004" Name="f6Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="593" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-6004" Name="f6Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="594" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-6005" Name="f6Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -2138,6 +2158,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="599" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-6026" Name="f6E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-6130" Name="f6E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-6164" Name="f6E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-6027" Name="f6E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="600" BitOffset="0" />
@@ -2154,6 +2175,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="606" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-6046" Name="f6E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-6131" Name="f6E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-6165" Name="f6E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-6047" Name="f6E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="607" BitOffset="0" />
@@ -2365,9 +2387,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-7003" Name="f7Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="692" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-7004" Name="f7Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="693" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-7004" Name="f7Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="694" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-7005" Name="f7Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -2394,6 +2417,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="699" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-7026" Name="f7E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-7130" Name="f7E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-7164" Name="f7E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-7027" Name="f7E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="700" BitOffset="0" />
@@ -2410,6 +2434,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="706" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-7046" Name="f7E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-7131" Name="f7E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-7165" Name="f7E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-7047" Name="f7E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="707" BitOffset="0" />
@@ -2621,9 +2646,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-8003" Name="f8Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="792" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-8004" Name="f8Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="793" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-8004" Name="f8Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="794" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-8005" Name="f8Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -2650,6 +2676,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="799" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-8026" Name="f8E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-8130" Name="f8E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-8164" Name="f8E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-8027" Name="f8E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="800" BitOffset="0" />
@@ -2666,6 +2693,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="806" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-8046" Name="f8E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-8131" Name="f8E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-8165" Name="f8E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-8047" Name="f8E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="807" BitOffset="0" />
@@ -2877,9 +2905,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-9003" Name="f9Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="892" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-9004" Name="f9Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="893" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-9004" Name="f9Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="894" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-9005" Name="f9Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -2906,6 +2935,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="899" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-9026" Name="f9E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-9130" Name="f9E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-9164" Name="f9E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-9027" Name="f9E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="900" BitOffset="0" />
@@ -2922,6 +2952,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="906" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-9046" Name="f9E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-9131" Name="f9E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-9165" Name="f9E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-9047" Name="f9E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="907" BitOffset="0" />
@@ -3133,9 +3164,10 @@
               <Parameter Id="M-00FA_A-0067-18-0000_P-10003" Name="f10Logic" ParameterType="M-00FA_A-0067-18-0000_PT-Logic" Text="Logische Operation" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="992" BitOffset="0" />
               </Parameter>
-              <Parameter Id="M-00FA_A-0067-18-0000_P-10004" Name="f10Calculate" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0">
+              <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="993" BitOffset="0" />
-              </Parameter>
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-10004" Name="f10Calculate" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-Calculate" Text="Logik auswerten" Value="0" />
+              </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="994" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-10005" Name="f10Trigger" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0067-18-0000_PT-Trigger" Text="Logik sendet ihren Wert weiter" Value="15" />
@@ -3162,6 +3194,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="999" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-10026" Name="f10E1Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-10130" Name="f10E1DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-10164" Name="f10E1DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-10027" Name="f10E1Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="1000" BitOffset="0" />
@@ -3178,6 +3211,7 @@
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="1006" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-10046" Name="f10E2Default" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0067-18-0000_PT-InputDefault" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
                 <Parameter Id="M-00FA_A-0067-18-0000_UP-10131" Name="f10E2DefaultEEPROM" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
+                <Parameter Id="M-00FA_A-0067-18-0000_UP-10165" Name="f10E2DefaultRepeat" Offset="0" BitOffset="4" ParameterType="M-00FA_A-0067-18-0000_PT-OnOffYesNo" Text="Nur so lange wiederholen, bis erstes Telegramm eingeht" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0067-18-0000_P-10047" Name="f10E2Repeat" ParameterType="M-00FA_A-0067-18-0000_PT-DelaySeconds" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Value="0">
                 <Memory CodeSegment="M-00FA_A-0067-18-0000_RS-04-00000" Offset="1007" BitOffset="0" />
@@ -3475,7 +3509,7 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1001_R-10011" RefId="M-00FA_A-0067-18-0000_P-1001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1002_R-10021" RefId="M-00FA_A-0067-18-0000_P-1002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1003_R-10031" RefId="M-00FA_A-0067-18-0000_P-1003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-1004_R-10041" RefId="M-00FA_A-0067-18-0000_P-1004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-1004_R-10041" RefId="M-00FA_A-0067-18-0000_UP-1004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-1005_R-10051" RefId="M-00FA_A-0067-18-0000_UP-1005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1006_R-10061" RefId="M-00FA_A-0067-18-0000_P-1006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1007_R-10071" RefId="M-00FA_A-0067-18-0000_P-1007" />
@@ -3672,10 +3706,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1161_R-11611" RefId="M-00FA_A-0067-18-0000_P-1161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1162_R-11621" RefId="M-00FA_A-0067-18-0000_P-1162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-1163_R-11631" RefId="M-00FA_A-0067-18-0000_P-1163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-1164_R-11641" RefId="M-00FA_A-0067-18-0000_UP-1164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-1165_R-11651" RefId="M-00FA_A-0067-18-0000_UP-1165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2001_R-20011" RefId="M-00FA_A-0067-18-0000_P-2001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2002_R-20021" RefId="M-00FA_A-0067-18-0000_P-2002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2003_R-20031" RefId="M-00FA_A-0067-18-0000_P-2003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-2004_R-20041" RefId="M-00FA_A-0067-18-0000_P-2004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-2004_R-20041" RefId="M-00FA_A-0067-18-0000_UP-2004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-2005_R-20051" RefId="M-00FA_A-0067-18-0000_UP-2005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2006_R-20061" RefId="M-00FA_A-0067-18-0000_P-2006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2007_R-20071" RefId="M-00FA_A-0067-18-0000_P-2007" />
@@ -3872,10 +3908,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2161_R-21611" RefId="M-00FA_A-0067-18-0000_P-2161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2162_R-21621" RefId="M-00FA_A-0067-18-0000_P-2162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-2163_R-21631" RefId="M-00FA_A-0067-18-0000_P-2163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-2164_R-21641" RefId="M-00FA_A-0067-18-0000_UP-2164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-2165_R-21651" RefId="M-00FA_A-0067-18-0000_UP-2165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3001_R-30011" RefId="M-00FA_A-0067-18-0000_P-3001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3002_R-30021" RefId="M-00FA_A-0067-18-0000_P-3002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3003_R-30031" RefId="M-00FA_A-0067-18-0000_P-3003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-3004_R-30041" RefId="M-00FA_A-0067-18-0000_P-3004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-3004_R-30041" RefId="M-00FA_A-0067-18-0000_UP-3004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-3005_R-30051" RefId="M-00FA_A-0067-18-0000_UP-3005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3006_R-30061" RefId="M-00FA_A-0067-18-0000_P-3006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3007_R-30071" RefId="M-00FA_A-0067-18-0000_P-3007" />
@@ -4072,10 +4110,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3161_R-31611" RefId="M-00FA_A-0067-18-0000_P-3161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3162_R-31621" RefId="M-00FA_A-0067-18-0000_P-3162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-3163_R-31631" RefId="M-00FA_A-0067-18-0000_P-3163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-3164_R-31641" RefId="M-00FA_A-0067-18-0000_UP-3164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-3165_R-31651" RefId="M-00FA_A-0067-18-0000_UP-3165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4001_R-40011" RefId="M-00FA_A-0067-18-0000_P-4001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4002_R-40021" RefId="M-00FA_A-0067-18-0000_P-4002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4003_R-40031" RefId="M-00FA_A-0067-18-0000_P-4003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-4004_R-40041" RefId="M-00FA_A-0067-18-0000_P-4004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-4004_R-40041" RefId="M-00FA_A-0067-18-0000_UP-4004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-4005_R-40051" RefId="M-00FA_A-0067-18-0000_UP-4005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4006_R-40061" RefId="M-00FA_A-0067-18-0000_P-4006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4007_R-40071" RefId="M-00FA_A-0067-18-0000_P-4007" />
@@ -4272,10 +4312,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4161_R-41611" RefId="M-00FA_A-0067-18-0000_P-4161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4162_R-41621" RefId="M-00FA_A-0067-18-0000_P-4162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-4163_R-41631" RefId="M-00FA_A-0067-18-0000_P-4163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-4164_R-41641" RefId="M-00FA_A-0067-18-0000_UP-4164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-4165_R-41651" RefId="M-00FA_A-0067-18-0000_UP-4165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5001_R-50011" RefId="M-00FA_A-0067-18-0000_P-5001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5002_R-50021" RefId="M-00FA_A-0067-18-0000_P-5002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5003_R-50031" RefId="M-00FA_A-0067-18-0000_P-5003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-5004_R-50041" RefId="M-00FA_A-0067-18-0000_P-5004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-5004_R-50041" RefId="M-00FA_A-0067-18-0000_UP-5004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-5005_R-50051" RefId="M-00FA_A-0067-18-0000_UP-5005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5006_R-50061" RefId="M-00FA_A-0067-18-0000_P-5006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5007_R-50071" RefId="M-00FA_A-0067-18-0000_P-5007" />
@@ -4472,10 +4514,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5161_R-51611" RefId="M-00FA_A-0067-18-0000_P-5161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5162_R-51621" RefId="M-00FA_A-0067-18-0000_P-5162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-5163_R-51631" RefId="M-00FA_A-0067-18-0000_P-5163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-5164_R-51641" RefId="M-00FA_A-0067-18-0000_UP-5164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-5165_R-51651" RefId="M-00FA_A-0067-18-0000_UP-5165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6001_R-60011" RefId="M-00FA_A-0067-18-0000_P-6001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6002_R-60021" RefId="M-00FA_A-0067-18-0000_P-6002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6003_R-60031" RefId="M-00FA_A-0067-18-0000_P-6003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-6004_R-60041" RefId="M-00FA_A-0067-18-0000_P-6004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-6004_R-60041" RefId="M-00FA_A-0067-18-0000_UP-6004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-6005_R-60051" RefId="M-00FA_A-0067-18-0000_UP-6005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6006_R-60061" RefId="M-00FA_A-0067-18-0000_P-6006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6007_R-60071" RefId="M-00FA_A-0067-18-0000_P-6007" />
@@ -4672,10 +4716,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6161_R-61611" RefId="M-00FA_A-0067-18-0000_P-6161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6162_R-61621" RefId="M-00FA_A-0067-18-0000_P-6162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-6163_R-61631" RefId="M-00FA_A-0067-18-0000_P-6163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-6164_R-61641" RefId="M-00FA_A-0067-18-0000_UP-6164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-6165_R-61651" RefId="M-00FA_A-0067-18-0000_UP-6165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7001_R-70011" RefId="M-00FA_A-0067-18-0000_P-7001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7002_R-70021" RefId="M-00FA_A-0067-18-0000_P-7002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7003_R-70031" RefId="M-00FA_A-0067-18-0000_P-7003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-7004_R-70041" RefId="M-00FA_A-0067-18-0000_P-7004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-7004_R-70041" RefId="M-00FA_A-0067-18-0000_UP-7004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-7005_R-70051" RefId="M-00FA_A-0067-18-0000_UP-7005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7006_R-70061" RefId="M-00FA_A-0067-18-0000_P-7006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7007_R-70071" RefId="M-00FA_A-0067-18-0000_P-7007" />
@@ -4872,10 +4918,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7161_R-71611" RefId="M-00FA_A-0067-18-0000_P-7161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7162_R-71621" RefId="M-00FA_A-0067-18-0000_P-7162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-7163_R-71631" RefId="M-00FA_A-0067-18-0000_P-7163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-7164_R-71641" RefId="M-00FA_A-0067-18-0000_UP-7164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-7165_R-71651" RefId="M-00FA_A-0067-18-0000_UP-7165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8001_R-80011" RefId="M-00FA_A-0067-18-0000_P-8001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8002_R-80021" RefId="M-00FA_A-0067-18-0000_P-8002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8003_R-80031" RefId="M-00FA_A-0067-18-0000_P-8003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-8004_R-80041" RefId="M-00FA_A-0067-18-0000_P-8004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-8004_R-80041" RefId="M-00FA_A-0067-18-0000_UP-8004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-8005_R-80051" RefId="M-00FA_A-0067-18-0000_UP-8005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8006_R-80061" RefId="M-00FA_A-0067-18-0000_P-8006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8007_R-80071" RefId="M-00FA_A-0067-18-0000_P-8007" />
@@ -5072,10 +5120,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8161_R-81611" RefId="M-00FA_A-0067-18-0000_P-8161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8162_R-81621" RefId="M-00FA_A-0067-18-0000_P-8162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-8163_R-81631" RefId="M-00FA_A-0067-18-0000_P-8163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-8164_R-81641" RefId="M-00FA_A-0067-18-0000_UP-8164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-8165_R-81651" RefId="M-00FA_A-0067-18-0000_UP-8165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9001_R-90011" RefId="M-00FA_A-0067-18-0000_P-9001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9002_R-90021" RefId="M-00FA_A-0067-18-0000_P-9002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9003_R-90031" RefId="M-00FA_A-0067-18-0000_P-9003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-9004_R-90041" RefId="M-00FA_A-0067-18-0000_P-9004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-9004_R-90041" RefId="M-00FA_A-0067-18-0000_UP-9004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-9005_R-90051" RefId="M-00FA_A-0067-18-0000_UP-9005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9006_R-90061" RefId="M-00FA_A-0067-18-0000_P-9006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9007_R-90071" RefId="M-00FA_A-0067-18-0000_P-9007" />
@@ -5272,10 +5322,12 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9161_R-91611" RefId="M-00FA_A-0067-18-0000_P-9161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9162_R-91621" RefId="M-00FA_A-0067-18-0000_P-9162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-9163_R-91631" RefId="M-00FA_A-0067-18-0000_P-9163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-9164_R-91641" RefId="M-00FA_A-0067-18-0000_UP-9164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-9165_R-91651" RefId="M-00FA_A-0067-18-0000_UP-9165" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10001_R-100011" RefId="M-00FA_A-0067-18-0000_P-10001" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10002_R-100021" RefId="M-00FA_A-0067-18-0000_P-10002" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10003_R-100031" RefId="M-00FA_A-0067-18-0000_P-10003" />
-              <ParameterRef Id="M-00FA_A-0067-18-0000_P-10004_R-100041" RefId="M-00FA_A-0067-18-0000_P-10004" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-10004_R-100041" RefId="M-00FA_A-0067-18-0000_UP-10004" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_UP-10005_R-100051" RefId="M-00FA_A-0067-18-0000_UP-10005" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10006_R-100061" RefId="M-00FA_A-0067-18-0000_P-10006" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10007_R-100071" RefId="M-00FA_A-0067-18-0000_P-10007" />
@@ -5472,6 +5524,8 @@
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10161_R-101611" RefId="M-00FA_A-0067-18-0000_P-10161" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10162_R-101621" RefId="M-00FA_A-0067-18-0000_P-10162" />
               <ParameterRef Id="M-00FA_A-0067-18-0000_P-10163_R-101631" RefId="M-00FA_A-0067-18-0000_P-10163" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-10164_R-101641" RefId="M-00FA_A-0067-18-0000_UP-10164" />
+              <ParameterRef Id="M-00FA_A-0067-18-0000_UP-10165_R-101651" RefId="M-00FA_A-0067-18-0000_UP-10165" />
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="M-00FA_A-0067-18-0000_O-1" Name="Heartbeat" Text="In Betieb" Number="1" FunctionText="Zyklisch" ObjectSize="1 Bit" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-2" />
@@ -6245,7 +6299,7 @@
                     <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-166_R-1661" />
                   </when>
                   <when test="1">
-                    <!-- HDC1080: Temp, Hum -->
+                    <!-- SHT3x: Temp, Hum -->
                     <!-- ParameterRefRef SensorTemp 'Temperatur'-->
                     <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-162_R-1622" />
                     <!-- ParameterRefRef SensorHum 'Luftfeuchte'-->
@@ -6859,7 +6913,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-147" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-148" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f1Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-1004_R-10041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1004_R-10041" />
                 <!-- choose f1Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-1003_R-10031">
                   <when test="4">
@@ -6982,6 +7036,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1026_R-10261" />
                           <!-- ParameterRefRef f1E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-1027_R-10271" />
+                          <!-- ParameterRefRef f1E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1164_R-11641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -7392,6 +7448,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1026_R-10261" />
                           <!-- ParameterRefRef f1E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-1027_R-10271" />
+                          <!-- ParameterRefRef f1E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1164_R-11641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -7474,6 +7532,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1046_R-10461" />
                           <!-- ParameterRefRef f1E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-1047_R-10471" />
+                          <!-- ParameterRefRef f1E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1165_R-11651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -7885,6 +7945,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1046_R-10461" />
                           <!-- ParameterRefRef f1E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-1047_R-10471" />
+                          <!-- ParameterRefRef f1E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-1165_R-11651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -8502,7 +8564,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-205" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-206" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f2Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-2004_R-20041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2004_R-20041" />
                 <!-- choose f2Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-2003_R-20031">
                   <when test="4">
@@ -8625,6 +8687,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2026_R-20261" />
                           <!-- ParameterRefRef f2E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-2027_R-20271" />
+                          <!-- ParameterRefRef f2E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2164_R-21641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -9035,6 +9099,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2026_R-20261" />
                           <!-- ParameterRefRef f2E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-2027_R-20271" />
+                          <!-- ParameterRefRef f2E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2164_R-21641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -9117,6 +9183,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2046_R-20461" />
                           <!-- ParameterRefRef f2E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-2047_R-20471" />
+                          <!-- ParameterRefRef f2E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2165_R-21651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -9528,6 +9596,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2046_R-20461" />
                           <!-- ParameterRefRef f2E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-2047_R-20471" />
+                          <!-- ParameterRefRef f2E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-2165_R-21651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -10145,7 +10215,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-263" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-264" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f3Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-3004_R-30041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3004_R-30041" />
                 <!-- choose f3Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-3003_R-30031">
                   <when test="4">
@@ -10268,6 +10338,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3026_R-30261" />
                           <!-- ParameterRefRef f3E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-3027_R-30271" />
+                          <!-- ParameterRefRef f3E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3164_R-31641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -10678,6 +10750,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3026_R-30261" />
                           <!-- ParameterRefRef f3E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-3027_R-30271" />
+                          <!-- ParameterRefRef f3E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3164_R-31641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -10760,6 +10834,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3046_R-30461" />
                           <!-- ParameterRefRef f3E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-3047_R-30471" />
+                          <!-- ParameterRefRef f3E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3165_R-31651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -11171,6 +11247,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3046_R-30461" />
                           <!-- ParameterRefRef f3E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-3047_R-30471" />
+                          <!-- ParameterRefRef f3E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-3165_R-31651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -11788,7 +11866,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-321" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-322" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f4Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-4004_R-40041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4004_R-40041" />
                 <!-- choose f4Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-4003_R-40031">
                   <when test="4">
@@ -11911,6 +11989,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4026_R-40261" />
                           <!-- ParameterRefRef f4E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-4027_R-40271" />
+                          <!-- ParameterRefRef f4E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4164_R-41641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -12321,6 +12401,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4026_R-40261" />
                           <!-- ParameterRefRef f4E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-4027_R-40271" />
+                          <!-- ParameterRefRef f4E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4164_R-41641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -12403,6 +12485,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4046_R-40461" />
                           <!-- ParameterRefRef f4E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-4047_R-40471" />
+                          <!-- ParameterRefRef f4E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4165_R-41651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -12814,6 +12898,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4046_R-40461" />
                           <!-- ParameterRefRef f4E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-4047_R-40471" />
+                          <!-- ParameterRefRef f4E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-4165_R-41651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -13431,7 +13517,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-379" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-380" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f5Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-5004_R-50041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5004_R-50041" />
                 <!-- choose f5Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-5003_R-50031">
                   <when test="4">
@@ -13554,6 +13640,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5026_R-50261" />
                           <!-- ParameterRefRef f5E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-5027_R-50271" />
+                          <!-- ParameterRefRef f5E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5164_R-51641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -13964,6 +14052,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5026_R-50261" />
                           <!-- ParameterRefRef f5E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-5027_R-50271" />
+                          <!-- ParameterRefRef f5E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5164_R-51641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -14046,6 +14136,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5046_R-50461" />
                           <!-- ParameterRefRef f5E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-5047_R-50471" />
+                          <!-- ParameterRefRef f5E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5165_R-51651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -14457,6 +14549,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5046_R-50461" />
                           <!-- ParameterRefRef f5E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-5047_R-50471" />
+                          <!-- ParameterRefRef f5E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-5165_R-51651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -15074,7 +15168,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-437" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-438" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f6Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-6004_R-60041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6004_R-60041" />
                 <!-- choose f6Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-6003_R-60031">
                   <when test="4">
@@ -15197,6 +15291,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6026_R-60261" />
                           <!-- ParameterRefRef f6E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-6027_R-60271" />
+                          <!-- ParameterRefRef f6E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6164_R-61641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -15607,6 +15703,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6026_R-60261" />
                           <!-- ParameterRefRef f6E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-6027_R-60271" />
+                          <!-- ParameterRefRef f6E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6164_R-61641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -15689,6 +15787,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6046_R-60461" />
                           <!-- ParameterRefRef f6E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-6047_R-60471" />
+                          <!-- ParameterRefRef f6E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6165_R-61651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -16100,6 +16200,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6046_R-60461" />
                           <!-- ParameterRefRef f6E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-6047_R-60471" />
+                          <!-- ParameterRefRef f6E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-6165_R-61651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -16717,7 +16819,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-495" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-496" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f7Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-7004_R-70041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7004_R-70041" />
                 <!-- choose f7Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-7003_R-70031">
                   <when test="4">
@@ -16840,6 +16942,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7026_R-70261" />
                           <!-- ParameterRefRef f7E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-7027_R-70271" />
+                          <!-- ParameterRefRef f7E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7164_R-71641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -17250,6 +17354,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7026_R-70261" />
                           <!-- ParameterRefRef f7E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-7027_R-70271" />
+                          <!-- ParameterRefRef f7E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7164_R-71641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -17332,6 +17438,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7046_R-70461" />
                           <!-- ParameterRefRef f7E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-7047_R-70471" />
+                          <!-- ParameterRefRef f7E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7165_R-71651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -17743,6 +17851,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7046_R-70461" />
                           <!-- ParameterRefRef f7E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-7047_R-70471" />
+                          <!-- ParameterRefRef f7E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-7165_R-71651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -18360,7 +18470,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-553" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-554" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f8Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-8004_R-80041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8004_R-80041" />
                 <!-- choose f8Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-8003_R-80031">
                   <when test="4">
@@ -18483,6 +18593,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8026_R-80261" />
                           <!-- ParameterRefRef f8E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-8027_R-80271" />
+                          <!-- ParameterRefRef f8E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8164_R-81641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -18893,6 +19005,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8026_R-80261" />
                           <!-- ParameterRefRef f8E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-8027_R-80271" />
+                          <!-- ParameterRefRef f8E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8164_R-81641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -18975,6 +19089,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8046_R-80461" />
                           <!-- ParameterRefRef f8E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-8047_R-80471" />
+                          <!-- ParameterRefRef f8E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8165_R-81651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -19386,6 +19502,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8046_R-80461" />
                           <!-- ParameterRefRef f8E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-8047_R-80471" />
+                          <!-- ParameterRefRef f8E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-8165_R-81651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -20003,7 +20121,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-611" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-612" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f9Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-9004_R-90041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9004_R-90041" />
                 <!-- choose f9Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-9003_R-90031">
                   <when test="4">
@@ -20126,6 +20244,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9026_R-90261" />
                           <!-- ParameterRefRef f9E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-9027_R-90271" />
+                          <!-- ParameterRefRef f9E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9164_R-91641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -20536,6 +20656,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9026_R-90261" />
                           <!-- ParameterRefRef f9E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-9027_R-90271" />
+                          <!-- ParameterRefRef f9E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9164_R-91641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -20618,6 +20740,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9046_R-90461" />
                           <!-- ParameterRefRef f9E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-9047_R-90471" />
+                          <!-- ParameterRefRef f9E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9165_R-91651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -21029,6 +21153,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9046_R-90461" />
                           <!-- ParameterRefRef f9E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-9047_R-90471" />
+                          <!-- ParameterRefRef f9E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-9165_R-91651" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -21646,7 +21772,7 @@
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-669" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0067-18-0000_PS-670" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
                 <!-- ParameterRefRef f10Calculate 'Logik auswerten'-->
-                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-10004_R-100041" />
+                <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10004_R-100041" />
                 <!-- choose f10Logic 'Logische Operation'-->
                 <choose ParamRefId="M-00FA_A-0067-18-0000_P-10003_R-100031">
                   <when test="4">
@@ -21769,6 +21895,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10026_R-100261" />
                           <!-- ParameterRefRef f10E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-10027_R-100271" />
+                          <!-- ParameterRefRef f10E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10164_R-101641" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -22179,6 +22307,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10026_R-100261" />
                           <!-- ParameterRefRef f10E1Repeat 'Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-10027_R-100271" />
+                          <!-- ParameterRefRef f10E1DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10164_R-101641" />
                         </when>
                       </choose>
                     </ParameterBlock>
@@ -22261,6 +22391,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10046_R-100461" />
                           <!-- ParameterRefRef f10E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-10047_R-100471" />
+                          <!-- ParameterRefRef f10E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10165_R-101651" />
                         </ParameterBlock>
                       </when>
                     </choose>
@@ -22672,6 +22804,8 @@
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10046_R-100461" />
                           <!-- ParameterRefRef f10E2Repeat 'Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)'-->
                           <ParameterRefRef RefId="M-00FA_A-0067-18-0000_P-10047_R-100471" />
+                          <!-- ParameterRefRef f10E2DefaultRepeat 'Nur so lange wiederholen, bis erstes Telegramm eingeht'-->
+                          <ParameterRefRef RefId="M-00FA_A-0067-18-0000_UP-10165_R-101651" />
                         </when>
                       </choose>
                     </ParameterBlock>

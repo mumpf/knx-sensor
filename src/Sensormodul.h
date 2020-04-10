@@ -79,7 +79,7 @@
 #define LOG_ParamBlockSize 100
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
-#define LOG_fCalculate                 5      // 8 Bits, Bit 7-0
+#define LOG_fCalculate                 5      // 2 Bits, Bit 1-0
 #define LOG_fTrigger                   6      // 8 Bits, Bit 7-0
 #define LOG_fTriggerE1                 6      // 1 Bit, Bit 0
 #define LOG_fTriggerE2                 6      // 1 Bit, Bit 1
@@ -92,12 +92,14 @@
 #define LOG_fE1Dpt                    10      // 8 Bits, Bit 7-0
 #define LOG_fE1Default                11      // 2 Bits, Bit 1-0
 #define LOG_fE1DefaultEEPROM          11      // 1 Bit, Bit 2
+#define LOG_fE1DefaultRepeat          11      // 1 Bit, Bit 3
 #define LOG_fE1Repeat                 12      // int32_t
 #define LOG_fE2                       16      // 4 Bits, Bit 3-0
 #define LOG_fE2Convert                16      // 4 Bits, Bit 7-4
 #define LOG_fE2Dpt                    17      // 8 Bits, Bit 7-0
 #define LOG_fE2Default                18      // 2 Bits, Bit 1-0
 #define LOG_fE2DefaultEEPROM          18      // 1 Bit, Bit 2
+#define LOG_fE2DefaultRepeat          18      // 1 Bit, Bit 3
 #define LOG_fE2Repeat                 19      // int32_t
 #define LOG_fE1LowDelta               23      // int32_t
 #define LOG_fE1HighDelta              27      // int32_t
