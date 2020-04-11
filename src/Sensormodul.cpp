@@ -1,7 +1,7 @@
 #define SEALEVELPREASURE_HPA (1013.25)
 
 #ifndef __linux__
-#include "SensorHDC1080.h"
+#include "SensorSHT3x.h"
 #include "SensorBME280.h"
 #include "SensorBME680.h"
 #include "SensorSCD30.h"
@@ -29,7 +29,7 @@ const uint8_t cFirmwareRevision = 0; // 0-63
 #define BIT_Co2Calc 64
 #define BIT_LOGIC 128
 
-#define SENSOR_HDC1080 1
+#define SENSOR_SHT3X 1
 #define SENSOR_BME280 2
 #define SENSOR_BME280_CO2 3
 #define SENSOR_BME680 4
@@ -46,7 +46,7 @@ extern KnxFacade<LinuxPlatform, Bau57B0> knx;
 // runtime information for the whole logik module
 struct sSensorInfo
 {
-    float lastSentValue;
+    float lastSentValue = NAN;
     unsigned long sendDelay;
     unsigned long readDelay;
 };
@@ -167,10 +167,10 @@ void StartSensor()
     uint8_t lSensorInstalled = (knx.paramByte(LOG_SensorDevice) & SENSOR_MASK) >> 1;
     // usually all sensors have temp and hum
     gSensor = (lSensorInstalled) ? BIT_Temp | BIT_Hum : 0;
-    if (lSensorInstalled == SENSOR_HDC1080)
+    if (lSensorInstalled == SENSOR_SHT3X)
     {
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity);
-        lSensor = new SensorHDC1080(lMeasureTypes, 0x40);
+        lSensor = new SensorSHT3x(lMeasureTypes, 0x44);
         lSensor->begin();
     }
     if (lSensorInstalled == SENSOR_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME280)
@@ -268,14 +268,13 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
                     lValue = lValueAlt + (lValue - lValueAlt) / knx.paramByte(iParamIndex + 8);
                 }
                 // evaluate sending conditions (relative delta / absolute delta)
-                if (cData->lastSentValue > 0.0f) {
-                    // currently we asume indoor measurement with values > 0.0
+                if (cData->lastSentValue != NAN) {
                     float lDelta = 100.0f - lValue / cData->lastSentValue * 100.0f;
                     uint8_t lPercent = knx.paramByte(iParamIndex + 7);
                     if (lPercent > 0 && (uint8_t)round(abs(lDelta)) >= lPercent)
                         lSend = true;
                     float lAbsolute = knx.paramWord(iParamIndex + 5) / iOffsetFactor;
-                    if (lAbsolute > 0.0f && round(abs(lValue - cData->lastSentValue)) >= lAbsolute)
+                    if (lAbsolute > 0.0f && roundf(abs(lValue - cData->lastSentValue)) >= lAbsolute)
                         lSend = true;
                 }
                 // we always store the new value in KO, even it it is not sent (to satisfy potential read request)
