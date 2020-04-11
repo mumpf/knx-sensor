@@ -19,6 +19,7 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 
 * Temperaturgrenzen in 'Temperatur anpassen (interner Messwert)' auf +-10°C erhöht. Auch für die anderen Messwerte wurden die Anpassungsintervalle erhöht.
 * **inkompatible Änderung**: Statt dem Sensor HDC1080 wird jetzt der Sensor SHT3x unterstützt.
+* Aktualisierung von 'Update der Applikation'.
 * Detailänderungen in der Logik, siehe Applikationsbeschreibung Logik.
 
 ## Allgemeine Parameter
@@ -350,10 +351,10 @@ Im Allgemeinen sollte es nicht nötig sein, die Kalibrierungsdaten zu löschen. 
 
 Es gibt verschiedene Versionen dieser Applikation:
 
-* Sensormodul-v1.0-10.knxprod
-* Sensormodul-v1.1-20.knxprod
-* Sensormodul-v1.2-40.knxprod
-* Sensormodul-v1.3-80.knxprod
+* Sensormodul-v1.4-10.knxprod
+* Sensormodul-v1.5-20.knxprod
+* Sensormodul-v1.6-40.knxprod
+* Sensormodul-v1.7-80.knxprod
 
 Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle, angegeben durch die Zahl, die direkt vor der Endung "knxprod" steht. Dies ist sinnvoll, da sich die Anzahl der Logikkanäle erheblich auf die Zeit auswirkt, die die ETS zum programmieren benötigt. Eine Applikation mit 10 Logikkanälen braucht ca. 30 Sekunden zum programmieren, mit 80 Logikkanälen aber weit über 3 Minuten.
 
@@ -364,7 +365,7 @@ Der bessere Weg ist, mit der Applikation mit 10 Logikkanälen zu beginnen und we
 Allerdings will keiner, der in einer Applikation 40 Logikkanäle parametriert hat, diese 40 Kanäle manuell auf eine neue Applikation mit 80 Kanälen übertragen. Deswegen sind diese Applikationen gleich vom Beginn an für die von der ETS unterstützte "Update"-Funktionalität designed:
 
 * Jede Applikation mit mehr Logikkanälen kann immer als "Update" für eine Applikation mit weniger Logikkanälen fungieren.
-* Jede Applikation mit einer höheren Haupt-Versionsnummer (v1.x, v2.x) kann immer als "Update" für eine Applikation mit einer geringeren Haupt-Versionsnummer fungieren, solange sie gleich viele oder mehr Logikkanäle hat.
+* Jede Applikation mit einer höheren Versionsnummer kann immer als "Update" für eine Applikation mit einer geringeren Versionsnummer fungieren, solange sie gleich viele oder mehr Logikkanäle hat.
 
 Das ergibt folgende "Update"-Matrix (In den Spalten steht die Version, die man hat, in den Zeilen die Version, die man haben möchte):
 
@@ -373,34 +374,42 @@ Das ergibt folgende "Update"-Matrix (In den Spalten steht die Version, die man h
 v1.1 (20) | U | | |
 v1.2 (40) | U | U | |
 v1.3 (80) | U | U | U |
-v2.0 (10) | U | | |
-v2.1 (20) | U | U | |
-v2.2 (40) | U | U | U |
-v2.3 (80) | U | U | U | U
+v1.4 (10) | U | | |
+v1.5 (20) | U | U | |
+v1.6 (40) | U | U | U |
+v1.7 (80) | U | U | U | U
 
-Ein "U" zeigt für aktuelle (v1.x) und zukünftige (v2.x) Versionen, wenn ein Update stattfinden kann, ohne die bisher vorgegebene Parametrierung zu löschen.
+Ein "U" zeigt für vorherige (v1.0 bis v1.3) und aktuelle Versionen, wenn ein Update stattfinden kann, ohne die bisher vorgegebene Parametrierung zu löschen.
 
 Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS ein Update durchzuführen, ohne dass die Parameter und zugeordneten GA gelöscht werden.
 
 ### Neue knxprod in den Produktkatalog importieren
 
-In der Annahme, dass die Sensormodul-v1.0-10.knxprod bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine Version mit 40 Kanälen wechseln.
+In der Annahme, dass die Sensormodul-v1.0-10.knxprod bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine aktuelle Version mit 40 Kanälen wechseln.
 
-Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v1.2-40.knxprod" in die ETS.
+Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v1.6-40.knxprod" in die ETS.
 
-Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul" mit der Version 1.2 im Katalog. Das bereits genutzte "Sensormodul" mit der Version 1.0 steht auch da.
+Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul" mit der Version 1.6 im Katalog. Das bereits genutzte "Sensormodul" mit der Version 1.0 steht auch da.
 
 ## Das neue Sensormodul ins eigene Projekt einfügen
 
-Als nächstes wird das Produkt "Sensormodul" mit der Version 1.2 ins eigene Projekt eingefügt. Das neue Produkt muss nicht parametriert werden, es muss nur im eigenen Projekt existieren.
+Als nächstes wird das Produkt "Sensormodul" mit der Version 1.6 ins eigene Projekt eingefügt. Das neue Produkt muss nicht parametriert werden, es muss nur im eigenen Projekt existieren.
 
 ## Das "alte" Sensormodul aktualisieren
 
-Jetzt wählt man das bereits benutzte und parametrierte "Sensormodul" v1.0 aus. Jetzt clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.0". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V1.2" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
+Jetzt wählt man das bereits benutzte und parametrierte "Sensormodul" v1.0 aus. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.0". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V1.6" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
 
 Stattdessen clickt man auf den "Aktualisieren"-Button darunter. Jetzt wird die Applikation von der ETS aktualisiert und alle Parameter bzw. GA-Zuordnungen übernommen.
 
-Jetzt kann man - um beim Beispiel zu bleiben - weitere 30 Logikkanäle parametrieren, bevor man auf die Version mit 80 Kanälen gehen muss.
+Anschließend kann man - um beim Beispiel zu bleiben - weitere 30 Logikkanäle parametrieren, bevor man auf die Version mit 80 Kanälen gehen muss. Natürlich kann man auch die neuen Funktionen der neuen Version nutzen.
+
+**Achtung - Inkompatibilität beim Übergang von Version 1.0 bis 1.3 auf Version 1.4 bis 1.7:**
+
+Beim Update von Version kleiner 1.4 auf eine Version 1.4 bis 1.7 gehen für Logikkanäle die Zuordnungen von Kommunikationsobjekten zu Gruppeenadressen verloren. Diese Gruppenadressen muss man nach dem Update erneut manuell zuordnen. Alle Parameter und auch alle Gruppenadressen für die jeweiligen Sensor-Messwerte bleiben erhalten.
+
+Damit man sich nicht alle zugeordneten Kommunikationsobjekte merken muss, kann man sich in der ETS das Gerät **vor dem Update** kopieren und dabei die Option "Gruppenadressen beibehalten" nutzen. Nach dem Update kann man das alte (kopierte) und das neue (aktualisierte) Gerät in der Ansicht "Kommunikationsobjekte" öffnen und die Gruppenadressen erneut zuordnen.
+
+*Dieser Vorgang ist einmalig und wird bei zukünftigen Updates nicht erneut notwendig sein!*
 
 ## Einschränkungen beim Aktualisieren mit der ETS
 
