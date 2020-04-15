@@ -535,6 +535,12 @@ void ProcessDiagnoseCommand(GroupObject &iKo) {
         // Command s: Number of save-Interupts (= false-save)
         sprintf(lBuffer, "SAVE %d", gRuntimeData.countSaveInterrupt);
         iKo.value(lBuffer, getDPT(VAL_DPT_16));
+    } else {
+        // let's check other modules for this command
+        for (uint8_t i = 0; i < 14 && lCommand[i] > 0; i++)
+            lBuffer[i] = lCommand[i];
+        gLogic.processDiagnoseCommand(lBuffer);
+        iKo.value(lBuffer, getDPT(VAL_DPT_16));
     }
 };
 
