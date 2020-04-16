@@ -525,22 +525,26 @@ void ProcessSensors(bool iForce = false)
 
 void ProcessDiagnoseCommand(GroupObject &iKo) {
     uint8_t *lCommand = iKo.valueRef();
+    bool lOutput = false;
     //diagnose is interactive and reacts on commands
     char lBuffer[16];
     if (lCommand[0] == 'v') {
         // Command v: retrun fimware version
         sprintf(lBuffer, "VER [%d] %d.%d", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
-        iKo.value(lBuffer, getDPT(VAL_DPT_16));
+        lOutput = true;
     } else if (lCommand[0] == 's') {
         // Command s: Number of save-Interupts (= false-save)
         sprintf(lBuffer, "SAVE %d", gRuntimeData.countSaveInterrupt);
-        iKo.value(lBuffer, getDPT(VAL_DPT_16));
+        lOutput = true;
     } else {
         // let's check other modules for this command
         for (uint8_t i = 0; i < 14 && lCommand[i] > 0; i++)
             lBuffer[i] = lCommand[i];
-        gLogic.processDiagnoseCommand(lBuffer);
+        lOutput = gLogic.processDiagnoseCommand(lBuffer);
+    }
+    if (lOutput) {
         iKo.value(lBuffer, getDPT(VAL_DPT_16));
+        printDebug("Diagnose: %s\n", lBuffer);
     }
 };
 
