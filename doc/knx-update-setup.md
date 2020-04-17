@@ -1,63 +1,33 @@
-# Installation of dev-Environment for Sensormodule
+# Update procedure for a new firmware or application version
 
 Only tested on Windows 10!
 
-Download and install git from [https://git-scm.com/downloads](https://git-scm.com/downloads) with default options
+This description is just valid, if you successfuly built and installed a firmware and application the first time according to the [dev setup](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-dev-setup.md) instructions.
 
-Download and install visual studio code from [https://code.visualstudio.com/download](https://code.visualstudio.com/download) (User installer, 64 bit)
+Open Visual Studio Code. It opens with the last project you used.
 
-Start visual studio code
+In case the opened project is not the sensormodule project, open "Sensormodul (Workplace)", you will find it in File->Open Recent menu.
 
-Go to extensions (Ctrl-Shift-X)
+Press Ctrl-Shift-B (Opens Source Control).
 
-Enter "platformio" in search field
+Below "SOURCE CONTROL PROVIDERS" you will find all projects necessary for the firmware:
 
-Install "PlatformIO IDE" extension
+* knx-sensor
+* knx-logic
+* knx-common
+* knx
 
-Wait until installation is finished, do the necessary reload window afterwards (may take some time)
+Do for each of them the following:
 
-Click on the new PlatformIO-Icon on the left ![PIO-Icon](PIO2.png)
+Click on the project name (i.e. knx-sensor).
 
-In "Quick Access", choose open
+There is an additional area called "KNX-SENSOR" (in uppercase letters), having a text box below with a text "Message". If you hover the mouse over this additional area, some command icons appear, followed by 3 dots (...) indicating a menu. Click on these 3 dots.
 
-In the new "PIO Home" tab, click on "New Project..."
+In the upcomming menu click on the topmost entry "Pull".
 
-In the upcoming dialog, provide the name "Test", Board "Sparkfun SAMD21 Dev Breakout", Framework "Arduino" and Location "Use default location"
+As said, do this for each project.
 
-Click "Finish" and wait until finished. Visuals Studio Code will open the newly created project afterwards. The new project is just used to create default envoronment and can be deleted afterwards.
-
-Click again the PlatformIO Icon ![PIO-Icon](PIO2.png)
-
-Again "Quick Access" appears, click "Miscellaneous->PlatformIO Core CLI"
-
-A new terminal (within Visual Studio Code) appears, the path is home of the new test project. We don't need the test project, it was just used to create all necessary path for development.
-From now on we work in this terminal window:
-
-    cd .. 
-
-You should be now in a directory ending with ...\Documents\PlatformIO\Projects
-
-    pio lib -g install 805
-    pio lib -g install 166
-    pio lib -g install 31
-    pio lib -g install 5449 
-
-These commands should install following libraries:  
-"ClosedCube_HDC1080" Library  
-"Adafruit_BME280" Library  
-"Adafruit_Sensor.h" Library  
-"SparkFun_SCD30_Arduino_Library" Library
-
-    git clone https://github.com/mumpf/knx.git
-    git clone https://github.com/mumpf/knx-common.git
-    git clone https://github.com/mumpf/knx-logic.git
-    git clone https://github.com/mumpf/knx-sensor.git
-    cd knx
-    git checkout release
-    cd ..\knx-sensor
-    code Sensormodul.code-workspace
-
-Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
+As soon as all 4 pulls are finished, continue with the build steps form the initial documentation:
 
 If you use the board from MASIFI version v1 or v2, you need to change one or two settings:
 
@@ -114,13 +84,11 @@ Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is the first final.
+Download the newest release of multiply-channels, currently it is the first final. In case you have already the newest version downloaded, you can skip this and the following copy step.
 
 The executable is MultiplyChannels.exe
 
 Save it to C:\Users\\\<username>\bin (usually you have to create bin directory)
-
-If this is not your ETS-PC, install ETS5 on this PC (ETS5.7.x demo is sufficient, even any 5.6.x should do)
 
 Go to the Visual Studio Code instance, which is containing the knx-sensor project
 
@@ -141,8 +109,4 @@ you will find in the release directory of the knx-sensor project
 
 You can import this knxprod in your ETS (minimum 5.6) like any other knxprod.
 
-## Programming with ETS
-
-This works the same way as with all other KNX devices. For the initial programming you should program the physical address (PA) first, then transfer the application program (do not use ETS function "PA + Application program").
-
-Afterwards you can use partial programming as usual.
+Application update procedure is described in the Applicationdescription Sensor.

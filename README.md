@@ -7,7 +7,9 @@ Itis implemented for the SAMD21 version of the knx stack. Currently it uses my f
 
 It is a PlatformIO project and needs a working ETS 5.6 (or higher) installed on the same PC.
 
-Installation and build instructions can be found in the [project itself](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-dev-setup.pdf).
+Initial installation and build instructions can be found in the [project itself](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-dev-setup.md).
+
+Update instruction (for an updated firmware or application build) can be also found in the [project documentation](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-update-setup.md)
 
 This project depends on following projects:
 
