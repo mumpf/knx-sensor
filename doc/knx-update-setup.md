@@ -8,7 +8,7 @@ Open Visual Studio Code. It opens with the last project you used.
 
 In case the opened project is not the sensormodule project, open "Sensormodul (Workplace)", you will find it in File->Open Recent menu.
 
-Press Ctrl-Shift-B (Opens Source Control).
+Press Ctrl-Shift-G (Opens Source Control).
 
 Below "SOURCE CONTROL PROVIDERS" you will find all projects necessary for the firmware:
 
