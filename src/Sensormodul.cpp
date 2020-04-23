@@ -434,15 +434,18 @@ void CalculateAirquality(bool iForce = false)
         {
             // do not calculate if underlying measureas are not yet available
             float lValue = 0;
-            if (!((gSensor & BIT_Co2) && Sensor::measureValue(Co2, lValue))) return;
-            if (!((gSensor & BIT_Voc) && Sensor::measureValue(Voc, lValue))) return;
 
             // get airquality
             uint8_t lAirquality = 6;
             if ((gSensor & BIT_Co2)) {
+                // do not calculate if underlying measureas are not yet available
+                if (!Sensor::measureValue(Co2, lValue))
+                    return;
                 lValue = knx.getGroupObject(LOG_KoCo2).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lValue, sCo2Limits);
             } else if ((gSensor & BIT_Voc)) {
+                if (!Sensor::measureValue(Voc, lValue))
+                    return;
                 lValue = knx.getGroupObject(LOG_KoVOC).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lValue, sVocLimits);
             }
@@ -656,12 +659,11 @@ void appSetup(uint8_t iSavePin)
 {
 
     // try to get rid of occasional I2C lock...
-    savePower();
+    // savePower();
     digitalWrite(PROG_LED_PIN, HIGH);
     digitalWrite(LED_YELLOW_PIN, HIGH);
-    delay(1000);
-    Wire.setClock(100000);
-    restorePower();
+    // delay(1000);
+    // restorePower();
     // check hardware availability
     boardCheck();
     digitalWrite(PROG_LED_PIN, LOW);

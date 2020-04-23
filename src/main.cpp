@@ -20,7 +20,8 @@ void setup()
     digitalWrite(LED_YELLOW_PIN, HIGH);
 #endif    
 
-    Wire.begin();    
+    // moved to checkBoard!!!
+    // Wire.begin();
     knx.readMemory();
 
     // pin or GPIO the programming led is connected to. Default is LED_BUILDIN
