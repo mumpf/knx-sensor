@@ -6,3 +6,4 @@
 **/*.knxprod
 Restart.txt
 *.cppbak
+**/*.debug.xml
