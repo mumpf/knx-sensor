@@ -8,7 +8,7 @@
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="6" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="1 2" > 
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="9" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="1 2" > 
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
@@ -57,6 +57,7 @@
             <mc:include href="Sensormodul.share.xml" xpath="//Dynamic/*" prefix="SENS" />
             <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel" header="Sensormodul.h" prefix="LOG" />
             <Channel Id="M-00FA_A-0001-01-0000_CH-4" Name="Logikkanaele" Number="4" Text="Logikkanäle">
+              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Holidays']" header="Sensormodul.h" prefix="LOG" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Dynamic/*" header="Sensormodul.h" prefix="LOG" />
             </Channel>
           </Dynamic>
