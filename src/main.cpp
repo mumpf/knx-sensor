@@ -10,7 +10,7 @@ void setup()
     SerialUSB.begin(115200);
     pinMode(PROG_LED_PIN, OUTPUT);
     digitalWrite(PROG_LED_PIN, HIGH); 
-    // delay(10000);
+    delay(10000);
     digitalWrite(PROG_LED_PIN, LOW);
     SerialUSB.println("Startup called...");
     ArduinoPlatform::SerialDebug = &SerialUSB;
@@ -20,7 +20,8 @@ void setup()
     digitalWrite(LED_YELLOW_PIN, HIGH);
 #endif    
 
-    Wire.begin();    
+    // moved to checkBoard!!!
+    // Wire.begin();
     knx.readMemory();
 
     // pin or GPIO the programming led is connected to. Default is LED_BUILDIN

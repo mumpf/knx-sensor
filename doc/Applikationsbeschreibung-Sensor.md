@@ -15,11 +15,11 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 
 ## Änderungshistorie
 
-11.04.2020: Firmware 1.1.0, Applikation 1.4 - 1.7
+17.04.2020: Firmware 1.1.0, Applikation 1.4 - 1.7
 
 * Temperaturgrenzen in 'Temperatur anpassen (interner Messwert)' auf +-10°C erhöht. Auch für die anderen Messwerte wurden die Anpassungsintervalle erhöht.
 * **inkompatible Änderung**: Statt dem Sensor HDC1080 wird jetzt der Sensor SHT3x unterstützt.
-* Aktualisierung von 'Update der Applikation'.
+* Aktualisierung im Kapitel 'Update der Applikation'.
 * Detailänderungen in der Logik, siehe Applikationsbeschreibung Logik.
 
 ## Allgemeine Parameter

@@ -5,6 +5,7 @@
 #include "SensorBME280.h"
 #include "SensorBME680.h"
 #include "SensorSCD30.h"
+#include "SensorIAQCore.h"
 #endif
 
 #include "Hardware.h"
@@ -37,6 +38,9 @@ const uint8_t cFirmwareRevision = 0; // 0-63
 #define SENSOR_CO2 6
 #define SENSOR_CO2_BME280 7
 #define SENSOR_CO2_BME680 8
+#define SENSOR_IAQCORE 9
+#define SENSOR_IAQCORE_SHT3X 10
+#define SENSOR_IAQCORE_BME280 11
 #define SENSOR_MASK 0x7E
 
 #ifdef __linux__
@@ -167,13 +171,13 @@ void StartSensor()
     uint8_t lSensorInstalled = (knx.paramByte(LOG_SensorDevice) & SENSOR_MASK) >> 1;
     // usually all sensors have temp and hum
     gSensor = (lSensorInstalled) ? BIT_Temp | BIT_Hum : 0;
-    if (lSensorInstalled == SENSOR_SHT3X)
+    if (lSensorInstalled == SENSOR_SHT3X || lSensorInstalled == SENSOR_IAQCORE_SHT3X)
     {
         lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity);
         lSensor = new SensorSHT3x(lMeasureTypes, 0x44);
         lSensor->begin();
     }
-    if (lSensorInstalled == SENSOR_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME280)
+    if (lSensorInstalled == SENSOR_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_IAQCORE_BME280)
     {
         gSensor |= BIT_Pre;
         lMeasureTypes = static_cast<MeasureType>(Pressure | Temperature | Humidity);
@@ -199,6 +203,13 @@ void StartSensor()
             // if CO2-Sensor should measure Temp/Hum, it has to be set on first position in Sensor array
             Sensor::changeSensorOrder(lSensor, 0);
         }
+    }
+    if (lSensorInstalled == SENSOR_IAQCORE || lSensorInstalled == SENSOR_IAQCORE_BME280 || lSensorInstalled == SENSOR_IAQCORE_SHT3X)
+    {
+        gSensor = BIT_Voc | BIT_Co2Calc;
+        lMeasureTypes = static_cast<MeasureType>(Voc | Co2Calc | Accuracy);
+        lSensor = new SensorIAQCore(lMeasureTypes, 0x5A);
+        lSensor->begin();
     }
 #endif
 }
@@ -423,15 +434,18 @@ void CalculateAirquality(bool iForce = false)
         {
             // do not calculate if underlying measureas are not yet available
             float lValue = 0;
-            if (!((gSensor & BIT_Co2) && Sensor::measureValue(Co2, lValue))) return;
-            if (!((gSensor & BIT_Voc) && Sensor::measureValue(Voc, lValue))) return;
 
             // get airquality
             uint8_t lAirquality = 6;
             if ((gSensor & BIT_Co2)) {
+                // do not calculate if underlying measureas are not yet available
+                if (!Sensor::measureValue(Co2, lValue))
+                    return;
                 lValue = knx.getGroupObject(LOG_KoCo2).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lValue, sCo2Limits);
             } else if ((gSensor & BIT_Voc)) {
+                if (!Sensor::measureValue(Voc, lValue))
+                    return;
                 lValue = knx.getGroupObject(LOG_KoVOC).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lValue, sVocLimits);
             }
@@ -666,11 +680,15 @@ void appSetup(uint8_t iSavePin)
 {
 
     // try to get rid of occasional I2C lock...
-    savePower();
-    delay(100);
-    restorePower();
+    // savePower();
+    digitalWrite(PROG_LED_PIN, HIGH);
+    digitalWrite(LED_YELLOW_PIN, HIGH);
+    // delay(1000);
+    // restorePower();
     // check hardware availability
     boardCheck();
+    digitalWrite(PROG_LED_PIN, LOW);
+    digitalWrite(LED_YELLOW_PIN, LOW);
 
     if (knx.configured())
     {
