@@ -81,7 +81,7 @@
             <Parameters>
               <!-- Parameter for this device, channel independent -->
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="15" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-100" Name="Error" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Fehler- und Diagnoseobjekt anzeigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-101" Name="Dewpoint" Offset="0" BitOffset="1" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Taupunkt berechnen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-102" Name="Comfort" Offset="0" BitOffset="2" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Behaglichkeitszone ausgeben" Value="0" />
@@ -90,156 +90,156 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-105" Name="DeleteData" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-DeleteData" Text="Kalibrierungsdaten löschen" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0001-01-0000_P-110" Name="TempOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Temperatur anpassen (interner Messwert)" Value="0" SuffixText="x 0.1 °C">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="13" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="16" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-111" Name="TempCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Temperatur zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="14" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="17" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-112" Name="TempDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Temperatur bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="18" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-113" Name="TempDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Temperatur bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="20" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-114" Name="TempSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Temperatur glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="21" BitOffset="0" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-113" Name="TempDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Temperatur bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="23" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-114" Name="TempSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Temperatur glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="24" BitOffset="0" />
+              </Parameter>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="22" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="25" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-115" Name="TempExtCount" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-116" Name="TempExtRead" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0001-01-0000_P-117" Name="TempIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="23" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="26" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-118" Name="TempExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="24" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="27" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-119" Name="TempExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="25" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="28" BitOffset="0" />
               </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-120" Name="HumOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetHum" Text="Luftfeuchte anpassen (interner Messwert)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="26" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="29" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-121" Name="HumCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftfeuchte zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="27" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="30" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-122" Name="HumDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsHum" Text="Luftfeuchte bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="31" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-123" Name="HumDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Luftfeuchte bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="33" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-124" Name="HumSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftfeuchte glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="34" BitOffset="0" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-123" Name="HumDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Luftfeuchte bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-124" Name="HumSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftfeuchte glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="37" BitOffset="0" />
+              </Parameter>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="38" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-125" Name="HumExtCount" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-126" Name="HumExtRead" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0001-01-0000_P-127" Name="HumIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="39" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-128" Name="HumExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="37" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="40" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-129" Name="HumExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="38" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="41" BitOffset="0" />
               </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-130" Name="PreOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetPre" Text="Luftdruck anpassen (interner Messwert)" Value="0" SuffixText="mbar">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="39" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="42" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-131" Name="PreCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftdruck zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="40" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="43" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-132" Name="PreDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsPre" Text="Luftdruck bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="mbar">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="44" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-133" Name="PreDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Luftdruck bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="46" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-134" Name="PreSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftdruck glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="47" BitOffset="0" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-133" Name="PreDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Luftdruck bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="49" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-134" Name="PreSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Luftdruck glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="50" BitOffset="0" />
+              </Parameter>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="48" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="51" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-135" Name="PreExtCount" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-136" Name="PreExtRead" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0001-01-0000_P-137" Name="PreIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="49" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-138" Name="PreExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="50" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="53" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-139" Name="PreExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="51" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="54" BitOffset="0" />
               </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-140" Name="VocOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetVoc" Text="Voc anpassen (interner Messwert)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="55" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-141" Name="VocCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Voc zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="53" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="56" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-142" Name="VocDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsVoc" Text="Voc bei absoluter Abweichung senden (0=nicht senden)" Value="0">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="57" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-143" Name="VocDeltPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Voc bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="59" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-144" Name="VocSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Voc glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="60" BitOffset="0" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-143" Name="VocDeltPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Voc bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="62" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-144" Name="VocSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Voc glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="63" BitOffset="0" />
+              </Parameter>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="61" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="64" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-145" Name="VocExtCount" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-146" Name="VocExtRead" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0001-01-0000_P-147" Name="VocIntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="62" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="65" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-148" Name="VocExt1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="63" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="66" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-149" Name="VocExt2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="64" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="67" BitOffset="0" />
               </Parameter>
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-150" Name="Co2Offset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetCo2" Text="CO2 anpassen (interner Messwert)" Value="0" SuffixText="ppm">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="65" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="68" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-151" Name="Co2Cycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="CO2 zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="66" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="69" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-152" Name="Co2DeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2" Text="CO2 bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="ppm">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="70" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-153" Name="Co2DeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="CO2 bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="72" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-154" Name="Co2Smooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="CO2 glätten: P =" Value="1" SuffixText="">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="73" BitOffset="0" />
               </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-153" Name="Co2DeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="CO2 bei Abweichung vom vorherigem Wert senden (0=nicht senden)" Value="0" SuffixText="%">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="75" BitOffset="0" />
+              </Parameter>
+              <Parameter Id="M-00FA_A-0001-01-0000_P-154" Name="Co2Smooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="CO2 glätten: P =" Value="1" SuffixText="">
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="76" BitOffset="0" />
+              </Parameter>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="74" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="77" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-155" Name="Co2ExtCount" Offset="0" BitOffset="6" ParameterType="M-00FA_A-0001-01-0000_PT-ExtCount" Text="Externe Messwerte berücksichtigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-156" Name="Co2ExtRead" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="    Externe Messwerte beim Start lesen" Value="0" />
               </Union>
               <Parameter Id="M-00FA_A-0001-01-0000_P-157" Name="Co2IntPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil interner Messwert" Value="1" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="75" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="78" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-158" Name="Co2Ext1Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="76" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="79" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-159" Name="Co2Ext2Percent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="77" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="80" BitOffset="0" />
               </Parameter>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="78" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="81" BitOffset="0" />
                 <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-161" Name="Logic" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Logikfunktionen freischalten" Value="0" />-->
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" Offset="0" BitOffset="1" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Text="Sensor" Value="2" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-168" Name="Sensor1Wire" Offset="0" BitOffset="7" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="1 Wire" Value="0" />
@@ -254,19 +254,19 @@
               <!-- P-67 reserved -->
 
               <Parameter Id="M-00FA_A-0001-01-0000_P-170" Name="DewOffset" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="x 0.1 °C">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="79" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="82" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-171" Name="DewCycle" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Taupunkt zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="80" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="83" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-172" Name="DewDeltaAbs" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="84" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="87" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-173" Name="DewDeltaPercent" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="Taupunkt bei Abweichung vom vorherigen Wert senden (0=nicht senden)" Value="0" SuffixText="%">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="86" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="89" BitOffset="0" />
               </Parameter>
               <Parameter Id="M-00FA_A-0001-01-0000_P-174" Name="DewSmooth" ParameterType="M-00FA_A-0001-01-0000_PT-Smooth" Text="Taupunkt glätten: P =" Value="1" SuffixText="">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="87" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="90" BitOffset="0" />
               </Parameter>
             </Parameters>
             <ParameterRefs>
