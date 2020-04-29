@@ -30,7 +30,8 @@
 			"xiosbase": "cpp",
 			"*.cppbak": "cpp",
 			"cstdint": "cpp",
-			"cmath": "cpp"
+			"cmath": "cpp",
+			"ctime": "cpp"
 		}
 	}
 }

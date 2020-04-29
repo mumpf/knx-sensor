@@ -122,10 +122,8 @@ void ProcessReadRequests() {
     static bool sCalled = false;
     // the following code should be called only once
     if (!sCalled) {
-        if (knx.paramByte(LOG_ReadTimeDate) & 0x80) {
-            knx.getGroupObject(LOG_KoTime).requestObjectRead();
-            knx.getGroupObject(LOG_KoDate).requestObjectRead();
-        }
+        gLogic.processReadRequests();
+
         // we evaluate only Bit 2 here, which holds the information about read external values on startup
         if (knx.paramByte(LOG_TempExtRead) & 4) {
             knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
