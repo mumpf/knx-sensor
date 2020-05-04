@@ -1,17 +1,16 @@
-#define SEALEVELPREASURE_HPA (1013.25)
+#include "Helper.h"
+#include "Hardware.h"
 
-#ifndef __linux__
 #include "Sensor.h"
 #include "SensorSHT3x.h"
 #include "SensorBME280.h"
 #include "SensorBME680.h"
 #include "SensorSCD30.h"
+#include "SensorIAQCore.h"
 #include "OneWire.h"
 #include "OneWireDS2482.h"
-#include "SensorIAQCore.h"
-#endif
-
-#include "Hardware.h"
+#include "WireBus.h"
+#include "WireDevice.h"
 
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
 #include "Sensormodul.h"
@@ -19,8 +18,8 @@
 // #include "../../knx-logic/src/LogikmodulCore.h"
 #include "Logic.h"
 
-const uint8_t cFirmwareMajor = 2; //    0-31
-const uint8_t cFirmwareMinor = 0; //    0-31
+const uint8_t cFirmwareMajor = 2;    // 0-31
+const uint8_t cFirmwareMinor = 0;    // 0-31
 const uint8_t cFirmwareRevision = 2; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
@@ -47,43 +46,23 @@ const uint8_t cFirmwareRevision = 2; // 0-63
 #define SENSOR_IAQCORE_BME280 11
 #define SENSOR_MASK 0x7E
 
-#ifdef __linux__
-extern KnxFacade<LinuxPlatform, Bau57B0> knx;
-#endif
-
-// Forward declarations
-bool ProcessNewIdCallback(OneWire *iOneWireSensor);
-
-// runtime information for the whole logik module
-struct sSensorInfo
-{
-    float lastSentValue = NAN;
-    unsigned long sendDelay;
-    unsigned long readDelay;
-};
-
-struct sRuntimeInfo
-{
-    bool isRunning = false;
-    sSensorInfo temp;
-    sSensorInfo hum;
-    sSensorInfo pre;
-    sSensorInfo voc;
-    sSensorInfo co2;
-    sSensorInfo co2b;
-    sSensorInfo dew;
-    sSensorInfo wire[8];
-    unsigned long startupDelay;
-    unsigned long heartbeatDelay;
-    uint16_t countSaveInterrupt = 0;
-    uint32_t saveInterruptTimestamp = 0;
-    bool forceSensorRead = true;
-};
-
-sRuntimeInfo gRuntimeData;
-uint8_t gSensor = 0;
+uint32_t gStartupDelay;
+uint32_t gHeartbeatDelay;
+bool gIsRunning = false;
+sSensorInfo gTemp;
+sSensorInfo gHum;
+sSensorInfo gPre;
+sSensorInfo gVoc;
+sSensorInfo gCo2;
+sSensorInfo gCo2b;
+sSensorInfo gDew;
+WireDevice gDevice[30];
+uint16_t gCountSaveInterrupt = 0;
+uint32_t gSaveInterruptTimestamp = 0;
+bool gForceSensorRead = true;
 Logic gLogic;
-OneWireDS2482 gOneWireBM(ProcessNewIdCallback);
+WireBus gBusMaster;
+uint8_t gSensor = 0;
 
 typedef bool (*getSensorValue)(MeasureType, float&);
 
@@ -102,7 +81,7 @@ void sendError() {
 void ProcessHeartbeat()
 {
     // the first heartbeat is send directly after startup delay of the device
-    if (gRuntimeData.heartbeatDelay == 0 || delayCheck(gRuntimeData.heartbeatDelay, knx.paramInt(LOG_Heartbeat) * 1000))
+    if (gHeartbeatDelay == 0 || delayCheck(gHeartbeatDelay, knx.paramInt(LOG_Heartbeat) * 1000))
     {
         // we waited enough, let's send a heartbeat signal
         knx.getGroupObject(LOG_KoHeartbeat).value(true, getDPT(VAL_DPT_1));
@@ -110,7 +89,7 @@ void ProcessHeartbeat()
         if (knx.paramByte(LOG_Error) & 128) {
             if (getError()) sendError();
         }
-        gRuntimeData.heartbeatDelay = millis();
+        gHeartbeatDelay = millis();
         // debug-helper for logic module
         // print("ParDewpoint: ");
         // println(knx.paramByte(LOG_Dewpoint));
@@ -119,8 +98,8 @@ void ProcessHeartbeat()
 }
 
 void ProcessReadRequests() {
+    // this method is called after startup delay and executes read requests, which should just happen once after startup
     static bool sCalled = false;
-    // the following code should be called only once
     if (!sCalled) {
         gLogic.processReadRequests();
 
@@ -149,13 +128,19 @@ void ProcessReadRequests() {
     }
 }
 
+// true solgange der Start des gesamten Moduls verzögert werden soll
+bool startupDelay()
+{
+    return !delayCheck(gStartupDelay, knx.paramInt(LOG_StartupDelay) * 1000);
+}
+
 // this callback is used by BME680 during delays while mesauring
 // we implement this delay, but keep normal loop processing alive
 void sensorDelayCallback(uint32_t iMillis) {
     // printDebug("sensorDelayCallback: Called with a delay of %lu ms\n", iMillis);
     uint32_t lMillis = millis();
     while (millis() - lMillis < iMillis) {
-        if (gRuntimeData.isRunning) {
+        if (gIsRunning) {
             knx.loop();
             ProcessHeartbeat();
             gLogic.loop();
@@ -463,12 +448,6 @@ void CalculateAirquality(bool iForce = false)
     }
 }
 
-// true solgange der Start des gesamten Moduls verzögert werden soll
-bool startupDelay()
-{
-    return !delayCheck(gRuntimeData.startupDelay, knx.paramInt(LOG_StartupDelay) * 1000);
-}
-
 void ProcessSensors(bool iForce = false)
 {
     static uint16_t sMeasureType = BIT_Temp;
@@ -478,13 +457,13 @@ void ProcessSensors(bool iForce = false)
 
     if (iForce) {
         // in case we force sending of value, we set all send delays to 0
-        gRuntimeData.temp.sendDelay = 0;
-        gRuntimeData.hum.sendDelay = 0;
-        gRuntimeData.pre.sendDelay = 0;
-        gRuntimeData.voc.sendDelay = 0;
-        gRuntimeData.co2.sendDelay = 0;
-        gRuntimeData.co2b.sendDelay = 0;
-        gRuntimeData.dew.sendDelay = 0;
+        gTemp.sendDelay = 0;
+        gHum.sendDelay = 0;
+        gPre.sendDelay = 0;
+        gVoc.sendDelay = 0;
+        gCo2.sendDelay = 0;
+        gCo2b.sendDelay = 0;
+        gDew.sendDelay = 0;
         sForceComfort = true;
         sForceAirquality = true;
         sForceAccuracy = true;
@@ -492,26 +471,26 @@ void ProcessSensors(bool iForce = false)
     switch (sMeasureType)
     {
     case BIT_Temp:
-        ProcessSensor(&gRuntimeData.temp, ReadSensorValue, Temperature, 10.0f, 1.0f, LOG_TempOffset, LOG_KoTemp);
+        ProcessSensor(&gTemp, ReadSensorValue, Temperature, 10.0f, 1.0f, LOG_TempOffset, LOG_KoTemp);
         break;
     case BIT_Hum:
-        ProcessSensor(&gRuntimeData.hum, ReadSensorValue, Humidity, 1.0f, 1.0f, LOG_HumOffset, LOG_KoHum);
+        ProcessSensor(&gHum, ReadSensorValue, Humidity, 1.0f, 1.0f, LOG_HumOffset, LOG_KoHum);
         break;
     case BIT_Pre:
-        ProcessSensor(&gRuntimeData.pre, ReadSensorValue, Pressure, 1.0f, 100.0f, LOG_PreOffset, LOG_KoPre);
+        ProcessSensor(&gPre, ReadSensorValue, Pressure, 1.0f, 100.0f, LOG_PreOffset, LOG_KoPre);
         break;
     case BIT_Voc:
-        ProcessSensor(&gRuntimeData.voc, ReadSensorValue, Voc, 1.0f, 1.0f, LOG_VocOffset, LOG_KoVOC);
+        ProcessSensor(&gVoc, ReadSensorValue, Voc, 1.0f, 1.0f, LOG_VocOffset, LOG_KoVOC);
         break;
     case BIT_Co2:
-        ProcessSensor(&gRuntimeData.co2, ReadSensorValue, Co2, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2);
+        ProcessSensor(&gCo2, ReadSensorValue, Co2, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2);
         break;
     case BIT_Co2Calc:
-        ProcessSensor(&gRuntimeData.co2b, ReadSensorValue, Co2Calc, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2b);
+        ProcessSensor(&gCo2b, ReadSensorValue, Co2Calc, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2b);
         break;
     case 0x80:
         if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
-            ProcessSensor(&gRuntimeData.dew, CalculateDewValue, static_cast<MeasureType>(Temperature | Humidity), 10.0f, 1.0f, LOG_DewOffset, LOG_KoDewpoint);
+            ProcessSensor(&gDew, CalculateDewValue, static_cast<MeasureType>(Temperature | Humidity), 10.0f, 1.0f, LOG_DewOffset, LOG_KoDewpoint);
         break;
     case 0x100:
         if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
@@ -528,7 +507,6 @@ void ProcessSensors(bool iForce = false)
             CalculateAccuracy(sForceAccuracy);
         sForceAccuracy = false;
         break;
-
     default:
         sMeasureType = 1;
         // error processing
@@ -543,21 +521,11 @@ void ProcessSensors(bool iForce = false)
     sMeasureType <<= 1;
 }
 
-bool ProcessNewIdCallback(OneWire *iOneWireSensor) {
-    // temporär
-    uint8_t lLocalId[7] = {0x28, 0xDC, 0xA5, 0x88, 0x0B, 0x00, 0x00};
-
-    if (equalId(iOneWireSensor->Id(), lLocalId)) {
-        iOneWireSensor->setModeConnected();
-    }
-    return true;
-}
-
 void ProcessDiagnoseCommand(GroupObject &iKo) {
     // this method is called as soon as iKo is changed
     // an external change is expected
-    // because this iKo is changed within this method, 
-    // the method is called again. This might result in 
+    // because this iKo is changed within this method,
+    // the method is called again. This might result in
     // an endless loop. This is prevented by the isCalled pattern.
     static bool sIsCalled = false;
     if (!sIsCalled) {
@@ -572,7 +540,7 @@ void ProcessDiagnoseCommand(GroupObject &iKo) {
             lOutput = true;
         } else if (lCommand[0] == 's') {
             // Command s: Number of save-Interupts (= false-save)
-            sprintf(lBuffer, "SAVE %d", gRuntimeData.countSaveInterrupt);
+            sprintf(lBuffer, "SAVE %d", gCountSaveInterrupt);
             lOutput = true;
         } else {
             // let's check other modules for this command
@@ -581,7 +549,6 @@ void ProcessDiagnoseCommand(GroupObject &iKo) {
             lOutput = gLogic.processDiagnoseCommand(lBuffer);
         }
         if (lOutput) {
-
             iKo.value(lBuffer, getDPT(VAL_DPT_16));
             printDebug("Diagnose: %s\n", lBuffer);
         }
@@ -592,14 +559,14 @@ void ProcessDiagnoseCommand(GroupObject &iKo) {
 void ProcessKoCallback(GroupObject &iKo)
 {
     // check if we evaluate own KO
-    if (iKo.asap() == LOG_KoRequestValues) {
+    if (iKo.asap() == LOG_KoDiagnose) {
+        ProcessDiagnoseCommand(iKo);
+    } else if (iKo.asap() == LOG_KoRequestValues) {
         println("Request values called");
         // print("KO-Value is ");
         // println((bool)iKo.value(getDpt(VAL_DPT_1)));
         if ((bool)iKo.value(getDPT(VAL_DPT_1)))
-            gRuntimeData.forceSensorRead = true;
-    } else if (iKo.asap() == LOG_KoDiagnose) {
-        ProcessDiagnoseCommand(iKo);
+            gForceSensorRead = true;
     } else if (iKo.asap() >= LOG_KoExt1Temp && iKo.asap() <= LOG_KoExt2Co2) {
         // as soon as we receive any external sensor value, we mark this in our validity map
         gIsExternalValueValid[iKo.asap() - LOG_KoExt1Temp] = 1;
@@ -610,9 +577,9 @@ void ProcessKoCallback(GroupObject &iKo)
 }
 
 void ProcessInterrupt() {
-    if (gRuntimeData.saveInterruptTimestamp) {
-        printDebug("Sensormodul: SAVE-Interrupt processing started after %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
-        gRuntimeData.saveInterruptTimestamp = millis();
+    if (gSaveInterruptTimestamp) {
+        printDebug("Sensormodul: SAVE-Interrupt processing started after %lu ms\n", millis() - gSaveInterruptTimestamp);
+        gSaveInterruptTimestamp = millis();
         // for the moment, we send only an Info on error object in case of an save interrumpt
         uint16_t lError = getError();
         setError(lError | 128);
@@ -622,7 +589,7 @@ void ProcessInterrupt() {
         // call according logic interrupt handler
         gLogic.processInterrupt(true);
         Sensor::saveState();
-        printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
+        printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gSaveInterruptTimestamp);
         // in case, SaveInterrupt was a false positive
         // we restore power and I2C-Bus
         Wire.end();
@@ -632,14 +599,13 @@ void ProcessInterrupt() {
         delay(100);
         Wire.begin();
         // Sensor::restartSensors();
-        gRuntimeData.saveInterruptTimestamp = 0;
+        gSaveInterruptTimestamp = 0;
     }
 }
 
 
 void appLoop()
 {
-
     if (!knx.configured())
         return;
 
@@ -647,7 +613,7 @@ void appLoop()
     if (startupDelay())
         return;
 
-    gRuntimeData.isRunning = true;
+    gIsRunning = true;
     ProcessInterrupt();
 
     // at this point startup-delay is done
@@ -655,21 +621,20 @@ void appLoop()
     ProcessHeartbeat();
     ProcessReadRequests();
     gLogic.loop();
-            if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE)
-        gOneWireBM.loop();
+    if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE)
+        gBusMaster.loop();
     
     // at Startup, we want to send all values immediately
-    ProcessSensors(gRuntimeData.forceSensorRead);
-    gRuntimeData.forceSensorRead = false;
+    ProcessSensors(gForceSensorRead);
+    gForceSensorRead = false;
 
     Sensor::sensorLoop();
 }
 
 // handle interrupt from save pin
 void onSafePinInterruptHandler() {
-    gRuntimeData.countSaveInterrupt += 1;
-    gRuntimeData.saveInterruptTimestamp = millis();
-    // gLogic.onSafePinInterruptHandler();
+    gCountSaveInterrupt += 1;
+    gSaveInterruptTimestamp = millis();
 }
 
 void beforeRestartHandler() {
@@ -700,7 +665,7 @@ void appSetup(bool iSaveSupported)
     // savePower();
     digitalWrite(PROG_LED_PIN, HIGH);
     digitalWrite(LED_YELLOW_PIN, HIGH);
-    // delay(1000);
+    // delay(100);
     // restorePower();
     // check hardware availability
     boardCheck();
@@ -711,10 +676,9 @@ void appSetup(bool iSaveSupported)
     {
         // 5 bit major, 5 bit minor, 6 bit revision
         knx.bau().deviceObject().version(cFirmwareMajor << 11 | cFirmwareMinor << 6 | cFirmwareRevision);
-        // gSensor = (knx.paramByte(LOG_SensorDevice));
-        gRuntimeData.startupDelay = millis();
-        gRuntimeData.heartbeatDelay = 0;
-        gRuntimeData.countSaveInterrupt = 0;
+        gStartupDelay = millis();
+        gHeartbeatDelay = 0;
+        gCountSaveInterrupt = 0;
         // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
         if (GroupObject::classCallback() == 0) GroupObject::classCallback(ProcessKoCallback);
         if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
@@ -726,6 +690,6 @@ void appSetup(bool iSaveSupported)
 #endif
         gLogic.setup(false);
         if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE)
-            gOneWireBM.setup();
+            gBusMaster.setup();
     }
 }

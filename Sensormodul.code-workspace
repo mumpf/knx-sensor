@@ -4,6 +4,9 @@
 			"path": "."
 		},
 		{
+			"path": "../knx-wire"
+		},
+		{
 			"path": "../knx-logic"
 		},
 		{
