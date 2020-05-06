@@ -521,43 +521,39 @@ void ProcessSensors(bool iForce = false)
     sMeasureType <<= 1;
 }
 
+bool processDiagnoseCommand() {
+    char* lBuffer = gLogic.getDiagnoseBuffer();
+    bool lOutput = false;
+    if (lBuffer[0] == 'v') {
+        // Command v: retrun fimware version, do not forward this to logic,
+        // because it means firmware version of the outermost module
+        sprintf(lBuffer, "VER [%d] %d.%d", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
+        lOutput = true;
+    } else {
+        // let's check other modules for this command
+        lOutput = gLogic.processDiagnoseCommand();
+    }
+    return lOutput;
+}
+
 void ProcessDiagnoseCommand(GroupObject &iKo) {
     // this method is called as soon as iKo is changed
     // an external change is expected
-    // because this iKo is changed within this method,
-    // the method is called again. This might result in
+    // because this iKo also is changed within this method, 
+    // the method is called again. This might result in 
     // an endless loop. This is prevented by the isCalled pattern.
     static bool sIsCalled = false;
     if (!sIsCalled) {
         sIsCalled = true;
-        uint8_t *lCommand = iKo.valueRef();
-        bool lOutput = false;
         //diagnose is interactive and reacts on commands
-        char lBuffer[16];
-        if (lCommand[0] == 'v') {
-            // Command v: retrun fimware version
-            sprintf(lBuffer, "VER [%d] %d.%d", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
-            lOutput = true;
-        } else if (lCommand[0] == 's') {
-            // Command s: Number of save-Interupts (= false-save)
-            sprintf(lBuffer, "SAVE %d", gCountSaveInterrupt);
-            lOutput = true;
-        } else {
-            // let's check other modules for this command
-            for (uint8_t i = 0; i < 14 && lCommand[i] > 0; i++)
-                lBuffer[i] = lCommand[i];
-            lOutput = gLogic.processDiagnoseCommand(lBuffer);
-        }
-        if (lOutput) {
-            iKo.value(lBuffer, getDPT(VAL_DPT_16));
-            printDebug("Diagnose: %s\n", lBuffer);
-        }
+        gLogic.initDiagnose(iKo);
+        if (processDiagnoseCommand())
+            gLogic.outputDiagnose(iKo);
         sIsCalled = false;
     }
 };
 
-void ProcessKoCallback(GroupObject &iKo)
-{
+void ProcessKoCallback(GroupObject &iKo) {
     // check if we evaluate own KO
     if (iKo.asap() == LOG_KoDiagnose) {
         ProcessDiagnoseCommand(iKo);
@@ -592,12 +588,12 @@ void ProcessInterrupt() {
         printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gSaveInterruptTimestamp);
         // in case, SaveInterrupt was a false positive
         // we restore power and I2C-Bus
-        Wire.end();
+        // Wire.end();
         // wait another 200 ms
         delay(200);
         restorePower();
         delay(100);
-        Wire.begin();
+        // Wire.begin();
         // Sensor::restartSensors();
         gSaveInterruptTimestamp = 0;
     }

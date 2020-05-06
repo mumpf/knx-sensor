@@ -85,7 +85,7 @@
               <!-- Parameter for this device, channel independent -->
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="25" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-100" Name="Error" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Fehler- und Diagnoseobjekt anzeigen" Value="0" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-100" Name="Error" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Fehlerobjekt für Standardmesswerte anzeigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-101" Name="Dewpoint" Offset="0" BitOffset="1" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Taupunkt berechnen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-102" Name="Comfort" Offset="0" BitOffset="2" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Behaglichkeitszone ausgeben" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-103" Name="Airquality" Offset="0" BitOffset="3" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Luftqualitätsampel ausgeben" Value="0" />
@@ -277,54 +277,54 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-174_R-1741" RefId="M-00FA_A-0001-01-0000_UP-174" />
             </ParameterRefs>
             <ComObjectTable>
-              <ComObject Id="M-00FA_A-0001-01-0000_O-10" Name="RequestValues" Text="Sensorwerte anfordern" Number="10" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-11" Name="Error" Text="Sensorfehler" Number="11" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-12" Name="Diagnose" Text="Diagnose" Number="12" FunctionText="Diagnosetext" ObjectSize="14 Bytes" ReadFlag="Enabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-16-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-15" Name="Temp" Text="Temperatur" Number="15" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-16" Name="Hum" Text="Luftfeuchte" Number="16" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-17" Name="Pre" Text="Luftdruck" Number="17" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-18" Name="VOC" Text="VOC" Number="18" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-19" Name="Co2" Text="CO2" Number="19" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-20" Name="Co2b" Text="CO2-VOC" Number="20" FunctionText="Messwert (berechnet) in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-21" Name="Dewpoint" Text="Taupunkt" Number="21" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-22" Name="Comfort" Text="Behaglichkeit" Number="22" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-23" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="23" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-24" Name="SensorAccuracy" Text="Kalibrierungfortschritt" Number="24" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-30" Name="Ext1Temp" Text="Externe Temperatur 1" Number="30" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-31" Name="Ext2Temp" Text="Externe Temperatur 2" Number="31" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-32" Name="Ext1Hum" Text="Externe Luftfeuchte 1" Number="32" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-33" Name="Ext2Hum" Text="Externe Luftfeuchte 2" Number="33" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-34" Name="Ext1Pre" Text="Externer Luftdruck 1" Number="34" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-35" Name="Ext2Pre" Text="Externer Luftdruck 2" Number="35" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-36" Name="Ext1VOC" Text="Externer VOC 1" Number="36" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-37" Name="Ext2VOC" Text="Externer VOC 2" Number="37" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-38" Name="Ext1Co2" Text="Externer CO2 1" Number="38" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-39" Name="Ext2Co2" Text="Externer CO2 2" Number="39" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-50" Name="RequestValues" Text="Sensorwerte anfordern" Number="10" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-51" Name="Error" Text="Sensorfehler" Number="11" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
+              <!-- KO 52-59 free for future extensions -->
+              <ComObject Id="M-00FA_A-0001-01-0000_O-60" Name="Temp" Text="Temperatur" Number="15" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-61" Name="Hum" Text="Luftfeuchte" Number="16" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-62" Name="Pre" Text="Luftdruck" Number="17" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-63" Name="VOC" Text="VOC" Number="18" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-64" Name="Co2" Text="CO2" Number="19" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-65" Name="Co2b" Text="CO2-VOC" Number="20" FunctionText="Messwert (berechnet) in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-66" Name="Dewpoint" Text="Taupunkt" Number="21" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-67" Name="Comfort" Text="Behaglichkeit" Number="22" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-68" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="23" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-69" Name="SensorAccuracy" Text="Kalibrierungfortschritt" Number="24" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-70" Name="Ext1Temp" Text="Externe Temperatur 1" Number="30" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-71" Name="Ext2Temp" Text="Externe Temperatur 2" Number="31" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-72" Name="Ext1Hum" Text="Externe Luftfeuchte 1" Number="32" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-73" Name="Ext2Hum" Text="Externe Luftfeuchte 2" Number="33" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-74" Name="Ext1Pre" Text="Externer Luftdruck 1" Number="34" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-75" Name="Ext2Pre" Text="Externer Luftdruck 2" Number="35" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-76" Name="Ext1VOC" Text="Externer VOC 1" Number="36" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-77" Name="Ext2VOC" Text="Externer VOC 2" Number="37" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-78" Name="Ext1Co2" Text="Externer CO2 1" Number="38" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-79" Name="Ext2Co2" Text="Externer CO2 2" Number="39" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <!-- KO 80-89 free for future extensions -->
             </ComObjectTable>
             <ComObjectRefs>
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-10_R-101" RefId="M-00FA_A-0001-01-0000_O-10" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-11_R-111" RefId="M-00FA_A-0001-01-0000_O-11" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-12_R-121" RefId="M-00FA_A-0001-01-0000_O-12" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-15_R-151" RefId="M-00FA_A-0001-01-0000_O-15" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-16_R-161" RefId="M-00FA_A-0001-01-0000_O-16" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-17_R-171" RefId="M-00FA_A-0001-01-0000_O-17" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-18_R-181" RefId="M-00FA_A-0001-01-0000_O-18" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-19_R-191" RefId="M-00FA_A-0001-01-0000_O-19" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-20_R-201" RefId="M-00FA_A-0001-01-0000_O-20" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-21_R-211" RefId="M-00FA_A-0001-01-0000_O-21" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-22_R-221" RefId="M-00FA_A-0001-01-0000_O-22" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-23_R-231" RefId="M-00FA_A-0001-01-0000_O-23" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-24_R-241" RefId="M-00FA_A-0001-01-0000_O-24" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-30_R-301" RefId="M-00FA_A-0001-01-0000_O-30" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-31_R-311" RefId="M-00FA_A-0001-01-0000_O-31" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-32_R-321" RefId="M-00FA_A-0001-01-0000_O-32" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-33_R-331" RefId="M-00FA_A-0001-01-0000_O-33" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-34_R-341" RefId="M-00FA_A-0001-01-0000_O-34" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-35_R-351" RefId="M-00FA_A-0001-01-0000_O-35" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-36_R-361" RefId="M-00FA_A-0001-01-0000_O-36" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-37_R-371" RefId="M-00FA_A-0001-01-0000_O-37" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-38_R-381" RefId="M-00FA_A-0001-01-0000_O-38" />
-              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-39_R-391" RefId="M-00FA_A-0001-01-0000_O-39" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-50_R-501" RefId="M-00FA_A-0001-01-0000_O-50" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-51_R-511" RefId="M-00FA_A-0001-01-0000_O-51" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-60_R-601" RefId="M-00FA_A-0001-01-0000_O-60" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-61_R-611" RefId="M-00FA_A-0001-01-0000_O-61" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-62_R-621" RefId="M-00FA_A-0001-01-0000_O-62" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-63_R-631" RefId="M-00FA_A-0001-01-0000_O-63" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-64_R-641" RefId="M-00FA_A-0001-01-0000_O-64" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-65_R-651" RefId="M-00FA_A-0001-01-0000_O-65" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-66_R-661" RefId="M-00FA_A-0001-01-0000_O-66" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-67_R-671" RefId="M-00FA_A-0001-01-0000_O-67" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-68_R-681" RefId="M-00FA_A-0001-01-0000_O-68" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-69_R-691" RefId="M-00FA_A-0001-01-0000_O-69" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-70_R-701" RefId="M-00FA_A-0001-01-0000_O-70" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-71_R-711" RefId="M-00FA_A-0001-01-0000_O-71" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-72_R-721" RefId="M-00FA_A-0001-01-0000_O-72" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-73_R-731" RefId="M-00FA_A-0001-01-0000_O-73" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-74_R-741" RefId="M-00FA_A-0001-01-0000_O-74" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-75_R-751" RefId="M-00FA_A-0001-01-0000_O-75" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-76_R-761" RefId="M-00FA_A-0001-01-0000_O-76" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-77_R-771" RefId="M-00FA_A-0001-01-0000_O-77" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-78_R-781" RefId="M-00FA_A-0001-01-0000_O-78" />
+              <ComObjectRef Id="M-00FA_A-0001-01-0000_O-79_R-791" RefId="M-00FA_A-0001-01-0000_O-79" />
             </ComObjectRefs>
             <AddressTable MaxEntries="255" />
             <AssociationTable MaxEntries="255" />
@@ -354,9 +354,9 @@
                     <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-1_R-11" />
                   </when>
                 </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-10" Text="" UIHint="HorizontalRuler" />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-11" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-160_R-1601" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
                   <when test="0">
@@ -472,10 +472,10 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-7_R-71" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-7_R-71">
                   <when test="0">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Ohne EEPROM kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text="Ohne EEPROM kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
                       <when test="4 5 8">
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Ohne EEPROM kann der BME680 seine Kalibrierungswerte nicht speichern und muss sich nach einem Neustart jedesmal neu kalibrieren. Das kann jedesmal bis zu 2 Tagen dauern." UIHint="Information" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-14" Text="Ohne EEPROM kann der BME680 seine Kalibrierungswerte nicht speichern und muss sich nach einem Neustart jedesmal neu kalibrieren. Das kann jedesmal bis zu 2 Tagen dauern." UIHint="Information" />
                       </when>
                     </choose>
                   </when>
@@ -483,7 +483,7 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-8_R-81" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
                   <when test="0">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Ohne Abschaltmöglichkeit der Zusatzhardware (Sensoren, LED, Buzzer, 1-Wire) kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-15" Text="Ohne Abschaltmöglichkeit der Zusatzhardware (Sensoren, LED, Buzzer, 1-Wire) kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
                   </when>
                 </choose>
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-2" Text="" UIHint="HorizontalRuler" />
@@ -491,7 +491,7 @@
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-100_R-1001">
                   <when test="1">
                     <!-- show error object only if it is parametrized -->
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-11_R-111" />
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-51_R-511" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-3" Text="Das Fehlerobjekt KO-11 ist eine Bitleiste, bei der ein Bit auf 1 gesetzt wird, wenn der entsprechende Sensor einen Fehler aufweist:" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-4" Text="  Bit 0: Fehler in der Logik (zyklus definiert, der nicht aufgelöst werden kann)" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-5" Text="  Bit 1: Fehler Temperatursensor" />
@@ -499,11 +499,9 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-7" Text="  Bit 3: Fehler Luftdrucksensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-8" Text="  Bit 4: Fehler Voc-Sensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-9" Text="  Bit 5: Fehler CO2-Sensor" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-10" Text="  Bit 6: nicht belegt" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-11" Text="  Bit 7: Fehler 1Wire Master" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="  Bit 8-15: Fehler entsprechender 1-Wire-Sensor" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-12_R-121" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text="Das Diagnoseobjekt ist derzeit für interne Verwendung (Debug) vorgesehen." />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="  Bit 6: nicht belegt" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="  Bit 7: Fehler 1Wire Master" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="  Bit 8-15: Fehler entsprechender 1-Wire-Sensor" />
                   </when>
                 </choose>
               </ParameterBlock>
@@ -519,7 +517,7 @@
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-117_R-1171" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-118_R-1181" />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-30_R-301" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-70_R-701" />
                       </when>
                       <when test="1">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-116_R-1161" />
@@ -529,7 +527,7 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-119_R-1191" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-116_R-1161" />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-85" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-31_R-311" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-71_R-711" />
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-80" Text="" UIHint="HorizontalRuler" />
@@ -538,13 +536,13 @@
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-113_R-1131" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-93" Text="" UIHint="HorizontalRuler" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-114_R-1141" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-14" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-15" Text="  Xneu: neu errechneter Messwert" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-94" Text="Glättungsformel: Xneu = Xalt + (M - Xalt) / P mit" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-95" Text="  Xneu: neu errechneter Messwert" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-16" Text="  Xalt: letzter errechneter Messwert" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-17" Text="     M: aktueller Messwert vom Sensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-18" Text="     P: einzugebender Parameter" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-19" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-15_R-151" />
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-60_R-601" />
                   </ParameterBlock>
                 </when>
                 <when test="1 2 3 4 5 6 7 8 10 11">
@@ -556,7 +554,7 @@
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-127_R-1271" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-128_R-1281" />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-32_R-321" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-72_R-721" />
                       </when>
                       <when test="1">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-126_R-1261" />
@@ -566,7 +564,7 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-129_R-1291" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-126_R-1261" />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-86" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-33_R-331" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-73_R-731" />
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-82" Text="" UIHint="HorizontalRuler" />
@@ -581,7 +579,7 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-24" Text="     M: aktueller Messwert vom Sensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-25" Text="     P: einzugebender Parameter" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-26" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-16_R-161" />
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-61_R-611" />
                   </ParameterBlock>
                 </when>
                 <when test="2 3 4 5 7 8 11">
@@ -593,7 +591,7 @@
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-137_R-1371" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-138_R-1381" />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-34_R-341" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-74_R-741" />
                       </when>
                       <when test="1">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-136_R-1361" />
@@ -603,7 +601,7 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-139_R-1391" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-136_R-1361" />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-87" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-35_R-351" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-75_R-751" />
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-84" Text="" UIHint="HorizontalRuler" />
@@ -618,7 +616,7 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-31" Text="     M: aktueller Messwert vom Sensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-32" Text="     P: einzugebender Parameter" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-33" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-17_R-171" />
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-62_R-621" />
                   </ParameterBlock>
                 </when>
                 <when test="4 5 8 9 10 11">
@@ -630,7 +628,7 @@
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-147_R-1471" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-148_R-1481" />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-36_R-361" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-76_R-761" />
                       </when>
                       <when test="1">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-146_R-1461" />
@@ -640,7 +638,7 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-149_R-1491" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-146_R-1461" />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-88" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-37_R-371" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-77_R-771" />
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-71" Text="" UIHint="HorizontalRuler" />
@@ -655,7 +653,7 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-38" Text="     M: aktueller Messwert vom Sensor" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-39" Text="     P: einzugebender Parameter" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-40" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-18_R-181" />
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-63_R-631" />
                   </ParameterBlock>
                 </when>
                 <when test="3 4 5 6 7 8 9 10 11">
@@ -667,7 +665,7 @@
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-157_R-1571" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-158_R-1581" />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-38_R-381" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-78_R-781" />
                       </when>
                       <when test="1">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-156_R-1561" />
@@ -677,7 +675,7 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-159_R-1591" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-156_R-1561" />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-89" Text="Die Messwerte werden in dem hier angegebenen Verhältnis ( Int : Ext1 : Ext2 ) verrechnet und das Ergebnis bei den nachfolgenden Bedingungen verwendet. Solange ein externer Messwert nicht empfangen wurde, ist sein Anteil 0." />
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-39_R-391" />
+                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-79_R-791" />
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-75" Text="" UIHint="HorizontalRuler" />
@@ -696,15 +694,15 @@
                 </when>
                 <when test="4 5 8 9 10 11">
                   <!-- BME680, IAQCore output Co2Calc -->
-                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-20_R-201" />
+                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-65_R-651" />
                 </when>
                 <when test="3 5 6 7 8">
                   <!-- SCD30 output Co2 -->
-                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-19_R-191" />
+                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-64_R-641" />
                 </when>
                 <when test=">0">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-76" Name="Zusatzfunktionen" Text="Zusatzfunktionen">
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-10_R-101" />
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-50_R-501" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
                       <when test="1 2 3 4 5 6 7 8 10 11">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-101_R-1011" />
@@ -722,14 +720,14 @@
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-52" Text="     M: aktueller Messwert vom Sensor" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-53" Text="     P: einzugebender Parameter" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-54" Text="Je größer P, desto länger dauert es, bis eine plötzliche Änderung beim gemessenen Wert auch auf den Bus gesendet wird" />
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-21_R-211" />
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-66_R-661" />
                           </when>
                         </choose>
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-55" Text="" UIHint="HorizontalRuler" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-102_R-1021" />
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-102_R-1021">
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-22_R-221" />
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-67_R-671" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-56" Text="Es gibt 3 Behaglichkeitszonen, die von Temperatur und Luftfeuchte abhängen: " />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-57" Text="  2 - Behaglich " />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-58" Text="  1 - noch Behaglich " />
@@ -742,7 +740,7 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-103_R-1031" />
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-103_R-1031">
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-23_R-231" />
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-68_R-681" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-61" Text="Es gibt 6 Luftqualitätsgrade, analog zu deutschen Schulnoten: " />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-62" Text="  1 - sehr gut " />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-63" Text="  2 - gut " />
@@ -759,15 +757,15 @@
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-104_R-1041" />
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-104_R-1041">
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-24_R-241" />
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-69_R-691" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-69" Text="Der Voc-Sensor braucht bis zu 2 Tage für die Kalibrierung, das KO 24 gibt den Fortschritt in % aus" />
                           </when>
                         </choose>
                       </when>
                       <when test="4 5 8">
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-95" Text="" UIHint="HorizontalRuler" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-99" Text="" UIHint="HorizontalRuler" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-105_R-1051" />
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-94" Text="Es ist vollkommen egal, welchen Wert dieser Parameter hat. Die Kalibrierungsdaten werden zurückgesetzt, wenn sich der Wert dieses Parameters ändert und die Applikation hochgeladen wurde. Danach bleiben die Daten erhalten, bis sich der Wert wieder ändert." UIHint="Information" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-100" Text="Es ist vollkommen egal, welchen Wert dieser Parameter hat. Die Kalibrierungsdaten werden zurückgesetzt, wenn sich der Wert dieses Parameters ändert und die Applikation hochgeladen wurde. Danach bleiben die Daten erhalten, bis sich der Wert wieder ändert." UIHint="Information" />
                       </when>
                     </choose>
                   </ParameterBlock>
@@ -778,9 +776,9 @@
               <when test="1">
                 <Channel Id="M-00FA_A-0001-01-0000_CH-2" Name="OW" Number="2" Text="Externe Sensoren (1 Wire)">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-20" Name="OWConfig" Text="Sensorkonfiguration">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="" UIHint="HorizontalRuler" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-96" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-97" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-98" Text="" UIHint="HorizontalRuler" />
                   </ParameterBlock>
                 </Channel>
               </when>

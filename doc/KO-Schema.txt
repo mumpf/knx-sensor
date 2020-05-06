@@ -1,0 +1,37 @@
+Sensormodul:
+  Statisch:
+    KO1 - KO7 (Logik)                   24 Byte payload
+    KO8 - KO19 (frei für Logik)         12 Byte payload
+    KO20 - KO31 (WireGateway)           34 Byte payload
+    KO32 - KO49 (frei für 1-Wire)       18 Byte payload
+    KO50 - KO76 (Sensormodul)           40 Byte payload
+    KO77 - KO89 (frei für Sensormodul)  13 Byte payload
+  Dynamisch:
+    KO90 - KO121 (32 Geräte * 1 KO)     32 * 2 Byte = 64 Byte payload
+    KO122 - KO124 (frei)                3 Byte payload
+    KO125 - KO421 (99 Kanäle * 3 KO)    99 * 14 Byte + 198 * 4 Byte = 1386 + 792 =  2178 Byte payload
+  Gesamt:
+    421 * 8 Byte (pro KO) + 46 Byte (Lücken) + (2178 + 64 + 40 + 34 + 24) Byte payload = 5754 Byte max.
+
+WireGateway:
+  Statisch:
+    KO1 - KO7 (Logik)                   24 Byte payload
+    KO8 - KO19 (frei für Logik)         12 Byte payload
+    KO20 - KO31 (WireGateway)           34 Byte payload
+    KO32 - KO49 (frei für 1-Wire)       18 Byte payload
+  Dynamisch:
+    KO50 - KO145 (96 Geräte * 1 KO)     96 * 2 Byte = 192 Byte payload
+    KO146 - KO149 (frei)                4 Byte payload
+    KO150 - KO446 (99 Kanäle * 3 KO)    99 * 14 Byte + 198 * 4 Byte = 1386 + 792 =  2178 Byte payload
+  Gesamt:
+    446 * 8 Byte (pro KO) + 34 Byte (Lücken) + (2178 + 192 + 34 + 24) Byte payload = 6030 Byte max.
+
+Logik:
+  Statisch:
+    KO1 - KO7 (Logik)                   24 Byte payload
+    KO8 - KO19 (frei für Logik)         12 Byte payload
+  Dynamisch:
+    KO20 - KO316 (99 Kanäle * 3 KO)     99 * 14 Byte + 198 * 4 Byte = 1386 + 792 =  2178 Byte payload
+  Gesamt:
+    316 * 8 Byte (pro KO) + 12 Byte (Lücken) + (2178 + 24) Byte payload = 4742 Byte max.
+
