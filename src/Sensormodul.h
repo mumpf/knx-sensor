@@ -48,6 +48,20 @@
 #define LOG_Silvester                 14      // 1 Bit, Bit 3
 #define LOG_Latitude                  15      // float
 #define LOG_Longitude                 19      // float
+#define LOG_WireError                 200      // 1 Bit, Bit 7
+#define LOG_BusMasterCount            200      // 2 Bits, Bit 6-5
+#define LOG_IdSearch                  200      // 1 Bit, Bit 4
+#define LOG_IButton1                  200      // 1 Bit, Bit 3
+#define LOG_IButton2                  200      // 1 Bit, Bit 2
+#define LOG_IButton3                  200      // 1 Bit, Bit 1
+#define LOG_Group1                    201      // 1 Bit, Bit 7
+#define LOG_Group2                    201      // 1 Bit, Bit 6
+#define LOG_Group3                    201      // 1 Bit, Bit 5
+#define LOG_Group4                    201      // 1 Bit, Bit 4
+#define LOG_Group5                    201      // 1 Bit, Bit 3
+#define LOG_Group6                    201      // 1 Bit, Bit 2
+#define LOG_Group7                    201      // 1 Bit, Bit 1
+#define LOG_Group8                    201      // 1 Bit, Bit 0
 #define LOG_Error                     25      // 1 Bit, Bit 7
 #define LOG_Dewpoint                  25      // 1 Bit, Bit 6
 #define LOG_Comfort                   25      // 1 Bit, Bit 5
@@ -113,7 +127,7 @@
 #define LOG_DewSmooth                 100      // uint8_t
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 101
+#define LOG_ParamBlockOffset 202
 #define LOG_ParamBlockSize 100
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
@@ -365,6 +379,62 @@
 #define LOG_KoKOfE2 1
 #define LOG_KoKOfO 2
 
+// Parameter per channel
+#define WIRE_ParamBlockOffset 1202
+#define WIRE_ParamBlockSize 17
+#define WIRE_sDeviceId                  0      // char*, 7 Byte
+#define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
+#define WIRE_sId0                       1      // 4 Bits, Bit 7-4
+#define WIRE_sId1                       1      // 4 Bits, Bit 3-0
+#define WIRE_sId2                       2      // 4 Bits, Bit 7-4
+#define WIRE_sId3                       2      // 4 Bits, Bit 3-0
+#define WIRE_sId4                       3      // 4 Bits, Bit 7-4
+#define WIRE_sId5                       3      // 4 Bits, Bit 3-0
+#define WIRE_sId6                       4      // 4 Bits, Bit 7-4
+#define WIRE_sId7                       4      // 4 Bits, Bit 3-0
+#define WIRE_sId8                       5      // 4 Bits, Bit 7-4
+#define WIRE_sId9                       5      // 4 Bits, Bit 3-0
+#define WIRE_sIdA                       6      // 4 Bits, Bit 7-4
+#define WIRE_sIdB                       6      // 4 Bits, Bit 3-0
+#define WIRE_sModelFunction             7      // 8 Bits, Bit 7-0
+#define WIRE_sModelFunctionDS2408       7      // 8 Bits, Bit 7-0
+#define WIRE_sModelFunctionDS2413       7      // 8 Bits, Bit 7-0
+#define WIRE_sModelFunctionDS2438       7      // 8 Bits, Bit 7-0
+#define WIRE_sSensorOffset              8      // int8_t
+#define WIRE_sSensorCycle               9      // int32_t
+#define WIRE_sSensorDeltaAbs           13      // uint16_t
+#define WIRE_sSensorDeltaPercent       15      // uint8_t
+#define WIRE_sSensorSmooth             16      // uint8_t
+#define WIRE_sGroup1                    8      // 1 Bit, Bit 7
+#define WIRE_sGroup2                    8      // 1 Bit, Bit 6
+#define WIRE_sGroup3                    8      // 1 Bit, Bit 5
+#define WIRE_sGroup4                    8      // 1 Bit, Bit 4
+#define WIRE_sGroup5                    8      // 1 Bit, Bit 3
+#define WIRE_sGroup6                    8      // 1 Bit, Bit 2
+#define WIRE_sGroup7                    8      // 1 Bit, Bit 1
+#define WIRE_sGroup8                    8      // 1 Bit, Bit 0
+#define WIRE_sIoBitmask0                8      // 1 Bit, Bit 0
+#define WIRE_sIoBitmask1                8      // 1 Bit, Bit 1
+#define WIRE_sIoBitmask2                8      // 1 Bit, Bit 2
+#define WIRE_sIoBitmask3                8      // 1 Bit, Bit 3
+#define WIRE_sIoBitmask4                8      // 1 Bit, Bit 4
+#define WIRE_sIoBitmask5                8      // 1 Bit, Bit 5
+#define WIRE_sIoBitmask6                8      // 1 Bit, Bit 6
+#define WIRE_sIoBitmask7                8      // 1 Bit, Bit 7
+#define WIRE_sIoInvertBitmask0          9      // 1 Bit, Bit 0
+#define WIRE_sIoInvertBitmask1          9      // 1 Bit, Bit 1
+#define WIRE_sIoInvertBitmask2          9      // 1 Bit, Bit 2
+#define WIRE_sIoInvertBitmask3          9      // 1 Bit, Bit 3
+#define WIRE_sIoInvertBitmask4          9      // 1 Bit, Bit 4
+#define WIRE_sIoInvertBitmask5          9      // 1 Bit, Bit 5
+#define WIRE_sIoInvertBitmask6          9      // 1 Bit, Bit 6
+#define WIRE_sIoInvertBitmask7          9      // 1 Bit, Bit 7
+
+// Communication objects per channel (multiple occurance)
+#define WIRE_KoOffset 90
+#define WIRE_KoBlockSize 1
+#define WIRE_KoKOs 0
+
 // Communication objects with single occurance
 #define LOG_KoHeartbeat 1
 #define LOG_KoTime 2
@@ -373,26 +443,38 @@
 #define LOG_KoHoliday1 5
 #define LOG_KoHoliday2 6
 #define LOG_KoDiagnose 7
-#define LOG_KoRequestValues 10
-#define LOG_KoError 11
-#define LOG_KoTemp 15
-#define LOG_KoHum 16
-#define LOG_KoPre 17
-#define LOG_KoVOC 18
-#define LOG_KoCo2 19
-#define LOG_KoCo2b 20
-#define LOG_KoDewpoint 21
-#define LOG_KoComfort 22
-#define LOG_KoAirquality 23
-#define LOG_KoSensorAccuracy 24
-#define LOG_KoExt1Temp 30
-#define LOG_KoExt2Temp 31
-#define LOG_KoExt1Hum 32
-#define LOG_KoExt2Hum 33
-#define LOG_KoExt1Pre 34
-#define LOG_KoExt2Pre 35
-#define LOG_KoExt1VOC 36
-#define LOG_KoExt2VOC 37
-#define LOG_KoExt1Co2 38
-#define LOG_KoExt2Co2 39
+#define LOG_KoNewId 20
+#define LOG_KoErrorBusmaster1 21
+#define LOG_KoErrorBusmaster2 22
+#define LOG_KoErrorBusmaster3 23
+#define LOG_KoGroup1 24
+#define LOG_KoGroup2 25
+#define LOG_KoGroup3 26
+#define LOG_KoGroup4 27
+#define LOG_KoGroup5 28
+#define LOG_KoGroup6 29
+#define LOG_KoGroup7 30
+#define LOG_KoGroup8 31
+#define LOG_KoRequestValues 50
+#define LOG_KoError 51
+#define LOG_KoTemp 60
+#define LOG_KoHum 61
+#define LOG_KoPre 62
+#define LOG_KoVOC 63
+#define LOG_KoCo2 64
+#define LOG_KoCo2b 65
+#define LOG_KoDewpoint 66
+#define LOG_KoComfort 67
+#define LOG_KoAirquality 68
+#define LOG_KoSensorAccuracy 69
+#define LOG_KoExt1Temp 70
+#define LOG_KoExt2Temp 71
+#define LOG_KoExt1Hum 72
+#define LOG_KoExt2Hum 73
+#define LOG_KoExt1Pre 74
+#define LOG_KoExt2Pre 75
+#define LOG_KoExt1VOC 76
+#define LOG_KoExt2VOC 77
+#define LOG_KoExt1Co2 78
+#define LOG_KoExt2Co2 79
 
