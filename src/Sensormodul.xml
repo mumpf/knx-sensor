@@ -13,8 +13,8 @@
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
             </Code>
-            <mc:define prefix="LOG" NumChannels="10" KoOffset="125" />
-            <mc:define prefix="WIRE" NumChannels="30" KoOffset="90" />
+            <mc:define prefix="LOG" header="Sensormodul.h" NumChannels="10" KoOffset="125" />
+            <mc:define prefix="WIRE" header="Sensormodul.h" NumChannels="30" KoOffset="90" />
             <ParameterTypes>
               <!-- generic parameter types from logicmodule -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
@@ -23,33 +23,33 @@
             </ParameterTypes>
             <Parameters>
               <!-- Standard parameter in any of our devices -->
-              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="LOG" />
-              <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="WIRE" />
-              <mc:include href="Sensormodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" prefix="SENS" />
-              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" header="Sensormodul.h" prefix="LOG" />
-              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" header="Sensormodul.h" prefix="WIRE" />
+              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="parameter" prefix="LOG" />
+              <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="parameter" prefix="WIRE" />
+              <mc:include href="Sensormodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="parameter" prefix="SENS" />
+              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="template" prefix="LOG" />
+              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="template" prefix="WIRE" />
             </Parameters>
             <ParameterRefs>
               <!-- General -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
               <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="WIRE" />
               <mc:include href="Sensormodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="SENS"/>
-              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ParameterRefs/ParameterRef" header="Sensormodul.h" prefix="LOG" />
-              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//ParameterRefs/ParameterRef" header="Sensormodul.h" prefix="WIRE" />
+              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ParameterRefs/ParameterRef" type="template" prefix="LOG" />
+              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//ParameterRefs/ParameterRef" type="template" prefix="WIRE" />
             </ParameterRefs>
             <ComObjectTable>
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ComObjectTable/ComObject" prefix="LOG" />
               <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//ComObjectTable/ComObject" prefix="WIRE" />
               <mc:include href="Sensormodul.share.xml" xpath="//ComObjectTable/ComObject" prefix="SENS" />
-              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectTable/ComObject" header="Sensormodul.h" prefix="LOG" />
-              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//ComObjectTable/ComObject" header="Sensormodul.h" prefix="WIRE" />
+              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectTable/ComObject" type="template" prefix="LOG" />
+              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//ComObjectTable/ComObject" type="template" prefix="WIRE" />
             </ComObjectTable>
             <ComObjectRefs>
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="LOG" />
               <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="WIRE" />
               <mc:include href="Sensormodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="SENS" />
-              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectRefs/ComObjectRef" header="Sensormodul.h" prefix="LOG" />
-              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//ComObjectRefs/ComObjectRef" header="Sensormodul.h" prefix="WIRE" />
+              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//ComObjectRefs/ComObjectRef" type="template" prefix="LOG" />
+              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//ComObjectRefs/ComObjectRef" type="template" prefix="WIRE" />
             </ComObjectRefs>
             <AddressTable MaxEntries="65535" />
             <AssociationTable MaxEntries="65535" />
@@ -69,15 +69,15 @@
             </ChannelIndependentBlock>
             <Channel Id="M-00FA_A-0001-01-0000_CH-3" Name="Devices" Number="3" Text="1-Wire">
               <!-- OneWire channel independent settings -->
-              <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Dynamic/Channel/*" header="Sensormodul.h" prefix="LOG" />
+              <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Dynamic/Channel/*" type="template" prefix="LOG" />
               <!-- OneWire channel settings -->
-              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//Dynamic/*" header="Sensormodul.h" prefix="WIRE" />
+              <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//Dynamic/*" type="template" prefix="WIRE" />
             </Channel>
             <Channel Id="M-00FA_A-0001-01-0000_CH-4" Name="Logik" Number="4" Text="Logik">
               <!-- Logic channel independent settings -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel/*" prefix="LOG" />
               <!-- Logic channel settings -->
-              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Dynamic/*" header="Sensormodul.h" prefix="LOG" />
+              <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Dynamic/*" type="template" prefix="LOG" />
             </Channel>
           </Dynamic>
         </ApplicationProgram>
