@@ -341,6 +341,9 @@
                 <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-3_R-31" />
                 <!-- the following parameter is readonly and necessary (number of logik channels used in knxdprod) -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-1_R-11" />
+                <!-- Maximum number of Busmaster (used as Parameter for WireGateway) -->
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-529_R-5291" />
+                <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-529_R-5291" Value="1" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-2_R-21" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-3_R-31" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-4_R-41" />
@@ -498,6 +501,14 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="  Bit 6: nicht belegt" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="  Bit 7: Fehler 1Wire Master" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="  Bit 8-15: Fehler entsprechender 1-Wire-Sensor" />
+                  </when>
+                </choose>
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-46_R-461" />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-46_R-461">
+                  <when test="1">
+                    <!-- show diagnose object just if requested -->
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-7_R-71" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-80" Text="Das Diagnoseobjekt ist derzeit für interne Verwendung (Debug) vorgesehen." />
                   </when>
                 </choose>
               </ParameterBlock>
@@ -768,17 +779,6 @@
                 </when>
               </choose>
             </Channel>
-            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-168_R-1681">
-              <when test="1">
-                <Channel Id="M-00FA_A-0001-01-0000_CH-2" Name="OW" Number="2" Text="Externe Sensoren (1 Wire)">
-                  <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-20" Name="OWConfig" Text="Sensorkonfiguration">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-96" Text="" UIHint="HorizontalRuler" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-97" Text="***** 1-Wire wird derzeit noch nicht untersützt *****" UIHint="Information" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-98" Text="" UIHint="HorizontalRuler" />
-                  </ParameterBlock>
-                </Channel>
-              </when>
-            </choose>
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>

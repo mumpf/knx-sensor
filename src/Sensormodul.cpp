@@ -11,11 +11,7 @@
 #include "OneWireDS2482.h"
 #include "WireBus.h"
 #include "WireDevice.h"
-
-// Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
-#include "Sensormodul.h"
-// ... auf jeden Fall Vorrang haben (beeinflussen auch die Logik)
-// #include "../../knx-logic/src/LogikmodulCore.h"
+#include "IncludeManager.h"
 #include "Logic.h"
 
 const uint8_t cFirmwareMajor = 2;    // 0-31
@@ -567,6 +563,7 @@ void ProcessKoCallback(GroupObject &iKo) {
         // as soon as we receive any external sensor value, we mark this in our validity map
         gIsExternalValueValid[iKo.asap() - LOG_KoExt1Temp] = 1;
     } else {
+        gBusMaster.processKOCallback(iKo);
         // else dispatch to logicmodule
         gLogic.processInputKo(iKo);
     }
