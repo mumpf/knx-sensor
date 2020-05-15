@@ -662,6 +662,8 @@ void appSetup(bool iSaveSupported)
     // restorePower();
     // check hardware availability
     boardCheck();
+    Wire.begin();
+    Wire.setClock(400000);
     digitalWrite(PROG_LED_PIN, LOW);
     digitalWrite(LED_YELLOW_PIN, LOW);
 
@@ -682,7 +684,9 @@ void appSetup(bool iSaveSupported)
             attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
 #endif
         gLogic.setup(false);
-        if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE)
-            gBusMaster.setup();
+        if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE) {
+            bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & 16;
+            gBusMaster.setup(lSearchNewDevices, true);
+        }
     }
 }
