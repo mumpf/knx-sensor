@@ -59,12 +59,15 @@ These commands should install following libraries:
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-If you use the board from MASIFI version v1 or v2, you need to change one or two settings:
+The current board version from MASIFI is v3.1 (default):
+If you use the board from MASIFI version v1, v2 or v3, you need to change one or two settings:
 
     In knx-sensor, edit the file platformio.ini:  
     - change the line
-            -DBOARD_MASIFI_V3 
+            -DBOARD_MASIFI_V31 
       to 
+            -DBOARD_MASIFI_V3 
+      or 
             -DBOARD_MASIFI_V2 
       or 
             -DBOARD_MASIFI_V1
