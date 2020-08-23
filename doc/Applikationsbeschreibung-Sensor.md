@@ -1,6 +1,6 @@
 # Applikationsbeschreibung Sensor
 
-Die Applikation Sensor ist im File Sensormodul-v1.x-xx.knxprod enthalten und erlaubt die Parametrisierung des Sensormoduls mittels der ETS.
+Die Applikation Sensor ist im File Sensormodul-v2.x-yy.knxprod enthalten und erlaubt die Parametrisierung des Sensormoduls mittels der ETS.
 
 Sie ist in die Bereiche
 
@@ -21,6 +21,11 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 * **inkompatible Änderung**: Statt dem Sensor HDC1080 wird jetzt der Sensor SHT3x unterstützt.
 * Aktualisierung im Kapitel 'Update der Applikation'.
 * Detailänderungen in der Logik, siehe Applikationsbeschreibung Logik.
+
+01.06.2020 Firmware 2.0.0, Applikation 2.0 - 2.3
+
+* Das Diagnoseobjekt ist jetzt Teil des Logikmoduls und wird auch in der Applikationsbeschreibung Logik dokumentiert. Es wird nicht mehr zusammen mit dem Fehlerobjekt ein- bzw. ausgeschaltet.
+* **Inkompatible Änderung**: Zuordnungen zu Gruppenadressen gehen verloren, beschrieben im Kapitel 'Das "alte" Sensormodul aktualisieren'
 
 ## Allgemeine Parameter
 
@@ -409,7 +414,13 @@ Beim Update von Version kleiner 1.4 auf eine Version 1.4 bis 1.7 gehen für Logi
 
 Damit man sich nicht alle zugeordneten Kommunikationsobjekte merken muss, kann man sich in der ETS das Gerät **vor dem Update** kopieren und dabei die Option "Gruppenadressen beibehalten" nutzen. Nach dem Update kann man das alte (kopierte) und das neue (aktualisierte) Gerät in der Ansicht "Kommunikationsobjekte" öffnen und die Gruppenadressen erneut zuordnen.
 
-*Dieser Vorgang ist einmalig und wird bei zukünftigen Updates nicht erneut notwendig sein!*
+**Achtung - Inkompatibilität beim Übergang von Version 1.x auf Version 2.x:**
+
+Beim Update von Version 1.x auf eine Version 2.0 bis 2.3 gehen fast alle Zuordnungen von Kommunikationsobjekten zu Gruppeenadressen verloren (Ausnahmen sind hier nur KO 1-3). Diese Gruppenadressen muss man nach dem Update erneut manuell zuordnen. Fast alle Parameter bleiben erhalten, im fogenden werden die Änderungen bzw. Erweiterungen nochmal aufgeführt. Detailbeschreibungen gibt es in den jeweiligen Kapiteln der Applikationsbeschreibung.
+
+* Früher wurde das Diagnoseobjekt zusammen mit dem Fehlerobjekt eingeschaltet. Inzwischen gibt es einen eigenen Parameter für das Diagnoseobjekt, der speziell eingeschaltet werden muss. In der Applikationsbeschreibung Logik ist das Diagnoseobjekt ausführlich beschrieben.
+
+* Alle weiteren eventuellen Parameteränderungen liegen im Logikmodul und sind im Kapitel **Upgrade der Applikation** in der Applikationsbeschreibung Logik enthalten.
 
 ## Einschränkungen beim Aktualisieren mit der ETS
 

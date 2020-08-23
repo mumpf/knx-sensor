@@ -15,8 +15,8 @@
 // #include "../../knx-logic/src/LogikmodulCore.h"
 #include "Logic.h"
 
-const uint8_t cFirmwareMajor = 1;    // 0-31
-const uint8_t cFirmwareMinor = 1;    // 0-31
+const uint8_t cFirmwareMajor = 2;    // 0-31
+const uint8_t cFirmwareMinor = 0;    // 0-31
 const uint8_t cFirmwareRevision = 0; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige

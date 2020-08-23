@@ -84,7 +84,7 @@
             <Parameters>
               <!-- Parameter for this device, channel independent -->
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="25" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-100" Name="Error" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Fehlerobjekt für Standardmesswerte anzeigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-101" Name="Dewpoint" Offset="0" BitOffset="1" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Taupunkt berechnen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-102" Name="Comfort" Offset="0" BitOffset="2" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Behaglichkeitszone ausgeben" Value="0" />
@@ -93,7 +93,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-105" Name="DeleteData" Offset="0" BitOffset="5" ParameterType="M-00FA_A-0001-01-0000_PT-DeleteData" Text="Kalibrierungsdaten löschen" Value="0" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="26" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-110" Name="TempOffset" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Temperatur anpassen (interner Messwert)" Value="0" SuffixText="x 0.1 °C" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-111" Name="TempCycle" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Temperatur zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-112" Name="TempDeltaAbs" Offset="5" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Temperatur bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C" />
@@ -106,7 +106,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-119" Name="TempExt2Percent" Offset="12" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="39" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="49" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-120" Name="HumOffset" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetHum" Text="Luftfeuchte anpassen (interner Messwert)" Value="0" SuffixText="%" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-121" Name="HumCycle" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftfeuchte zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-122" Name="HumDeltaAbs" Offset="5" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsHum" Text="Luftfeuchte bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="%" />
@@ -119,7 +119,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-129" Name="HumExt2Percent" Offset="12" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="62" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-130" Name="PreOffset" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetPre" Text="Luftdruck anpassen (interner Messwert)" Value="0" SuffixText="mbar" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-131" Name="PreCycle" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Luftdruck zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-132" Name="PreDeltaAbs" Offset="5" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsPre" Text="Luftdruck bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="mbar" />
@@ -131,9 +131,9 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-138" Name="PreExt1Percent" Offset="11" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-139" Name="PreExt2Percent" Offset="12" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)" />
               </Union>
-              
+
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="65" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="75" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-140" Name="VocOffset" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetVoc" Text="Voc anpassen (interner Messwert)" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-141" Name="VocCycle" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Voc zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-142" Name="VocDeltaAbs" Offset="5" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsVoc" Text="Voc bei absoluter Abweichung senden (0=nicht senden)" Value="0" />
@@ -145,9 +145,9 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-148" Name="VocExt1Percent" Offset="11" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 1" Value="0" SuffixText="Anteil(e)" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-149" Name="VocExt2Percent" Offset="12" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)" />
               </Union>
-              
+
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="78" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="88" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-150" Name="Co2Offset" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetCo2" Text="CO2 anpassen (interner Messwert)" Value="0" SuffixText="ppm" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-151" Name="Co2Cycle" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="CO2 zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-152" Name="Co2DeltaAbs" Offset="5" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2" Text="CO2 bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="ppm" />
@@ -160,12 +160,12 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-159" Name="Co2Ext2Percent" Offset="12" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-Percent" Text="    Anteil externer Messwert 2" Value="0" SuffixText="Anteil(e)" />
               </Union>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="91" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="101" BitOffset="0" />
                 <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-161" Name="Logic" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Logikfunktionen freischalten" Value="0" />-->
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" Offset="0" BitOffset="1" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Text="Sensor" Value="2" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-168" Name="Sensor1Wire" Offset="0" BitOffset="7" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="1 Wire" Value="0" />
               </Union>
-                
+
               <!-- the following parameters are just for visualization reasons -->
               <Parameter Id="M-00FA_A-0001-01-0000_P-162" Name="SensorTemp" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="Temperatur" Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-163" Name="SensorHum" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Text="Luftfeuchte" Value="0" />
@@ -175,7 +175,7 @@
               <!-- P-67 reserved -->
 
               <Union SizeInBit="72">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="92" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="102" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-170" Name="DewOffset" Offset="0" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp" Text="Taupunkt anpassen" Value="0" SuffixText="x 0.1 °C" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-171" Name="DewCycle" Offset="1" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Taupunkt zyklisch senden (0=nicht senden)" Value="0" SuffixText="Sekunden" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-172" Name="DewDeltaAbs" Offset="5" BitOffset="0" ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)" Value="0" SuffixText="x 0.1 °C" />
@@ -277,29 +277,29 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-174_R-1741" RefId="M-00FA_A-0001-01-0000_UP-174" />
             </ParameterRefs>
             <ComObjectTable>
-              <ComObject Id="M-00FA_A-0001-01-0000_O-50" Name="RequestValues" Text="Sensorwerte anfordern" Number="10" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-51" Name="Error" Text="Sensorfehler" Number="11" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-50" Name="RequestValues" Text="Sensorwerte anfordern" Number="50" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-51" Name="Error" Text="Sensorfehler" Number="51" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
               <!-- KO 52-59 free for future extensions -->
-              <ComObject Id="M-00FA_A-0001-01-0000_O-60" Name="Temp" Text="Temperatur" Number="15" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-61" Name="Hum" Text="Luftfeuchte" Number="16" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-62" Name="Pre" Text="Luftdruck" Number="17" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-63" Name="VOC" Text="VOC" Number="18" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-64" Name="Co2" Text="CO2" Number="19" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-65" Name="Co2b" Text="CO2-VOC" Number="20" FunctionText="Messwert (berechnet) in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-66" Name="Dewpoint" Text="Taupunkt" Number="21" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-67" Name="Comfort" Text="Behaglichkeit" Number="22" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-68" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="23" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-69" Name="SensorAccuracy" Text="Kalibrierungfortschritt" Number="24" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-70" Name="Ext1Temp" Text="Externe Temperatur 1" Number="30" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-71" Name="Ext2Temp" Text="Externe Temperatur 2" Number="31" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-72" Name="Ext1Hum" Text="Externe Luftfeuchte 1" Number="32" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-73" Name="Ext2Hum" Text="Externe Luftfeuchte 2" Number="33" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-74" Name="Ext1Pre" Text="Externer Luftdruck 1" Number="34" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-75" Name="Ext2Pre" Text="Externer Luftdruck 2" Number="35" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-76" Name="Ext1VOC" Text="Externer VOC 1" Number="36" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-77" Name="Ext2VOC" Text="Externer VOC 2" Number="37" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-78" Name="Ext1Co2" Text="Externer CO2 1" Number="38" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <ComObject Id="M-00FA_A-0001-01-0000_O-79" Name="Ext2Co2" Text="Externer CO2 2" Number="39" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-60" Name="Temp" Text="Temperatur" Number="60" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-61" Name="Hum" Text="Luftfeuchte" Number="61" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-62" Name="Pre" Text="Luftdruck" Number="62" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-63" Name="VOC" Text="VOC" Number="63" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-64" Name="Co2" Text="CO2" Number="64" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-65" Name="Co2b" Text="CO2-VOC" Number="65" FunctionText="Messwert (berechnet) in ppm" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-66" Name="Dewpoint" Text="Taupunkt" Number="66" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-67" Name="Comfort" Text="Behaglichkeit" Number="67" FunctionText="2=behaglich, 1=geht noch, 0=unbehaglich" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-68" Name="Airquality" Text="Luftqualitätsampel (1-6)" Number="68" FunctionText="1-6 nach (deutschen) Schulnoten" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-69" Name="SensorAccuracy" Text="Kalibrierungfortschritt" Number="69" FunctionText="Erfolg der Sensorkalibrierung" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-70" Name="Ext1Temp" Text="Externe Temperatur 1" Number="70" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-71" Name="Ext2Temp" Text="Externe Temperatur 2" Number="71" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-72" Name="Ext1Hum" Text="Externe Luftfeuchte 1" Number="72" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-73" Name="Ext2Hum" Text="Externe Luftfeuchte 2" Number="73" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-74" Name="Ext1Pre" Text="Externer Luftdruck 1" Number="74" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-75" Name="Ext2Pre" Text="Externer Luftdruck 2" Number="75" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-76" Name="Ext1VOC" Text="Externer VOC 1" Number="76" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-77" Name="Ext2VOC" Text="Externer VOC 2" Number="77" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-78" Name="Ext1Co2" Text="Externer CO2 1" Number="78" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
+              <ComObject Id="M-00FA_A-0001-01-0000_O-79" Name="Ext2Co2" Text="Externer CO2 2" Number="79" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
               <!-- KO 80-89 free for future extensions -->
             </ComObjectTable>
             <ComObjectRefs>
@@ -502,6 +502,14 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="  Bit 6: nicht belegt" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="  Bit 7: Fehler 1Wire Master" />
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="  Bit 8-15: Fehler entsprechender 1-Wire-Sensor" />
+                  </when>
+                </choose>
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-46_R-461" />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-46_R-461">
+                  <when test="1">
+                    <!-- show diagnose object just if requested -->
+                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-7_R-71" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-80" Text="Das Diagnoseobjekt ist derzeit für interne Verwendung (Debug) vorgesehen." />
                   </when>
                 </choose>
               </ParameterBlock>
@@ -748,7 +756,7 @@
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-65" Text="  4 - ausreichend (lüften empfohlen)" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-66" Text="  5 - mangelhaft (lüften)" />
                             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-67" Text="  6 - ungenügend (dringend lüften)" />
-                  
+
                           </when>
                         </choose>
                       </when>
