@@ -37,13 +37,11 @@ From now on we work in this terminal window:
 
 You should be now in a directory ending with ...\Documents\PlatformIO\Projects
 
-    pio lib -g install 805
     pio lib -g install 166
     pio lib -g install 31
-    pio lib -g install 5449 
+    pio lib -g install 5449
 
 These commands should install following libraries:  
-"ClosedCube_HDC1080" Library  
 "Adafruit_BME280" Library  
 "Adafruit_Sensor.h" Library  
 "SparkFun_SCD30_Arduino_Library" Library

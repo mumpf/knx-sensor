@@ -276,8 +276,8 @@
 #define LOG_fTYearDay                 11      // 1 Bit, Bit 4
 #define     LOG_fTYearDayMask 0x10
 #define     LOG_fTYearDayShift 4
-#define LOG_fTRestoreState            11      // 1 Bit, Bit 5
-#define     LOG_fTRestoreStateMask 0x20
+#define LOG_fTRestoreState            11      // 2 Bits, Bit 6-5
+#define     LOG_fTRestoreStateMask 0x60
 #define     LOG_fTRestoreStateShift 5
 #define LOG_fE1Repeat                 12      // int32_t
 #define LOG_fE2                       16      // 4 Bits, Bit 3-0

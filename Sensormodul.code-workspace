@@ -31,7 +31,8 @@
 			"*.cppbak": "cpp",
 			"cstdint": "cpp",
 			"cmath": "cpp",
-			"ctime": "cpp"
+			"ctime": "cpp",
+			"*.tcc": "cpp"
 		}
 	}
 }
