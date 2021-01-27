@@ -279,7 +279,8 @@
             <ComObjectTable>
               <ComObject Id="M-00FA_A-0001-01-0000_O-50" Name="RequestValues" Text="Sensorwerte anfordern" Number="50" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-51" Name="Error" Text="Sensorfehler" Number="51" FunctionText="Bitleiste" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-1" />
-              <!-- KO 52-59 free for future extensions -->
+              <!-- KO 52-53 free for future extensions -->
+              <!-- KO 54-59 free for future inputs -->
               <ComObject Id="M-00FA_A-0001-01-0000_O-60" Name="Temp" Text="Temperatur" Number="60" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-61" Name="Hum" Text="Luftfeuchte" Number="61" FunctionText="Messwert in %" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-7" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-62" Name="Pre" Text="Luftdruck" Number="62" FunctionText="Messwert in mBar" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6" />
@@ -300,7 +301,9 @@
               <ComObject Id="M-00FA_A-0001-01-0000_O-77" Name="Ext2VOC" Text="Externer VOC 2" Number="77" FunctionText="Messwert (ohne Einheit)" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPT-9" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-78" Name="Ext1Co2" Text="Externer CO2 1" Number="78" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
               <ComObject Id="M-00FA_A-0001-01-0000_O-79" Name="Ext2Co2" Text="Externer CO2 2" Number="79" FunctionText="Messwert in ppm" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-8" />
-              <!-- KO 80-89 free for future extensions -->
+              <!-- KO 80-82 free for LUX extension -->
+              <!-- KO 83-84 free for TOF extensions -->
+              <!-- KO 85-89 free for future extensions -->
             </ComObjectTable>
             <ComObjectRefs>
               <ComObjectRef Id="M-00FA_A-0001-01-0000_O-50_R-501" RefId="M-00FA_A-0001-01-0000_O-50" />

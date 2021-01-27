@@ -4,8 +4,8 @@ Sensormodul:
     KO8 - KO19 (frei für Logik)         12 Byte payload
     KO20 - KO31 (WireGateway)           34 Byte payload
     KO32 - KO49 (frei für 1-Wire)       18 Byte payload
-    KO50 - KO76 (Sensormodul)           40 Byte payload
-    KO77 - KO89 (frei für Sensormodul)  13 Byte payload
+    KO50 - KO78 (Sensormodul)           44 Byte payload
+    KO79 - KO89 (frei für Sensormodul)  13 Byte payload
   Dynamisch:
     KO90 - KO121 (32 Geräte * 1 KO)     32 * 2 Byte = 64 Byte payload (1-Wire-Geräte)
     KO122 - KO124 (frei)                3 Byte payload
