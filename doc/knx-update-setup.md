@@ -21,7 +21,7 @@ Do for each of them the following:
 
 Click on the project name (i.e. knx-sensor).
 
-There is an additional area called "KNX-SENSOR" (in uppercase letters), having a text box below with a text "Message". If you hover the mouse over this additional area, some command icons appear, followed by 3 dots (...) indicating a menu. Click on these 3 dots.
+There is an additional area called "knx-sensor Git", having a text box below with a text "Message". At the end of the Git-Area you see 3 dots (...) indicating a menu. Click on these 3 dots.
 
 In the upcomming menu click on the topmost entry "Pull".
 
@@ -103,10 +103,10 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v1.4-10.knxprod
-* Sensormodul-v1.5-20.knxprod
-* Sensormodul-v1.6-40.knxprod
-* Sensormodul-v1.7-80.knxprod
+* Sensormodul-v2.0-10.knxprod
+* Sensormodul-v2.1-20.knxprod
+* Sensormodul-v2.2-40.knxprod
+* Sensormodul-v2.3-80.knxprod
 
 you will find in the release directory of the knx-sensor project
 
