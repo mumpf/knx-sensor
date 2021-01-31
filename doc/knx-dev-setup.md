@@ -115,7 +115,7 @@ Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is the first final.
+Download the newest release of multiply-channels, currently it is version 2.0.0.
 
 The executable is MultiplyChannels.exe
 
@@ -133,10 +133,10 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v1.4-10.knxprod
-* Sensormodul-v1.5-20.knxprod
-* Sensormodul-v1.6-40.knxprod
-* Sensormodul-v1.7-80.knxprod
+* Sensormodul-v2.0-10.knxprod
+* Sensormodul-v2.1-20.knxprod
+* Sensormodul-v2.2-40.knxprod
+* Sensormodul-v2.3-80.knxprod
 
 you will find in the release directory of the knx-sensor project
 
