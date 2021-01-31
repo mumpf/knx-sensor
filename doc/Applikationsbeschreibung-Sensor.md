@@ -22,10 +22,14 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 * Aktualisierung im Kapitel 'Update der Applikation'.
 * Detailänderungen in der Logik, siehe Applikationsbeschreibung Logik.
 
-01.06.2020 Firmware 2.0.0, Applikation 2.0 - 2.3
+01.02.2021 Firmware 2.0.0, Applikation 2.0 - 2.3
 
 * Das Diagnoseobjekt ist jetzt Teil des Logikmoduls und wird auch in der Applikationsbeschreibung Logik dokumentiert. Es wird nicht mehr zusammen mit dem Fehlerobjekt ein- bzw. ausgeschaltet.
 * **Inkompatible Änderung**: Zuordnungen zu Gruppenadressen gehen verloren, beschrieben im Kapitel 'Das "alte" Sensormodul aktualisieren'
+* Anpassung im Kapitel 'Uhrzeit und Datum nach einem Neustart vom Bus lesen'
+* Unterstützung vom neuen VOC-Sensor IAQCore, kann VOC- und (berechneten) CO2-Wert liefern
+
+<div style="page-break-after: always;"></div>
 
 ## Allgemeine Parameter
 
@@ -52,30 +56,36 @@ Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hi
 
 Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
 
-Derzeit werden die Informationen über Uhrzeit und Datum noch nicht verarbeitet. Sie sind für zukünftige Erweiterungen vorgesehen, vor allem für eine Zeitschaltuhrfunktion.
+Wenn dieser Parameter gesetzt ist, wird die Uhrzeit und das Datum alle 20-30 Sekunden über ein Lesetelegramm vom Bus gelesen, bis eine entsprechende Antwort kommt. Falls keine Uhr im KNX-System vorhanden ist oder die Uhr nicht auf Leseanfragen antworten kann, sollte dieser Parameter auf "Nein" gesetzt werden.
 
 ### Vorhandene Hardware
 
 Die Firmware im Sensormodul unterstützt eine Vielzahl an Hardwarevarianten. Um nicht für jede Hardwarekombination ein eigenes Applikationsprogramm zu benötigen, kann über die folgenden Felder die Hardwareausstattung des Sensormoduls bestimmt werden.
 
-Die Angaben in diesem Teil müssen der vorhandenen Hardware entsprechen, da sie das Verhalten der Applikation und auch der Firmware bestimmen. Das Applikationsprogramm hat keine Möglichkeit, die Korrektheit der Angaben zu überprüfen.
+**Die Angaben in diesem Teil müssen der vorhandenen Hardware entsprechen**, da sie das Verhalten der Applikation und auch der Firmware bestimmen. **Das Applikationsprogramm hat keine Möglichkeit, die Korrektheit der Angaben zu überprüfen.**
 
-Falsche Angaben können zu falschern Konfigurationen der Applikation und somit zum Fehlverhalten des Sensormoduls führen.
+Falsche Angaben können zu falschern Konfigurationen der Applikation und somit zum **Fehlverhalten des Sensormoduls** führen.
 
 #### Sensor
 
-Mit dem Auswahlfeld Sensor wird der direkt an das Board angeschlossene Sensor ausgewählt. In den folgenden Anzeigefeldern wird angezeigt, welche Messungen von dem Sensor vorgenommen werden. Um alle unterstützten Messungen vornehmen zu können, muss man Sensorkombinationen (SCD30+BME280 oder SCD30+BME680) benutzen.
+Mit dem Auswahlfeld Sensor wird der direkt an das Board angeschlossene Sensor ausgewählt. 
+![Sensorauswahl](./DropdownSensor.png)
+
+In den folgenden Anzeigefeldern wird angezeigt, welche Messungen von dem Sensor vorgenommen werden. Um alle unterstützten Messungen vornehmen zu können, muss man Sensorkombinationen (SCD30+BME280 oder SCD30+BME680 oder BME280+IAQCore) benutzen.
 
 Die unterstützten Sensoren liefern folgende Messwerte:
 
 Sensorauswahl | Temperatur | Luftfeuchte | Luftdruck | VOC | CO<sub>2</sub> | CO<sub>2</sub> (berechnet)
 ---|:---:|:---:|:---:|:---:|:---:|:---:
 SHT3x   | X | X |   |   |   |
+SHT3x+IAQCore | X | X | | X | | X
 BME280  | X | X | X |   |   |
-BME680  | X | X | X | X |   | X
-SCD30   | X | X |   |   | X |
 BME280+SCD30 | X | X | X |   | X |
+BME280+IAQCore | X | X | X | X | | X
+BME680  | X | X | X | X |   | X
 BME680+SCD30 | X | X | X | X | X | X
+SCD30   | X | X |   |   | X |
+IAQCore | | | | X | | X
 
 Die Auswahl von 1-Wire-Sensoren ist auch möglich, wird aber derzeit weder von der Applikation noch von der Firmware im Sensormodul unterstützt (zukünftige Erweiterung).
 
@@ -125,7 +135,7 @@ Dieses Anzeigefeld zeigt einen Haken, wenn der ausgewählte Sensor eine Messung 
 
 Dieses Anzeigefeld zeigt einen Haken, wenn der ausgewählte Sensor eine Messung von Kohlendioxid (CO<sub>2</sub>) unterstützt.
 
-Bei der Auswahl vom BME680 wird auch CO2 angezeigt. Hier ist anzumerken, dass der BME680 nur ein berechnetes CO<sub>2</sub>-Äquivalent passend zum gemessenen Voc-Wert ausgibt und keinen gemessenen CO<sub>2</sub>-Wert.
+Bei der Auswahl vom BME680 oder IAQCore wird auch CO2 angezeigt. Hier ist anzumerken, dass der BME680 bzw. IAQCore nur ein berechnetes CO<sub>2</sub>-Äquivalent passend zum gemessenen Voc-Wert ausgibt und keinen gemessenen CO<sub>2</sub>-Wert.
 
 #### 1-Wire
 
