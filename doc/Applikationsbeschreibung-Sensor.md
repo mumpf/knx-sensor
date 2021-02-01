@@ -28,6 +28,7 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 * **Inkompatible Änderung**: Zuordnungen zu Gruppenadressen gehen verloren, beschrieben im Kapitel 'Das "alte" Sensormodul aktualisieren'
 * Anpassung im Kapitel 'Uhrzeit und Datum nach einem Neustart vom Bus lesen'
 * Unterstützung vom neuen VOC-Sensor IAQCore, kann VOC- und (berechneten) CO2-Wert liefern
+* Aktualisierung im Kapitel 'Update der Applikation'.
 
 <div style="page-break-after: always;"></div>
 
@@ -366,10 +367,10 @@ Im Allgemeinen sollte es nicht nötig sein, die Kalibrierungsdaten zu löschen. 
 
 Es gibt verschiedene Versionen dieser Applikation:
 
-* Sensormodul-v1.4-10.knxprod
-* Sensormodul-v1.5-20.knxprod
-* Sensormodul-v1.6-40.knxprod
-* Sensormodul-v1.7-80.knxprod
+* Sensormodul-v2.0-10.knxprod
+* Sensormodul-v2.1-20.knxprod
+* Sensormodul-v2.2-40.knxprod
+* Sensormodul-v2.3-80.knxprod
 
 Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle, angegeben durch die Zahl, die direkt vor der Endung "knxprod" steht. Dies ist sinnvoll, da sich die Anzahl der Logikkanäle erheblich auf die Zeit auswirkt, die die ETS zum programmieren benötigt. Eine Applikation mit 10 Logikkanälen braucht ca. 30 Sekunden zum programmieren, mit 80 Logikkanälen aber weit über 3 Minuten.
 
@@ -382,41 +383,49 @@ Allerdings will keiner, der in einer Applikation 40 Logikkanäle parametriert ha
 * Jede Applikation mit mehr Logikkanälen kann immer als "Update" für eine Applikation mit weniger Logikkanälen fungieren.
 * Jede Applikation mit einer höheren Versionsnummer kann immer als "Update" für eine Applikation mit einer geringeren Versionsnummer fungieren, solange sie gleich viele oder mehr Logikkanäle hat.
 
-Das ergibt folgende "Update"-Matrix (In den Spalten steht die Version, die man hat, in den Zeilen die Version, die man haben möchte):
+Das ergibt folgende "Update"-Matrix (In den Zeilen steht die Version, die man hat, in den Spalten die Version, die man haben möchte):
 
-| | v1.0 (10) | v1.1 (20) | v1.2 (40) | v1.3 (80)
+| | v2.0 (10) | v2.1 (20) | v2.2 (40) | v2.3 (80)
 :---:|:---:|:---:|:---:|:---:
-v1.1 (20) | U | | |
-v1.2 (40) | U | U | |
-v1.3 (80) | U | U | U |
-v1.4 (10) | U | | |
-v1.5 (20) | U | U | |
-v1.6 (40) | U | U | U |
-v1.7 (80) | U | U | U | U
+v1.0 (10) | U | U | U | U
+v1.1 (20) |   | U | U | U
+v1.2 (40) |   |   | U | U
+v1.3 (80) |   |   |   | U
+v1.4 (10) | U | U | U | U
+v1.5 (20) |   | U | U | U
+v1.6 (40) |   |   | U | U
+v1.7 (80) |   |   |   | U
+v2.0 (10) |   | U | U | U
+v2.1 (20) |   |   | U | U
+v2.2 (40) |   |   |   | U
 
-Ein "U" zeigt für vorherige (v1.0 bis v1.3) und aktuelle Versionen, wenn ein Update stattfinden kann, ohne die bisher vorgegebene Parametrierung zu löschen.
+Ein "U" zeigt, dass ein Update stattfinden kann, ohne die bisher vorgegebene Parametrierung zu löschen.
+
+Dabei ist es war technisch möglich, von v1.0-v1.3 gleich auf v2.0-v2.3 zu gehen, allerdings ist unklar (und nicht getestet), inwiefern hier Parameter noch erhalten bleiben.
 
 Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS ein Update durchzuführen, ohne dass die Parameter und zugeordneten GA gelöscht werden.
 
 ### Neue knxprod in den Produktkatalog importieren
 
-In der Annahme, dass die Sensormodul-v1.0-10.knxprod bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine aktuelle Version mit 40 Kanälen wechseln.
+In der Annahme, dass eine 10-Kanal-knxprod (z.B. Sensormodul-v1.4-10.knxprod oder Sensormodul-v2.0-10.knxprod) bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine aktuelle Version mit 40 Kanälen wechseln.
 
-Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v1.6-40.knxprod" in die ETS.
+Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v2.2-40.knxprod" in die ETS.
 
-Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul" mit der Version 1.6 im Katalog. Das bereits genutzte "Sensormodul" mit der Version 1.0 steht auch da.
+Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul-v2.2-40" mit der Version 2.2. Das bereits genutzte "Sensormodul" mit der Version 1.4 steht auch da.
 
 ## Das neue Sensormodul ins eigene Projekt einfügen
 
-Als nächstes wird das Produkt "Sensormodul" mit der Version 1.6 ins eigene Projekt eingefügt. Das neue Produkt muss nicht parametriert werden, es muss nur im eigenen Projekt existieren.
+Als nächstes wird das Produkt "Sensormodul-v2.2-40" ins eigene Projekt eingefügt. Das neue Produkt **muss nicht** parametriert werden, es muss nur im eigenen Projekt existieren.
 
 ## Das "alte" Sensormodul aktualisieren
 
-Jetzt wählt man das bereits benutzte und parametrierte "Sensormodul" v1.0 aus. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.0". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V1.6" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
+Jetzt wählt man im eigenen Projekt das bereits benutzte und parametrierte "Sensormodul" v1.4. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.4". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V2.2" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
 
 Stattdessen clickt man auf den "Aktualisieren"-Button darunter. Jetzt wird die Applikation von der ETS aktualisiert und alle Parameter bzw. GA-Zuordnungen übernommen.
 
 Anschließend kann man - um beim Beispiel zu bleiben - weitere 30 Logikkanäle parametrieren, bevor man auf die Version mit 80 Kanälen gehen muss. Natürlich kann man auch die neuen Funktionen der neuen Version nutzen.
+
+Man muss alle "alten" Sensormodule einzeln aktualisieren, aber nur **einmal** das neue Produkt in die ETS importieren.
 
 **Achtung - Inkompatibilität beim Übergang von Version 1.0 bis 1.3 auf Version 1.4 bis 1.7:**
 
@@ -443,13 +452,15 @@ Dieses Kapital beschreibt die von dieser Firmware unterstützte Hardware
 
 Sensormodul Masifi
 
-HCD1080
+SHT3x (neu)
 
 BME280
 
 BME680
 
 SCD30
+
+IAQCore (neu)
 
 Buzzer
 
@@ -461,31 +472,30 @@ DS2484
 
 ## Übersicht der vorhandenen Kommunikationsobjekte
 
+Die Liste zeigt nur die Kommunikationsobjekte (KO) der neuesten version 2.x. Es gibt noch weitere KO, die logisch betrachtet zum Logikmodul gehören, diese werden hier nicht aufgelistet, sondern nur auf das Logikmodul verwiesen.
+
 KO | Name | DPT | Bedeutung
 :---:|:---|---:|:--
-1 | in Betrieb | 1.002 | Meldet zyklisch auf den Bus, dass das Gerät noch funktioniert
-2 | Uhrzeit | 10.001 | Eingnang zum empfangen der Uhrzeit
-3 | Datum | 11.001 | Eingang zum empfangen des Datums
-10 | Sensorwerte anfordern | 1.016 | Beim Empfang vom Trigger (1) werden alle Sensorwerte auf den Bus gesendet. So kann man mehrere Leseanforderungen sparen.
-11 | Sensorfehler | 7.001 | Gibt über eine Bitleiste an, welche Messwerte aufgrund eines aufgetretenen Fehlers nicht erfasst werden können. Falls ein ganzer Sensor ausfällt, werden mehrere Bits gleichzeitig gesetzt
-12 | Diagnose | 16.001 | Nur für internen Gebrauch (Debug)
-15 | Temperatur | 9.001 | Temperaturmesswert (in °C)
-16 | Luftfeuchte | 9.007 | Luftfeuchte (in %)
-17 | Luftdruck | 9.006 | Luftdruck (in mBar, nicht Pa!!! mBar = Pa / 100)
-18 | VOC | 9.* | Voc-Messwert (einheitenlos)
-19 | CO2 | 9.008 | CO2-Messwert (in ppm)
-20 | CO2-VOC | 9.008 | Berechneter CO2-Messwert vom VOC (in ppm)
-21 | Taupunkt | 9.001 | Berechneter Taupunkt (in °C)
-22 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur (0-2)
-23 | Luftqualitätsampel | 5.005 | Luftgüte entsprechend deutscher Schulnoten (1-6)
-24 | Kalibrierungsgrad | 5.001 | Kalibrierungsfortschritt vom BME680 (in %)
-30 | Externe Temperatur 1 | 9.001 | Eingang für externe Temperatur 1 (in °C)
-31 | Externe Temperatur 2 | 9.001 | Eingang für externe Temperatur 2 (in °C)
-32 | Externe Luftfeuchte 1 | 9.007 | Eingang für externe Luftfeuchte 1 (in %)
-33 | Externe Luftfeuchte 2 | 9.007 | Eingang für externe Luftfeuchte 2 (in %)
-34 | Externer Lufttdruck 1 | 9.006 | Eingang für externen Luftdruck 1 (in mBar)
-35 | Externer Lufttdruck 2 | 9.006 | Eingang für externen Luftdruck 2 (in mBar)
-36 | Externer VOC 1 | 9.* | Eingang für externen VOC-Wert 1 (einheitenlos)
-37 | Externer VOC 2 | 9.* | Eingang für externen VOC-Wert 2 (einheitenlos)
-38 | Externe CO2 1 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 1 (in ppm)
-39 | Externe CO2 2 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 2 (in ppm)
+1 | bis 49 | | beschrieben im Logikmodul
+50 | Sensorwerte anfordern | 1.016 | Beim Empfang vom Trigger (1) werden alle Sensorwerte auf den Bus gesendet. So kann man mehrere Leseanforderungen sparen.
+51 | Sensorfehler | 7.001 | Gibt über eine Bitleiste an, welche Messwerte aufgrund eines aufgetretenen Fehlers nicht erfasst werden können. Falls ein ganzer Sensor ausfällt, werden mehrere Bits gleichzeitig gesetzt
+60 | Temperatur | 9.001 | Temperaturmesswert (in °C)
+61 | Luftfeuchte | 9.007 | Luftfeuchte (in %)
+62 | Luftdruck | 9.006 | Luftdruck (in mBar, nicht Pa!!! mBar = Pa / 100)
+63 | VOC | 9.* | Voc-Messwert (einheitenlos)
+64 | CO2 | 9.008 | CO2-Messwert (in ppm)
+65 | CO2-VOC | 9.008 | Berechneter CO2-Messwert vom VOC (in ppm)
+66 | Taupunkt | 9.001 | Berechneter Taupunkt (in °C)
+67 | Behaglichkeit | 5.005 | Behaglichkeitswert, errechnet aus Luftfeuchte im Verhältnis zur Temperatur (0-2)
+68 | Luftqualitätsampel | 5.005 | Luftgüte entsprechend deutscher Schulnoten (1-6)
+69 | Kalibrierungsgrad | 5.001 | Kalibrierungsfortschritt vom BME680 (in %)
+70 | Externe Temperatur 1 | 9.001 | Eingang für externe Temperatur 1 (in °C)
+71 | Externe Temperatur 2 | 9.001 | Eingang für externe Temperatur 2 (in °C)
+72 | Externe Luftfeuchte 1 | 9.007 | Eingang für externe Luftfeuchte 1 (in %)
+73 | Externe Luftfeuchte 2 | 9.007 | Eingang für externe Luftfeuchte 2 (in %)
+74 | Externer Lufttdruck 1 | 9.006 | Eingang für externen Luftdruck 1 (in mBar)
+75 | Externer Lufttdruck 2 | 9.006 | Eingang für externen Luftdruck 2 (in mBar)
+76 | Externer VOC 1 | 9.* | Eingang für externen VOC-Wert 1 (einheitenlos)
+77 | Externer VOC 2 | 9.* | Eingang für externen VOC-Wert 2 (einheitenlos)
+78 | Externe CO2 1 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 1 (in ppm)
+79 | Externe CO2 2 | 9.008 | Eingang für externen CO<sub>2</sub>-Wert 2 (in ppm)
