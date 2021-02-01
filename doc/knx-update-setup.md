@@ -87,7 +87,7 @@ Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is the first final. In case you have already the newest version downloaded, you can skip this and the following copy step.
+Download the newest release of multiply-channels, currently it is version 2.0.0. In case you have already the newest version downloaded, you can skip this and the following copy step.
 
 The executable is MultiplyChannels.exe
 
