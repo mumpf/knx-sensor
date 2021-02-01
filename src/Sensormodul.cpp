@@ -16,7 +16,7 @@
 
 const uint8_t cFirmwareMajor = 2;    // 0-31
 const uint8_t cFirmwareMinor = 0;    // 0-31
-const uint8_t cFirmwareRevision = 2; // 0-63
+const uint8_t cFirmwareRevision = 0; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -94,33 +94,54 @@ void ProcessHeartbeat()
 }
 
 void ProcessReadRequests() {
-    // this method is called after startup delay and executes read requests, which should just happen once after startup
-    static bool sCalled = false;
-    if (!sCalled) {
-        gLogic.processReadRequests();
+    static uint8_t sCalled = 1;
+    // the following code should be called only once
+    gLogic.processReadRequests();
+    if (sCalled < 255) {
 
         // we evaluate only Bit 2 here, which holds the information about read external values on startup
-        if (knx.paramByte(LOG_TempExtRead) & 4) {
-            knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
-            knx.getGroupObject(LOG_KoExt2Temp).requestObjectRead();
+        if (delayCheck(gRuntimeData.startupDelay, 1000) && sCalled == 1) {
+            sCalled += 1;
+            if (knx.paramByte(LOG_TempExtRead) & 4) {
+                knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2Temp).requestObjectRead();
+            }
         }
-        if (knx.paramByte(LOG_HumExtRead) & 4) {
-            knx.getGroupObject(LOG_KoExt1Hum).requestObjectRead();
-            knx.getGroupObject(LOG_KoExt2Hum).requestObjectRead();
+        if (delayCheck(gRuntimeData.startupDelay, 2000) && sCalled == 2)
+        {
+            sCalled += 1;
+            if (knx.paramByte(LOG_HumExtRead) & 4)
+            {
+                knx.getGroupObject(LOG_KoExt1Hum).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2Hum).requestObjectRead();
+            }
         }
-        if (knx.paramByte(LOG_PreExtRead) & 4) {
-            knx.getGroupObject(LOG_KoExt1Pre).requestObjectRead();
-            knx.getGroupObject(LOG_KoExt2Pre).requestObjectRead();
+        if (delayCheck(gRuntimeData.startupDelay, 3000) && sCalled == 3)
+        {
+            sCalled += 1;
+            if (knx.paramByte(LOG_PreExtRead) & 4)
+            {
+                knx.getGroupObject(LOG_KoExt1Pre).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2Pre).requestObjectRead();
+            }
         }
-        if (knx.paramByte(LOG_VocExtRead) & 4) {
-            knx.getGroupObject(LOG_KoExt1VOC).requestObjectRead();
-            knx.getGroupObject(LOG_KoExt2VOC).requestObjectRead();
+        if (delayCheck(gRuntimeData.startupDelay, 4000) && sCalled == 4)
+        {
+            sCalled += 1;
+            if (knx.paramByte(LOG_VocExtRead) & 4) {
+                knx.getGroupObject(LOG_KoExt1VOC).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2VOC).requestObjectRead();
+            }
         }
-        if (knx.paramByte(LOG_Co2ExtRead) & 4) {
-            knx.getGroupObject(LOG_KoExt1Co2).requestObjectRead();
-            knx.getGroupObject(LOG_KoExt2Co2).requestObjectRead();
+        if (delayCheck(gRuntimeData.startupDelay, 5000) && sCalled == 5)
+        {
+            sCalled = 255;
+            if (knx.paramByte(LOG_Co2ExtRead) & 4)
+            {
+                knx.getGroupObject(LOG_KoExt1Co2).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2Co2).requestObjectRead();
+            }
         }
-        sCalled = true;
     }
 }
 

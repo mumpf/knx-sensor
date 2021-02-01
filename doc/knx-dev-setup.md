@@ -37,13 +37,11 @@ From now on we work in this terminal window:
 
 You should be now in a directory ending with ...\Documents\PlatformIO\Projects
 
-    pio lib -g install 805
     pio lib -g install 166
     pio lib -g install 31
-    pio lib -g install 5449 
+    pio lib -g install 5449
 
 These commands should install following libraries:  
-"ClosedCube_HDC1080" Library  
 "Adafruit_BME280" Library  
 "Adafruit_Sensor.h" Library  
 "SparkFun_SCD30_Arduino_Library" Library
@@ -59,12 +57,15 @@ These commands should install following libraries:
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-If you use the board from MASIFI version v1 or v2, you need to change one or two settings:
+The current board version from MASIFI is v3.1 (default):
+If you use the board from MASIFI version v1, v2 or v3, you need to change one or two settings:
 
     In knx-sensor, edit the file platformio.ini:  
     - change the line
-            -DBOARD_MASIFI_V3 
+            -DBOARD_MASIFI_V31 
       to 
+            -DBOARD_MASIFI_V3 
+      or 
             -DBOARD_MASIFI_V2 
       or 
             -DBOARD_MASIFI_V1
@@ -114,7 +115,7 @@ Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is the first final.
+Download the newest release of multiply-channels, currently it is version 2.0.0.
 
 The executable is MultiplyChannels.exe
 
@@ -132,10 +133,10 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v1.4-10.knxprod
-* Sensormodul-v1.5-20.knxprod
-* Sensormodul-v1.6-40.knxprod
-* Sensormodul-v1.7-80.knxprod
+* Sensormodul-v2.0-10.knxprod
+* Sensormodul-v2.1-20.knxprod
+* Sensormodul-v2.2-40.knxprod
+* Sensormodul-v2.3-80.knxprod
 
 you will find in the release directory of the knx-sensor project
 

@@ -36,7 +36,8 @@
 			"cmath": "cpp",
 			"ctime": "cpp",
 			"memory": "cpp",
-			"optional": "cpp"
+			"optional": "cpp",
+			"*.tcc": "cpp"
 		}
 	}
 }

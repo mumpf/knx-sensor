@@ -21,7 +21,7 @@ Do for each of them the following:
 
 Click on the project name (i.e. knx-sensor).
 
-There is an additional area called "KNX-SENSOR" (in uppercase letters), having a text box below with a text "Message". If you hover the mouse over this additional area, some command icons appear, followed by 3 dots (...) indicating a menu. Click on these 3 dots.
+There is an additional area called "knx-sensor Git", having a text box below with a text "Message". At the end of the Git-Area you see 3 dots (...) indicating a menu. Click on these 3 dots.
 
 In the upcomming menu click on the topmost entry "Pull".
 
@@ -29,12 +29,15 @@ As said, do this for each project.
 
 As soon as all 4 pulls are finished, continue with the build steps form the initial documentation:
 
-If you use the board from MASIFI version v1 or v2, you need to change one or two settings:
+The current board version from MASIFI is v3.1 (default):
+If you use the board from MASIFI version v1, v2 or v3, you need to change one or two settings:
 
     In knx-sensor, edit the file platformio.ini:  
     - change the line
-            -DBOARD_MASIFI_V3 
+            -DBOARD_MASIFI_V31 
       to 
+            -DBOARD_MASIFI_V3 
+      or 
             -DBOARD_MASIFI_V2 
       or 
             -DBOARD_MASIFI_V1
@@ -84,7 +87,7 @@ Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is the first final. In case you have already the newest version downloaded, you can skip this and the following copy step.
+Download the newest release of multiply-channels, currently it is version 2.0.0. In case you have already the newest version downloaded, you can skip this and the following copy step.
 
 The executable is MultiplyChannels.exe
 
@@ -100,10 +103,10 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v1.4-10.knxprod
-* Sensormodul-v1.5-20.knxprod
-* Sensormodul-v1.6-40.knxprod
-* Sensormodul-v1.7-80.knxprod
+* Sensormodul-v2.0-10.knxprod
+* Sensormodul-v2.1-20.knxprod
+* Sensormodul-v2.2-40.knxprod
+* Sensormodul-v2.3-80.knxprod
 
 you will find in the release directory of the knx-sensor project
 

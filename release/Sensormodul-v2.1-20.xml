@@ -4,16 +4,16 @@
     <Manufacturer RefId="M-00FA">
       <Catalog>
         <CatalogSection Id="M-00FA_CS-1" Name="Geräte" Number="1" DefaultLanguage="de">
-          <CatalogItem Id="M-00FA_H-WPKNX106-1_HP-0001-01-0000_CI-WPSELFSENSOR-1" Name="WP-Sensormodul" Number="1" ProductRefId="M-00FA_H-WPKNX106-1_P-WPSELFSENSOR" Hardware2ProgramRefId="M-00FA_H-WPKNX106-1_HP-0001-01-0000" DefaultLanguage="de" />
+          <CatalogItem Id="M-00FA_H-WPKNX106-1_HP-0001-01-0000_CI-WPSELFSENSOR-1" Name="WP-Sensormodul-v2.1-20" Number="1" ProductRefId="M-00FA_H-WPKNX106-1_P-WPSELFSENSOR" Hardware2ProgramRefId="M-00FA_H-WPKNX106-1_HP-0001-01-0000" DefaultLanguage="de" />
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="106" ApplicationVersion="21" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="16 17 20" > 
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="106" ApplicationVersion="33" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="16 17 20 21 32"> 
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
             </Code>
-            <mc:define prefix="LOG" NumChannels="20" KoOffset="50" />
+            <mc:define prefix="LOG" NumChannels="20" KoOffset="125" />
             <ParameterTypes>
               <!-- generic parameter types from logicmodule -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
@@ -57,15 +57,16 @@
             <mc:include href="../src/Sensormodul.share.xml" xpath="//Dynamic/*" prefix="SENS" />
             <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel" header="Sensormodul.h" prefix="LOG" />
             <Channel Id="M-00FA_A-0001-01-0000_CH-4" Name="Logikkanaele" Number="4" Text="Logikkanäle">
+              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Holidays']" header="Sensormodul.h" prefix="LOG" />
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Dynamic/*" header="Sensormodul.h" prefix="LOG" />
             </Channel>
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
       <Hardware>
-        <Hardware Id="M-00FA_H-WPKNX106-1" Name="WP-Sensormodul" SerialNumber="WPKNX106" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
+        <Hardware Id="M-00FA_H-WPKNX106-1" Name="WP-Sensormodul-v2.1-20" SerialNumber="WPKNX106" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
-            <Product Id="M-00FA_H-WPKNX106-1_P-WPSELFSENSOR" Text="WP-Sensormodul" OrderNumber="WPSELFSENSOR" IsRailMounted="false" DefaultLanguage="de">
+            <Product Id="M-00FA_H-WPKNX106-1_P-WPSELFSENSOR" Text="WP-Sensormodul-v2.1-20" OrderNumber="WPSELFSENSOR" IsRailMounted="false" DefaultLanguage="de">
               <RegistrationInfo RegistrationStatus="Registered" />
             </Product>
           </Products>
