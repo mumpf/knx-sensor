@@ -14,7 +14,7 @@
 #include "IncludeManager.h"
 #include "Logic.h"
 
-const uint8_t cFirmwareMajor = 2;    // 0-31
+const uint8_t cFirmwareMajor = 3;    // 0-31
 const uint8_t cFirmwareMinor = 0;    // 0-31
 const uint8_t cFirmwareRevision = 0; // 0-63
 
@@ -100,14 +100,14 @@ void ProcessReadRequests() {
     if (sCalled < 255) {
 
         // we evaluate only Bit 2 here, which holds the information about read external values on startup
-        if (delayCheck(gRuntimeData.startupDelay, 1000) && sCalled == 1) {
+        if (delayCheck(gStartupDelay, 1000) && sCalled == 1) {
             sCalled += 1;
             if (knx.paramByte(LOG_TempExtRead) & 4) {
                 knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Temp).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 2000) && sCalled == 2)
+        if (delayCheck(gStartupDelay, 2000) && sCalled == 2)
         {
             sCalled += 1;
             if (knx.paramByte(LOG_HumExtRead) & 4)
@@ -116,7 +116,7 @@ void ProcessReadRequests() {
                 knx.getGroupObject(LOG_KoExt2Hum).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 3000) && sCalled == 3)
+        if (delayCheck(gStartupDelay, 3000) && sCalled == 3)
         {
             sCalled += 1;
             if (knx.paramByte(LOG_PreExtRead) & 4)
@@ -125,7 +125,7 @@ void ProcessReadRequests() {
                 knx.getGroupObject(LOG_KoExt2Pre).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 4000) && sCalled == 4)
+        if (delayCheck(gStartupDelay, 4000) && sCalled == 4)
         {
             sCalled += 1;
             if (knx.paramByte(LOG_VocExtRead) & 4) {
@@ -133,7 +133,7 @@ void ProcessReadRequests() {
                 knx.getGroupObject(LOG_KoExt2VOC).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 5000) && sCalled == 5)
+        if (delayCheck(gStartupDelay, 5000) && sCalled == 5)
         {
             sCalled = 255;
             if (knx.paramByte(LOG_Co2ExtRead) & 4)

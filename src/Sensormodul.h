@@ -130,6 +130,48 @@
 #define     LOG_SilvesterShift 3
 #define LOG_Latitude                  15      // float
 #define LOG_Longitude                 19      // float
+#define LOG_WireError                 25      // 1 Bit, Bit 7
+#define     LOG_WireErrorMask 0x80
+#define     LOG_WireErrorShift 7
+#define LOG_BusMasterCount            25      // 2 Bits, Bit 6-5
+#define     LOG_BusMasterCountMask 0x60
+#define     LOG_BusMasterCountShift 5
+#define LOG_IdSearch                  25      // 1 Bit, Bit 4
+#define     LOG_IdSearchMask 0x10
+#define     LOG_IdSearchShift 4
+#define LOG_IButton1                  25      // 1 Bit, Bit 3
+#define     LOG_IButton1Mask 0x08
+#define     LOG_IButton1Shift 3
+#define LOG_IButton2                  25      // 1 Bit, Bit 2
+#define     LOG_IButton2Mask 0x04
+#define     LOG_IButton2Shift 2
+#define LOG_IButton3                  25      // 1 Bit, Bit 1
+#define     LOG_IButton3Mask 0x02
+#define     LOG_IButton3Shift 1
+#define LOG_Group1                    26      // 1 Bit, Bit 7
+#define     LOG_Group1Mask 0x80
+#define     LOG_Group1Shift 7
+#define LOG_Group2                    26      // 1 Bit, Bit 6
+#define     LOG_Group2Mask 0x40
+#define     LOG_Group2Shift 6
+#define LOG_Group3                    26      // 1 Bit, Bit 5
+#define     LOG_Group3Mask 0x20
+#define     LOG_Group3Shift 5
+#define LOG_Group4                    26      // 1 Bit, Bit 4
+#define     LOG_Group4Mask 0x10
+#define     LOG_Group4Shift 4
+#define LOG_Group5                    26      // 1 Bit, Bit 3
+#define     LOG_Group5Mask 0x08
+#define     LOG_Group5Shift 3
+#define LOG_Group6                    26      // 1 Bit, Bit 2
+#define     LOG_Group6Mask 0x04
+#define     LOG_Group6Shift 2
+#define LOG_Group7                    26      // 1 Bit, Bit 1
+#define     LOG_Group7Mask 0x02
+#define     LOG_Group7Shift 1
+#define LOG_Group8                    26      // 1 Bit, Bit 0
+#define     LOG_Group8Mask 0x01
+#define     LOG_Group8Shift 0
 #define LOG_Error                     35      // 1 Bit, Bit 7
 #define     LOG_ErrorMask 0x80
 #define     LOG_ErrorShift 7
@@ -708,22 +750,46 @@
 #define LOG_KoKOfO 2
 
 // Parameter per channel
-#define WIRE_ParamBlockOffset 1111
+#define WIRE_ParamBlockOffset 4111
 #define WIRE_ParamBlockSize 17
 #define WIRE_sDeviceId                  0      // char*, 7 Byte
 #define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
 #define WIRE_sId0                       1      // 4 Bits, Bit 7-4
+#define     WIRE_sId0Mask 0xF0
+#define     WIRE_sId0Shift 4
 #define WIRE_sId1                       1      // 4 Bits, Bit 3-0
+#define     WIRE_sId1Mask 0x0F
+#define     WIRE_sId1Shift 0
 #define WIRE_sId2                       2      // 4 Bits, Bit 7-4
+#define     WIRE_sId2Mask 0xF0
+#define     WIRE_sId2Shift 4
 #define WIRE_sId3                       2      // 4 Bits, Bit 3-0
+#define     WIRE_sId3Mask 0x0F
+#define     WIRE_sId3Shift 0
 #define WIRE_sId4                       3      // 4 Bits, Bit 7-4
+#define     WIRE_sId4Mask 0xF0
+#define     WIRE_sId4Shift 4
 #define WIRE_sId5                       3      // 4 Bits, Bit 3-0
+#define     WIRE_sId5Mask 0x0F
+#define     WIRE_sId5Shift 0
 #define WIRE_sId6                       4      // 4 Bits, Bit 7-4
+#define     WIRE_sId6Mask 0xF0
+#define     WIRE_sId6Shift 4
 #define WIRE_sId7                       4      // 4 Bits, Bit 3-0
+#define     WIRE_sId7Mask 0x0F
+#define     WIRE_sId7Shift 0
 #define WIRE_sId8                       5      // 4 Bits, Bit 7-4
+#define     WIRE_sId8Mask 0xF0
+#define     WIRE_sId8Shift 4
 #define WIRE_sId9                       5      // 4 Bits, Bit 3-0
+#define     WIRE_sId9Mask 0x0F
+#define     WIRE_sId9Shift 0
 #define WIRE_sIdA                       6      // 4 Bits, Bit 7-4
+#define     WIRE_sIdAMask 0xF0
+#define     WIRE_sIdAShift 4
 #define WIRE_sIdB                       6      // 4 Bits, Bit 3-0
+#define     WIRE_sIdBMask 0x0F
+#define     WIRE_sIdBShift 0
 #define WIRE_sModelFunction             7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2408       7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2413       7      // 8 Bits, Bit 7-0
@@ -734,29 +800,77 @@
 #define WIRE_sSensorDeltaPercent       15      // uint8_t
 #define WIRE_sSensorSmooth             16      // uint8_t
 #define WIRE_sGroup1                    8      // 1 Bit, Bit 7
+#define     WIRE_sGroup1Mask 0x80
+#define     WIRE_sGroup1Shift 7
 #define WIRE_sGroup2                    8      // 1 Bit, Bit 6
+#define     WIRE_sGroup2Mask 0x40
+#define     WIRE_sGroup2Shift 6
 #define WIRE_sGroup3                    8      // 1 Bit, Bit 5
+#define     WIRE_sGroup3Mask 0x20
+#define     WIRE_sGroup3Shift 5
 #define WIRE_sGroup4                    8      // 1 Bit, Bit 4
+#define     WIRE_sGroup4Mask 0x10
+#define     WIRE_sGroup4Shift 4
 #define WIRE_sGroup5                    8      // 1 Bit, Bit 3
+#define     WIRE_sGroup5Mask 0x08
+#define     WIRE_sGroup5Shift 3
 #define WIRE_sGroup6                    8      // 1 Bit, Bit 2
+#define     WIRE_sGroup6Mask 0x04
+#define     WIRE_sGroup6Shift 2
 #define WIRE_sGroup7                    8      // 1 Bit, Bit 1
+#define     WIRE_sGroup7Mask 0x02
+#define     WIRE_sGroup7Shift 1
 #define WIRE_sGroup8                    8      // 1 Bit, Bit 0
+#define     WIRE_sGroup8Mask 0x01
+#define     WIRE_sGroup8Shift 0
 #define WIRE_sIoBitmask0                8      // 1 Bit, Bit 0
+#define     WIRE_sIoBitmask0Mask 0x01
+#define     WIRE_sIoBitmask0Shift 0
 #define WIRE_sIoBitmask1                8      // 1 Bit, Bit 1
+#define     WIRE_sIoBitmask1Mask 0x02
+#define     WIRE_sIoBitmask1Shift 1
 #define WIRE_sIoBitmask2                8      // 1 Bit, Bit 2
+#define     WIRE_sIoBitmask2Mask 0x04
+#define     WIRE_sIoBitmask2Shift 2
 #define WIRE_sIoBitmask3                8      // 1 Bit, Bit 3
+#define     WIRE_sIoBitmask3Mask 0x08
+#define     WIRE_sIoBitmask3Shift 3
 #define WIRE_sIoBitmask4                8      // 1 Bit, Bit 4
+#define     WIRE_sIoBitmask4Mask 0x10
+#define     WIRE_sIoBitmask4Shift 4
 #define WIRE_sIoBitmask5                8      // 1 Bit, Bit 5
+#define     WIRE_sIoBitmask5Mask 0x20
+#define     WIRE_sIoBitmask5Shift 5
 #define WIRE_sIoBitmask6                8      // 1 Bit, Bit 6
+#define     WIRE_sIoBitmask6Mask 0x40
+#define     WIRE_sIoBitmask6Shift 6
 #define WIRE_sIoBitmask7                8      // 1 Bit, Bit 7
+#define     WIRE_sIoBitmask7Mask 0x80
+#define     WIRE_sIoBitmask7Shift 7
 #define WIRE_sIoInvertBitmask0          9      // 1 Bit, Bit 0
+#define     WIRE_sIoInvertBitmask0Mask 0x01
+#define     WIRE_sIoInvertBitmask0Shift 0
 #define WIRE_sIoInvertBitmask1          9      // 1 Bit, Bit 1
+#define     WIRE_sIoInvertBitmask1Mask 0x02
+#define     WIRE_sIoInvertBitmask1Shift 1
 #define WIRE_sIoInvertBitmask2          9      // 1 Bit, Bit 2
+#define     WIRE_sIoInvertBitmask2Mask 0x04
+#define     WIRE_sIoInvertBitmask2Shift 2
 #define WIRE_sIoInvertBitmask3          9      // 1 Bit, Bit 3
+#define     WIRE_sIoInvertBitmask3Mask 0x08
+#define     WIRE_sIoInvertBitmask3Shift 3
 #define WIRE_sIoInvertBitmask4          9      // 1 Bit, Bit 4
+#define     WIRE_sIoInvertBitmask4Mask 0x10
+#define     WIRE_sIoInvertBitmask4Shift 4
 #define WIRE_sIoInvertBitmask5          9      // 1 Bit, Bit 5
+#define     WIRE_sIoInvertBitmask5Mask 0x20
+#define     WIRE_sIoInvertBitmask5Shift 5
 #define WIRE_sIoInvertBitmask6          9      // 1 Bit, Bit 6
+#define     WIRE_sIoInvertBitmask6Mask 0x40
+#define     WIRE_sIoInvertBitmask6Shift 6
 #define WIRE_sIoInvertBitmask7          9      // 1 Bit, Bit 7
+#define     WIRE_sIoInvertBitmask7Mask 0x80
+#define     WIRE_sIoInvertBitmask7Shift 7
 
 // Communication objects per channel (multiple occurance)
 #define WIRE_KoOffset 90
@@ -771,6 +885,18 @@
 #define LOG_KoHoliday1 5
 #define LOG_KoHoliday2 6
 #define LOG_KoDiagnose 7
+#define LOG_KoNewId 20
+#define LOG_KoErrorBusmaster1 21
+#define LOG_KoErrorBusmaster2 22
+#define LOG_KoErrorBusmaster3 23
+#define LOG_KoGroup1 24
+#define LOG_KoGroup2 25
+#define LOG_KoGroup3 26
+#define LOG_KoGroup4 27
+#define LOG_KoGroup5 28
+#define LOG_KoGroup6 29
+#define LOG_KoGroup7 30
+#define LOG_KoGroup8 31
 #define LOG_KoRequestValues 50
 #define LOG_KoError 51
 #define LOG_KoTemp 60
