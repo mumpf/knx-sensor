@@ -82,7 +82,7 @@ void ProcessHeartbeat()
         // we waited enough, let's send a heartbeat signal
         knx.getGroupObject(LOG_KoHeartbeat).value(true, getDPT(VAL_DPT_1));
         // if there is an error, we send it with heartbeat, too
-        if (knx.paramByte(LOG_Error) & 128) {
+        if (knx.paramByte(LOG_Error) & LOG_ErrorMask) {
             if (getError()) sendError();
         }
         gHeartbeatDelay = millis();
@@ -102,7 +102,7 @@ void ProcessReadRequests() {
         // we evaluate only Bit 2 here, which holds the information about read external values on startup
         if (delayCheck(gStartupDelay, 1000) && sCalled == 1) {
             sCalled += 1;
-            if (knx.paramByte(LOG_TempExtRead) & 4) {
+            if (knx.paramByte(LOG_TempExtRead) & LOG_TempExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Temp).requestObjectRead();
             }
@@ -110,8 +110,7 @@ void ProcessReadRequests() {
         if (delayCheck(gStartupDelay, 2000) && sCalled == 2)
         {
             sCalled += 1;
-            if (knx.paramByte(LOG_HumExtRead) & 4)
-            {
+            if (knx.paramByte(LOG_HumExtRead) & LOG_HumExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Hum).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Hum).requestObjectRead();
             }
@@ -119,8 +118,7 @@ void ProcessReadRequests() {
         if (delayCheck(gStartupDelay, 3000) && sCalled == 3)
         {
             sCalled += 1;
-            if (knx.paramByte(LOG_PreExtRead) & 4)
-            {
+            if (knx.paramByte(LOG_PreExtRead) & LOG_PreExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Pre).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Pre).requestObjectRead();
             }
@@ -128,7 +126,7 @@ void ProcessReadRequests() {
         if (delayCheck(gStartupDelay, 4000) && sCalled == 4)
         {
             sCalled += 1;
-            if (knx.paramByte(LOG_VocExtRead) & 4) {
+            if (knx.paramByte(LOG_VocExtRead) & LOG_VocExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1VOC).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2VOC).requestObjectRead();
             }
@@ -136,8 +134,7 @@ void ProcessReadRequests() {
         if (delayCheck(gStartupDelay, 5000) && sCalled == 5)
         {
             sCalled = 255;
-            if (knx.paramByte(LOG_Co2ExtRead) & 4)
-            {
+            if (knx.paramByte(LOG_Co2ExtRead) & LOG_Co2ExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Co2).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Co2).requestObjectRead();
             }
@@ -194,7 +191,7 @@ void StartSensor()
     }
     if (lSensorInstalled == SENSOR_BME680 || lSensorInstalled == SENSOR_BME680_CO2 || lSensorInstalled == SENSOR_CO2_BME680)
     {
-        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
+        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & LOG_DeleteDataMask;
         gSensor |= BIT_Pre | BIT_Voc | BIT_Co2Calc;
         // in case temp, hum shoud be taken from co2 sensor, we remove them from known measure types
         lMeasureTypes = static_cast<MeasureType>(Pressure | Voc | Accuracy | Co2Calc |  Temperature | Humidity);
@@ -366,7 +363,7 @@ void CalculateComfort(bool iForce = false)
         float lTemp = roundf(knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)));
         float lHum = roundf(knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9)));
         sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f);
-        if (sTempHumValid && (knx.paramByte(LOG_Comfort) & 32))
+        if (sTempHumValid && (knx.paramByte(LOG_Comfort) & LOG_ComfortMask))
         {
             // comfortzone
             uint8_t lComfort = 0;
@@ -396,7 +393,7 @@ void CalculateAccuracy(bool iForce = false)
         // do not calculate if underlying measures are corrupt
         if (getError() & Accuracy) return;
 
-        if (knx.paramByte(LOG_Accuracy) & 8)
+        if (knx.paramByte(LOG_Accuracy) & LOG_AccuracyMask)
         {
             // get accuracy
             float lAccuracyMeasure;
@@ -437,8 +434,8 @@ void CalculateAirquality(bool iForce = false)
         sMillis = millis();
         // do not calculate if underlying measures are corrupt
         if (getError() & (Voc | Co2)) return;
-        
-        if (knx.paramByte(LOG_Airquality) & 16)
+
+        if (knx.paramByte(LOG_Airquality) & LOG_AirqualityMask)
         {
             // do not calculate if underlying measureas are not yet available
             float lValue = 0;
@@ -530,7 +527,7 @@ void ProcessSensors(bool iForce = false)
         uint8_t lError = Sensor::getError();
         if (lError != getError()) {
             setError(lError);
-            if (knx.paramByte(LOG_Error) & 128)
+            if (knx.paramByte(LOG_Error) & LOG_ErrorMask)
                 sendError();
         }
         break;
@@ -706,7 +703,7 @@ void appSetup(bool iSaveSupported)
 #endif
         gLogic.setup(false);
         if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE) {
-            bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & 16;
+            bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & LOG_IdSearchMask;
             gBusMaster.setup(lSearchNewDevices, true);
         }
     }
