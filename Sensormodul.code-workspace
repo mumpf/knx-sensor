@@ -37,7 +37,10 @@
 			"ctime": "cpp",
 			"memory": "cpp",
 			"optional": "cpp",
-			"*.tcc": "cpp"
+			"*.tcc": "cpp",
+			"iosfwd": "cpp",
+			"functional": "cpp",
+			"tuple": "cpp"
 		}
 	}
 }

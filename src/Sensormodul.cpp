@@ -638,8 +638,10 @@ void appLoop()
     // at Startup, we want to send all values immediately
     ProcessSensors(gForceSensorRead);
     gForceSensorRead = false;
+    knx.loop();
 
     Sensor::sensorLoop();
+    knx.loop();
 }
 
 // handle interrupt from save pin
