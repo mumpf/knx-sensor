@@ -17,7 +17,7 @@
 
 const uint8_t cFirmwareMajor = 2;    // 0-31
 const uint8_t cFirmwareMinor = 0;    // 0-31
-const uint8_t cFirmwareRevision = 1; // 0-63
+const uint8_t cFirmwareRevision = 2; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
