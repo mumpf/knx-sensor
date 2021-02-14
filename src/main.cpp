@@ -33,9 +33,7 @@ void setup()
     // Is the interrup created in RISING or FALLING signal? Default is RISING
     knx.buttonPinInterruptOn(PROG_BUTTON_PIN_INTERRUPT_ON);
 
-    // print values of parameters if device is already configured
-    if (knx.configured())
-        appSetup(SAVE_INTERRUPT_PIN);
+    appSetup(SAVE_INTERRUPT_PIN);
 
     // start the framework.
     knx.start();

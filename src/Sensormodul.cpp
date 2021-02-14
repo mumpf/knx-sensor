@@ -102,6 +102,8 @@ void ProcessHeartbeat()
             if (getError()) sendError();
         }
         gRuntimeData.heartbeatDelay = millis();
+        // The module prints its firmware version to the console
+        printDebug("Firmware-Version [%d] %d.%d\n", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
         // debug-helper for logic module
         // print("ParDewpoint: ");
         // println(knx.paramByte(LOG_Dewpoint));
@@ -701,6 +703,8 @@ void appSetup(uint8_t iSavePin)
     boardCheck();
     digitalWrite(PROG_LED_PIN, LOW);
     digitalWrite(LED_YELLOW_PIN, LOW);
+    // The module prints its firmware version to the console
+    printDebug("Firmware-Version [%d] %d.%d\n", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
 
     if (knx.configured())
     {
