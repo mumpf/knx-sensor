@@ -10,7 +10,7 @@ void setup()
     SerialUSB.begin(115200);
     pinMode(PROG_LED_PIN, OUTPUT);
     digitalWrite(PROG_LED_PIN, HIGH); 
-    delay(100);
+    delay(DEBUG_DELAY);
     digitalWrite(PROG_LED_PIN, LOW);
     SerialUSB.println("Startup called...");
     ArduinoPlatform::SerialDebug = &SerialUSB;
