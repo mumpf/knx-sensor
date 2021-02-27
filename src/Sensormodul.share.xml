@@ -184,10 +184,6 @@
               </Union>
             </Parameters>
             <ParameterRefs>
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-5_R-51" RefId="M-00FA_A-0001-01-0000_UP-5" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-6_R-61" RefId="M-00FA_A-0001-01-0000_UP-6" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-7_R-71" RefId="M-00FA_A-0001-01-0000_UP-7" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-8_R-81" RefId="M-00FA_A-0001-01-0000_UP-8" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-100_R-1001" RefId="M-00FA_A-0001-01-0000_UP-100" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-101_R-1011" RefId="M-00FA_A-0001-01-0000_UP-101" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-102_R-1021" RefId="M-00FA_A-0001-01-0000_UP-102" />
@@ -341,182 +337,161 @@
             </LoadProcedures>
             <Options />
           </Static>
+          <ChannelIndependentBlock>
+            <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="Hardware" Text="Sensormodul: Hardware">
+              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-10" Text="" UIHint="HorizontalRuler" />
+              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-11" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
+              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-160_R-1601" />
+              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
+                <when test="0">
+                  <!-- No sensors -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1621" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1631" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
+                </when>
+                <when test="1">
+                  <!-- SHT3x: Temp, Hum -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
+                </when>
+                <when test="2">
+                  <!-- BME280: Temp, Hum, Pre -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
+                </when>
+                <when test="3">
+                  <!-- BME280+SCD30: Temp, Hum, Pre all from BME, Co2 -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1623" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1633" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="4">
+                  <!-- BME680: Temp, Hum, Pre, Voc, Co2-Calc -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="5">
+                  <!-- BME680+SCD30: Temp, Hum, Pre, Voc, Co2-Calc all from BME, Co2 -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1624" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1634" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="6">
+                  <!-- SCD30: Temp, Hum, Co2 -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="7">
+                  <!-- SCD30+BME280: Temp, Hum from SCD30, Pre, Co2 -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1625" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1635" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="8">
+                  <!-- SCD30+BME680: Temp, Hum from SCD30, Pre, Voc, Co2 -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1625" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1635" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="9">
+                  <!-- IAQCore: Voc, Co2-Calc -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1621" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1631" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="10">
+                  <!-- SHT3x+IAQCore: Temp, Hum, Voc, Co2-Calc -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+                <when test="11">
+                  <!-- BME280+IAQCore: Temp, Hum, Pre, Voc, Co2-Calc -->
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
+                </when>
+              </choose>
+              <!-- In Zukunft: IAQCore kann nur 100 kHz I2C, 1W mit iButton braucht 400kHz, wie gehen wir damit um -->
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-168_R-1681" />
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-5_R-51" />
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-6_R-61" />
+              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-6_R-61">
+                <when test="1">
+                  <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
+                    <when test="3 5 6 7 8">
+                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Der Betrieb einer RGB-Led und des CO2-Sensors gleichzeitig wird nicht empfohlen, da der erforderliche Strom nicht vom KNX-Bus zur Verfügung gestellt werden kann. Falls die Hardware eine zusätzliche Stromversorgung hat, kann die Auswahl so belassen werden." UIHint="Information" />
+                    </when>
+                  </choose>
+                </when>
+              </choose>
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-7_R-71" />
+              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-7_R-71">
+                <when test="0">
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text="Ohne EEPROM kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
+                  <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
+                    <when test="4 5 8">
+                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-14" Text="Ohne EEPROM kann der BME680 seine Kalibrierungswerte nicht speichern und muss sich nach einem Neustart jedesmal neu kalibrieren. Das kann jedesmal bis zu 2 Tagen dauern." UIHint="Information" />
+                    </when>
+                  </choose>
+                </when>
+              </choose>
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-8_R-81" />
+              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
+                <when test="0">
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-15" Text="Ohne Abschaltmöglichkeit der Zusatzhardware (Sensoren, LED, Buzzer, 1-Wire) kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
+                </when>
+              </choose>
+              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-2" Text="" UIHint="HorizontalRuler" />
+              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-100_R-1001" />
+              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-100_R-1001">
+                <when test="1">
+                  <!-- show error object only if it is parametrized -->
+                  <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-51_R-511" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-3" Text="Das Fehlerobjekt KO-11 ist eine Bitleiste, bei der ein Bit auf 1 gesetzt wird, wenn der entsprechende Sensor einen Fehler aufweist:" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-4" Text="  Bit 0: Fehler in der Logik (zyklus definiert, der nicht aufgelöst werden kann)" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-5" Text="  Bit 1: Fehler Temperatursensor" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-6" Text="  Bit 2: Fehler Luftfeuchtesensor" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-7" Text="  Bit 3: Fehler Luftdrucksensor" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-8" Text="  Bit 4: Fehler Voc-Sensor" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-9" Text="  Bit 5: Fehler CO2-Sensor" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="  Bit 6: nicht belegt" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="  Bit 7: Fehler 1Wire Master" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="  Bit 8-15: Fehler entsprechender 1-Wire-Sensor" />
+                </when>
+              </choose>
+            </ParameterBlock>
+          </ChannelIndependentBlock>
           <Dynamic>
-            <ChannelIndependentBlock>
-              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="ParameterPage" Text="Allgemeine Parameter">
-                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-2_R-21" />
-                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-3_R-31" />
-                <!-- the following parameter is readonly and necessary (number of logik channels used in knxdprod) -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-1_R-11" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-2_R-21" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-3_R-31" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-4_R-41" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_P-3_R-31">
-                  <when test="!=0">
-                    <!-- show heartbeat only if it is parametrized -->
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-1_R-11" />
-                  </when>
-                </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-10" Text="" UIHint="HorizontalRuler" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-11" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-160_R-1601" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
-                  <when test="0">
-                    <!-- No sensors -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1621" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1631" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
-                  </when>
-                  <when test="1">
-                    <!-- SHT3x: Temp, Hum -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
-                  </when>
-                  <when test="2">
-                    <!-- BME280: Temp, Hum, Pre -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
-                  </when>
-                  <when test="3">
-                    <!-- BME280+SCD30: Temp, Hum, Pre all from BME, Co2 -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1623" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1633" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="4">
-                    <!-- BME680: Temp, Hum, Pre, Voc, Co2-Calc -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="5">
-                    <!-- BME680+SCD30: Temp, Hum, Pre, Voc, Co2-Calc all from BME, Co2 -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1624" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1634" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="6">
-                    <!-- SCD30: Temp, Hum, Co2 -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="7">
-                    <!-- SCD30+BME280: Temp, Hum from SCD30, Pre, Co2 -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1625" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1635" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1651" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="8">
-                    <!-- SCD30+BME680: Temp, Hum from SCD30, Pre, Voc, Co2 -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1625" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1635" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="9">
-                    <!-- IAQCore: Voc, Co2-Calc -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1621" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1631" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="10">
-                    <!-- SHT3x+IAQCore: Temp, Hum, Voc, Co2-Calc -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1641" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                  <when test="11">
-                    <!-- BME280+IAQCore: Temp, Hum, Pre, Voc, Co2-Calc -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1622" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-163_R-1632" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-164_R-1642" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-165_R-1652" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1662" />
-                  </when>
-                </choose>
-                <!-- In Zukunft: IAQCore kann nur 100 kHz I2C, 1W mit iButton braucht 400kHz, wie gehen wir damit um -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-168_R-1681" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-5_R-51" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-6_R-61" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-6_R-61">
-                  <when test="1">
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
-                      <when test="3 5 6 7 8">
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Der Betrieb einer RGB-Led und des CO2-Sensors gleichzeitig wird nicht empfohlen, da der erforderliche Strom nicht vom KNX-Bus zur Verfügung gestellt werden kann. Falls die Hardware eine zusätzliche Stromversorgung hat, kann die Auswahl so belassen werden." UIHint="Information" />
-                      </when>
-                    </choose>
-                  </when>
-                </choose>
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-7_R-71" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-7_R-71">
-                  <when test="0">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text="Ohne EEPROM kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
-                      <when test="4 5 8">
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-14" Text="Ohne EEPROM kann der BME680 seine Kalibrierungswerte nicht speichern und muss sich nach einem Neustart jedesmal neu kalibrieren. Das kann jedesmal bis zu 2 Tagen dauern." UIHint="Information" />
-                      </when>
-                    </choose>
-                  </when>
-                </choose>
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-8_R-81" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
-                  <when test="0">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-15" Text="Ohne Abschaltmöglichkeit der Zusatzhardware (Sensoren, LED, Buzzer, 1-Wire) kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
-                  </when>
-                </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-2" Text="" UIHint="HorizontalRuler" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-100_R-1001" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-100_R-1001">
-                  <when test="1">
-                    <!-- show error object only if it is parametrized -->
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-51_R-511" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-3" Text="Das Fehlerobjekt KO-11 ist eine Bitleiste, bei der ein Bit auf 1 gesetzt wird, wenn der entsprechende Sensor einen Fehler aufweist:" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-4" Text="  Bit 0: Fehler in der Logik (zyklus definiert, der nicht aufgelöst werden kann)" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-5" Text="  Bit 1: Fehler Temperatursensor" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-6" Text="  Bit 2: Fehler Luftfeuchtesensor" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-7" Text="  Bit 3: Fehler Luftdrucksensor" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-8" Text="  Bit 4: Fehler Voc-Sensor" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-9" Text="  Bit 5: Fehler CO2-Sensor" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-90" Text="  Bit 6: nicht belegt" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-91" Text="  Bit 7: Fehler 1Wire Master" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-92" Text="  Bit 8-15: Fehler entsprechender 1-Wire-Sensor" />
-                  </when>
-                </choose>
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-46_R-461" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-46_R-461">
-                  <when test="1">
-                    <!-- show diagnose object just if requested -->
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-7_R-71" />
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-80" Text="Das Diagnoseobjekt ist derzeit für interne Verwendung (Debug) vorgesehen." />
-                  </when>
-                </choose>
-              </ParameterBlock>
-            </ChannelIndependentBlock>
             <Channel Name="Standard" Text="Standardsensoren" Number="1" Id="M-00FA_A-0001-01-0000_CH-1">
               <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
                 <when test="1 2 3 4 5 6 7 8 10 11">
