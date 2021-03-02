@@ -13,7 +13,7 @@
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
             </Code>
-            <mc:define prefix="LOG" NumChannels="10" KoOffset="125" />
+            <mc:define prefix="LOG" header="Sensormodul.h" NumChannels="10" KoOffset="125"/>
             <ParameterTypes>
               <!-- generic parameter types from logicmodule -->
               <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
@@ -54,10 +54,20 @@
             <Options />
           </Static>
           <Dynamic>
+            <ChannelIndependentBlock>
+              <!-- ChannelIndependentBlock is a composition of different parts of different modules -->
+              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="General" Text="Allgemeine Parameter">
+                <mc:include href="../../knx-logic/src/Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='General']/*" prefix="LOG" />
+                <mc:include href="Sensormodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Hardware']/*" prefix="SENS" />
+                <mc:include href="../../knx-logic/src/Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Diagnose']/*" prefix="LOG" />
+              </ParameterBlock>
+            </ChannelIndependentBlock>
+            <!-- now we take any sensormodule channels -->
             <mc:include href="Sensormodul.share.xml" xpath="//Dynamic/*" prefix="SENS" />
-            <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel" header="Sensormodul.h" prefix="LOG" />
             <Channel Name="Logikkanaele" Text="Logikkanäle" Number="4" Id="M-00FA_A-0001-01-0000_CH-4">
-              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Holidays']" prefix="LOG" />
+              <!-- compose logicmodule channel from some static blocks... -->
+              <mc:include href="../../knx-logic/src/Logikmodul.share.xml" xpath="//Dynamic/Channel/*" prefix="LOG" />
+              <!-- followed by all logic channels -->
               <mc:include href="../../knx-logic/src/Logikmodul.templ.xml" xpath="//Dynamic/*" type="template" prefix="LOG" />
             </Channel>
           </Dynamic>

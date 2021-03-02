@@ -29,13 +29,17 @@ As said, do this for each project.
 
 As soon as all 4 pulls are finished, continue with the build steps form the initial documentation:
 
-The current board version from MASIFI is v3.1 (default):
-If you use the board from MASIFI version v1, v2 or v3, you need to change one or two settings:
+The current board version from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
+
+**Please ensure always - with each update - that the released version fits to your hardware!** To do this, do the following:
+Find the version of your hardware board (v1, v2, v3 or v3.1). 
 
     In knx-sensor, edit the file platformio.ini:  
-    - change the line
+    - there is a line 
+            -DBOARD_MASIFI_V... 
+    - change the line to the according version of your hardware
             -DBOARD_MASIFI_V31 
-      to 
+      or 
             -DBOARD_MASIFI_V3 
       or 
             -DBOARD_MASIFI_V2 
