@@ -111,6 +111,8 @@
                 </choose>
                 <!-- In Zukunft: IAQCore kann nur 100 kHz I2C, 1W mit iButton braucht 400kHz, wie gehen wir damit um -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-168_R-1681" />
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-175_R-1751" />
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-176_R-1761" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-5_R-51" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-6_R-61" />
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-6_R-61">
