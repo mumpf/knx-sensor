@@ -10,7 +10,7 @@ void setup()
     SerialUSB.begin(115200);
     pinMode(PROG_LED_PIN, OUTPUT);
     digitalWrite(PROG_LED_PIN, HIGH); 
-    delay(10000);
+    delay(DEBUG_DELAY);
     digitalWrite(PROG_LED_PIN, LOW);
     SerialUSB.println("Startup called...");
     ArduinoPlatform::SerialDebug = &SerialUSB;
@@ -33,9 +33,7 @@ void setup()
     // Is the interrup created in RISING or FALLING signal? Default is RISING
     knx.buttonPinInterruptOn(PROG_BUTTON_PIN_INTERRUPT_ON);
 
-    // print values of parameters if device is already configured
-    if (knx.configured())
-        appSetup(true);
+    appSetup(SAVE_INTERRUPT_PIN);
 
     // start the framework.
     knx.start();

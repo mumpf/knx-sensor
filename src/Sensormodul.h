@@ -26,9 +26,9 @@
 #define LOG_HolidayKo                  9      // 1 Bit, Bit 1
 #define     LOG_HolidayKoMask 0x02
 #define     LOG_HolidayKoShift 1
-#define LOG_VacationRead               9      // 1 Bit, Bit 1
-#define     LOG_VacationReadMask 0x02
-#define     LOG_VacationReadShift 1
+#define LOG_VacationRead               9      // 1 Bit, Bit 0
+#define     LOG_VacationReadMask 0x01
+#define     LOG_VacationReadShift 0
 #define LOG_HolidaySend               10      // 1 Bit, Bit 7
 #define     LOG_HolidaySendMask 0x80
 #define     LOG_HolidaySendShift 7
@@ -271,9 +271,43 @@
 #define LOG_DewDeltaAbs               107      // uint16_t
 #define LOG_DewDeltaPercent           109      // uint8_t
 #define LOG_DewSmooth                 110      // uint8_t
+#define LOG_SensorLux                 111      // 1 Bit, Bit 7
+#define     LOG_SensorLuxMask 0x80
+#define     LOG_SensorLuxShift 7
+#define LOG_SensorTof                 111      // 1 Bit, Bit 6
+#define     LOG_SensorTofMask 0x40
+#define     LOG_SensorTofShift 6
+#define LOG_LuxOffset                 112      // int8_t
+#define LOG_LuxCycle                  113      // int32_t
+#define LOG_LuxDeltaAbs               117      // uint16_t
+#define LOG_LuxDeltPercent            119      // uint8_t
+#define LOG_LuxSmooth                 120      // uint8_t
+#define LOG_LuxExtCount               121      // 2 Bits, Bit 1-0
+#define     LOG_LuxExtCountMask 0x03
+#define     LOG_LuxExtCountShift 0
+#define LOG_LuxExtRead                121      // 1 Bit, Bit 2
+#define     LOG_LuxExtReadMask 0x04
+#define     LOG_LuxExtReadShift 2
+#define LOG_LuxIntPercent             122      // uint8_t
+#define LOG_LuxExt1Percent            123      // uint8_t
+#define LOG_LuxExt2Percent            124      // uint8_t
+#define LOG_TofOffset                 125      // int8_t
+#define LOG_TofCycle                  126      // int32_t
+#define LOG_TofDeltaAbs               130      // uint16_t
+#define LOG_TofDeltaPercent           132      // uint8_t
+#define LOG_TofSmooth                 133      // uint8_t
+#define LOG_TofExtCount               134      // 2 Bits, Bit 1-0
+#define     LOG_TofExtCountMask 0x03
+#define     LOG_TofExtCountShift 0
+#define LOG_TofExtRead                134      // 1 Bit, Bit 2
+#define     LOG_TofExtReadMask 0x04
+#define     LOG_TofExtReadShift 2
+#define LOG_TofIntPercent             135      // uint8_t
+#define LOG_TofExt1Percent            136      // uint8_t
+#define LOG_TofExt2Percent            137      // uint8_t
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 111
+#define LOG_ParamBlockOffset 138
 #define LOG_ParamBlockSize 100
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
@@ -283,6 +317,9 @@
 #define LOG_fDisable                   5      // 1 Bit, Bit 2
 #define     LOG_fDisableMask 0x04
 #define     LOG_fDisableShift 2
+#define LOG_fAlarm                     5      // 1 Bit, Bit 3
+#define     LOG_fAlarmMask 0x08
+#define     LOG_fAlarmShift 3
 #define LOG_fTrigger                   6      // 8 Bits, Bit 7-0
 #define LOG_fTriggerE1                 6      // 1 Bit, Bit 0
 #define     LOG_fTriggerE1Mask 0x01
@@ -750,7 +787,7 @@
 #define LOG_KoKOfO 2
 
 // Parameter per channel
-#define WIRE_ParamBlockOffset 10011
+#define WIRE_ParamBlockOffset 4138
 #define WIRE_ParamBlockSize 17
 #define WIRE_sDeviceId                  0      // char*, 7 Byte
 #define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
@@ -885,6 +922,8 @@
 #define LOG_KoHoliday1 5
 #define LOG_KoHoliday2 6
 #define LOG_KoDiagnose 7
+#define LOG_KoLedLock 8
+#define LOG_KoBuzzerLock 9
 #define LOG_KoNewId 20
 #define LOG_KoErrorBusmaster1 21
 #define LOG_KoErrorBusmaster2 22
@@ -919,4 +958,10 @@
 #define LOG_KoExt2VOC 77
 #define LOG_KoExt1Co2 78
 #define LOG_KoExt2Co2 79
+#define LOG_KoExt1Lux 80
+#define LOG_KoExt2Lux 81
+#define LOG_KoExt1Tof 82
+#define LOG_KoExt2Tof 83
+#define LOG_KoLux 87
+#define LOG_KoTof 88
 

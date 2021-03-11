@@ -30,6 +30,11 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 * Unterstützung vom neuen VOC-Sensor IAQCore, kann VOC- und (berechneten) CO2-Wert liefern
 * Aktualisierung im Kapitel 'Update der Applikation'.
 
+02.03.2021 Firmware 2.4.0, Applikation 2.4 - 2.7
+
+* Dies ist ein reines Logik-Update, dokumentiert in der Applikationsbeschreibung Logik. Es gibt keine Auswirkungen auf die Funktionalität des Sensorteils.
+* Ein update der Applikation (wie im entsprechenden Kapitel beschrieben) von einer vorherigen 2.x-Version funktioniert vollständig. Es gehen weder GA-Zuordnungen zu KO noch Parameter verloren.
+
 <div style="page-break-after: always;"></div>
 
 ## Allgemeine Parameter
@@ -367,10 +372,10 @@ Im Allgemeinen sollte es nicht nötig sein, die Kalibrierungsdaten zu löschen. 
 
 Es gibt verschiedene Versionen dieser Applikation:
 
-* Sensormodul-v2.0-10.knxprod
-* Sensormodul-v2.1-20.knxprod
-* Sensormodul-v2.2-40.knxprod
-* Sensormodul-v2.3-80.knxprod
+* Sensormodul-v2.4-10.knxprod
+* Sensormodul-v2.5-20.knxprod
+* Sensormodul-v2.6-40.knxprod
+* Sensormodul-v2.7-80.knxprod
 
 Diese Versionen unterscheiden sich nur in der Anzahl der nutzbaren Logikkanäle, angegeben durch die Zahl, die direkt vor der Endung "knxprod" steht. Dies ist sinnvoll, da sich die Anzahl der Logikkanäle erheblich auf die Zeit auswirkt, die die ETS zum programmieren benötigt. Eine Applikation mit 10 Logikkanälen braucht ca. 30 Sekunden zum programmieren, mit 80 Logikkanälen aber weit über 3 Minuten.
 
@@ -385,7 +390,7 @@ Allerdings will keiner, der in einer Applikation 40 Logikkanäle parametriert ha
 
 Das ergibt folgende "Update"-Matrix (In den Zeilen steht die Version, die man hat, in den Spalten die Version, die man haben möchte):
 
-| | v2.0 (10) | v2.1 (20) | v2.2 (40) | v2.3 (80)
+| | v2.4 (10) | v2.5 (20) | v2.6 (40) | v2.7 (80)
 :---:|:---:|:---:|:---:|:---:
 v1.0 (10) | U | U | U | U
 v1.1 (20) |   | U | U | U
@@ -395,13 +400,17 @@ v1.4 (10) | U | U | U | U
 v1.5 (20) |   | U | U | U
 v1.6 (40) |   |   | U | U
 v1.7 (80) |   |   |   | U
-v2.0 (10) |   | U | U | U
-v2.1 (20) |   |   | U | U
-v2.2 (40) |   |   |   | U
+v2.0 (10) | U | U | U | U
+v2.1 (20) |   | U | U | U
+v2.2 (40) |   |   | U | U
+v2.3 (80) |   |   |   | U
+v2.4 (10) |   | U | U | U
+v2.5 (20) |   |   | U | U
+v2.6 (40) |   |   |   | U
 
 Ein "U" zeigt, dass ein Update stattfinden kann, ohne die bisher vorgegebene Parametrierung zu löschen.
 
-Dabei ist es war technisch möglich, von v1.0-v1.3 gleich auf v2.0-v2.3 zu gehen, allerdings ist unklar (und nicht getestet), inwiefern hier Parameter noch erhalten bleiben.
+Dabei ist es war technisch möglich, von v1.0-v1.3 gleich auf v2.4-v2.7 zu gehen, allerdings ist unklar (und nicht getestet), inwiefern hier Parameter noch erhalten bleiben.
 
 Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS ein Update durchzuführen, ohne dass die Parameter und zugeordneten GA gelöscht werden.
 
@@ -409,17 +418,17 @@ Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS
 
 In der Annahme, dass eine 10-Kanal-knxprod (z.B. Sensormodul-v1.4-10.knxprod oder Sensormodul-v2.0-10.knxprod) bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir gleich auf eine aktuelle Version mit 40 Kanälen wechseln.
 
-Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v2.2-40.knxprod" in die ETS.
+Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v2.6-40.knxprod" in die ETS.
 
-Nach erfolgreichem Import hat man ein Produkt mit dem Namen "Sensormodul-v2.2-40" mit der Version 2.2. Das bereits genutzte "Sensormodul" mit der Version 1.4 steht auch da.
+Nach erfolgreichem Import hat man ein Produkt mit dem Namen "WP-Sensormodul" mit der Version 2.2. Das bereits genutzte "WP-Sensormodul" mit der Version 1.4 steht auch da.
 
 ## Das neue Sensormodul ins eigene Projekt einfügen
 
-Als nächstes wird das Produkt "Sensormodul-v2.2-40" ins eigene Projekt eingefügt. Das neue Produkt **muss nicht** parametriert werden, es muss nur im eigenen Projekt existieren.
+Als nächstes wird das Produkt "WP-Sensormodul" ins eigene Projekt eingefügt. Das neue Produkt **muss nicht** parametriert werden, es muss nur im eigenen Projekt existieren.
 
 ## Das "alte" Sensormodul aktualisieren
 
-Jetzt wählt man im eigenen Projekt das bereits benutzte und parametrierte "Sensormodul" v1.4. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.4". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V2.2" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
+Jetzt wählt man im eigenen Projekt das bereits benutzte und parametrierte "WP-Sensormodul" v1.4. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V1.4". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V2.6" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
 
 Stattdessen clickt man auf den "Aktualisieren"-Button darunter. Jetzt wird die Applikation von der ETS aktualisiert und alle Parameter bzw. GA-Zuordnungen übernommen.
 
@@ -435,7 +444,7 @@ Damit man sich nicht alle zugeordneten Kommunikationsobjekte merken muss, kann m
 
 **Achtung - Inkompatibilität beim Übergang von Version 1.x auf Version 2.x:**
 
-Beim Update von Version 1.x auf eine Version 2.0 bis 2.3 gehen fast alle Zuordnungen von Kommunikationsobjekten zu Gruppeenadressen verloren (Ausnahmen sind hier nur KO 1-3). Diese Gruppenadressen muss man nach dem Update erneut manuell zuordnen. Fast alle Parameter bleiben erhalten, im fogenden werden die Änderungen bzw. Erweiterungen nochmal aufgeführt. Detailbeschreibungen gibt es in den jeweiligen Kapiteln der Applikationsbeschreibung.
+Beim Update von Version 1.x auf eine Version 2.x gehen fast alle Zuordnungen von Kommunikationsobjekten zu Gruppeenadressen verloren (Ausnahmen sind hier nur KO 1-3). Diese Gruppenadressen muss man nach dem Update erneut manuell zuordnen. Fast alle Parameter bleiben erhalten, im fogenden werden die Änderungen bzw. Erweiterungen nochmal aufgeführt. Detailbeschreibungen gibt es in den jeweiligen Kapiteln der Applikationsbeschreibung.
 
 * Früher wurde das Diagnoseobjekt zusammen mit dem Fehlerobjekt eingeschaltet. Inzwischen gibt es einen eigenen Parameter für das Diagnoseobjekt, der speziell eingeschaltet werden muss. In der Applikationsbeschreibung Logik ist das Diagnoseobjekt ausführlich beschrieben.
 
