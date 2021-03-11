@@ -111,6 +111,16 @@
                 </choose>
                 <!-- In Zukunft: IAQCore kann nur 100 kHz I2C, 1W mit iButton braucht 400kHz, wie gehen wir damit um -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-168_R-1681" />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-168_R-1681">
+                  <when test="1">
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-529_R-5291" Value="1" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
+                      <when test="9 10 11">
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Der Betrieb vom IAQCore und 1-Wire gleichzeitig wird nicht funktionieren, da sie unterschiedliche Timing-Anforderungen haben. Der IAQCore wird bei dieser Einstellung nicht genutzt, da er sonst die Modulfunktion stören würde." UIHint="Error" />
+                      </when>
+                    </choose>
+                  </when>
+                </choose>
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-175_R-1751" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-176_R-1761" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-5_R-51" />
