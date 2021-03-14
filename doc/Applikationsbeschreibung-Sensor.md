@@ -147,7 +147,15 @@ Bei der Auswahl vom BME680 oder IAQCore wird auch CO2 angezeigt. Hier ist anzume
 
 Dieses Eingabefeld kann bei jedem Sensor zusätzlich ausgewählt werden, falls an das Sensormodul auch 1-Wire-Sensoren angeschlossen sind. Eine weitere Seite zur Detaileinstellungen für 1-Wire-Sensoren wird dann verfügbar.
 
-Anmerkung: Die Einstellungen und die Abfrage von 1-Wire-Sensoren sind derzeit noch nicht unterstützt.
+Anmerkung: Die Einstellungen und die Abfrage von 1-Wire-Sensoren können in der Applikationsbeschreibung WireGateway nachgelesen werden.
+
+#### Helligkeit
+
+Dieses Eingabefeld kann ausgewählt werden, wenn der Lichtsensor OPT3001 installiert ist. Er misst Helligkeit in Lux im Wertebereich von 0.1 Lux bis ca. 60.000 Lux.
+
+#### Entfernung
+
+Dieses Eingabefeld kann ausgewählt werden, wenn der Entfernungssensor VL53L1X installiert ist. Er misst die Entfernung in mm im Wertebereich von 50 mm bis ca. 400 mm.
 
 #### Akustischer Signalgeber vorhanden (Buzzer)?
 
@@ -192,7 +200,7 @@ Das Fehlerobjekt (KO 11) meldet bitweise Sensorfehler.
 * Bit 7: Fehler im 1-Wire-Busmaster
 * Bit 8-15: Fehler des jeweiligen 1-Wire-Sensors
 
-Das Diagnoseobjekt (KO 12) ist derzeit für interne Verwendung (für Debug-Zwecke) vorgesehen und sollte in der Praxis nicht mit einer GA belegt werden.
+Das Diagnoseobjekt (KO 7) ist derzeit für interne Verwendung (für Debug-Zwecke) vorgesehen und sollte in der Praxis nicht mit einer GA belegt werden.
 
 ## Standardsensoren
 
