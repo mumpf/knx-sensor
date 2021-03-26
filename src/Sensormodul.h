@@ -260,9 +260,9 @@
 #define LOG_Co2IntPercent             98      // uint8_t
 #define LOG_Co2Ext1Percent            99      // uint8_t
 #define LOG_Co2Ext2Percent            100      // uint8_t
-#define LOG_SensorDevice              101      // 6 Bits, Bit 6-1
-#define     LOG_SensorDeviceMask 0x7E
-#define     LOG_SensorDeviceShift 1
+// #define LOG_SensorDevice              101      // 6 Bits, Bit 6-1
+// #define     LOG_SensorDeviceMask 0x7E
+// #define     LOG_SensorDeviceShift 1
 #define LOG_Sensor1Wire               101      // 1 Bit, Bit 0
 #define     LOG_Sensor1WireMask 0x01
 #define     LOG_Sensor1WireShift 0
@@ -305,9 +305,26 @@
 #define LOG_TofIntPercent             135      // uint8_t
 #define LOG_TofExt1Percent            136      // uint8_t
 #define LOG_TofExt2Percent            137      // uint8_t
+#define LOG_TempSensor                138      // 3 Bits, Bit 7-5
+#define     LOG_TempSensorMask 0xE0
+#define     LOG_TempSensorShift 5
+#define LOG_HumSensor                 138      // 3 Bits, Bit 4-2
+#define     LOG_HumSensorMask 0x1C
+#define     LOG_HumSensorShift 2
+#define LOG_PreSensor                 138      // 3 Bits, Bit 1--1
+#define LOG_VocSensor                 139      // 3 Bits, Bit 6-4
+#define     LOG_VocSensorMask 0x70
+#define     LOG_VocSensorShift 4
+#define LOG_Co2Sensor                 139      // 3 Bits, Bit 3-1
+#define     LOG_Co2SensorMask 0x0E
+#define     LOG_Co2SensorShift 1
+#define LOG_LuxSensor                 139      // 3 Bits, Bit 0--2
+#define LOG_TofSensor                 140      // 3 Bits, Bit 5-3
+#define     LOG_TofSensorMask 0x38
+#define     LOG_TofSensorShift 3
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 138
+#define LOG_ParamBlockOffset 142
 #define LOG_ParamBlockSize 100
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
@@ -787,7 +804,7 @@
 #define LOG_KoKOfO 2
 
 // Parameter per channel
-#define WIRE_ParamBlockOffset 4138
+#define WIRE_ParamBlockOffset 4142
 #define WIRE_ParamBlockSize 17
 #define WIRE_sDeviceId                  0      // char*, 7 Byte
 #define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
