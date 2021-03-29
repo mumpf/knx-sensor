@@ -8,7 +8,7 @@
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="21" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Onewire-Logic-Beta" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="15 16 17 18 19 20"> 
+        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="103" ApplicationVersion="22" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Sensor-Onewire-Logic-Beta" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ReplacesVersions="15 16 17 18 19 20 21"> 
           <Static>
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
@@ -60,6 +60,12 @@
               </LoadProcedure>
               <LoadProcedure MergeId="4">
                 <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="0" Verify="true" AppliesTo="full,par" />
+              </LoadProcedure>
+              <LoadProcedure MergeId="7">
+                  <LdCtrlLoadImageProp ObjIdx="1" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="2" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="3" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
               </LoadProcedure>
             </LoadProcedures>
             <Options />
