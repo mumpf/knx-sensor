@@ -57,10 +57,11 @@ These commands should install following libraries:
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-The current board version from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
+The current board vers
+ion from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
 
 **Please ensure always that the released version fits to your hardware!** To do this, do the following:
-Find the version of your hardware board (v1, v2, v3 or v3.1). 
+Find the version of your hardware board (v1, v2, v3 or v3.1).
 
     In knx-sensor, edit the file platformio.ini:  
     - there is a line 
@@ -80,6 +81,13 @@ Find the version of your hardware board (v1, v2, v3 or v3.1).
       is always  
             ;-DCRYSTALLESS
       or the line is removed.
+
+    - NEW for firmware version >= 2.5: You can enable watchdog-support. 
+      With the setting
+            -DWATCHDOG
+      the watchdog functionality is enabled. The default is
+            ;-DWATCHDOG
+      which disables watchdog functionality.
 
 Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 

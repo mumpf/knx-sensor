@@ -53,6 +53,13 @@ Find the version of your hardware board (v1, v2, v3 or v3.1).
             ;-DCRYSTALLESS
       or the line is removed.
 
+    - NEW for firmware version >= 2.5: You can enable watchdog-support. 
+      With the setting
+            -DWATCHDOG
+      the watchdog functionality is enabled. The default is
+            ;-DWATCHDOG
+      which disables watchdog functionality.
+
 Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 
 Now the compiler starts, this may take a while, there will be many yellow warnings, they can be ignored.
