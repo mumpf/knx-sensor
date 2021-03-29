@@ -35,6 +35,15 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 * Dies ist ein reines Logik-Update, dokumentiert in der Applikationsbeschreibung Logik. Es gibt keine Auswirkungen auf die Funktionalität des Sensorteils.
 * Ein update der Applikation (wie im entsprechenden Kapitel beschrieben) von einer vorherigen 2.x-Version funktioniert vollständig. Es gehen weder GA-Zuordnungen zu KO noch Parameter verloren.
 
+05.03.2021: Firmware 2.4.1, Applikation 2.4 - 2.7
+
+* FIX Logik: Das Blinkmodul hat fälschlicherweise den Ausgangszustand der Logik verändert. Das konnte bei "nur bei geändertem Ergebnis senden" auch zu unerwarteten Logik-Triggern führen. Immer wenn während des Blinkens am Eingang ein Signal ankam, dass invers zum Blinkstatus war, wurde unerwünscht getriggert.
+
+29.03.2021 Firmware 2.5.0, Applikation 2.4 - 2.7
+
+* Firmware-Update mit Watchdog-Unterstützung, neues Kapitel 'Watchdog-Unterstützung' hinzugefügt
+* Für die Programmierung werden jetzt auch "Long Frames" unterstützt, sofern das die Schnittstelle und alle Koppler auf dem Programmierpfad unterstützen. Für 40 Logikkanäle sinkt die Programmierzeit von knapp 2 Minuten auf etwas mehr als eine halbe Minute (ist also um den Faktor 2.5 schneller). Getestet mit der MDT-IP-Schnittstelle.
+
 <div style="page-break-after: always;"></div>
 
 ## Allgemeine Parameter
@@ -301,6 +310,8 @@ Anmerkung zum BME680: Dieser Sensor liefert nur ein berechnetes CO<sub>2</sub>-�
 
 Ist die Sensorkombination BME680+SCD30 installiert, werden beide CO<sub>2</sub>-Werte augegeben, der gemessene und der berechnete.
 
+Anmerkung zum SDC30: Derzeit wird bei diesem Sensor die Nutzung vom Watchdog empfohlen (Siehe Kapitel Watchdog-Unterstützung). Mit diesem Sensor kommt es zu sporadischen "Hängern", deren Ursache noch nicht bekannt ist.
+
 ## Standardsensoren - Zusatzfunktionen
 
 Das Sensormodul kann neben gemessenen Werten auch noch einige berechnete Werte liefern. Dazu zählen der Taupunkt, Behaglichkeit, Luftqualitäsampel und Messgenauigkeit.
@@ -367,6 +378,20 @@ Eine Änderung des Wertes von 17 auf 23 führt nach den nächsten Upload der App
 Wird irgendwann einmal der Wert wieder von 23 auf 17 geändert, werden die Kalibrierungsdaten wieder gelöscht, neu aufgebaut und mit dem Wert 17 verbunden. Will man somit wieder löschen, ändert man wieder auf 23 u.s.w.
 
 Im Allgemeinen sollte es nicht nötig sein, die Kalibrierungsdaten zu löschen. Somit sollte dieser Parameter einfach unverändert bleiben.
+
+## Watchdog-Unterstützung
+
+Das Modul unterstützt auch einen Watchdog. Dies ist eine Schaltung, die dafür sorgt, dass ein undefinierter Modulzustand, in dem das Modul nicht mehr auf KNX-Telegramme reagiert, zu einem Modul-Neustart führt.
+
+Für reine Sensoren sind Watchdogs eine gute Lösung, um Hänger zu vermeiden. Ein solcher Neutstart geht schnell und der Sensor liefert wieder seine Werte. Nach dem Neustart werden wie gewohnt alle Messwerte auf den Bus gesendet. Somit kommt ein Messwert außer der Reihe, also z.B. schon nach 2 Minuten und erst dann wieder alle 5 Minuten. Da man normalerweise auch Messwerte bei bestimmten Abweichungen senden lässt, die dann auch außer der Reihe kommen, ist das vertretbar.
+
+Wenn man Logiken nutzt, muss man diese so aufbauen, dass sie stabil gegenüber einem Neustart sind, der ja jederzeit vorkommen kann. Keiner will mitten in der Nacht vom Buzzer geweckt werden. Das Logikmodul erlaubt sehr viele "Startup-Einstellungen", um das möglichst feingranular steuern zu können. Allerdings muss man das auch machen! Wenn man also Logiken macht und den Watchdog benutzt, muss man die Logiken nicht nur auf Funktion, sondern auch auf Neustartverhalten testen. Der komfortabelste Weg hier ist in der ETS "Gerät zurücksetzen". Man kann diesen Befehl aber auch über eine Logik auslösen und z.B. auf eine Taste legen. So kann man in der Testphase jederzeit spontan das Gerät zurücksetzen und sehen, ob es Seiteneffekte bei Neustart gibt.
+
+Der Watchdog ist derzeit nur über eine Compileroption schaltbar, man muss danach die Firmware neu compilieren und auf das Modul aufspielen. Beschrieben ist das in den Dokumenten knx-dev-setup.pdf und knx-update-setup.pdf.
+
+In einer zukünftigen Version der Applikation wird man auch den Watchdog über die Applikation ein- und ausschalten können.
+
+Derzeit wird der Watchdog bei der Verwendung vom SCD30 (CO<sub>2</sub>-Sensor) empfohlen, da dessen API zu sporadischen Hängern führt.
 
 ## Update der Applikation
 
