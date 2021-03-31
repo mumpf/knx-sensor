@@ -22,25 +22,7 @@
 			"PLATFORMIO_CALLER": "vscode"
 		},
 		"files.associations": {
-			"*.json": "jsonc",
-			"array": "cpp",
-			"deque": "cpp",
-			"string": "cpp",
-			"unordered_map": "cpp",
-			"vector": "cpp",
-			"string_view": "cpp",
-			"initializer_list": "cpp",
-			"xiosbase": "cpp",
-			"*.cppbak": "cpp",
-			"cstdint": "cpp",
-			"cmath": "cpp",
-			"ctime": "cpp",
-			"memory": "cpp",
-			"optional": "cpp",
-			"*.tcc": "cpp",
-			"iosfwd": "cpp",
-			"functional": "cpp",
-			"tuple": "cpp"
+			"*.yaml": "home-assistant"
 		}
 	}
 }

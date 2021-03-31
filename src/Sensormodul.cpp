@@ -39,18 +39,18 @@ const uint8_t cFirmwareRevision = 0; // 0-63
 #define BIT_LUX 256
 #define BIT_TOF 512
 
-#define SENSOR_SHT3X 1
-#define SENSOR_BME280 2
-#define SENSOR_BME280_CO2 3
-#define SENSOR_BME680 4
-#define SENSOR_BME680_CO2 5
-#define SENSOR_CO2 6
-#define SENSOR_CO2_BME280 7
-#define SENSOR_CO2_BME680 8
-#define SENSOR_IAQCORE 9
-#define SENSOR_IAQCORE_SHT3X 10
-#define SENSOR_IAQCORE_BME280 11
-#define SENSOR_MASK 0x7E
+// #define SENSOR_SHT3X 1
+// #define SENSOR_BME280 2
+// #define SENSOR_BME280_CO2 3
+// #define SENSOR_BME680 4
+// #define SENSOR_BME680_CO2 5
+// #define SENSOR_CO2 6
+// #define SENSOR_CO2_BME280 7
+// #define SENSOR_CO2_BME680 8
+// #define SENSOR_IAQCORE 9
+// #define SENSOR_IAQCORE_SHT3X 10
+// #define SENSOR_IAQCORE_BME280 11
+// #define SENSOR_MASK 0x7E
 
 uint32_t gStartupDelay;
 uint32_t gHeartbeatDelay;
@@ -204,36 +204,24 @@ void sensorDelayCallback(uint32_t iMillis) {
 // Starting all required sensors, this call may be blocking (with delay)
 void StartSensor()
 {
-#ifdef __linux__
-    return true;
-#else
     Sensor* lSensor;
-    // bool lResult = true;
-    uint16_t lMeasureTypes;
-    // uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value(getDpt(VAL_DPT_7));
-    // uint8_t lSensorInstalled = (knx.paramByte(LOG_SensorDevice) & SENSOR_MASK) >> 1;
-    // usually all sensors have temp and hum
-    // gSensor = (lSensorInstalled) ? BIT_Temp | BIT_Hum : 0;
     gSensor = 0;
     uint8_t lSensorId = knx.paramByte(LOG_TempSensor) & LOG_TempSensorMask >> LOG_TempSensorShift;
     if (lSensorId > 0) {
         gSensor |= BIT_Temp;
         lSensor = Sensor::factory(lSensorId, Temperature);
-        lSensor->begin();
     }
     lSensorId = knx.paramByte(LOG_HumSensor) & LOG_HumSensorMask >> LOG_HumSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Hum;
         lSensor = Sensor::factory(lSensorId, Humidity);
-        lSensor->begin();
     }
     lSensorId = knx.paramByte(LOG_PreSensor) & LOG_PreSensorMask >> LOG_PreSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Pre;
         lSensor = Sensor::factory(lSensorId, Pressure);
-        lSensor->begin();
     }
     lSensorId = knx.paramByte(LOG_VocSensor) & LOG_VocSensorMask >> LOG_VocSensorShift;
     if (lSensorId > 0)
@@ -249,88 +237,27 @@ void StartSensor()
         else if (lSensorId == SENS_SGP30) {
             ((SensorSGP30*)lSensor)->setMagicKeyOffset(lMagicWordOffset);
         }
-        lSensor->begin();
     }
     lSensorId = knx.paramByte(LOG_Co2Sensor) & LOG_Co2SensorMask >> LOG_Co2SensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Co2;
         lSensor = Sensor::factory(lSensorId, Co2);
-        lSensor->begin();
     }
     lSensorId = knx.paramByte(LOG_LuxSensor) & LOG_LuxSensorMask >> LOG_LuxSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_LUX;
         lSensor = Sensor::factory(lSensorId, Lux);
-        lSensor->begin();
     }
     lSensorId = knx.paramByte(LOG_TofSensor) & LOG_TofSensorMask >> LOG_TofSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_TOF;
         lSensor = Sensor::factory(lSensorId, Tof);
-        lSensor->begin();
     }
-
-    // if (lSensorInstalled == SENSOR_SHT3X || lSensorInstalled == SENSOR_IAQCORE_SHT3X)
-    // {
-    //     lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity);
-    //     lSensor = new SensorSHT3x(lMeasureTypes, SHT3X_ADDR);
-    //     lSensor->begin();
-    // }
-    // if (lSensorInstalled == SENSOR_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_IAQCORE_BME280)
-    // {
-    //     gSensor |= BIT_Pre;
-    //     lMeasureTypes = static_cast<MeasureType>(Pressure | Temperature | Humidity);
-    //     lSensor = new SensorBME280(lMeasureTypes, BME280_I2C_ADDR);
-    //     lSensor->begin();
-    // }
-    // if (lSensorInstalled == SENSOR_BME680 || lSensorInstalled == SENSOR_BME680_CO2 || lSensorInstalled == SENSOR_CO2_BME680)
-    // {
-    //     uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & LOG_DeleteDataMask;
-    //     gSensor |= BIT_Pre | BIT_Voc | BIT_Co2Calc;
-    //     // in case temp, hum shoud be taken from co2 sensor, we remove them from known measure types
-    //     lMeasureTypes = static_cast<MeasureType>(Pressure | Voc | Accuracy | Co2Calc |  Temperature | Humidity);
-    //     lSensor = new SensorBME680(lMeasureTypes, BME680_I2C_ADDR, sensorDelayCallback, lMagicWordOffset);
-    //     lSensor->begin();
-    // }
-    // if (lSensorInstalled == SENSOR_CO2 || lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME680 || lSensorInstalled == SENSOR_BME680_CO2)
-    // {
-    //     gSensor |= BIT_Co2;
-    //     lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
-    //     lSensor = new SensorSCD30(lMeasureTypes, SCD30_I2C_ADDR);
-    //     lSensor->begin();
-    //     if (lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_CO2_BME680) {
-    //         // if CO2-Sensor should measure Temp/Hum, it has to be set on first position in Sensor array
-    //         Sensor::changeSensorOrder(lSensor, 0);
-    //     }
-    // }
-    // if (lSensorInstalled == SENSOR_IAQCORE || lSensorInstalled == SENSOR_IAQCORE_BME280 || lSensorInstalled == SENSOR_IAQCORE_SHT3X)
-    // {
-    //     gSensor = BIT_Voc | BIT_Co2Calc;
-    //     lMeasureTypes = static_cast<MeasureType>(Voc | Co2Calc | Accuracy);
-    //     lSensor = new SensorIAQCore(lMeasureTypes, IAQCORE_I2C_ADDR);
-    //     lSensor->begin();
-    // }
-    // // Additional Sensors with 2.8
-    // lSensorInstalled = (knx.paramByte(LOG_SensorLux) & LOG_SensorLuxMask);
-    // if (lSensorInstalled)
-    // {
-    //     gSensor |= BIT_LUX;
-    //     lMeasureTypes = static_cast<MeasureType>(Lux);
-    //     lSensor = new SensorOPT300x(lMeasureTypes, OPT300X_I2C_ADDR);
-    //     lSensor->begin();
-    // }
-    // lSensorInstalled = (knx.paramByte(LOG_SensorTof) & LOG_SensorTofMask);
-    // if (lSensorInstalled)
-    // {
-    //     gSensor |= BIT_TOF;
-    //     lMeasureTypes = static_cast<MeasureType>(Tof);
-    //     lSensor = new SensorVL53L1X(lMeasureTypes, VL53L1X_I2C_ADDR);
-    //     lSensor->begin();
-    // }
-#endif
+    // now start all sensors at the correct speed
+    Sensor::beginSensors();
 }
 bool ReadSensorValue(MeasureType iMeasureType, float& eValue) {
     return Sensor::measureValue(iMeasureType, eValue);
@@ -760,7 +687,7 @@ void appLoop()
     ProcessHeartbeat();
     ProcessReadRequests();
     gLogic.loop();
-    if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE)
+    if (knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask >> LOG_Sensor1WireShift)
         gBusMaster.loop();
     
     // at Startup, we want to send all values immediately
@@ -810,8 +737,9 @@ void appSetup(bool iSaveSupported)
     // restorePower();
     // check hardware availability
     boardCheck();
-    Wire.begin();
-    Wire.setClock(400000);
+    // moved to sensor lib
+    // Wire.begin();
+    // Wire.setClock(400000);
     digitalWrite(PROG_LED_PIN, LOW);
     digitalWrite(LED_YELLOW_PIN, LOW);
     // The module prints its firmware version to the console
@@ -834,7 +762,8 @@ void appSetup(bool iSaveSupported)
             attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
 #endif
         gLogic.setup(false);
-        if (knx.paramByte(LOG_SensorDevice) & BIT_1WIRE) {
+        if (knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask >> LOG_Sensor1WireShift)
+        {
             bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & LOG_IdSearchMask;
             gBusMaster.setup(lSearchNewDevices, true);
         }

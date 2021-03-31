@@ -41,6 +41,9 @@
 #define LOG_Diagnose                  10      // 1 Bit, Bit 3
 #define     LOG_DiagnoseMask 0x08
 #define     LOG_DiagnoseShift 3
+#define LOG_Watchdog                  10      // 1 Bit, Bit 3
+#define     LOG_WatchdogMask 0x08
+#define     LOG_WatchdogShift 3
 #define LOG_Neujahr                   11      // 1 Bit, Bit 7
 #define     LOG_NeujahrMask 0x80
 #define     LOG_NeujahrShift 7
@@ -271,60 +274,58 @@
 #define LOG_DewDeltaAbs               107      // uint16_t
 #define LOG_DewDeltaPercent           109      // uint8_t
 #define LOG_DewSmooth                 110      // uint8_t
-#define LOG_SensorLux                 111      // 1 Bit, Bit 7
-#define     LOG_SensorLuxMask 0x80
-#define     LOG_SensorLuxShift 7
-#define LOG_SensorTof                 111      // 1 Bit, Bit 6
-#define     LOG_SensorTofMask 0x40
-#define     LOG_SensorTofShift 6
-#define LOG_LuxOffset                 112      // int8_t
-#define LOG_LuxCycle                  113      // int32_t
-#define LOG_LuxDeltaAbs               117      // uint16_t
-#define LOG_LuxDeltPercent            119      // uint8_t
-#define LOG_LuxSmooth                 120      // uint8_t
-#define LOG_LuxExtCount               121      // 2 Bits, Bit 1-0
+#define LOG_LuxOffset                 111      // int8_t
+#define LOG_LuxCycle                  112      // int32_t
+#define LOG_LuxDeltaAbs               116      // uint16_t
+#define LOG_LuxDeltPercent            118      // uint8_t
+#define LOG_LuxSmooth                 119      // uint8_t
+#define LOG_LuxExtCount               120      // 2 Bits, Bit 1-0
 #define     LOG_LuxExtCountMask 0x03
 #define     LOG_LuxExtCountShift 0
-#define LOG_LuxExtRead                121      // 1 Bit, Bit 2
+#define LOG_LuxExtRead                120      // 1 Bit, Bit 2
 #define     LOG_LuxExtReadMask 0x04
 #define     LOG_LuxExtReadShift 2
-#define LOG_LuxIntPercent             122      // uint8_t
-#define LOG_LuxExt1Percent            123      // uint8_t
-#define LOG_LuxExt2Percent            124      // uint8_t
-#define LOG_TofOffset                 125      // int8_t
-#define LOG_TofCycle                  126      // int32_t
-#define LOG_TofDeltaAbs               130      // uint16_t
-#define LOG_TofDeltaPercent           132      // uint8_t
-#define LOG_TofSmooth                 133      // uint8_t
-#define LOG_TofExtCount               134      // 2 Bits, Bit 1-0
+#define LOG_LuxIntPercent             121      // uint8_t
+#define LOG_LuxExt1Percent            122      // uint8_t
+#define LOG_LuxExt2Percent            123      // uint8_t
+#define LOG_TofOffset                 124      // int8_t
+#define LOG_TofCycle                  125      // int32_t
+#define LOG_TofDeltaAbs               129      // uint16_t
+#define LOG_TofDeltaPercent           131      // uint8_t
+#define LOG_TofSmooth                 132      // uint8_t
+#define LOG_TofExtCount               133      // 2 Bits, Bit 1-0
 #define     LOG_TofExtCountMask 0x03
 #define     LOG_TofExtCountShift 0
-#define LOG_TofExtRead                134      // 1 Bit, Bit 2
+#define LOG_TofExtRead                133      // 1 Bit, Bit 2
 #define     LOG_TofExtReadMask 0x04
 #define     LOG_TofExtReadShift 2
-#define LOG_TofIntPercent             135      // uint8_t
-#define LOG_TofExt1Percent            136      // uint8_t
-#define LOG_TofExt2Percent            137      // uint8_t
-#define LOG_TempSensor                138      // 3 Bits, Bit 7-5
-#define     LOG_TempSensorMask 0xE0
-#define     LOG_TempSensorShift 5
-#define LOG_HumSensor                 138      // 3 Bits, Bit 4-2
-#define     LOG_HumSensorMask 0x1C
-#define     LOG_HumSensorShift 2
-#define LOG_PreSensor                 138      // 3 Bits, Bit 1--1
-#define LOG_VocSensor                 139      // 3 Bits, Bit 6-4
-#define     LOG_VocSensorMask 0x70
-#define     LOG_VocSensorShift 4
-#define LOG_Co2Sensor                 139      // 3 Bits, Bit 3-1
-#define     LOG_Co2SensorMask 0x0E
-#define     LOG_Co2SensorShift 1
-#define LOG_LuxSensor                 139      // 3 Bits, Bit 0--2
-#define LOG_TofSensor                 140      // 3 Bits, Bit 5-3
-#define     LOG_TofSensorMask 0x38
-#define     LOG_TofSensorShift 3
+#define LOG_TofIntPercent             134      // uint8_t
+#define LOG_TofExt1Percent            135      // uint8_t
+#define LOG_TofExt2Percent            136      // uint8_t
+#define LOG_TempSensor                137      // 4 Bits, Bit 7-4
+#define     LOG_TempSensorMask 0xF0
+#define     LOG_TempSensorShift 4
+#define LOG_HumSensor                 137      // 4 Bits, Bit 3-0
+#define     LOG_HumSensorMask 0x0F
+#define     LOG_HumSensorShift 0
+#define LOG_PreSensor                 138      // 4 Bits, Bit 7-4
+#define     LOG_PreSensorMask 0xF0
+#define     LOG_PreSensorShift 4
+#define LOG_VocSensor                 138      // 4 Bits, Bit 3-0
+#define     LOG_VocSensorMask 0x0F
+#define     LOG_VocSensorShift 0
+#define LOG_Co2Sensor                 139      // 4 Bits, Bit 7-4
+#define     LOG_Co2SensorMask 0xF0
+#define     LOG_Co2SensorShift 4
+#define LOG_LuxSensor                 139      // 4 Bits, Bit 3-0
+#define     LOG_LuxSensorMask 0x0F
+#define     LOG_LuxSensorShift 0
+#define LOG_TofSensor                 140      // 4 Bits, Bit 7-4
+#define     LOG_TofSensorMask 0xF0
+#define     LOG_TofSensorShift 4
 
 // Parameter per channel
-#define LOG_ParamBlockOffset 142
+#define LOG_ParamBlockOffset 141
 #define LOG_ParamBlockSize 100
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
@@ -804,7 +805,7 @@
 #define LOG_KoKOfO 2
 
 // Parameter per channel
-#define WIRE_ParamBlockOffset 4142
+#define WIRE_ParamBlockOffset 8141
 #define WIRE_ParamBlockSize 17
 #define WIRE_sDeviceId                  0      // char*, 7 Byte
 #define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
