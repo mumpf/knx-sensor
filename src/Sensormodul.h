@@ -41,9 +41,9 @@
 #define LOG_Diagnose                  10      // 1 Bit, Bit 3
 #define     LOG_DiagnoseMask 0x08
 #define     LOG_DiagnoseShift 3
-#define LOG_Watchdog                  10      // 1 Bit, Bit 3
-#define     LOG_WatchdogMask 0x08
-#define     LOG_WatchdogShift 3
+#define LOG_Watchdog                  10      // 1 Bit, Bit 2
+#define     LOG_WatchdogMask 0x04
+#define     LOG_WatchdogShift 2
 #define LOG_Neujahr                   11      // 1 Bit, Bit 7
 #define     LOG_NeujahrMask 0x80
 #define     LOG_NeujahrShift 7
@@ -263,9 +263,9 @@
 #define LOG_Co2IntPercent             98      // uint8_t
 #define LOG_Co2Ext1Percent            99      // uint8_t
 #define LOG_Co2Ext2Percent            100      // uint8_t
-// #define LOG_SensorDevice              101      // 6 Bits, Bit 6-1
-// #define     LOG_SensorDeviceMask 0x7E
-// #define     LOG_SensorDeviceShift 1
+#define LOG_SensorDevice              101      // 6 Bits, Bit 6-1
+#define     LOG_SensorDeviceMask 0x7E
+#define     LOG_SensorDeviceShift 1
 #define LOG_Sensor1Wire               101      // 1 Bit, Bit 0
 #define     LOG_Sensor1WireMask 0x01
 #define     LOG_Sensor1WireShift 0
