@@ -10,136 +10,188 @@
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-10" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-11" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
-                <!-- Converted 2.x to 3.x flag -->
-                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-161_R-1611" /> -->
                 <!-- Old sensor selection -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-160_R-1601" />
                 <!-- Try to keep compatibility: We convert old dropdown setting to new parameters -->
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
                   <when test="12">
                     <!-- this looks senseless, but is necessary keep values in dropdown -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-161_R-1611" Value="1" /> -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" />
+                    <!-- Assing target dropdown values -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" />
                   </when>
                   <when test="0">
                     <!-- No sensors -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="0" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="1">
                     <!-- SHT3x: Temp, Hum -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="1" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="1" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="1" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="1" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="0" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="2">
                     <!-- BME280: Temp, Hum, Pre -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="0" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="3">
                     <!-- BME280+SCD30: Temp, Hum, Pre all from BME, Co2 -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="4">
                     <!-- BME680: Temp, Hum, Pre, Voc, Co2-Calc -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="3" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="5">
                     <!-- BME680+SCD30: Temp, Hum, Pre, Voc, Co2-Calc all from BME, Co2 -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="6">
                     <!-- SCD30: Temp, Hum, Co2 -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="4" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="4" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="7">
                     <!-- SCD30+BME280: Temp, Hum from SCD30, Pre, Co2 -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="4" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="4" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="8">
                     <!-- SCD30+BME680: Temp, Hum from SCD30, Pre, Voc, Co2 -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="4" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="4" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="3" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="4" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="3" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="9">
                     <!-- IAQCore: Voc, Co2-Calc -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="5" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="5" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="5" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="5" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="10">
                     <!-- SHT3x+IAQCore: Temp, Hum, Voc, Co2-Calc -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="1" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="1" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="0" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="5" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="5" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="1" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="1" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="5" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="5" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="11">
                     <!-- BME280+IAQCore: Temp, Hum, Pre, Voc, Co2-Calc -->
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" Value="2" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" Value="5" />
-                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" Value="5" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="5" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="5" />
                     <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
+                  <when test=">=0">
+                    <!-- Assing target dropdown values -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" />
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" />
+                  </when>
                 </choose>
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Vor dem Programmieren des Moduls die obige Dropdown auf 'Einzelauswahl' stellen und die gewünschten Sensoren bei den einzelnen Messwerten einstellen. Nur das wird vom Sensormodul v3.x ausgewertet." />
                 <!-- New sensor selection -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-200_R-2001" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-201_R-2011" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-202_R-2021" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-203_R-2031" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-204_R-2041" />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
+                  <when test="12">
+                    <!-- editable dropdowns -->
+                    <!-- for upgrade reasons, the need to writeback their values to the read only dropdowns -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-200_R-2001" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-200_R-2001">
+                      <when test=">=0">
+                        <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2002" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-200_R-2001" />
+                      </when>
+                    </choose>
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-201_R-2011" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-201_R-2011">
+                      <when test=">=0">
+                        <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2012" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-201_R-2011" />
+                      </when>
+                    </choose>
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-202_R-2021" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-202_R-2021">
+                      <when test=">=0">
+                        <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2021" />
+                      </when>
+                    </choose>
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-203_R-2031" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-203_R-2031">
+                      <when test=">=0">
+                        <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" />
+                      </when>
+                    </choose>
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-204_R-2041" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-204_R-2041">
+                      <when test=">=0">
+                        <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" />
+                      </when>
+                    </choose>
+                  </when>
+                  <when test="&lt;12">
+                    <!-- read only dropdowns  -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-200_R-2002" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-201_R-2012" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-202_R-2022" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-203_R-2032" />
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-204_R-2042" />
+                  </when>
+                </choose>
+                
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-205_R-2051" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-206_R-2061" />
                 <!-- We dererive some flags for further processing from sensor selections -->

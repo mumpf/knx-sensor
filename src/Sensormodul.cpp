@@ -206,24 +206,24 @@ void StartSensor()
 {
     Sensor* lSensor;
     gSensor = 0;
-    uint8_t lSensorId = knx.paramByte(LOG_TempSensor) & LOG_TempSensorMask >> LOG_TempSensorShift;
+    uint8_t lSensorId = (knx.paramByte(LOG_TempSensor) & LOG_TempSensorMask) >> LOG_TempSensorShift;
     if (lSensorId > 0) {
         gSensor |= BIT_Temp;
         lSensor = Sensor::factory(lSensorId, Temperature);
     }
-    lSensorId = knx.paramByte(LOG_HumSensor) & LOG_HumSensorMask >> LOG_HumSensorShift;
+    lSensorId = (knx.paramByte(LOG_HumSensor) & LOG_HumSensorMask) >> LOG_HumSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Hum;
         lSensor = Sensor::factory(lSensorId, Humidity);
     }
-    lSensorId = knx.paramByte(LOG_PreSensor) & LOG_PreSensorMask >> LOG_PreSensorShift;
+    lSensorId = (knx.paramByte(LOG_PreSensor) & LOG_PreSensorMask) >> LOG_PreSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Pre;
         lSensor = Sensor::factory(lSensorId, Pressure);
     }
-    lSensorId = knx.paramByte(LOG_VocSensor) & LOG_VocSensorMask >> LOG_VocSensorShift;
+    lSensorId = (knx.paramByte(LOG_VocSensor) & LOG_VocSensorMask) >> LOG_VocSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Voc | BIT_Co2Calc;
@@ -238,19 +238,19 @@ void StartSensor()
             ((SensorSGP30*)lSensor)->setMagicKeyOffset(lMagicWordOffset);
         }
     }
-    lSensorId = knx.paramByte(LOG_Co2Sensor) & LOG_Co2SensorMask >> LOG_Co2SensorShift;
+    lSensorId = (knx.paramByte(LOG_Co2Sensor) & LOG_Co2SensorMask) >> LOG_Co2SensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Co2;
         lSensor = Sensor::factory(lSensorId, Co2);
     }
-    lSensorId = knx.paramByte(LOG_LuxSensor) & LOG_LuxSensorMask >> LOG_LuxSensorShift;
+    lSensorId = (knx.paramByte(LOG_LuxSensor) & LOG_LuxSensorMask) >> LOG_LuxSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_LUX;
         lSensor = Sensor::factory(lSensorId, Lux);
     }
-    lSensorId = knx.paramByte(LOG_TofSensor) & LOG_TofSensorMask >> LOG_TofSensorShift;
+    lSensorId = (knx.paramByte(LOG_TofSensor) & LOG_TofSensorMask) >> LOG_TofSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_TOF;
@@ -687,7 +687,7 @@ void appLoop()
     ProcessHeartbeat();
     ProcessReadRequests();
     gLogic.loop();
-    if (knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask >> LOG_Sensor1WireShift)
+    if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
         gBusMaster.loop();
     
     // at Startup, we want to send all values immediately
@@ -762,7 +762,7 @@ void appSetup(bool iSaveSupported)
             attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
 #endif
         gLogic.setup(false);
-        if (knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask >> LOG_Sensor1WireShift)
+        if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
         {
             bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & LOG_IdSearchMask;
             gBusMaster.setup(lSearchNewDevices, true);

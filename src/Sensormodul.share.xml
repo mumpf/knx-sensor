@@ -35,7 +35,7 @@
                   <Enumeration Text="SCD30+BME280" Value="7" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-7" />
                   <Enumeration Text="SCD30+BME680" Value="8" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-8" />
                   <Enumeration Text="IAQCore" Value="9" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-9" />
-                  <Enumeration Text="Converted" Value="12" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-12" />
+                  <Enumeration Text="Einzelauswahl" Value="12" Id="M-00FA_A-0001-01-0000_PT-SensorDevices_EN-12" />
                 </TypeRestriction>
               </ParameterType>
               <!-- align here to constants SENX_XXXX in Sensor.h -->
@@ -234,7 +234,7 @@
               </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="101" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Offset="0" BitOffset="1" Text="Sensor" Value="2" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Offset="0" BitOffset="1" Text="Sensorkombination" Value="2" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-168" Name="Sensor1Wire"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"      Offset="0" BitOffset="7" Text="1 Wire aktivieren?" Value="0" />
               </Union>
 
@@ -399,6 +399,11 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-202_R-2021" RefId="M-00FA_A-0001-01-0000_UP-202" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-203_R-2031" RefId="M-00FA_A-0001-01-0000_UP-203" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-204_R-2041" RefId="M-00FA_A-0001-01-0000_UP-204" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-200_R-2002" RefId="M-00FA_A-0001-01-0000_UP-200" Access="Read" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-201_R-2012" RefId="M-00FA_A-0001-01-0000_UP-201" Access="Read" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-202_R-2022" RefId="M-00FA_A-0001-01-0000_UP-202" Access="Read" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-203_R-2032" RefId="M-00FA_A-0001-01-0000_UP-203" Access="Read" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-204_R-2042" RefId="M-00FA_A-0001-01-0000_UP-204" Access="Read" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-205_R-2051" RefId="M-00FA_A-0001-01-0000_UP-205" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-206_R-2061" RefId="M-00FA_A-0001-01-0000_UP-206" />
             </ParameterRefs>
