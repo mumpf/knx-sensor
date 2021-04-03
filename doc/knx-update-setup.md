@@ -13,6 +13,7 @@ Press Ctrl-Shift-G (Opens Source Control).
 Below "SOURCE CONTROL PROVIDERS" you will find all projects necessary for the firmware:
 
 * knx-sensor
+* knx-wire
 * knx-logic
 * knx-common
 * knx
@@ -27,12 +28,12 @@ In the upcomming menu click on the topmost entry "Pull".
 
 As said, do this for each project.
 
-As soon as all 4 pulls are finished, continue with the build steps form the initial documentation:
+As soon as all 5 pulls are finished, continue with the build steps form the initial documentation:
 
 The current board version from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
 
 **Please ensure always - with each update - that the released version fits to your hardware!** To do this, do the following:
-Find the version of your hardware board (v1, v2, v3 or v3.1). 
+Find the version of your hardware board (v1, v2, v3 or v3.1).
 
     In knx-sensor, edit the file platformio.ini:  
     - there is a line 
@@ -53,13 +54,6 @@ Find the version of your hardware board (v1, v2, v3 or v3.1).
             ;-DCRYSTALLESS
       or the line is removed.
 
-    - NEW for firmware version >= 2.5: You can enable watchdog-support. 
-      With the setting
-            -DWATCHDOG
-      the watchdog functionality is enabled. The default is
-            ;-DWATCHDOG
-      which disables watchdog functionality.
-
 Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 
 Now the compiler starts, this may take a while, there will be many yellow warnings, they can be ignored.
@@ -74,9 +68,7 @@ At the end, there should be a message like
     Flash: [======    ]  55.7% (used 145892 bytes from 262144 bytes)
     ============================ [SUCCESS] Took 34.60 seconds ======
 
-Now you successfully build the Firmware for the Sensormodule, containing up to 80 logic channels.
-
-There is also a precompiled version of the firmware available on github for the different module versions.
+Now you successfully build the updated Firmware for the Sensormodule.
 
 ## How to upload the Firmware to your Hardware
 
@@ -88,21 +80,18 @@ Press Ctrl-Shift-B, select "**Upload USB** knx-sensor" build task and press ente
 
 Wait until file is uploaded.
 
-If you use a precompiled version of the firmware, you can upload it with the following command (installed PlatformIO is still needed):
-
-    C:\Users\<username>\.platformio\packages\tool-bossac\bossac --info --debug --port "<COM9>" --write --verify --reset --erase -U true firmware_masifi_v<x>.bin
-
-Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
-
+Afterwards you have to reprogram physical address (PA) and Application from ETS.
 ## How to build a knxprod for this firmware
+
+Do this just if the updated firmware comes with an updated knxprod.
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is version 2.0.0. In case you have already the newest version downloaded, you can skip this and the following copy step.
+Download the newest release of multiply-channels, currently it is version 2.1.2. In case you have already the newest version downloaded, you can skip this and the following copy step.
 
 The executable is MultiplyChannels.exe
 
-Save it to C:\Users\\\<username>\bin (usually you have to create bin directory)
+Save it to C:\Users\\\<username>\bin (this directory should already exist from your initial setup).
 
 Go to the Visual Studio Code instance, which is containing the knx-sensor project
 
@@ -114,13 +103,10 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v2.0-10.knxprod
-* Sensormodul-v2.1-20.knxprod
-* Sensormodul-v2.2-40.knxprod
-* Sensormodul-v2.3-80.knxprod
+* Sensormodul-v3.x.knxprod
 
 you will find in the release directory of the knx-sensor project
 
 You can import this knxprod in your ETS (minimum 5.6) like any other knxprod.
 
-Application update procedure is described in the Applicationdescription Sensor.
+You can do an update of the application in ETS. This allows to keep all parameters and group addresses (GA) of the old application.Application update procedure is described in the "Applicationdescription Sensor".

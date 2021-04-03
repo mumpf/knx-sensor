@@ -37,18 +37,10 @@ From now on we work in this terminal window:
 
 You should be now in a directory ending with ...\Documents\PlatformIO\Projects
 
-    pio lib -g install 166
-    pio lib -g install 31
-    pio lib -g install 5449
-
-These commands should install following libraries:  
-"Adafruit_BME280" Library  
-"Adafruit_Sensor.h" Library  
-"SparkFun_SCD30_Arduino_Library" Library
-
     git clone https://github.com/mumpf/knx.git
     git clone https://github.com/mumpf/knx-common.git
     git clone https://github.com/mumpf/knx-logic.git
+    git clone https://github.com/mumpf/knx-wire.git
     git clone https://github.com/mumpf/knx-sensor.git
     cd knx
     git checkout release
@@ -57,8 +49,7 @@ These commands should install following libraries:
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-The current board vers
-ion from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
+The current board version from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
 
 **Please ensure always that the released version fits to your hardware!** To do this, do the following:
 Find the version of your hardware board (v1, v2, v3 or v3.1).
@@ -82,13 +73,6 @@ Find the version of your hardware board (v1, v2, v3 or v3.1).
             ;-DCRYSTALLESS
       or the line is removed.
 
-    - NEW for firmware version >= 2.5: You can enable watchdog-support. 
-      With the setting
-            -DWATCHDOG
-      the watchdog functionality is enabled. The default is
-            ;-DWATCHDOG
-      which disables watchdog functionality.
-
 Press Ctrl-Shift-B, select the "**Build PlatformIO** knx-sensor" build task and press enter.
 
 Now the compiler starts, this may take a while, there will be many yellow warnings, they can be ignored.
@@ -103,10 +87,9 @@ At the end, there should be a message like
     Flash: [======    ]  55.7% (used 145892 bytes from 262144 bytes)
     ============================ [SUCCESS] Took 34.60 seconds ======
 
-Now you successfully build the Firmware for the Sensormodule, containing up to 80 logic channels.
+Now you successfully build the Firmware for the Sensormodule, containing a ETS configurable knx stack, a logic module with 80 logic channels, a one wire module für up to 30 one wire sensors and a sensor module for up to 7 measurements (temperature, humidity, air pressure, voc value, co2 value, brightness and distance).
 
-There is also a precompiled version of the firmware available on github for the different module versions.
-
+Precompiled firmware versions are not released anymore, you have always to compile your own.
 ## How to upload the Firmware to your Hardware
 
 Connect your device via USB to your PC
@@ -123,11 +106,14 @@ If you use a precompiled version of the firmware, you can upload it with the fol
 
 Of course you have to replace \<username\>, \<COM9\> and \<x\> accordingly.
 
+This information is here just for old firmware versions, new versions are not released anymore.
 ## How to build a knxprod for this firmware
 
 Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
 
-Download the newest release of multiply-channels, currently it is version 2.0.0.
+Download the newest release of multiply-channels, currently it is version 2.1.2.
+
+
 
 The executable is MultiplyChannels.exe
 
@@ -145,10 +131,7 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v2.0-10.knxprod
-* Sensormodul-v2.1-20.knxprod
-* Sensormodul-v2.2-40.knxprod
-* Sensormodul-v2.3-80.knxprod
+* Sensormodul-v3.0.knxprod
 
 you will find in the release directory of the knx-sensor project
 
