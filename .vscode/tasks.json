@@ -87,8 +87,15 @@
             "label": "MultiplyChannels-Release",
             "type": "shell",
             "command": "release\\BuildRelease.cmd",
-            "args": [
-            ],
+            "args": [],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "label": "MultiplyChannels-Beta",
+            "type": "shell",
+            "command": "beta\\BuildRelease.cmd",
+            "args": [],
             "problemMatcher": [],
             "group": "test"
         }
