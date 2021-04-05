@@ -44,6 +44,10 @@ Die letzeren beiden Punkte sind in der Applikationsbeschreibung Logik beschriebe
 * Firmware-Update mit Watchdog-Unterstützung, neues Kapitel 'Watchdog-Unterstützung' hinzugefügt
 * Für die Programmierung werden jetzt auch "Long Frames" unterstützt, sofern das die Schnittstelle und alle Koppler auf dem Programmierpfad unterstützen. Für 40 Logikkanäle sinkt die Programmierzeit von knapp 2 Minuten auf etwas mehr als eine halbe Minute (ist also um den Faktor 2.5 schneller). Getestet mit der MDT-IP-Schnittstelle.
 
+05.04.2021 Firmware 2.5.1, Applikation 2.4 - 2.7
+
+* Bugfix: Beim Programmieren des Sensormoduls ohne GA (also kein KO hat eine GA zugewiesen) konnte es passieren, dass danach das Modul so hängt, dass nur ein erneutes aufspielen der Firmware per USB das Problem beheben kann. Dies ist ein reines Firmware-Update.
+
 <div style="page-break-after: always;"></div>
 
 ## Allgemeine Parameter
