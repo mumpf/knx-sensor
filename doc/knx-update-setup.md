@@ -83,32 +83,8 @@ Press Ctrl-Shift-B, select "**Upload USB** knx-sensor" build task and press ente
 Wait until file is uploaded.
 
 Afterwards you have to reprogram physical address (PA) and Application from ETS.
+
 ## How to build a knxprod for this firmware
 
-Do this just if the updated firmware comes with an updated knxprod.
-
-Open [https://github.com/mumpf/multiply-channels/releases](https://github.com/mumpf/multiply-channels/releases)
-
-Download the newest release of multiply-channels, currently it is version 2.1.2. In case you have already the newest version downloaded, you can skip this and the following copy step.
-
-The executable is MultiplyChannels.exe
-
-Save it to C:\Users\\\<username>\bin (this directory should already exist from your initial setup).
-
-Go to the Visual Studio Code instance, which is containing the knx-sensor project
-
-Press Ctrl-Shift-P, enter "run test task" and click the appearing "Tasks: Run Test Task"
-
-In the following dropdown select "**MultiplyChannels-Release** knx-sensor"
-
-Wait for the success message in the terminal window
-
-The freshly build
-
-* Sensormodul-v3.x.knxprod
-
-you will find in the release directory of the knx-sensor project
-
-You can import this knxprod in your ETS (minimum 5.6) like any other knxprod.
-
-You can do an update of the application in ETS. This allows to keep all parameters and group addresses (GA) of the old application.Application update procedure is described in the "Applicationdescription Sensor".
+Here you have to do exactly the same steps as desribed in the according chapter in the knx-dev-beta-setup.pdf document.
+ 
