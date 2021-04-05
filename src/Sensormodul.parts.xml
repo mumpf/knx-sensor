@@ -35,7 +35,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="0" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="1">
                     <!-- SHT3x: Temp, Hum -->
@@ -44,7 +43,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="0" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="2">
                     <!-- BME280: Temp, Hum, Pre -->
@@ -53,7 +51,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="0" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="3">
                     <!-- BME280+SCD30: Temp, Hum, Pre all from BME, Co2 -->
@@ -62,7 +59,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="4">
                     <!-- BME680: Temp, Hum, Pre, Voc, Co2-Calc -->
@@ -71,7 +67,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="3" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="3" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="3" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="5">
                     <!-- BME680+SCD30: Temp, Hum, Pre, Voc, Co2-Calc all from BME, Co2 -->
@@ -80,7 +75,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="3" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="3" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="6">
                     <!-- SCD30: Temp, Hum, Co2 -->
@@ -89,7 +83,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="7">
                     <!-- SCD30+BME280: Temp, Hum from SCD30, Pre, Co2 -->
@@ -98,7 +91,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="8">
                     <!-- SCD30+BME680: Temp, Hum from SCD30, Pre, Voc, Co2 -->
@@ -107,7 +99,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="3" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="3" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="4" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="9">
                     <!-- IAQCore: Voc, Co2-Calc -->
@@ -116,7 +107,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="5" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="5" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="10">
                     <!-- SHT3x+IAQCore: Temp, Hum, Voc, Co2-Calc -->
@@ -125,7 +115,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="0" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="5" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="5" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test="11">
                     <!-- BME280+IAQCore: Temp, Hum, Pre, Voc, Co2-Calc -->
@@ -134,7 +123,6 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-202_R-2022" Value="2" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" Value="5" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" Value="5" />
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-160_R-1601" Value="12" /> -->
                   </when>
                   <when test=">=0">
                     <!-- Assing target dropdown values -->
@@ -195,6 +183,8 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-205_R-2051" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-206_R-2061" />
                 <!-- We dererive some flags for further processing from sensor selections -->
+                <!-- Merker für BME280 wird verwendet -->
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-161_R-1611" />
                 <!-- Merker für Kalibrierungsdaten löschen anzeigen? -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-162_R-1621" />
                 <!-- Merker für echten Co2-Sensor Verwendung? -->
@@ -207,9 +197,17 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-166_R-1661" />
                 <!-- Merker für I2C 100kHz -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-167_R-1671" />
+                <!-- Merker für BME680 wird verwendet -->
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-169_R-1691" />
                 <!-- Temp -->
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-200_R-2001">
+                  <when test="2">
+                    <!-- BME280 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-161_R-1611" Value="1" />
+                  </when>
                   <when test="3">
+                    <!-- BME680 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-169_R-1691" Value="1" />
                     <!-- Zusatzfunktionen anzeigen? -->
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-165_R-1651" Value="1" />
                     <!-- Kalibrierung anzeigen? -->
@@ -234,7 +232,13 @@
                       </when>
                     </choose>
                   </when>
+                  <when test="2">
+                    <!-- BME280 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-161_R-1611" Value="1" />
+                  </when>
                   <when test="3">
+                    <!-- BME680 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-169_R-1691" Value="1" />
                     <!-- Zusatzfunktionen anzeigen? -->
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-165_R-1651" Value="1" />
                     <!-- Kalibrierung anzeigen? -->
@@ -251,7 +255,13 @@
                 </choose>
                 <!-- Pre -->
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-202_R-2021">
+                  <when test="2">
+                    <!-- BME280 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-161_R-1611" Value="1" />
+                  </when>
                   <when test="3">
+                    <!-- BME680 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-169_R-1691" Value="1" />
                     <!-- Zusatzfunktionen anzeigen? -->
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-165_R-1651" Value="1" />
                     <!-- Kalibrierung anzeigen? -->
@@ -267,6 +277,10 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-165_R-1651" Value="1" />
                     <!-- Luftgüteampel -->
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-166_R-1661" Value="1" />
+                  </when>
+                  <when test="3">
+                    <!-- BME680 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-169_R-1691" Value="1" />
                   </when>
                   <when test="5">
                     <!-- Kalibrierung anzeigen? -->
@@ -288,6 +302,10 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-165_R-1651" Value="1" />
                     <!-- Luftgüteampel -->
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-166_R-1661" Value="1" />
+                  </when>
+                  <when test="3">
+                    <!-- BME680 wird verwendet -->
+                    <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-169_R-1691" Value="1" />
                   </when>
                   <when test="5">
                     <!-- Kalibrierung anzeigen? -->
@@ -316,6 +334,17 @@
                 <!-- Tof -->
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-206_R-2061">
                   <when test=">0">
+                  </when>
+                </choose>
+                <!-- Error if BME280 and BME680 are selected -->
+                <choose ParamRefId="M-00FA_A-0001-01-0000_P-161_R-1611">
+                  <when test=">0">
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-169_R-1691">
+                      <when test=">0">
+                        <!-- Fehlermeldung in rot -->
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Es wurde sowohl der BME280 wie auch der BME680 ausgewählt. Dies ist technisch nicht möglich, da beide Sensoren die gleiche Adresse besitzen und somit nicht einzeln angesprochen werden können. Das Sensormodul wird so nicht funktinieren!" UIHint="Error" />
+                      </when>
+                    </choose>
                   </when>
                 </choose>
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-168_R-1681" />

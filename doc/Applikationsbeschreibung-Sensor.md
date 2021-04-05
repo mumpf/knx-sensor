@@ -58,6 +58,7 @@ Die letzen beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 * Unterstützung von Longframes beim Programmieren durch die ETS
 * Unterstützung von partieller Programmierung durch die ETS, wobei nur die geänderten Parameter übertragen werden, dadurch wesentlich schnellere Programmierung
 * Bedingt durch die wesentlich schnellere Progrmmierung gibt es nur noch eine ETS Applikation mit 80 Logikkanälen
+* Diese Firmware unterstützt auch den Aussensensor von Masifi über die Einstellung -DBOARD_MASIFI_AUSSEN_V13
 
 <div style="page-break-after: always;"></div>
 
@@ -74,7 +75,7 @@ Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Sensormo
 
 Dieses Feld gibt an, für wie viele Logikkanäle dieses Applikationsprogramm erstellt wurde.
 
-Diese Angabe dient nur zur Information, sie wird wahrscheinlich in kommenden Versionen der Applikation entfernt werden.
+Diese Angabe dient nur zur Information, sie wird wahrscheinlich in kommenden Versionen der Applikation entfernt werden. Es stehen immer 80 Logikkanäle zur Verfügung.
 
 ### Zeit bis das Gerät nach einem Neustart aktiv wird
 
@@ -134,13 +135,50 @@ VL53L1X | | | | | | | | X
 
 #### Sensorkombination
 
-Das Auswahlfeld **Sensorkombination** ist nur aus Kompatibilität zu früheren Versionen dieser Applikation vorhanden. Es muss unbedingt auf den Wert "Einzelauswahl" gestellt werden. Anschließend kann man diesen Wert nicht mehr  ändern. In zukünftigen Versionen dieser Applikation wird es dieses Feld nicht mehr geben. 
+Das Auswahlfeld **Sensorkombination** ist nur aus Kompatibilität zu früheren Versionen dieser Applikation vorhanden. Es muss unbedingt vom Benutzer auf den Wert "Einzelauswahl" gestellt werden, da dies beim Update nicht automatisch geht. Anschließend bitte diesen Wert nicht mehr ändern. In zukünftigen Versionen dieser Applikation wird es dieses Feld nicht mehr geben.
 
-Dieser manuelle Schritt ist nur nach einem Upgrade aus einer früheren Version dieser Applikation notwendig. Neu in die ETS eingefügte Applikatinen haben bereits den Wert "Einzelauswahl" im Feld stehen.
+Dieser manuelle Schritt ist nur nach einem Update aus einer früheren Version dieser Applikation notwendig. Neu in die ETS eingefügte Applikatinen haben bereits den Wert "Einzelauswahl" im Feld stehen.
+
+Falls dieses Feld bei einem zuküftigen Update der Applikation einen anderen Wert als "Einzelauswahl" hat, werden nach diesem zukünftigen Update alle Sensoreinstellungen und alle zugehörigen Gruppenadressen verloren gehen.
 
 In den folgenden Auswahlfeldern kann man für jeden Standardmesswert bestimmen, von welchem Sensor dieser Messwert geliefert werden soll. Dabei können verschiedene Sensoren kombiniert werden. Bestimmte Kombinatinen beeinflussen die Funktionsweise weiterer am Sensormodul angeschlossener Hardware. Solche Kombinationen führen zu Warnmeldungen.
 
-Die Kombination vom BME280 und BME680 ist nicht möglich, da diese Sensoren die gleiche physikalische Adresse haben und somit nicht beide gleichzeitig angeschlossen werden können. Es ist aber keine Einschränkung, da der BME680 auch alle Messwerte liefern kann, die der BME280 liefert.
+Die Kombination vom BME280 und BME680 ist nicht möglich, da diese Sensoren die gleiche physikalische Adresse haben und somit nicht beide gleichzeitig angeschlossen werden können. Es ist aber keine Einschränkung, da der BME680 auch alle Messwerte liefern kann, die der BME280 liefert. 
+
+Sollten beide Sensoren BME280 und BME680 ausgewählt worden sein, erscheint folgende Fehlermeldung:
+![Fehler beide BME-Sensoren](FehlerBeideBME.png)
+
+**Achtung**:
+
+Die neue Möglichkeit, Sensoren für Standardmesswerte auszuwählen ermöglicht viele Sensor-Messwert-Kombinationen, die nicht alle vor einem Release getestet werden können. In der folgenden Tabelle werden Sensor-Messwert-Kombinationen angegeben, die bereits erfolgreich geprüft wurden und funktionieren. Ferner können weitere funktioniertende Sensor-Messwert-Kombinationen im KNX-User-Forum ausgetascht werden.
+
+Messwerte | Kombi 1 | Kombi 2 | Kombi 3 | Kombi 4 | Kombi 5 | Kombi 6 | Kombi 7
+---|:---:|:---:|:---:|:---:|:---:|:---:|:---:
+Temperatur     | SHT3x | BME280 | BME680 | 
+ |         |         |         |
+Luftfeuchte    | SHT3x | BME280 | BME680 | SCD30 |         |         |         |
+Luftdruck      |       | BME280 | BME680 |       |         |         |         |
+VOC            |       |        | BME680 |       | IAQCore |         |         |
+CO<sub>2</sub> |       |        | BME680 | SCD30 |         |         |         |
+Helligkeit     |       |        |        |       |         | OPT300x |         |
+Entfernung     |       |        |        |       |         |         | VL53L1X |
+---
+Messwerte | Kombi 8 | Kombi 9 | Kombi 10 | Kombi 11 | Kombi 12 | Kombi 13 | Kombi 14
+---|:---:|:---:|:---:|:---:|:---:|:---:|:---:
+Temperatur     | SHT3x   | SHT3x   | BME280  | BME280 | BME680 | SCD30  | SCD30  |
+Luftfeuchte    | SHT3x   | SHT3x   | BME280  | BME280 | BME680 | SCD30  | SCD30  |
+Luftdruck      |         |         | BME280  | BME280 | BME680 | BME280 | BME680 |
+VOC            |         | IAQCore | IAQCore |        | BME680 |        | BME680 |
+CO<sub>2</sub> |         |         |         | SCD30  | SCD30  | SCD30  | SCD30  |
+Helligkeit     | OPT300x |         |         |        |        |        |        |
+Entfernung     |         |         |         |        |        |        |        |
+---
+
+Diese Tabellen werden fortlauend erweitert, sobald neue getestete Kombinationen hinzukommen.
+
+Die in den Tabellen angegebenen Kombinationen sagen nichts daürber aus, ob die Sensoren direkt an das Sensormodul angeschlossen werden können. Stellenweise wurde mit zusätzlicher Hardware getestet, die einen Sensoranschluss ermöglichte.
+
+Die Verwendung von SCD30 als Sensor, vor allem in Kombination mit weiteren Sensoren, wird nur mit eingeschaltetem Watchdog empfohlen, da der Betrieb vom SCD30 manchmal zu unerwünschten "Hängern" des Sensormoduls führt.
 
 #### Temperatursensor
 
@@ -266,9 +304,6 @@ Für reine Sensoren sind Watchdogs eine gute Lösung, um Hänger zu vermeiden. E
 Wenn man Logiken nutzt, muss man diese so aufbauen, dass sie stabil gegenüber einem Neustart sind, der ja jederzeit vorkommen kann. Keiner will mitten in der Nacht vom Buzzer geweckt werden. Das Logikmodul erlaubt sehr viele "Startup-Einstellungen", um das möglichst feingranular steuern zu können. Allerdings muss man das auch machen! Wenn man also Logiken macht und den Watchdog benutzt, muss man die Logiken nicht nur auf Funktion, sondern auch auf Neustartverhalten testen. Der komfortabelste Weg hier ist in der ETS "Gerät zurücksetzen". Man kann diesen Befehl aber auch über eine Logik auslösen und z.B. auf eine Taste legen. So kann man in der Testphase jederzeit spontan das Gerät zurücksetzen und sehen, ob es Seiteneffekte bei Neustart gibt.
 
 Der Watchdog kann mit dieser Einstellung aktiviert werden.
-
-Für diagnosezwecke ist der Watchdog über eine Compileroption komplett abschaltbar und wird dadurch aus der Firmware entfernt. Ist dies der Fall, kann der Watchdog natürlich auch nicht über diese Einstellung aktiviert werden. 
-Standardmäßig ist der Watchdog in der Firmware enthalten. Wie man den Watchdog über eine Compileroption in die Firmware einfügt bzw. von dort entfernt ist in den Dokumenten knx-dev-setup.pdf und knx-update-setup.pdf beschrieben.
 
 Derzeit wird der Watchdog bei der Verwendung vom SCD30 (CO<sub>2</sub>-Sensor) empfohlen, da dessen API zu sporadischen Hängern führt.
 

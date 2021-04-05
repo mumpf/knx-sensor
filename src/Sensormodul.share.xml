@@ -234,18 +234,19 @@
               </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="101" BitOffset="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Offset="0" BitOffset="1" Text="Sensorkombination" Value="2" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Offset="0" BitOffset="1" Text="Sensorkombination" Value="12" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-168" Name="Sensor1Wire"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"      Offset="0" BitOffset="7" Text="1 Wire aktivieren?" Value="0" />
               </Union>
 
               <!-- the following parameters are just for internal reasons (for logical OR evaluation) -->
-              <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-161" Name="IsConverted"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Ist nach 3.x konvertiert"            Value="0" /> -->
+              <Parameter Id="M-00FA_A-0001-01-0000_P-161" Name="IsBME280"           ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Es wird ein BME280 verwendet"        Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-162" Name="ShowCalibrationDel" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsdaten löschen zeigen?"  Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-163" Name="IsCo2Sensor"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Echter Co2-Sensor?"                  Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-164" Name="ShowCalibration"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsdaten anzeigen?"        Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-165" Name="ShowExtendedTab"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Zusatzfunktionen anzeigen?"          Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-166" Name="IsAirQuality"       ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Mit Luftqualität"                    Value="0" />
               <Parameter Id="M-00FA_A-0001-01-0000_P-167" Name="IsI2C100kHz"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kann nur 100kHz I2C"                 Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-169" Name="IsBME680"           ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Es wird ein BME680 verwendet"        Value="0" />
 
               <Union SizeInBit="72">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="102" BitOffset="0" />
@@ -358,7 +359,7 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-159_R-1591" RefId="M-00FA_A-0001-01-0000_UP-159" />
               <!-- checkboxes -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-160_R-1601" RefId="M-00FA_A-0001-01-0000_UP-160" /> <!-- Access="Read" /> -->
-              <!-- <ParameterRef Id="M-00FA_A-0001-01-0000_P-161_R-1611" RefId="M-00FA_A-0001-01-0000_P-161" /> -->
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-161_R-1611" RefId="M-00FA_A-0001-01-0000_P-161" Access="None" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-162_R-1621" RefId="M-00FA_A-0001-01-0000_P-162" Access="None" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-163_R-1631" RefId="M-00FA_A-0001-01-0000_P-163" Access="None" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-164_R-1641" RefId="M-00FA_A-0001-01-0000_P-164" Access="None" />
@@ -367,6 +368,8 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_P-167_R-1671" RefId="M-00FA_A-0001-01-0000_P-167" Access="None" />
 
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-168_R-1681" RefId="M-00FA_A-0001-01-0000_UP-168" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-169_R-1691" RefId="M-00FA_A-0001-01-0000_P-169" Access="None" />
+
               <!-- Dewpoint -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-170_R-1701" RefId="M-00FA_A-0001-01-0000_UP-170" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-171_R-1711" RefId="M-00FA_A-0001-01-0000_UP-171" />
@@ -699,6 +702,12 @@
                 <when test="4 9">
                   <!-- SCD30, SCD41 output Co2 -->
                   <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-64_R-641" />
+                  <choose ParamRefId="M-00FA_A-0001-01-0000_UP-203_R-2031">
+                    <!-- if there is also a voc sensor specified, we return Co2Calc, too  -->
+                    <when test=">0">
+                      <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-65_R-651" />
+                    </when>
+                  </choose>
                 </when>
                 <!-- request sensor values -->
                 <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-50_R-501" />

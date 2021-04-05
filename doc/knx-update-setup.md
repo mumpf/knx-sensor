@@ -46,6 +46,8 @@ Find the version of your hardware board (v1, v2, v3 or v3.1).
             -DBOARD_MASIFI_V2 
       or 
             -DBOARD_MASIFI_V1
+      or (for the outdoor module)
+            -DBOARD_MASIFI_AUSSEN_V13
 
     - there exist different versions with CRYSTALLESS setting.
       Ensure that

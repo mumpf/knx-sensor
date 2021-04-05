@@ -2,18 +2,18 @@
 #include "Hardware.h"
 
 #include "Sensor.h"
-#include "SensorSHT3x.h"
-#include "SensorBME280.h"
+// #include "SensorSHT3x.h"
+// #include "SensorBME280.h"
 #include "SensorBME680.h"
-#include "SensorSCD30.h"
+// #include "SensorSCD30.h"
 #include "SensorSGP30.h"
-#include "SensorIAQCore.h"
-#include "SensorOPT300x.h"
-#include "SensorVL53L1X.h"
+// #include "SensorIAQCore.h"
+// #include "SensorOPT300x.h"
+// #include "SensorVL53L1X.h"
 #include "OneWire.h"
-#include "OneWireDS2482.h"
+// #include "OneWireDS2482.h"
 #include "WireBus.h"
-#include "WireDevice.h"
+// #include "WireDevice.h"
 #include "IncludeManager.h"
 
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
@@ -39,19 +39,6 @@ const uint8_t cFirmwareRevision = 0; // 0-63
 #define BIT_LUX 256
 #define BIT_TOF 512
 
-// #define SENSOR_SHT3X 1
-// #define SENSOR_BME280 2
-// #define SENSOR_BME280_CO2 3
-// #define SENSOR_BME680 4
-// #define SENSOR_BME680_CO2 5
-// #define SENSOR_CO2 6
-// #define SENSOR_CO2_BME280 7
-// #define SENSOR_CO2_BME680 8
-// #define SENSOR_IAQCORE 9
-// #define SENSOR_IAQCORE_SHT3X 10
-// #define SENSOR_IAQCORE_BME280 11
-// #define SENSOR_MASK 0x7E
-
 uint32_t gStartupDelay;
 uint32_t gHeartbeatDelay;
 bool gIsRunning = false;
@@ -74,6 +61,7 @@ Logic gLogic;
 WireBus gBusMaster;
 
 typedef bool (*getSensorValue)(MeasureType, float&);
+void ProcessInterrupt();
 
 uint16_t getError() {
     return (uint16_t)knx.getGroupObject(LOG_KoError).value(getDPT(VAL_DPT_7));
@@ -180,6 +168,13 @@ void ProcessReadRequests() {
     }
 }
 
+void loopSubmodules() {
+    knx.loop();
+    if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
+        gBusMaster.loop();
+    gLogic.loop();
+}
+
 // true solgange der Start des gesamten Moduls verzögert werden soll
 bool startupDelay()
 {
@@ -193,9 +188,9 @@ void sensorDelayCallback(uint32_t iMillis) {
     uint32_t lMillis = millis();
     while (millis() - lMillis < iMillis) {
         if (gIsRunning) {
-            knx.loop();
             ProcessHeartbeat();
-            gLogic.loop();
+            ProcessInterrupt();
+            loopSubmodules();
         }
     }
     // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
@@ -596,6 +591,9 @@ bool processDiagnoseCommand() {
         // because it means firmware version of the outermost module
         sprintf(lBuffer, "VER [%d] %d.%d", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
         lOutput = true;
+    } else if (lBuffer[0] == 'c') {
+        sprintf(lBuffer, "%d00 kHz", Sensor::getMaxI2cSpeed());
+        lOutput = true;
     } else {
         // let's check other modules for this command
         lOutput = gLogic.processDiagnoseCommand();
@@ -686,17 +684,15 @@ void appLoop()
     // we process heartbeat
     ProcessHeartbeat();
     ProcessReadRequests();
-    gLogic.loop();
-    if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
-        gBusMaster.loop();
-    
+    loopSubmodules();
+
     // at Startup, we want to send all values immediately
     ProcessSensors(gForceSensorRead);
     gForceSensorRead = false;
-    knx.loop();
+    loopSubmodules();
 
     Sensor::sensorLoop();
-    knx.loop();
+    loopSubmodules();
 }
 
 // handle interrupt from save pin
@@ -765,6 +761,8 @@ void appSetup(bool iSaveSupported)
         if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
         {
             bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & LOG_IdSearchMask;
+            // Loogic should call busmaster loop as often als knx loop
+            Logic::addLoopCallback(WireBus::loopCallback, &gBusMaster);
             gBusMaster.setup(lSearchNewDevices, true);
         }
     }
