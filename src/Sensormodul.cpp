@@ -75,6 +75,10 @@ void sendError() {
     knx.getGroupObject(LOG_KoError).objectWritten();
 }
 
+bool callOneWire() {
+    return (boardWithOneWire() && ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift));
+}
+
 void ProcessHeartbeat()
 {
     // the first heartbeat is send directly after startup delay of the device
@@ -170,7 +174,7 @@ void ProcessReadRequests() {
 
 void loopSubmodules() {
     knx.loop();
-    if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
+    if (callOneWire())
         gBusMaster.loop();
     gLogic.loop();
 }
@@ -758,12 +762,12 @@ void appSetup(bool iSaveSupported)
             attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
 #endif
         gLogic.setup(false);
-        if ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift)
+        if (callOneWire())
         {
             bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & LOG_IdSearchMask;
             // Loogic should call busmaster loop as often als knx loop
             Logic::addLoopCallback(WireBus::loopCallback, &gBusMaster);
-            gBusMaster.setup(lSearchNewDevices, true);
+            gBusMaster.setup(0, lSearchNewDevices, true);
         }
     }
 }

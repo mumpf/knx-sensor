@@ -64,7 +64,56 @@ Die letzen beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 
 ## Einführung
 
-TODO
+Die vorliegende Software ermöglicht es, ein Do-It-Yourself (DIY) KNX-Sensormodul zu erstellen, das mit der ETS5 programmiert werden kann. Sie besteht, wie bei KNX üblich, aus 2 Teilen:
+
+* der Firmware, die in die Hardware geladen wird
+* der ETS-Applikation (knxprod-Datei), die in die ETS geladen wird.
+
+Ferner wird das gesamte Setup zur Entwicklung, Änderung und Erstellung der Software mitgeliefert.
+
+### Hardware
+
+Die bevorzugte Hardware (auf der auch die Entwicklung getestet wird), ist das Sensormodul von Masifi, beschrieben als [Raum Sensormodul](https://knx-user-forum.de/forum/%C3%B6ffentlicher-bereich/knx-eib-forum/diy-do-it-yourself/1479195-raum-sensormodul-hw-thread-f%C3%BCr-temp-hum-pres-voc-co2-1-wire-buzzer) im KNX-User-Forum.
+
+Die Software kann recht einfach auf andere Hardware portiert werden, die auf einem SAMD21 basiert, die Kommunikation mit KNX kann über einen NCN5120/5130 erfolgen oder auch über eine Siemens BCU. Sensoren werden über I2C angeschlossen.
+
+### Funktionsumfang
+
+Die Applikation und die Firmware stellen sehr viele Funktionen in verschiedenen Bereichen zur Verfügung. Dabei ist zu betonen, dass diese verschiedenen Funktionalitäten nicht unbedingt in beliebiger Kombination auch funktionieren können. Gerade hardwareabhängige Funktionen sind nicht in beliebiger Kombinatorik gedacht und auch nicht immer möglich.
+
+Das soll nicht von der Nutzung abhalten, es soll nur klar machen, dass die Intention der Software eine dezentrale ist: Es soll an verschiedensten Stellen im Haus die Möglichkeit gegeben werden, ein paar Kleinigkeiten zu machen (z.B. Temperatur+Luftfeuchte messen, Fensterkontakt abfragen, Sperren durch einen Piep zu bestätigen).
+
+Falls versucht wird, mit dem Sensormodul alle Funktionen gleichzeitig zu nutzen, also:
+
+* 6 Inputs (Fensterkontakte, Schalter)
+* 5 iButtons
+* 15 1-Wire-Temperatursensoren
+* 5 1-Wire Temp-/Hum-Sensoren
+* LED-Ausgabe
+* Buzzer
+* Temperaturmessung
+* Luftfeuchtemessung
+* Luftdruckmessung
+* VOC-Messung
+* CO2-Messung
+* Helligkeitsmessung
+* Entfernungsmessung
+
+das alles z.B. pro Stockwerk anzuschließen und dann auch noch über 80 Logikkanäle das restliche Haus zu steuern, dann wird das potentiell nicht laufen. Eventuell macht es dann mehr Sinn, die Funktionen auf 2, 3 oder 4 Sensormodule aufzuteilen und die in die einzelnen Räume zu plazieren und in den Räumen nur die Funktionalitäten in Betrieb zu nehmen, die dort sinnvoll sind.
+
+Es ist wichtig zu verinnerlichen, dass die vielen Funktionen nicht dafür da sind, alle in einem Gerät genutzt zu werden, sondern dass man in vielen Geräten eher einige Wenige Funktionen nutzen kann.
+
+Hardwareunabhängige Funktionen, in diesem Fall das Logikmodul, sind allerdings so konzipiert, dass sie immer in beliebiger Kombination und in vollem Umfang mit den anderen Features funktionieren und können bzw. sollen auch so genutzt werden.
+
+### Credits
+
+Diese Software wäre ohne die Arbeiten und der Unetstützung einiger Leute aus dem KNX-User-Forum nicht möglich gewesen. Ich möchte mich an dieser Stelle besonders bedanken bei:
+
+* **thesing** für den mit der ETS programmierbaren [KNX-Stack](https://knx-user-forum.de/forum/%C3%B6ffentlicher-bereich/knx-eib-forum/diy-do-it-yourself/1216828-esp8266-knx-mit-ets)
+* **Masifi** für das [Raum-Sensormodul](https://knx-user-forum.de/forum/%C3%B6ffentlicher-bereich/knx-eib-forum/diy-do-it-yourself/1479195-raum-sensormodul-hw-thread-f%C3%BCr-temp-hum-pres-voc-co2-1-wire-buzzer) und für die vielen anregenden Diskussionen
+* **proggerKA** und **OutOfSync** für die Diskussionen, wie man die Programmierung mit der ETS [schneller machen kann](https://knx-user-forum.de/forum/%C3%B6ffentlicher-bereich/knx-eib-forum/diy-do-it-yourself/1635521-wie-kommuniziert-die-ets-mit-knx-ger%C3%A4ten-z-b-beim-partiellen-programmieren).
+* **Klaus Gütter** durch seine vielen Beiträge im Forum, die mich immer wieder zum nachdenken und zu Verbesserungsideen inspiriert haben.
+* allen anderen im [KNX-User-Forum](https://knx-user-forum.de), die durch Beiträge direkt oder indirekt diese Software ermöglicht haben.
 
 ## Allgemeine Parameter
 
