@@ -140,6 +140,6 @@ You can import this knxprod in your ETS (minimum 5.6) like any other knxprod.
 
 ## Programming with ETS
 
-This works the same way as with all other KNX devices. For the initial programming you should program the physical address (PA) first, then transfer the application program (do not use ETS function "PA + Application program").
+This works the same way as with all other KNX devices. There is no need anymore to program the physical address first or to transfer the complete application program after initial programming.
 
-Afterwards you can use partial programming as usual.
+Simply use the "Program"-Button or any programming way you are used to and ETS will do the correct thing in the fastest way possible.

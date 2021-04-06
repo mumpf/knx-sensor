@@ -57,6 +57,7 @@ Die letzen beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 * 1-Wire-Unterstützung mit 30 Kanälen (Siehe Applikationsbeschreibung WireGateway)
 * Unterstützung von Longframes beim Programmieren durch die ETS
 * Unterstützung von partieller Programmierung durch die ETS, wobei nur die geänderten Parameter übertragen werden, dadurch wesentlich schnellere Programmierung
+* Auch eine bestimmte Reiehnfolge der Programmierung (früher: erst PA, dann Applikationsprogramm, erst dann geht partiell) ist nicht mehr erforderlich. Alle Programmierfunktionen (z.B. "PA + Applikation", aber auch immer "Partiell") gehen jetzt, die ETS macht dann das "Richtige" draus.
 * Bedingt durch die wesentlich schnellere Progrmmierung gibt es nur noch eine ETS Applikation mit 80 Logikkanälen
 * Diese Firmware unterstützt auch den Aussensensor von Masifi über die Einstellung -DBOARD_MASIFI_AUSSEN_V13
 
