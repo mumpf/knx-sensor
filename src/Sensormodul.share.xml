@@ -238,16 +238,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-168" Name="Sensor1Wire"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"      Offset="0" BitOffset="7" Text="1 Wire aktivieren?" Value="0" />
               </Union>
 
-              <!-- the following parameters are just for internal reasons (for logical OR evaluation) -->
-              <Parameter Id="M-00FA_A-0001-01-0000_P-161" Name="IsBME280"           ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Es wird ein BME280 verwendet"        Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-162" Name="ShowCalibrationDel" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsdaten löschen zeigen?"  Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-163" Name="IsCo2Sensor"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Echter Co2-Sensor?"                  Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-164" Name="ShowCalibration"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsdaten anzeigen?"        Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-165" Name="ShowExtendedTab"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Zusatzfunktionen anzeigen?"          Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-166" Name="IsAirQuality"       ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Mit Luftqualität"                    Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-167" Name="IsI2C100kHz"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kann nur 100kHz I2C"                 Value="0" />
-              <Parameter Id="M-00FA_A-0001-01-0000_P-169" Name="IsBME680"           ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Es wird ein BME680 verwendet"        Value="0" />
-
+              <!-- parameters 161-169 (except 168) were used in app v2.x and should not be used anymore -->
               <Union SizeInBit="72">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="102" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-170" Name="DewOffset"       ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp"   Offset="0" BitOffset="0" Text="Taupunkt anpassen"                                                   SuffixText="x 0.1 °C" Value="0" />
@@ -294,6 +285,17 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-205" Name="LuxSensor"        ParameterType="M-00FA_A-0001-01-0000_PT-LuxSensors"   Offset="2" BitOffset="4"  Text="Helligkeitssensor"     Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-206" Name="TofSensor"        ParameterType="M-00FA_A-0001-01-0000_PT-TofSensors"   Offset="3" BitOffset="0"  Text="Näherungssensor"       Value="0" />
               </Union>
+
+              <!-- the following parameters are just for internal reasons (for logical OR evaluation) -->
+              <Parameter Id="M-00FA_A-0001-01-0000_P-210" Name="IsBME280"           ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Es wird ein BME280 verwendet"        Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-211" Name="IsBME680"           ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Es wird ein BME680 verwendet"        Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-212" Name="IsAirQuality"       ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Mit Luftqualität"                    Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-213" Name="IsCo2Sensor"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Echter Co2-Sensor?"                  Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-214" Name="IsI2C100kHz"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kann nur 100kHz I2C"                 Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-215" Name="ShowExtendedTab"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Zusatzfunktionen anzeigen?"          Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-216" Name="ShowCalibration"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsdaten anzeigen?"        Value="0" />
+              <Parameter Id="M-00FA_A-0001-01-0000_P-217" Name="ShowCalibrationDel" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Text="Kalibrierungsdaten löschen zeigen?"  Value="0" />
+
             </Parameters>
             <ParameterRefs>
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-100_R-1001" RefId="M-00FA_A-0001-01-0000_UP-100" />
@@ -359,16 +361,7 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-159_R-1591" RefId="M-00FA_A-0001-01-0000_UP-159" />
               <!-- checkboxes -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-160_R-1601" RefId="M-00FA_A-0001-01-0000_UP-160" /> <!-- Access="Read" /> -->
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-161_R-1611" RefId="M-00FA_A-0001-01-0000_P-161" Access="None" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-162_R-1621" RefId="M-00FA_A-0001-01-0000_P-162" Access="None" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-163_R-1631" RefId="M-00FA_A-0001-01-0000_P-163" Access="None" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-164_R-1641" RefId="M-00FA_A-0001-01-0000_P-164" Access="None" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-165_R-1651" RefId="M-00FA_A-0001-01-0000_P-165" Access="None" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-166_R-1661" RefId="M-00FA_A-0001-01-0000_P-166" Access="None" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-167_R-1671" RefId="M-00FA_A-0001-01-0000_P-167" Access="None" />
-
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-168_R-1681" RefId="M-00FA_A-0001-01-0000_UP-168" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_P-169_R-1691" RefId="M-00FA_A-0001-01-0000_P-169" Access="None" />
 
               <!-- Dewpoint -->
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-170_R-1701" RefId="M-00FA_A-0001-01-0000_UP-170" />
@@ -409,6 +402,14 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-204_R-2042" RefId="M-00FA_A-0001-01-0000_UP-204" Access="Read" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-205_R-2051" RefId="M-00FA_A-0001-01-0000_UP-205" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-206_R-2061" RefId="M-00FA_A-0001-01-0000_UP-206" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-210_R-2101" RefId="M-00FA_A-0001-01-0000_P-210" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-211_R-2111" RefId="M-00FA_A-0001-01-0000_P-211" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-212_R-2121" RefId="M-00FA_A-0001-01-0000_P-212" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-213_R-2131" RefId="M-00FA_A-0001-01-0000_P-213" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-214_R-2141" RefId="M-00FA_A-0001-01-0000_P-214" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-215_R-2151" RefId="M-00FA_A-0001-01-0000_P-215" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-216_R-2161" RefId="M-00FA_A-0001-01-0000_P-216" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_P-217_R-2171" RefId="M-00FA_A-0001-01-0000_P-217" Access="None" />
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="M-00FA_A-0001-01-0000_O-50" Name="RequestValues" Text="Sensorwerte anfordern" Number="50" FunctionText="Alle Werte senden" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-16" />
@@ -798,7 +799,7 @@
                   </ParameterBlock>
                 </when>
               </choose>
-              <choose ParamRefId="M-00FA_A-0001-01-0000_P-165_R-1651">
+              <choose ParamRefId="M-00FA_A-0001-01-0000_P-215_R-2151">
                 <!-- Zusatzfunktionen anzeigen? -->
                 <when test="1">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-76" Name="Zusatzfunktionen" Text="Zusatzfunktionen">
@@ -842,7 +843,7 @@
                       </when>
                     </choose>
                     <!-- Luftgüteampel -->
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-166_R-1661">
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-212_R-2121">
                       <when test="1">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-103_R-1031" />
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-103_R-1031">
@@ -861,7 +862,7 @@
                       </when>
                     </choose>
                     <!-- Kalibrierung Voc -->
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-164_R-1641">
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-216_R-2161">
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-104_R-1041" />
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-104_R-1041">
@@ -874,7 +875,7 @@
                       </when>
                     </choose>
                     <!-- Kalibrierung Voc zurücksetzen für BME680 und SGP30 -->
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-162_R-1621">
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-217_R-2171">
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-105_R-1051" />
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-100" Text="Es ist vollkommen egal, welchen Wert dieser Parameter hat. Die Kalibrierungsdaten werden zurückgesetzt, wenn sich der Wert dieses Parameters ändert und die Applikation hochgeladen wurde. Danach bleiben die Daten erhalten, bis sich der Wert wieder ändert." UIHint="Information" />

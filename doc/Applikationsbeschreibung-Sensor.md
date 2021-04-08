@@ -48,7 +48,7 @@ Die letzen beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 * Firmware-Update mit Watchdog-Unterstützung, neues Kapitel 'Watchdog-Unterstützung' hinzugefügt
 * Für die Programmierung werden jetzt auch "Long Frames" unterstützt, sofern das die Schnittstelle und alle Koppler auf dem Programmierpfad unterstützen. Für 40 Logikkanäle sinkt die Programmierzeit von knapp 2 Minuten auf etwas mehr als eine halbe Minute (ist also um den Faktor 2.5 schneller). Getestet mit der MDT-IP-Schnittstelle.
 
-09.04.2021 Firmware 3.0, Applikation 3.0
+09.04.2021 Firmware 3.0, Applikation 3.1
 
 * Unterstützung des Helligkeitssensors OPT300x
 * Unterstützung des Entfernungssensors VL53L1X (Time-of-flight Sensor)
@@ -549,9 +549,9 @@ Im Allgemeinen sollte es nicht nötig sein, die Kalibrierungsdaten zu löschen. 
 
 Ab dieser Applikationsversion ist das Update einfacher geworden, da es nur noch eine Version mit 80 Kanälen gibt. Die bisherige Notwendigkeit, verschiedene Applikationen anzubieten, war der langen Programmierzeit mit der ETS geschuldet. Diese Applikation und deren Firmware unterstützt nun partielles Programmieren mit einem sehr effektiven Delta-Modus, der nur die geänderten Parameter an das Sensormodul schickt und so die Programmierzeiten unabhängig von der Kanalanzahl kurz hält.
 
-Egal welche Applikation (v2.4 - v2.7) man bisher in Benutzung hatte, man kann sie vollständig auf die v3.0 aktualisieren. Alle Einstellungen bei den Sensoren und den Logiken bleiben erhalten. Hat man bisher 10, 20 oder 40 Logikkanäle genutzt, stehem einen nach dem Update 80 Logikkanäle zur Verfügung. Die Programmierzeiten sind im Schnitt (trotz mehr Kanäle) gesunken. Falls die Schnittstelle zum Bus auch einen Long-Frame-Support bietet, wird das auch vom Sensormodul unterstützt und automatisch genutzt (ohne dass man etwas einstellen muss).
+Egal welche Applikation (v2.4 - v2.7) man bisher in Benutzung hatte, man kann sie vollständig auf die v3.1 aktualisieren. Alle Einstellungen bei den Sensoren und den Logiken bleiben erhalten. Hat man bisher 10, 20 oder 40 Logikkanäle genutzt, stehem einen nach dem Update 80 Logikkanäle zur Verfügung. Die Programmierzeiten sind im Schnitt (trotz mehr Kanäle) gesunken. Falls die Schnittstelle zum Bus auch einen Long-Frame-Support bietet, wird das auch vom Sensormodul unterstützt und automatisch genutzt (ohne dass man etwas einstellen muss).
 
-Wird von einer Version kleiner 2.4 ein Update auf 3.0 gemacht, so ist dies technisch möglich. Allerdings muss man dann manuell alle Schritte nachziehen, die auch bei einem Update auf 2.4 notwendig gewesen wären.
+Wird von einer Version kleiner 2.4 ein Update auf 3.1 gemacht, so ist dies technisch möglich. Allerdings muss man dann manuell alle Schritte nachziehen, die auch bei einem Update auf 2.4 notwendig gewesen wären.
 
 Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS ein Update durchzuführen, ohne dass die Parameter und zugeordneten GA gelöscht werden.
 
@@ -559,9 +559,9 @@ Im folgenden werden die Schritte beschrieben, die notwendig sind, um mit der ETS
 
 In der Annahme, dass eine 10-Kanal-knxprod (z.B. Sensormodul-v2.4-10.knxprod oder Sensormodul-v2.0-10.knxprod) bereits genutzt wird und das Gerät alle 10 Logikkanäle belegt hat, wollen wir auf die aktuelle Version mit 80 Kanälen wechseln.
 
-Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v3.0.knxprod" in die ETS.
+Wir gehen in der ETS auf die Katalogansicht und importieren die Datei "Sensormodul-v3.1.knxprod" in die ETS.
 
-Nach erfolgreichem Import hat man ein Produkt mit dem Namen "WP-Sensormodul" mit der Version 3.0. Das bereits genutzte "WP-Sensormodul" mit der Version 2.4 steht auch da.
+Nach erfolgreichem Import hat man ein Produkt mit dem Namen "WP-Sensormodul" mit der Version 3.1. Das bereits genutzte "WP-Sensormodul" mit der Version 2.4 steht auch da.
 
 ## Das neue Sensormodul ins eigene Projekt einfügen
 
@@ -569,7 +569,7 @@ Als nächstes wird das Produkt "WP-Sensormodul" ins eigene Projekt eingefügt. D
 
 ## Das "alte" Sensormodul aktualisieren
 
-Jetzt wählt man im eigenen Projekt das bereits benutzte und parametrierte "WP-Sensormodul" v2.4. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V2.4". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-Logic V3.0" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
+Jetzt wählt man im eigenen Projekt das bereits benutzte und parametrierte "WP-Sensormodul" v2.4. Daraufhin clickt man in den Eigenschaften auf "Information", dann auf "Applikationsprogramm". Auf dieser Seite sieht man dann unten ein Dropdown, in dem die aktuelle Version der Applikation steht "WP-Sensor-Logic V2.4". Wenn man die Dropdown aufklappt, wird man auch ein "WP-Sensor-OneWire-Logic-beta V3.1" finden. **Auf keinen fall diesen Eintrag in der Dropdown auswählen.**
 
 Stattdessen clickt man auf den "Aktualisieren"-Button darunter. Jetzt wird die Applikation von der ETS aktualisiert und alle Parameter bzw. GA-Zuordnungen übernommen.
 
@@ -591,9 +591,9 @@ Beim Update von Version 1.x auf eine Version 2.x gehen fast alle Zuordnungen von
 
 * Alle weiteren eventuellen Parameteränderungen liegen im Logikmodul und sind im Kapitel **Upgrade der Applikation** in der Applikationsbeschreibung Logik enthalten.
 
-**Achtung - Manueller Schritt notwendig nach dem Update von Version 2.x auf Version 3.0:**
+**Achtung - Manueller Schritt notwendig nach dem Update von Version 2.x auf Version 3.1:**
 
-Beim Update bleiben alle Sensoreinstellungen erhalten. Auf der Seite "Allgemeine Parameter" bei der Hardwareauswahl steht im Auswahlfeld "Sensorkombination" noch der Eintrag, der in der Applikation v2.x ausgewählt worden ist. Der Wert in diesem Auswahlfeld muss manuell auf "Einzelauswahl" gestellt werden. Ohne diese Einstellung gehen beim nächsten Update der Applikation alle Sensoreinstellungen und zugeordnete Kommunikationsobjekte verloren. 
+Beim Update bleiben alle Sensoreinstellungen erhalten. Auf der Seite "Allgemeine Parameter" bei der Hardwareauswahl steht im Auswahlfeld "Sensorkombination" noch der Eintrag, der in der Applikation v2.x ausgewählt worden ist. Der Wert in diesem Auswahlfeld muss manuell auf "Einzelauswahl" gestellt werden. Ohne diese Einstellung gehen bei zukünftigen Update der Applikation alle Sensoreinstellungen und zugeordnete Kommunikationsobjekte verloren.
 
 ## Hardware
 
@@ -630,7 +630,7 @@ DS2484
 
 ## Übersicht der vorhandenen Kommunikationsobjekte
 
-Die Liste zeigt nur die Kommunikationsobjekte (KO) der neuesten version 2.x. Es gibt noch weitere KO, die logisch betrachtet zum Logikmodul gehören, diese werden hier nicht aufgelistet, sondern nur auf das Logikmodul verwiesen.
+Die Liste zeigt nur die Kommunikationsobjekte (KO) der neuesten version 3.x. Es gibt noch weitere KO, die logisch betrachtet zum Logikmodul gehören, diese werden hier nicht aufgelistet, sondern nur auf das Logikmodul verwiesen.
 
 KO | Name | DPT | Bedeutung
 :---:|:---|---:|:--
