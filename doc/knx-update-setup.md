@@ -87,4 +87,3 @@ Afterwards you have to reprogram physical address (PA) and Application from ETS.
 ## How to build a knxprod for this firmware
 
 Here you have to do exactly the same steps as desribed in the according chapter in the knx-dev-beta-setup.pdf document.
- 
