@@ -25,7 +25,7 @@ With small changes it should be possible to use it on any SAMD21 board.
 There are application descriptions available:
 
 * [Application Sensor](https://github.com/mumpf/knx-sensor/blob/beta/doc/Applikationsbeschreibung-Sensor.pdf) describes features of the sensor part of application and firmware (in German).
-* [Application WireGateway](https://github.com/mumpf/knx-sensor/blob/beta/doc/Applikationsbeschreibung-Wire.pdf) describes features of the one wire part of application and firmware (in German).
+* [Application WireGateway](https://github.com/mumpf/knx-wire/blob/beta/doc/Applikationsbeschreibung-Wire.pdf) describes features of the one wire part of application and firmware (in German).
 * [Application Logic](https://github.com/mumpf/knx-logic/blob/beta/doc/Applikationsbeschreibung-Logik.pdf) describes features of the logic part of application and firmware (in German).
 
 Thanks to all, who made this project successful.
