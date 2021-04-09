@@ -7,9 +7,9 @@ Itis implemented for the SAMD21 version of the knx stack. Currently it uses my f
 
 It is a PlatformIO project and needs a working ETS 5.6 (or higher) installed on the same PC.
 
-Initial installation and build instructions can be found in the [project itself](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-dev-setup.md).
+Initial installation and build instructions can be found in the [project itself](https://github.com/mumpf/knx-sensor/blob/beta/doc/knx-dev-beta-setup.md).
 
-Update instruction (for an updated firmware or application build) can be also found in the [project documentation](https://github.com/mumpf/knx-sensor/blob/release/doc/knx-update-setup.md)
+Update instruction (for an updated firmware or application build) can be also found in the [project documentation](https://github.com/mumpf/knx-sensor/blob/beta/doc/knx-update-setup.md)
 
 This project depends on following projects:
 
@@ -24,8 +24,8 @@ With small changes it should be possible to use it on any SAMD21 board.
 
 There are application descriptions available:
 
-* [Application Sensor](https://github.com/mumpf/knx-sensor/blob/release/doc/Applikationsbeschreibung-Sensor.pdf) describes features of the sensor part of application and firmware (in German).
-* [Application WireGateway](https://github.com/mumpf/knx-sensor/blob/release/doc/Applikationsbeschreibung-Wire.pdf) describes features of the one wire part of application and firmware (in German).
-* [Application Logic](https://github.com/mumpf/knx-logic/blob/release/doc/Applikationsbeschreibung-Logik.pdf) describes features of the logic part of application and firmware (in German).
+* [Application Sensor](https://github.com/mumpf/knx-sensor/blob/beta/doc/Applikationsbeschreibung-Sensor.pdf) describes features of the sensor part of application and firmware (in German).
+* [Application WireGateway](https://github.com/mumpf/knx-sensor/blob/beta/doc/Applikationsbeschreibung-Wire.pdf) describes features of the one wire part of application and firmware (in German).
+* [Application Logic](https://github.com/mumpf/knx-logic/blob/beta/doc/Applikationsbeschreibung-Logik.pdf) describes features of the logic part of application and firmware (in German).
 
 Thanks to all, who made this project successful.
