@@ -15,9 +15,9 @@ void setup()
     SerialUSB.println("Startup called...");
     ArduinoPlatform::SerialDebug = &SerialUSB;
 
-#ifdef LED_YELLOW_PIN
-    pinMode(LED_YELLOW_PIN, OUTPUT);
-    digitalWrite(LED_YELLOW_PIN, HIGH);
+#ifdef INFO_LED_PIN
+    pinMode(INFO_LED_PIN, OUTPUT);
+    ledInfo(true);
 #endif    
 
     // moved to checkBoard!!!
@@ -37,9 +37,7 @@ void setup()
 
     // start the framework.
     knx.start();
-#ifdef LED_YELLOW_PIN
-    digitalWrite(LED_YELLOW_PIN, LOW);
-#endif
+    ledInfo(false);
 }
 
 void loop()

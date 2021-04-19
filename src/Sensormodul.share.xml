@@ -157,7 +157,7 @@
             <Parameters>
               <!-- Parameter for this device, channel independent -->
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="75" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-100" Name="Error"      ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="0" Text="Fehlerobjekt für Standardmesswerte anzeigen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-101" Name="Dewpoint"   ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="1" Text="Taupunkt berechnen" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-102" Name="Comfort"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="2" Text="Behaglichkeitszone ausgeben" Value="0" />
@@ -166,7 +166,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-105" Name="DeleteData" ParameterType="M-00FA_A-0001-01-0000_PT-DeleteData" Offset="0" BitOffset="5" Text="Kalibrierungsdaten löschen" Value="0" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="76" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-110" Name="TempOffset"       ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp"   Offset="0" BitOffset="0"  Text="Temperatur anpassen (interner Messwert)"                               SuffixText="x 0.1 °C" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-111" Name="TempCycle"        ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1" BitOffset="0"  Text="Temperatur zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-112" Name="TempDeltaAbs"     ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Offset="5" BitOffset="0"  Text="Temperatur bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="x 0.1 °C" Value="0" />
@@ -179,7 +179,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-119" Name="TempExt2Percent"  ParameterType="M-00FA_A-0001-01-0000_PT-Percent"      Offset="12" BitOffset="0" Text="    Anteil externer Messwert 2" SuffixText="Anteil(e)" Value="0" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="49" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="89" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-120" Name="HumOffset"        ParameterType="M-00FA_A-0001-01-0000_PT-OffsetHum"    Offset="0" BitOffset="0"  Text="Luftfeuchte anpassen (interner Messwert)"                               SuffixText="%"        Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-121" Name="HumCycle"         ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1" BitOffset="0"  Text="Luftfeuchte zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-122" Name="HumDeltaAbs"      ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsHum"  Offset="5" BitOffset="0"  Text="Luftfeuchte bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="%"        Value="0" />
@@ -192,7 +192,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-129" Name="HumExt2Percent"   ParameterType="M-00FA_A-0001-01-0000_PT-Percent"      Offset="12" BitOffset="0" Text="    Anteil externer Messwert 2" SuffixText="Anteil(e)" Value="0" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="62" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="102" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-130" Name="PreOffset"        ParameterType="M-00FA_A-0001-01-0000_PT-OffsetPre"    Offset="0" BitOffset="0"  Text="Luftdruck anpassen (interner Messwert)"                               SuffixText="mbar"     Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-131" Name="PreCycle"         ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1" BitOffset="0"  Text="Luftdruck zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-132" Name="PreDeltaAbs"      ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsPre"  Offset="5" BitOffset="0"  Text="Luftdruck bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="mbar"     Value="0" />
@@ -206,7 +206,7 @@
               </Union>
 
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="75" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="115" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-140" Name="VocOffset"        ParameterType="M-00FA_A-0001-01-0000_PT-OffsetVoc"    Offset="0"  BitOffset="0" Text="Voc anpassen (interner Messwert)" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-141" Name="VocCycle"         ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1"  BitOffset="0" Text="Voc zyklisch senden (0=nicht senden)" SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-142" Name="VocDeltaAbs"      ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsVoc"  Offset="5"  BitOffset="0" Text="Voc bei absoluter Abweichung senden (0=nicht senden)" Value="0" />
@@ -220,7 +220,7 @@
               </Union>
 
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="88" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="128" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-150" Name="Co2Offset"        ParameterType="M-00FA_A-0001-01-0000_PT-OffsetCo2"    Offset="0" BitOffset="0"  Text="CO2 anpassen (interner Messwert)"                               SuffixText="ppm"      Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-151" Name="Co2Cycle"         ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1" BitOffset="0"  Text="CO2 zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-152" Name="Co2DeltaAbs"      ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsCo2"  Offset="5" BitOffset="0"  Text="CO2 bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="ppm"      Value="0" />
@@ -233,14 +233,14 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-159" Name="Co2Ext2Percent"   ParameterType="M-00FA_A-0001-01-0000_PT-Percent"      Offset="12" BitOffset="0" Text="    Anteil externer Messwert 2" SuffixText="Anteil(e)" Value="0" />
               </Union>
               <Union SizeInBit="8">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="101" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="141" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-160" Name="SensorDevice" ParameterType="M-00FA_A-0001-01-0000_PT-SensorDevices" Offset="0" BitOffset="1" Text="Sensorkombination" Value="12" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-168" Name="Sensor1Wire"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"      Offset="0" BitOffset="7" Text="1 Wire aktivieren?" Value="0" />
               </Union>
 
               <!-- parameters 161-169 (except 168) were used in app v2.x and should not be used anymore -->
               <Union SizeInBit="72">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="102" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="142" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-170" Name="DewOffset"       ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTemp"   Offset="0" BitOffset="0" Text="Taupunkt anpassen"                                                   SuffixText="x 0.1 °C" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-171" Name="DewCycle"        ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1" BitOffset="0" Text="Taupunkt zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-172" Name="DewDeltaAbs"     ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTemp" Offset="5" BitOffset="0" Text="Taupunkt bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="x 0.1 °C" Value="0" />
@@ -248,7 +248,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-174" Name="DewSmooth"       ParameterType="M-00FA_A-0001-01-0000_PT-Smooth"       Offset="8" BitOffset="0" Text="Taupunkt glätten: P ="                                               SuffixText=""         Value="1" />
               </Union>
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="111" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="151" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-180" Name="LuxOffset"        ParameterType="M-00FA_A-0001-01-0000_PT-OffsetLux"    Offset="0"  BitOffset="0" Text="Helligkeit anpassen (Bereich in der Nähe von 0 Lux)"                   SuffixText="Lux"      Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-181" Name="LuxCycle"         ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1"  BitOffset="0" Text="Helligkeit zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-182" Name="LuxDeltaAbs"      ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsLux"  Offset="5"  BitOffset="0" Text="Helligkeit bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="Lux"      Value="0" />
@@ -262,7 +262,7 @@
               </Union>
 
               <Union SizeInBit="104">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="124" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="164" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-190" Name="TofOffset"        ParameterType="M-00FA_A-0001-01-0000_PT-OffsetTof"    Offset="0" BitOffset="0"  Text="Entfernung anpassen (interner Messwert)"                               SuffixText="mm"       Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-191" Name="TofCycle"         ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="1" BitOffset="0"  Text="Entfernung zyklisch senden (0=nicht senden)"                           SuffixText="Sekunden" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-192" Name="TofDeltaAbs"      ParameterType="M-00FA_A-0001-01-0000_PT-DeltaAbsTof"  Offset="5" BitOffset="0"  Text="Entfernung bei absoluter Abweichung senden (0=nicht senden)"           SuffixText="mm"       Value="0" />
@@ -276,7 +276,7 @@
               </Union>
 
               <Union SizeInBit="32">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="137" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="177" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-200" Name="TempSensor"       ParameterType="M-00FA_A-0001-01-0000_PT-TempSensors"  Offset="0" BitOffset="0"  Text="Temperatursensor"      Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-201" Name="HumSensor"        ParameterType="M-00FA_A-0001-01-0000_PT-HumSensors"   Offset="0" BitOffset="4"  Text="Luftfeuchtesensor"     Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-202" Name="PreSensor"        ParameterType="M-00FA_A-0001-01-0000_PT-PreSensors"   Offset="1" BitOffset="0"  Text="Luftdrucksensor"       Value="0" />

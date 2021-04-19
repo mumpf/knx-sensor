@@ -231,10 +231,13 @@
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2031" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-203_R-2032" />
                     <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2041" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-204_R-2042" />
                     <!-- Zusatzfunktionen anzeigen? -->
-                    <!-- <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_P-215_R-2151"  SourceParamRefRef="M-00FA_A-0001-01-0000_P-215_R-2151" /> -->
                   </when>
                 </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Vor dem Programmieren des Moduls die obige Dropdown auf 'Einzelauswahl' stellen und die gewünschten Sensoren bei den einzelnen Messwerten einstellen. Nur das wird vom Sensormodul v3.x ausgewertet." />
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
+                  <when test="&lt;12">
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Vor dem Programmieren des Moduls die obige Dropdown auf 'Einzelauswahl' stellen und die gewünschten Sensoren bei den einzelnen Messwerten einstellen. Nur so sind zukünftige Updates gewährleistet."  UIHint="Error" />
+                  </when>
+                </choose>
                 <!-- New sensor selection -->
                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-160_R-1601">
                   <when test="12">

@@ -2,18 +2,10 @@
 #include "Hardware.h"
 
 #include "Sensor.h"
-// #include "SensorSHT3x.h"
-// #include "SensorBME280.h"
 #include "SensorBME680.h"
-// #include "SensorSCD30.h"
 #include "SensorSGP30.h"
-// #include "SensorIAQCore.h"
-// #include "SensorOPT300x.h"
-// #include "SensorVL53L1X.h"
 #include "OneWire.h"
-// #include "OneWireDS2482.h"
 #include "WireBus.h"
-// #include "WireDevice.h"
 #include "IncludeManager.h"
 
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
@@ -23,7 +15,7 @@
 #include "Logic.h"
 
 const uint8_t cFirmwareMajor = 3;    // 0-31
-const uint8_t cFirmwareMinor = 0;    // 0-31
+const uint8_t cFirmwareMinor = 1;    // 0-31
 const uint8_t cFirmwareRevision = 0; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
@@ -200,64 +192,78 @@ void sensorDelayCallback(uint32_t iMillis) {
     // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
 }
 
+void AddSensorMetadata(Sensor* iSensor, uint8_t iSensorId) {
+    // additional sensor specific metadata
+    uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & LOG_DeleteDataMask;
+    if (iSensorId == SENS_BME680)
+    {
+        ((SensorBME680*)iSensor)->delayCallback(sensorDelayCallback);
+        ((SensorBME680*)iSensor)->setMagicKeyOffset(lMagicWordOffset);
+    }
+    else if (iSensorId == SENS_SGP30)
+    {
+        ((SensorSGP30*)iSensor)->setMagicKeyOffset(lMagicWordOffset);
+    }
+}
+
 // Starting all required sensors, this call may be blocking (with delay)
 void StartSensor()
 {
     Sensor* lSensor;
+    
     gSensor = 0;
     uint8_t lSensorId = (knx.paramByte(LOG_TempSensor) & LOG_TempSensorMask) >> LOG_TempSensorShift;
     if (lSensorId > 0) {
         gSensor |= BIT_Temp;
         lSensor = Sensor::factory(lSensorId, Temperature);
+        AddSensorMetadata(lSensor, lSensorId);
     }
     lSensorId = (knx.paramByte(LOG_HumSensor) & LOG_HumSensorMask) >> LOG_HumSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Hum;
         lSensor = Sensor::factory(lSensorId, Humidity);
+        AddSensorMetadata(lSensor, lSensorId);
     }
     lSensorId = (knx.paramByte(LOG_PreSensor) & LOG_PreSensorMask) >> LOG_PreSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Pre;
         lSensor = Sensor::factory(lSensorId, Pressure);
+        AddSensorMetadata(lSensor, lSensorId);
     }
     lSensorId = (knx.paramByte(LOG_VocSensor) & LOG_VocSensorMask) >> LOG_VocSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Voc | BIT_Co2Calc;
         lSensor = Sensor::factory(lSensorId, static_cast<MeasureType>(Voc | Accuracy | Co2Calc));
-        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & LOG_DeleteDataMask;
-        if (lSensorId == SENS_BME680)
-        {
-            ((SensorBME680*)lSensor)->delayCallback(sensorDelayCallback);
-            ((SensorBME680*)lSensor)->setMagicKeyOffset(lMagicWordOffset);
-        }
-        else if (lSensorId == SENS_SGP30) {
-            ((SensorSGP30*)lSensor)->setMagicKeyOffset(lMagicWordOffset);
-        }
+        AddSensorMetadata(lSensor, lSensorId);
     }
     lSensorId = (knx.paramByte(LOG_Co2Sensor) & LOG_Co2SensorMask) >> LOG_Co2SensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Co2;
         lSensor = Sensor::factory(lSensorId, Co2);
+        AddSensorMetadata(lSensor, lSensorId);
     }
     lSensorId = (knx.paramByte(LOG_LuxSensor) & LOG_LuxSensorMask) >> LOG_LuxSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_LUX;
         lSensor = Sensor::factory(lSensorId, Lux);
+        AddSensorMetadata(lSensor, lSensorId);
     }
     lSensorId = (knx.paramByte(LOG_TofSensor) & LOG_TofSensorMask) >> LOG_TofSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_TOF;
         lSensor = Sensor::factory(lSensorId, Tof);
+        AddSensorMetadata(lSensor, lSensorId);
     }
     // now start all sensors at the correct speed
     Sensor::beginSensors();
 }
+
 bool ReadSensorValue(MeasureType iMeasureType, float& eValue) {
     return Sensor::measureValue(iMeasureType, eValue);
 }
@@ -632,13 +638,11 @@ void ProcessKoCallback(GroupObject &iKo) {
         // println((bool)iKo.value(getDpt(VAL_DPT_1)));
         if ((bool)iKo.value(getDPT(VAL_DPT_1)))
             gForceSensorRead = true;
-    } else if (iKo.asap() == LOG_KoDiagnose) {
-        ProcessDiagnoseCommand(iKo);
     } else if (iKo.asap() >= LOG_KoExt1Temp && iKo.asap() <= LOG_KoExt2Tof) {
         // as soon as we receive any external sensor value, we mark this in our validity map
         gIsExternalValueValid[iKo.asap() - LOG_KoExt1Temp] = 1;
     } else {
-        gBusMaster.processKOCallback(iKo);
+        WireBus::processKOCallback(iKo);
         // else dispatch to logicmodule
         gLogic.processInputKo(iKo);
     }
@@ -731,8 +735,8 @@ void appSetup(bool iSaveSupported)
 {
     // try to get rid of occasional I2C lock...
     // savePower();
-    digitalWrite(PROG_LED_PIN, HIGH);
-    digitalWrite(LED_YELLOW_PIN, HIGH);
+    ledProg(true);
+    ledInfo(true);
     // delay(100);
     // restorePower();
     // check hardware availability
@@ -740,8 +744,8 @@ void appSetup(bool iSaveSupported)
     // moved to sensor lib
     // Wire.begin();
     // Wire.setClock(400000);
-    digitalWrite(PROG_LED_PIN, LOW);
-    digitalWrite(LED_YELLOW_PIN, LOW);
+    ledInfo(false);
+    ledProg(false);
     // The module prints its firmware version to the console
     printDebug("Firmware-Version [%d] %d.%d\n", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
 
