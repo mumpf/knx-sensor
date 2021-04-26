@@ -134,8 +134,8 @@
 #define LOG_Latitude                  15      // float
 #define LOG_Longitude                 19      // float
 #define LOG_BuzzerSilent              23      // uint16_t
-#define LOG_BuzzerNormal              39      // uint16_t
-#define LOG_BuzzerLoud                55      // uint16_t
+#define LOG_BuzzerNormal              25      // uint16_t
+#define LOG_BuzzerLoud                27      // uint16_t
 #define LOG_WireError                 45      // 1 Bit, Bit 7
 #define     LOG_WireErrorMask 0x80
 #define     LOG_WireErrorShift 7
@@ -824,7 +824,7 @@
 
 // Parameter per channel
 #define WIRE_ParamBlockOffset 8181
-#define WIRE_ParamBlockSize 17
+#define WIRE_ParamBlockSize 18
 #define WIRE_sDeviceId                  0      // char*, 7 Byte
 #define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
 #define WIRE_sId0                       1      // 4 Bits, Bit 7-4
@@ -864,84 +864,103 @@
 #define     WIRE_sIdBMask 0x0F
 #define     WIRE_sIdBShift 0
 #define WIRE_sModelFunction             7      // 8 Bits, Bit 7-0
+#define WIRE_sModelFunctionDS18B20      7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2408       7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2413       7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2438       7      // 8 Bits, Bit 7-0
-#define WIRE_sSensorOffset              8      // int8_t
-#define WIRE_sSensorCycle               9      // int32_t
-#define WIRE_sSensorDeltaAbs           13      // uint16_t
-#define WIRE_sSensorDeltaPercent       15      // uint8_t
-#define WIRE_sSensorSmooth             16      // uint8_t
-#define WIRE_sGroup1                    8      // 1 Bit, Bit 7
+#define WIRE_sBusMasterSelect1          8      // 2 Bits, Bit 7-6
+#define     WIRE_sBusMasterSelect1Mask 0xC0
+#define     WIRE_sBusMasterSelect1Shift 6
+#define WIRE_sBusMasterSelect2          8      // 2 Bits, Bit 7-6
+#define     WIRE_sBusMasterSelect2Mask 0xC0
+#define     WIRE_sBusMasterSelect2Shift 6
+#define WIRE_sBusMasterSelect3          8      // 2 Bits, Bit 7-6
+#define     WIRE_sBusMasterSelect3Mask 0xC0
+#define     WIRE_sBusMasterSelect3Shift 6
+#define WIRE_sSensorOffset              9      // int8_t
+#define WIRE_sSensorCycle              10      // int32_t
+#define WIRE_sSensorDeltaAbs           14      // uint16_t
+#define WIRE_sSensorDeltaPercent       16      // uint8_t
+#define WIRE_sSensorSmooth             17      // uint8_t
+#define WIRE_siButtonSendStatus         9      // 1 Bit, Bit 7
+#define     WIRE_siButtonSendStatusMask 0x80
+#define     WIRE_siButtonSendStatusShift 7
+#define WIRE_sGroup1                   10      // 1 Bit, Bit 7
 #define     WIRE_sGroup1Mask 0x80
 #define     WIRE_sGroup1Shift 7
-#define WIRE_sGroup2                    8      // 1 Bit, Bit 6
+#define WIRE_sGroup2                   10      // 1 Bit, Bit 6
 #define     WIRE_sGroup2Mask 0x40
 #define     WIRE_sGroup2Shift 6
-#define WIRE_sGroup3                    8      // 1 Bit, Bit 5
+#define WIRE_sGroup3                   10      // 1 Bit, Bit 5
 #define     WIRE_sGroup3Mask 0x20
 #define     WIRE_sGroup3Shift 5
-#define WIRE_sGroup4                    8      // 1 Bit, Bit 4
+#define WIRE_sGroup4                   10      // 1 Bit, Bit 4
 #define     WIRE_sGroup4Mask 0x10
 #define     WIRE_sGroup4Shift 4
-#define WIRE_sGroup5                    8      // 1 Bit, Bit 3
+#define WIRE_sGroup5                   10      // 1 Bit, Bit 3
 #define     WIRE_sGroup5Mask 0x08
 #define     WIRE_sGroup5Shift 3
-#define WIRE_sGroup6                    8      // 1 Bit, Bit 2
+#define WIRE_sGroup6                   10      // 1 Bit, Bit 2
 #define     WIRE_sGroup6Mask 0x04
 #define     WIRE_sGroup6Shift 2
-#define WIRE_sGroup7                    8      // 1 Bit, Bit 1
+#define WIRE_sGroup7                   10      // 1 Bit, Bit 1
 #define     WIRE_sGroup7Mask 0x02
 #define     WIRE_sGroup7Shift 1
-#define WIRE_sGroup8                    8      // 1 Bit, Bit 0
+#define WIRE_sGroup8                   10      // 1 Bit, Bit 0
 #define     WIRE_sGroup8Mask 0x01
 #define     WIRE_sGroup8Shift 0
-#define WIRE_sIoBitmask0                8      // 1 Bit, Bit 0
+#define WIRE_sIOSendStatus              9      // 1 Bit, Bit 7
+#define     WIRE_sIOSendStatusMask 0x80
+#define     WIRE_sIOSendStatusShift 7
+#define WIRE_sIOReadRequest             9      // 1 Bit, Bit 6
+#define     WIRE_sIOReadRequestMask 0x40
+#define     WIRE_sIOReadRequestShift 6
+#define WIRE_sIoBitmask0               10      // 1 Bit, Bit 0
 #define     WIRE_sIoBitmask0Mask 0x01
 #define     WIRE_sIoBitmask0Shift 0
-#define WIRE_sIoBitmask1                8      // 1 Bit, Bit 1
+#define WIRE_sIoBitmask1               10      // 1 Bit, Bit 1
 #define     WIRE_sIoBitmask1Mask 0x02
 #define     WIRE_sIoBitmask1Shift 1
-#define WIRE_sIoBitmask2                8      // 1 Bit, Bit 2
+#define WIRE_sIoBitmask2               10      // 1 Bit, Bit 2
 #define     WIRE_sIoBitmask2Mask 0x04
 #define     WIRE_sIoBitmask2Shift 2
-#define WIRE_sIoBitmask3                8      // 1 Bit, Bit 3
+#define WIRE_sIoBitmask3               10      // 1 Bit, Bit 3
 #define     WIRE_sIoBitmask3Mask 0x08
 #define     WIRE_sIoBitmask3Shift 3
-#define WIRE_sIoBitmask4                8      // 1 Bit, Bit 4
+#define WIRE_sIoBitmask4               10      // 1 Bit, Bit 4
 #define     WIRE_sIoBitmask4Mask 0x10
 #define     WIRE_sIoBitmask4Shift 4
-#define WIRE_sIoBitmask5                8      // 1 Bit, Bit 5
+#define WIRE_sIoBitmask5               10      // 1 Bit, Bit 5
 #define     WIRE_sIoBitmask5Mask 0x20
 #define     WIRE_sIoBitmask5Shift 5
-#define WIRE_sIoBitmask6                8      // 1 Bit, Bit 6
+#define WIRE_sIoBitmask6               10      // 1 Bit, Bit 6
 #define     WIRE_sIoBitmask6Mask 0x40
 #define     WIRE_sIoBitmask6Shift 6
-#define WIRE_sIoBitmask7                8      // 1 Bit, Bit 7
+#define WIRE_sIoBitmask7               10      // 1 Bit, Bit 7
 #define     WIRE_sIoBitmask7Mask 0x80
 #define     WIRE_sIoBitmask7Shift 7
-#define WIRE_sIoInvertBitmask0          9      // 1 Bit, Bit 0
+#define WIRE_sIoInvertBitmask0         11      // 1 Bit, Bit 0
 #define     WIRE_sIoInvertBitmask0Mask 0x01
 #define     WIRE_sIoInvertBitmask0Shift 0
-#define WIRE_sIoInvertBitmask1          9      // 1 Bit, Bit 1
+#define WIRE_sIoInvertBitmask1         11      // 1 Bit, Bit 1
 #define     WIRE_sIoInvertBitmask1Mask 0x02
 #define     WIRE_sIoInvertBitmask1Shift 1
-#define WIRE_sIoInvertBitmask2          9      // 1 Bit, Bit 2
+#define WIRE_sIoInvertBitmask2         11      // 1 Bit, Bit 2
 #define     WIRE_sIoInvertBitmask2Mask 0x04
 #define     WIRE_sIoInvertBitmask2Shift 2
-#define WIRE_sIoInvertBitmask3          9      // 1 Bit, Bit 3
+#define WIRE_sIoInvertBitmask3         11      // 1 Bit, Bit 3
 #define     WIRE_sIoInvertBitmask3Mask 0x08
 #define     WIRE_sIoInvertBitmask3Shift 3
-#define WIRE_sIoInvertBitmask4          9      // 1 Bit, Bit 4
+#define WIRE_sIoInvertBitmask4         11      // 1 Bit, Bit 4
 #define     WIRE_sIoInvertBitmask4Mask 0x10
 #define     WIRE_sIoInvertBitmask4Shift 4
-#define WIRE_sIoInvertBitmask5          9      // 1 Bit, Bit 5
+#define WIRE_sIoInvertBitmask5         11      // 1 Bit, Bit 5
 #define     WIRE_sIoInvertBitmask5Mask 0x20
 #define     WIRE_sIoInvertBitmask5Shift 5
-#define WIRE_sIoInvertBitmask6          9      // 1 Bit, Bit 6
+#define WIRE_sIoInvertBitmask6         11      // 1 Bit, Bit 6
 #define     WIRE_sIoInvertBitmask6Mask 0x40
 #define     WIRE_sIoInvertBitmask6Shift 6
-#define WIRE_sIoInvertBitmask7          9      // 1 Bit, Bit 7
+#define WIRE_sIoInvertBitmask7         11      // 1 Bit, Bit 7
 #define     WIRE_sIoInvertBitmask7Mask 0x80
 #define     WIRE_sIoInvertBitmask7Shift 7
 

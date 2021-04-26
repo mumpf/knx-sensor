@@ -102,7 +102,7 @@ Precompiled firmware versions are not released anymore, you have always to compi
 
 ## How to upload the Firmware to your Hardware
 
-Connect your device via USB to your PC
+Connect your device via USB to your PC. If you are using sensormodule v3.1, you need to connect it to the KNX bus.
 
 Open (again) the file Sensormodul/src/Sensormodul.cpp
 
