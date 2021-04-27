@@ -85,7 +85,11 @@
               <when test="1">
                 <Channel Id="M-00FA_A-0001-01-0000_CH-3" Name="Devices" Number="3" Text="1-Wire">
                   <!-- OneWire channel independent settings -->
-                  <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Dynamic/Channel/*" type="template" prefix="LOG" />
+                  <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="BM" Text="Busmaster-Einstellungen">
+                    <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Dynamic/Channel/ParameterBlock[@Name='BM']/*" prefix="LOG" />
+                    <mc:include href="../../knx-wire/src/WireGateway.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Expert']" prefix="LOG" />
+                  </ParameterBlock>
+                  <mc:include href="../../knx-wire/src/WireGateway.share.xml" xpath="//Dynamic/Channel/*[position()>1]" prefix="LOG" />
                   <!-- OneWire channel settings -->
                   <mc:include href="../../knx-wire/src/WireGateway.templ.xml" xpath="//Dynamic/*" type="template" prefix="WIRE" />
                 </Channel>
