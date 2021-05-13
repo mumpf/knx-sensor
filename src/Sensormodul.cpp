@@ -738,10 +738,11 @@ void appSetup(bool iSaveSupported)
 {
     // try to get rid of occasional I2C lock...
     // savePower();
-    ledProg(true);
+    // ledProg(true);
     ledInfo(true);
-    // delay(100);
+    // delay(1000);
     // restorePower();
+    ledProg(true);
     // check hardware availability
     boardCheck();
     // moved to sensor lib
