@@ -16,7 +16,7 @@
 
 const uint8_t cFirmwareMajor = 3;    // 0-31
 const uint8_t cFirmwareMinor = 1;    // 0-31
-const uint8_t cFirmwareRevision = 0; // 0-63
+const uint8_t cFirmwareRevision = 1; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -497,6 +497,8 @@ void CalculateAirquality(bool iForce = false)
                 if (!Sensor::measureValue(Co2, lValue))
                     return;
                 lValue = knx.getGroupObject(LOG_KoCo2).value(getDPT(VAL_DPT_9));
+                if (lValue <= 1.0)
+                    lValue = knx.getGroupObject(LOG_KoCo2b).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lValue, sCo2Limits);
             } else if ((gSensor & BIT_Voc)) {
                 if (!Sensor::measureValue(Voc, lValue))

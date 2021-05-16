@@ -61,6 +61,10 @@ Die letzen beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 * Bedingt durch die wesentlich schnellere Progrmmierung gibt es nur noch eine ETS Applikation mit 80 Logikkanälen
 * Diese Firmware unterstützt auch den Aussensensor von Masifi über die Einstellung -DBOARD_MASIFI_AUSSEN_V13
 
+17.05.2021 Firmware 3.1, Applikation 3.1.1
+
+* Fix: Der Wert der Luftqualitätsampel wird jetzt auch bei einen VOC-Sensor korrekt berechnet.
+
 <div style="page-break-after: always;"></div>
 
 ## Einführung
