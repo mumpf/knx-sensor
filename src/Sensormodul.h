@@ -134,8 +134,8 @@
 #define LOG_Latitude                  15      // float
 #define LOG_Longitude                 19      // float
 #define LOG_BuzzerSilent              23      // uint16_t
-#define LOG_BuzzerNormal              39      // uint16_t
-#define LOG_BuzzerLoud                55      // uint16_t
+#define LOG_BuzzerNormal              25      // uint16_t
+#define LOG_BuzzerLoud                27      // uint16_t
 #define LOG_WireError                 45      // 1 Bit, Bit 7
 #define     LOG_WireErrorMask 0x80
 #define     LOG_WireErrorShift 7
@@ -378,6 +378,12 @@
 #define LOG_fE1Convert                 9      // 4 Bits, Bit 7-4
 #define     LOG_fE1ConvertMask 0xF0
 #define     LOG_fE1ConvertShift 4
+#define LOG_fE1ConvertFloat            9      // 4 Bits, Bit 7-4
+#define     LOG_fE1ConvertFloatMask 0xF0
+#define     LOG_fE1ConvertFloatShift 4
+#define LOG_fE1ConvertSpecial          9      // 4 Bits, Bit 7-4
+#define     LOG_fE1ConvertSpecialMask 0xF0
+#define     LOG_fE1ConvertSpecialShift 4
 #define LOG_fE1Dpt                    10      // 8 Bits, Bit 7-0
 #define LOG_fE1Default                11      // 2 Bits, Bit 1-0
 #define     LOG_fE1DefaultMask 0x03
@@ -401,6 +407,12 @@
 #define LOG_fE2Convert                16      // 4 Bits, Bit 7-4
 #define     LOG_fE2ConvertMask 0xF0
 #define     LOG_fE2ConvertShift 4
+#define LOG_fE2ConvertFloat           16      // 4 Bits, Bit 7-4
+#define     LOG_fE2ConvertFloatMask 0xF0
+#define     LOG_fE2ConvertFloatShift 4
+#define LOG_fE2ConvertSpecial         16      // 4 Bits, Bit 7-4
+#define     LOG_fE2ConvertSpecialMask 0xF0
+#define     LOG_fE2ConvertSpecialShift 4
 #define LOG_fE2Dpt                    17      // 8 Bits, Bit 7-0
 #define LOG_fE2Default                18      // 2 Bits, Bit 1-0
 #define     LOG_fE2DefaultMask 0x03
@@ -444,22 +456,80 @@
 #define     LOG_fTd8DuskDawnShift 0
 #define LOG_fE1LowDelta               23      // int32_t
 #define LOG_fE1HighDelta              27      // int32_t
+#define LOG_fE1Low0Valid              30      // 1 Bit, Bit 7
+#define     LOG_fE1Low0ValidMask 0x80
+#define     LOG_fE1Low0ValidShift 7
+#define LOG_fE1Low1Valid              30      // 1 Bit, Bit 6
+#define     LOG_fE1Low1ValidMask 0x40
+#define     LOG_fE1Low1ValidShift 6
+#define LOG_fE1Low2Valid              30      // 1 Bit, Bit 5
+#define     LOG_fE1Low2ValidMask 0x20
+#define     LOG_fE1Low2ValidShift 5
+#define LOG_fE1Low3Valid              30      // 1 Bit, Bit 4
+#define     LOG_fE1Low3ValidMask 0x10
+#define     LOG_fE1Low3ValidShift 4
+#define LOG_fE1Low4Valid              30      // 1 Bit, Bit 3
+#define     LOG_fE1Low4ValidMask 0x08
+#define     LOG_fE1Low4ValidShift 3
+#define LOG_fE1Low5Valid              30      // 1 Bit, Bit 2
+#define     LOG_fE1Low5ValidMask 0x04
+#define     LOG_fE1Low5ValidShift 2
+#define LOG_fE1Low6Valid              30      // 1 Bit, Bit 1
+#define     LOG_fE1Low6ValidMask 0x02
+#define     LOG_fE1Low6ValidShift 1
+#define LOG_fE1Low7Valid              30      // 1 Bit, Bit 0
+#define     LOG_fE1Low7ValidMask 0x01
+#define     LOG_fE1Low7ValidShift 0
 #define LOG_fE1LowDpt2                23      // 8 Bits, Bit 7-0
 #define LOG_fE1Low1Dpt2               24      // 8 Bits, Bit 7-0
 #define LOG_fE1Low2Dpt2               25      // 8 Bits, Bit 7-0
 #define LOG_fE1Low3Dpt2               26      // 8 Bits, Bit 7-0
+#define LOG_fE1LowDpt2Fix             23      // 8 Bits, Bit 7-0
 #define LOG_fE1LowDpt5                23      // uint8_t
 #define LOG_fE1HighDpt5               27      // uint8_t
+#define LOG_fE1Low0Dpt5In             23      // uint8_t
+#define LOG_fE1Low1Dpt5In             24      // uint8_t
+#define LOG_fE1Low2Dpt5In             25      // uint8_t
+#define LOG_fE1Low3Dpt5In             26      // uint8_t
+#define LOG_fE1Low4Dpt5In             27      // uint8_t
+#define LOG_fE1Low5Dpt5In             28      // uint8_t
+#define LOG_fE1Low6Dpt5In             29      // uint8_t
+#define LOG_fE1LowDpt5Fix             23      // uint8_t
 #define LOG_fE1LowDpt5001             23      // uint8_t
 #define LOG_fE1HighDpt5001            27      // uint8_t
+#define LOG_fE1Low0Dpt5xIn            23      // uint8_t
+#define LOG_fE1Low1Dpt5xIn            24      // uint8_t
+#define LOG_fE1Low2Dpt5xIn            25      // uint8_t
+#define LOG_fE1Low3Dpt5xIn            26      // uint8_t
+#define LOG_fE1Low4Dpt5xIn            27      // uint8_t
+#define LOG_fE1Low5Dpt5xIn            28      // uint8_t
+#define LOG_fE1Low6Dpt5xIn            29      // uint8_t
+#define LOG_fE1LowDpt5xFix            23      // uint8_t
 #define LOG_fE1LowDpt6                23      // int8_t
 #define LOG_fE1HighDpt6               27      // int8_t
+#define LOG_fE1Low0Dpt6In             23      // int8_t
+#define LOG_fE1Low1Dpt6In             24      // int8_t
+#define LOG_fE1Low2Dpt6In             25      // int8_t
+#define LOG_fE1Low3Dpt6In             26      // int8_t
+#define LOG_fE1Low4Dpt6In             27      // int8_t
+#define LOG_fE1Low5Dpt6In             28      // int8_t
+#define LOG_fE1Low6Dpt6In             29      // int8_t
+#define LOG_fE1LowDpt6Fix             23      // int8_t
 #define LOG_fE1LowDpt7                23      // uint16_t
 #define LOG_fE1HighDpt7               27      // uint16_t
+#define LOG_fE1Low0Dpt7In             23      // uint16_t
+#define LOG_fE1Low1Dpt7In             25      // uint16_t
+#define LOG_fE1Low2Dpt7In             27      // uint16_t
+#define LOG_fE1LowDpt7Fix             23      // uint16_t
 #define LOG_fE1LowDpt8                23      // int16_t
 #define LOG_fE1HighDpt8               27      // int16_t
+#define LOG_fE1Low0Dpt8In             23      // int16_t
+#define LOG_fE1Low1Dpt8In             25      // int16_t
+#define LOG_fE1Low2Dpt8In             27      // int16_t
+#define LOG_fE1LowDpt8Fix             23      // int16_t
 #define LOG_fE1LowDpt9                23      // float
 #define LOG_fE1HighDpt9               27      // float
+#define LOG_fE1LowDpt9Fix             23      // float
 #define LOG_fE1Low0Dpt17              23      // 8 Bits, Bit 7-0
 #define LOG_fE1Low1Dpt17              24      // 8 Bits, Bit 7-0
 #define LOG_fE1Low2Dpt17              25      // 8 Bits, Bit 7-0
@@ -468,26 +538,86 @@
 #define LOG_fE1Low5Dpt17              28      // 8 Bits, Bit 7-0
 #define LOG_fE1Low6Dpt17              29      // 8 Bits, Bit 7-0
 #define LOG_fE1Low7Dpt17              30      // 8 Bits, Bit 7-0
+#define LOG_fE1LowDpt17Fix            23      // 8 Bits, Bit 7-0
 #define LOG_fE1LowDptRGB              23      // int32_t
 #define LOG_fE1HighDptRGB             27      // int32_t
+#define LOG_fE1LowDptRGBFix           23      // int32_t
 #define LOG_fE2LowDelta               31      // int32_t
 #define LOG_fE2HighDelta              35      // int32_t
+#define LOG_fE2Low0Valid              38      // 1 Bit, Bit 7
+#define     LOG_fE2Low0ValidMask 0x80
+#define     LOG_fE2Low0ValidShift 7
+#define LOG_fE2Low1Valid              38      // 1 Bit, Bit 6
+#define     LOG_fE2Low1ValidMask 0x40
+#define     LOG_fE2Low1ValidShift 6
+#define LOG_fE2Low2Valid              38      // 1 Bit, Bit 5
+#define     LOG_fE2Low2ValidMask 0x20
+#define     LOG_fE2Low2ValidShift 5
+#define LOG_fE2Low3Valid              38      // 1 Bit, Bit 4
+#define     LOG_fE2Low3ValidMask 0x10
+#define     LOG_fE2Low3ValidShift 4
+#define LOG_fE2Low4Valid              38      // 1 Bit, Bit 3
+#define     LOG_fE2Low4ValidMask 0x08
+#define     LOG_fE2Low4ValidShift 3
+#define LOG_fE2Low5Valid              38      // 1 Bit, Bit 2
+#define     LOG_fE2Low5ValidMask 0x04
+#define     LOG_fE2Low5ValidShift 2
+#define LOG_fE2Low6Valid              38      // 1 Bit, Bit 1
+#define     LOG_fE2Low6ValidMask 0x02
+#define     LOG_fE2Low6ValidShift 1
+#define LOG_fE2Low7Valid              38      // 1 Bit, Bit 0
+#define     LOG_fE2Low7ValidMask 0x01
+#define     LOG_fE2Low7ValidShift 0
 #define LOG_fE2Low0Dpt2               31      // 8 Bits, Bit 7-0
 #define LOG_fE2Low1Dpt2               32      // 8 Bits, Bit 7-0
 #define LOG_fE2Low2Dpt2               33      // 8 Bits, Bit 7-0
 #define LOG_fE2Low3Dpt2               34      // 8 Bits, Bit 7-0
+#define LOG_fE2LowDpt2Fix             31      // 8 Bits, Bit 7-0
 #define LOG_fE2LowDpt5                31      // uint8_t
 #define LOG_fE2HighDpt5               35      // uint8_t
+#define LOG_fE2Low0Dpt5In             31      // uint8_t
+#define LOG_fE2Low1Dpt5In             32      // uint8_t
+#define LOG_fE2Low2Dpt5In             33      // uint8_t
+#define LOG_fE2Low3Dpt5In             34      // uint8_t
+#define LOG_fE2Low4Dpt5In             35      // uint8_t
+#define LOG_fE2Low5Dpt5In             36      // uint8_t
+#define LOG_fE2Low6Dpt5In             37      // uint8_t
+#define LOG_fE2LowDpt5Fix             31      // uint8_t
 #define LOG_fE2LowDpt5001             31      // uint8_t
 #define LOG_fE2HighDpt5001            35      // uint8_t
+#define LOG_fE2Low0Dpt5xIn            31      // uint8_t
+#define LOG_fE2Low1Dpt5xIn            32      // uint8_t
+#define LOG_fE2Low2Dpt5xIn            33      // uint8_t
+#define LOG_fE2Low3Dpt5xIn            34      // uint8_t
+#define LOG_fE2Low4Dpt5xIn            35      // uint8_t
+#define LOG_fE2Low5Dpt5xIn            36      // uint8_t
+#define LOG_fE2Low6Dpt5xIn            37      // uint8_t
+#define LOG_fE2LowDpt5xFix            31      // uint8_t
 #define LOG_fE2LowDpt6                31      // int8_t
 #define LOG_fE2HighDpt6               35      // int8_t
+#define LOG_fE2Low0Dpt6In             31      // int8_t
+#define LOG_fE2Low1Dpt6In             32      // int8_t
+#define LOG_fE2Low2Dpt6In             33      // int8_t
+#define LOG_fE2Low3Dpt6In             34      // int8_t
+#define LOG_fE2Low4Dpt6In             35      // int8_t
+#define LOG_fE2Low5Dpt6In             36      // int8_t
+#define LOG_fE2Low6Dpt6In             37      // int8_t
+#define LOG_fE2LowDpt6Fix             31      // int8_t
 #define LOG_fE2LowDpt7                31      // uint16_t
 #define LOG_fE2HighDpt7               35      // uint16_t
+#define LOG_fE2Low0Dpt7In             31      // uint16_t
+#define LOG_fE2Low1Dpt7In             33      // uint16_t
+#define LOG_fE2Low2Dpt7In             35      // uint16_t
+#define LOG_fE2LowDpt7Fix             31      // uint16_t
 #define LOG_fE2LowDpt8                31      // int16_t
 #define LOG_fE2HighDpt8               35      // int16_t
+#define LOG_fE2Low0Dpt8In             31      // int16_t
+#define LOG_fE2Low1Dpt8In             33      // int16_t
+#define LOG_fE2Low2Dpt8In             35      // int16_t
+#define LOG_fE2LowDpt8Fix             31      // int16_t
 #define LOG_fE2LowDpt9                31      // float
 #define LOG_fE2HighDpt9               35      // float
+#define LOG_fE2LowDpt9Fix             31      // float
 #define LOG_fE2Low0Dpt17              31      // 8 Bits, Bit 7-0
 #define LOG_fE2Low1Dpt17              32      // 8 Bits, Bit 7-0
 #define LOG_fE2Low2Dpt17              33      // 8 Bits, Bit 7-0
@@ -496,8 +626,10 @@
 #define LOG_fE2Low5Dpt17              36      // 8 Bits, Bit 7-0
 #define LOG_fE2Low6Dpt17              37      // 8 Bits, Bit 7-0
 #define LOG_fE2Low7Dpt17              38      // 8 Bits, Bit 7-0
+#define LOG_fE2LowDpt17Fix            31      // 8 Bits, Bit 7-0
 #define LOG_fE2LowDptRGB              31      // int32_t
 #define LOG_fE2HighDptRGB             35      // int32_t
+#define LOG_fE2LowDptRGBFix           31      // int32_t
 #define LOG_fTd1Value                 23      // 1 Bit, Bit 7
 #define     LOG_fTd1ValueMask 0x80
 #define     LOG_fTd1ValueShift 7
@@ -791,6 +923,7 @@
 #define     LOG_fOOnPALineMask 0x0F
 #define     LOG_fOOnPALineShift 0
 #define LOG_fOOnPADevice              72      // uint8_t
+#define LOG_fOOnFunction              71      // 8 Bits, Bit 7-0
 #define LOG_fOOff                     85      // 8 Bits, Bit 7-0
 #define LOG_fOOffBuzzer               85      // 8 Bits, Bit 7-0
 #define LOG_fOOffLed                  85      // 8 Bits, Bit 7-0
@@ -814,6 +947,7 @@
 #define     LOG_fOOffPALineMask 0x0F
 #define     LOG_fOOffPALineShift 0
 #define LOG_fOOffPADevice             87      // uint8_t
+#define LOG_fOOffFunction             86      // 8 Bits, Bit 7-0
 
 // Communication objects per channel (multiple occurance)
 #define LOG_KoOffset 125
@@ -824,7 +958,7 @@
 
 // Parameter per channel
 #define WIRE_ParamBlockOffset 8181
-#define WIRE_ParamBlockSize 17
+#define WIRE_ParamBlockSize 18
 #define WIRE_sDeviceId                  0      // char*, 7 Byte
 #define WIRE_sFamilyCode                0      // 8 Bits, Bit 7-0
 #define WIRE_sId0                       1      // 4 Bits, Bit 7-4
@@ -864,84 +998,103 @@
 #define     WIRE_sIdBMask 0x0F
 #define     WIRE_sIdBShift 0
 #define WIRE_sModelFunction             7      // 8 Bits, Bit 7-0
+#define WIRE_sModelFunctionDS18B20      7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2408       7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2413       7      // 8 Bits, Bit 7-0
 #define WIRE_sModelFunctionDS2438       7      // 8 Bits, Bit 7-0
-#define WIRE_sSensorOffset              8      // int8_t
-#define WIRE_sSensorCycle               9      // int32_t
-#define WIRE_sSensorDeltaAbs           13      // uint16_t
-#define WIRE_sSensorDeltaPercent       15      // uint8_t
-#define WIRE_sSensorSmooth             16      // uint8_t
-#define WIRE_sGroup1                    8      // 1 Bit, Bit 7
+#define WIRE_sBusMasterSelect1          8      // 2 Bits, Bit 7-6
+#define     WIRE_sBusMasterSelect1Mask 0xC0
+#define     WIRE_sBusMasterSelect1Shift 6
+#define WIRE_sBusMasterSelect2          8      // 2 Bits, Bit 7-6
+#define     WIRE_sBusMasterSelect2Mask 0xC0
+#define     WIRE_sBusMasterSelect2Shift 6
+#define WIRE_sBusMasterSelect3          8      // 2 Bits, Bit 7-6
+#define     WIRE_sBusMasterSelect3Mask 0xC0
+#define     WIRE_sBusMasterSelect3Shift 6
+#define WIRE_sSensorOffset              9      // int8_t
+#define WIRE_sSensorCycle              10      // int32_t
+#define WIRE_sSensorDeltaAbs           14      // uint16_t
+#define WIRE_sSensorDeltaPercent       16      // uint8_t
+#define WIRE_sSensorSmooth             17      // uint8_t
+#define WIRE_siButtonSendStatus         9      // 1 Bit, Bit 7
+#define     WIRE_siButtonSendStatusMask 0x80
+#define     WIRE_siButtonSendStatusShift 7
+#define WIRE_sGroup1                   10      // 1 Bit, Bit 7
 #define     WIRE_sGroup1Mask 0x80
 #define     WIRE_sGroup1Shift 7
-#define WIRE_sGroup2                    8      // 1 Bit, Bit 6
+#define WIRE_sGroup2                   10      // 1 Bit, Bit 6
 #define     WIRE_sGroup2Mask 0x40
 #define     WIRE_sGroup2Shift 6
-#define WIRE_sGroup3                    8      // 1 Bit, Bit 5
+#define WIRE_sGroup3                   10      // 1 Bit, Bit 5
 #define     WIRE_sGroup3Mask 0x20
 #define     WIRE_sGroup3Shift 5
-#define WIRE_sGroup4                    8      // 1 Bit, Bit 4
+#define WIRE_sGroup4                   10      // 1 Bit, Bit 4
 #define     WIRE_sGroup4Mask 0x10
 #define     WIRE_sGroup4Shift 4
-#define WIRE_sGroup5                    8      // 1 Bit, Bit 3
+#define WIRE_sGroup5                   10      // 1 Bit, Bit 3
 #define     WIRE_sGroup5Mask 0x08
 #define     WIRE_sGroup5Shift 3
-#define WIRE_sGroup6                    8      // 1 Bit, Bit 2
+#define WIRE_sGroup6                   10      // 1 Bit, Bit 2
 #define     WIRE_sGroup6Mask 0x04
 #define     WIRE_sGroup6Shift 2
-#define WIRE_sGroup7                    8      // 1 Bit, Bit 1
+#define WIRE_sGroup7                   10      // 1 Bit, Bit 1
 #define     WIRE_sGroup7Mask 0x02
 #define     WIRE_sGroup7Shift 1
-#define WIRE_sGroup8                    8      // 1 Bit, Bit 0
+#define WIRE_sGroup8                   10      // 1 Bit, Bit 0
 #define     WIRE_sGroup8Mask 0x01
 #define     WIRE_sGroup8Shift 0
-#define WIRE_sIoBitmask0                8      // 1 Bit, Bit 0
+#define WIRE_sIOSendStatus              9      // 1 Bit, Bit 7
+#define     WIRE_sIOSendStatusMask 0x80
+#define     WIRE_sIOSendStatusShift 7
+#define WIRE_sIOReadRequest             9      // 1 Bit, Bit 6
+#define     WIRE_sIOReadRequestMask 0x40
+#define     WIRE_sIOReadRequestShift 6
+#define WIRE_sIoBitmask0               10      // 1 Bit, Bit 0
 #define     WIRE_sIoBitmask0Mask 0x01
 #define     WIRE_sIoBitmask0Shift 0
-#define WIRE_sIoBitmask1                8      // 1 Bit, Bit 1
+#define WIRE_sIoBitmask1               10      // 1 Bit, Bit 1
 #define     WIRE_sIoBitmask1Mask 0x02
 #define     WIRE_sIoBitmask1Shift 1
-#define WIRE_sIoBitmask2                8      // 1 Bit, Bit 2
+#define WIRE_sIoBitmask2               10      // 1 Bit, Bit 2
 #define     WIRE_sIoBitmask2Mask 0x04
 #define     WIRE_sIoBitmask2Shift 2
-#define WIRE_sIoBitmask3                8      // 1 Bit, Bit 3
+#define WIRE_sIoBitmask3               10      // 1 Bit, Bit 3
 #define     WIRE_sIoBitmask3Mask 0x08
 #define     WIRE_sIoBitmask3Shift 3
-#define WIRE_sIoBitmask4                8      // 1 Bit, Bit 4
+#define WIRE_sIoBitmask4               10      // 1 Bit, Bit 4
 #define     WIRE_sIoBitmask4Mask 0x10
 #define     WIRE_sIoBitmask4Shift 4
-#define WIRE_sIoBitmask5                8      // 1 Bit, Bit 5
+#define WIRE_sIoBitmask5               10      // 1 Bit, Bit 5
 #define     WIRE_sIoBitmask5Mask 0x20
 #define     WIRE_sIoBitmask5Shift 5
-#define WIRE_sIoBitmask6                8      // 1 Bit, Bit 6
+#define WIRE_sIoBitmask6               10      // 1 Bit, Bit 6
 #define     WIRE_sIoBitmask6Mask 0x40
 #define     WIRE_sIoBitmask6Shift 6
-#define WIRE_sIoBitmask7                8      // 1 Bit, Bit 7
+#define WIRE_sIoBitmask7               10      // 1 Bit, Bit 7
 #define     WIRE_sIoBitmask7Mask 0x80
 #define     WIRE_sIoBitmask7Shift 7
-#define WIRE_sIoInvertBitmask0          9      // 1 Bit, Bit 0
+#define WIRE_sIoInvertBitmask0         11      // 1 Bit, Bit 0
 #define     WIRE_sIoInvertBitmask0Mask 0x01
 #define     WIRE_sIoInvertBitmask0Shift 0
-#define WIRE_sIoInvertBitmask1          9      // 1 Bit, Bit 1
+#define WIRE_sIoInvertBitmask1         11      // 1 Bit, Bit 1
 #define     WIRE_sIoInvertBitmask1Mask 0x02
 #define     WIRE_sIoInvertBitmask1Shift 1
-#define WIRE_sIoInvertBitmask2          9      // 1 Bit, Bit 2
+#define WIRE_sIoInvertBitmask2         11      // 1 Bit, Bit 2
 #define     WIRE_sIoInvertBitmask2Mask 0x04
 #define     WIRE_sIoInvertBitmask2Shift 2
-#define WIRE_sIoInvertBitmask3          9      // 1 Bit, Bit 3
+#define WIRE_sIoInvertBitmask3         11      // 1 Bit, Bit 3
 #define     WIRE_sIoInvertBitmask3Mask 0x08
 #define     WIRE_sIoInvertBitmask3Shift 3
-#define WIRE_sIoInvertBitmask4          9      // 1 Bit, Bit 4
+#define WIRE_sIoInvertBitmask4         11      // 1 Bit, Bit 4
 #define     WIRE_sIoInvertBitmask4Mask 0x10
 #define     WIRE_sIoInvertBitmask4Shift 4
-#define WIRE_sIoInvertBitmask5          9      // 1 Bit, Bit 5
+#define WIRE_sIoInvertBitmask5         11      // 1 Bit, Bit 5
 #define     WIRE_sIoInvertBitmask5Mask 0x20
 #define     WIRE_sIoInvertBitmask5Shift 5
-#define WIRE_sIoInvertBitmask6          9      // 1 Bit, Bit 6
+#define WIRE_sIoInvertBitmask6         11      // 1 Bit, Bit 6
 #define     WIRE_sIoInvertBitmask6Mask 0x40
 #define     WIRE_sIoInvertBitmask6Shift 6
-#define WIRE_sIoInvertBitmask7          9      // 1 Bit, Bit 7
+#define WIRE_sIoInvertBitmask7         11      // 1 Bit, Bit 7
 #define     WIRE_sIoInvertBitmask7Mask 0x80
 #define     WIRE_sIoInvertBitmask7Shift 7
 

@@ -56,10 +56,10 @@ You should be now in a directory ending with ...\Documents\PlatformIO\Projects
 
 Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
 
-The current board version from MASIFI is v3.1. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
+The current board version from MASIFI is v3.1. The current version for use outdoor ist v1.3. Due to the fact, that I have to test the release with diferent versions, it might happen, that the firmware is released for any of the tested versions v2, v3 or v3.1.
 
 **Please ensure always that the released version fits to your hardware!** To do this, do the following:
-Find the version of your hardware board (v1, v2, v3 or v3.1).
+Find the version of your hardware board (v1, v2, v3 or v3.1). Or - if it is the outdoor module - it is v1.3.
 
     In knx-sensor, edit the file platformio.ini:  
     - there is a line 
@@ -102,7 +102,7 @@ Precompiled firmware versions are not released anymore, you have always to compi
 
 ## How to upload the Firmware to your Hardware
 
-Connect your device via USB to your PC
+Connect your device via USB to your PC. If you are using sensormodule v3.1, you need to connect it to the KNX bus.
 
 Open (again) the file Sensormodul/src/Sensormodul.cpp
 
@@ -132,7 +132,7 @@ Wait for the success message in the terminal window
 
 The freshly build
 
-* Sensormodul-v3.0-beta.knxprod
+* Sensormodul-v3.x-beta.knxprod
 
 you will find in the beta directory of the knx-sensor project
 
