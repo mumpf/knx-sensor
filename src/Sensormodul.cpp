@@ -4,6 +4,7 @@
 #include "Sensor.h"
 #include "SensorBME680.h"
 #include "SensorSGP30.h"
+#include "SensorSCD40.h"
 #include "OneWire.h"
 #include "WireDevice.h"
 #include "OneWireDS2482.h"
@@ -48,6 +49,7 @@ WireDevice gDevice[COUNT_1WIRE_CHANNEL];
 uint16_t gCountSaveInterrupt = 0;
 uint32_t gSaveInterruptTimestamp = 0;
 bool gForceSensorRead = true;
+int8_t gTempOffset = 0;
 
 uint16_t gSensor = 0;
 Logic gLogic;
@@ -195,7 +197,7 @@ void sensorDelayCallback(uint32_t iMillis) {
     // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
 }
 
-void AddSensorMetadata(Sensor* iSensor, uint8_t iSensorId) {
+void AddSensorMetadata(Sensor* iSensor, uint8_t iSensorId, MeasureType iMeasureType) {
     // additional sensor specific metadata
     uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & LOG_DeleteDataMask;
     if (iSensorId == SENS_BME680)
@@ -206,6 +208,12 @@ void AddSensorMetadata(Sensor* iSensor, uint8_t iSensorId) {
     else if (iSensorId == SENS_SGP30)
     {
         ((SensorSGP30*)iSensor)->setMagicKeyOffset(lMagicWordOffset);
+    }
+    else if (iSensorId == SENS_SCD41 && iMeasureType == Temperature) {
+        int32_t lTempOffsetInt = (int8_t)gTempOffset;
+        float lTempOffset = (float)lTempOffsetInt / 10.0;
+        ((SensorSCD40*)iSensor)->prepareTemperatureOffset(lTempOffset);
+        gTempOffset = 0; // disable temp offset in software
     }
 }
 
@@ -219,49 +227,49 @@ void StartSensor()
     if (lSensorId > 0) {
         gSensor |= BIT_Temp;
         lSensor = Sensor::factory(lSensorId, Temperature);
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, Temperature);
     }
     lSensorId = (knx.paramByte(LOG_HumSensor) & LOG_HumSensorMask) >> LOG_HumSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Hum;
         lSensor = Sensor::factory(lSensorId, Humidity);
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, Humidity);
     }
     lSensorId = (knx.paramByte(LOG_PreSensor) & LOG_PreSensorMask) >> LOG_PreSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Pre;
         lSensor = Sensor::factory(lSensorId, Pressure);
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, Pressure);
     }
     lSensorId = (knx.paramByte(LOG_VocSensor) & LOG_VocSensorMask) >> LOG_VocSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Voc | BIT_Co2Calc;
         lSensor = Sensor::factory(lSensorId, static_cast<MeasureType>(Voc | Accuracy | Co2Calc));
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, static_cast<MeasureType>(Voc | Accuracy | Co2Calc));
     }
     lSensorId = (knx.paramByte(LOG_Co2Sensor) & LOG_Co2SensorMask) >> LOG_Co2SensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_Co2;
         lSensor = Sensor::factory(lSensorId, Co2);
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, Co2);
     }
     lSensorId = (knx.paramByte(LOG_LuxSensor) & LOG_LuxSensorMask) >> LOG_LuxSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_LUX;
         lSensor = Sensor::factory(lSensorId, Lux);
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, Lux);
     }
     lSensorId = (knx.paramByte(LOG_TofSensor) & LOG_TofSensorMask) >> LOG_TofSensorShift;
     if (lSensorId > 0)
     {
         gSensor |= BIT_TOF;
         lSensor = Sensor::factory(lSensorId, Tof);
-        AddSensorMetadata(lSensor, lSensorId);
+        AddSensorMetadata(lSensor, lSensorId, Tof);
     }
     // now start all sensors at the correct speed
     Sensor::beginSensors();
@@ -294,7 +302,12 @@ void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureTy
     if (lForce || delayCheck(cData->readDelay, 5000))
     {
         // we waited enough, let's read the sensor
-        int32_t lOffset = (int8_t)knx.paramByte(iParamIndex);
+        int32_t lOffset;
+        if (iMeasureType == Temperature) {
+            lOffset = (int8_t)gTempOffset;
+        } else {
+            lOffset = (int8_t)knx.paramByte(iParamIndex);
+        }
         float lValue;
         bool lValid = fGetSensorValue(iMeasureType, lValue);
         if (lValid) {
@@ -760,8 +773,10 @@ void appSetup(bool iSaveSupported)
         gStartupDelay = millis();
         gHeartbeatDelay = 0;
         gCountSaveInterrupt = 0;
+        gTempOffset = (int8_t)knx.paramByte(LOG_TempOffset); // we handle temp offset in Sensor, if possible
         // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
-        if (GroupObject::classCallback() == 0) GroupObject::classCallback(ProcessKoCallback);
+        if (GroupObject::classCallback() == 0)
+            GroupObject::classCallback(ProcessKoCallback);
         if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
         if (TableObject::getBeforeTableUnloadCallback() == 0) TableObject::addBeforeTableUnloadCallback(beforeTableUnloadHandler);
         StartSensor();
