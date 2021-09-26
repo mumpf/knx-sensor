@@ -136,6 +136,9 @@
 #define LOG_BuzzerSilent              23      // uint16_t
 #define LOG_BuzzerNormal              25      // uint16_t
 #define LOG_BuzzerLoud                27      // uint16_t
+#define LOG_LedMapping                29      // 3 Bits, Bit 7-5
+#define     LOG_LedMappingMask 0xE0
+#define     LOG_LedMappingShift 5
 #define LOG_WireError                 45      // 1 Bit, Bit 7
 #define     LOG_WireErrorMask 0x80
 #define     LOG_WireErrorShift 7

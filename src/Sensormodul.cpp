@@ -17,7 +17,7 @@
 #include "Logic.h"
 
 const uint8_t cFirmwareMajor = 3;    // 0-31
-const uint8_t cFirmwareMinor = 3;    // 0-31
+const uint8_t cFirmwareMinor = 6;    // 0-31
 const uint8_t cFirmwareRevision = 0; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
@@ -360,7 +360,8 @@ void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureTy
                         lSend = true;
                 }
                 // we always store the new value in KO, even it it is not sent (to satisfy potential read request)
-                knx.getGroupObject(iKoNumber).valueNoSend(lValue, getDPT(iDpt));
+                if (lValue <= -0.01 || lValue >= 0.01)
+                    knx.getGroupObject(iKoNumber).valueNoSend(lValue, getDPT(iDpt));
             }
         } else {
             lSend = false;
@@ -370,8 +371,11 @@ void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureTy
     if (lSend)
     {
         if ((getError() & iMeasureType) == 0) {
-            knx.getGroupObject(iKoNumber).objectWritten();
-            cData->lastSentValue = (float)knx.getGroupObject(iKoNumber).value(getDPT(iDpt));
+            float lValue = (float)knx.getGroupObject(iKoNumber).value(getDPT(iDpt));
+            if (lValue <= -0.01 || lValue >= 0.01) {
+                knx.getGroupObject(iKoNumber).objectWritten();
+                cData->lastSentValue = lValue;
+            }
         }
         cData->sendDelay = millis();
         if (cData->sendDelay == 0) cData->sendDelay = 1;
