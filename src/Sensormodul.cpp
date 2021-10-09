@@ -4,7 +4,6 @@
 #include "Sensor.h"
 #include "SensorBME680.h"
 #include "SensorSGP30.h"
-#include "SensorSCD40.h"
 #include "OneWire.h"
 #include "WireDevice.h"
 #include "OneWireDS2482.h"
@@ -17,8 +16,8 @@
 #include "Logic.h"
 
 const uint8_t cFirmwareMajor = 3;    // 0-31
-const uint8_t cFirmwareMinor = 6;    // 0-31
-const uint8_t cFirmwareRevision = 0; // 0-63
+const uint8_t cFirmwareMinor = 7;    // 0-31
+const uint8_t cFirmwareRevision = 1; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -209,11 +208,11 @@ void AddSensorMetadata(Sensor* iSensor, uint8_t iSensorId, MeasureType iMeasureT
     {
         ((SensorSGP30*)iSensor)->setMagicKeyOffset(lMagicWordOffset);
     }
-    else if (iSensorId == SENS_SCD41 && iMeasureType == Temperature) {
+    if (iMeasureType == Temperature) {
         int32_t lTempOffsetInt = (int8_t)gTempOffset;
         float lTempOffset = (float)lTempOffsetInt / 10.0;
-        ((SensorSCD40*)iSensor)->prepareTemperatureOffset(lTempOffset);
-        gTempOffset = 0; // disable temp offset in software
+        if (iSensor->prepareTemperatureOffset(lTempOffset)) 
+            gTempOffset = 0; // disable temp offset in software
     }
 }
 
@@ -350,7 +349,7 @@ void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureTy
                     lValue = lValueAlt + (lValue - lValueAlt) / knx.paramByte(iParamIndex + 8);
                 }
                 // evaluate sending conditions (relative delta / absolute delta)
-                if (cData->lastSentValue != NAN) {
+                if (cData->lastSentValue != 0.0f) {
                     float lDelta = 100.0f - lValue / cData->lastSentValue * 100.0f;
                     uint8_t lPercent = knx.paramByte(iParamIndex + 7);
                     if (lPercent > 0 && (uint8_t)round(abs(lDelta)) >= lPercent)
@@ -360,7 +359,7 @@ void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureTy
                         lSend = true;
                 }
                 // we always store the new value in KO, even it it is not sent (to satisfy potential read request)
-                if (lValue <= -0.01 || lValue >= 0.01)
+                if (lValue <= -0.01f || lValue >= 0.01f)
                     knx.getGroupObject(iKoNumber).valueNoSend(lValue, getDPT(iDpt));
             }
         } else {
@@ -372,7 +371,7 @@ void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureTy
     {
         if ((getError() & iMeasureType) == 0) {
             float lValue = (float)knx.getGroupObject(iKoNumber).value(getDPT(iDpt));
-            if (lValue <= -0.01 || lValue >= 0.01) {
+            if (lValue <= -0.01f || lValue >= 0.01f) {
                 knx.getGroupObject(iKoNumber).objectWritten();
                 cData->lastSentValue = lValue;
             }
