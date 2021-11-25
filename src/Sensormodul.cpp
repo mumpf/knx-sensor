@@ -17,7 +17,7 @@
 
 const uint8_t cFirmwareMajor = 3;    // 0-31
 const uint8_t cFirmwareMinor = 7;    // 0-31
-const uint8_t cFirmwareRevision = 1; // 0-63
+const uint8_t cFirmwareRevision = 2; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -405,18 +405,19 @@ bool InPolygon(sPoint *iPoly, uint8_t iLen, float iX, float iY)
     return lResult;
 }
 
-static bool sTempHumValid = false;
+// static bool sTempHumValid = false;
 
 // Dewpoint is a vitual sensor and might be implemented on sensor class level, but we implement it here (easier and shorter)
 bool CalculateDewValue(MeasureType iMeasureType, float& eValue) {
     float lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9));
     float lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));
-    sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f && !sTempHumValid);
-    if (sTempHumValid) {
+    bool lTempHumValid = (((lTemp < 0.0f) || (lTemp > 0.0f)) && lHum > 0.0f);
+    if (lTempHumValid) {
         float lLogHum = log(lHum / 100.0f);
-        eValue = 243.12f * ((17.62f * lTemp) / (243.12f + lTemp) + lLogHum) / ((17.62f * 243.12f) / (243.12f + lTemp) - lLogHum);
+        // eValue = 243.12f * ((17.62f * lTemp) / (243.12f + lTemp) + lLogHum) / ((17.62f * 243.12f) / (243.12f + lTemp) - lLogHum);
+        eValue = 243.12f * ((17.62f * lTemp) / (243.12f + lTemp) + lLogHum) / (4283.7744 / (243.12f + lTemp) - lLogHum);
     }
-    return sTempHumValid;
+    return lTempHumValid;
 }
 
 void CalculateComfort(bool iForce = false)
@@ -431,8 +432,8 @@ void CalculateComfort(bool iForce = false)
 
         float lTemp = roundf(knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)));
         float lHum = roundf(knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9)));
-        sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f);
-        if (sTempHumValid && (knx.paramByte(LOG_Comfort) & LOG_ComfortMask))
+        bool lTempHumValid = (((lTemp < 0.0f) || lTemp > 0.0f) && lHum > 0.0f);
+        if (lTempHumValid && (knx.paramByte(LOG_Comfort) & LOG_ComfortMask))
         {
             // comfortzone
             uint8_t lComfort = 0;
