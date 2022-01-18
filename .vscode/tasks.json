@@ -78,10 +78,7 @@
                 "src/Sensormodul"
             ],
             "problemMatcher": [],
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            }
+            "group": "test"
         },
         {
             "label": "MultiplyChannels-Release",

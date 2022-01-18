@@ -61,9 +61,34 @@ Die letzen beiden Punkte sind in der Applikationsbeschreibung Logik beschrieben.
 * Bedingt durch die wesentlich schnellere Progrmmierung gibt es nur noch eine ETS Applikation mit 80 Logikkanälen
 * Diese Firmware unterstützt auch den Aussensensor von Masifi über die Einstellung -DBOARD_MASIFI_AUSSEN_V13
 
+12.04.2021: Firmware 3.1.0, Applikation 3.1
+
+* FIX: Bei Zeitschaltuhren hat die Kombination "Feiertage wie Sonntage behandeln" und "Im Urlaub nicht schalten" nicht funktioniert.
+
 17.05.2021 Firmware 3.1, Applikation 3.1.1
 
 * Fix: Der Wert der Luftqualitätsampel wird jetzt auch bei einen VOC-Sensor korrekt berechnet.
+
+24.05.2021: Firmware 3.2.0, Applikation 3.2
+
+* Feature: Einfache Formeln in einer Logik (+, -, *, /, min, max und avg mit 2 Eingängen)
+* Feature: Es können jetzt bis zu 30 Benutzerfunktionen im Coding definiert und in der ETS Applikation ausgewählt werden
+* Feature: Eingangs-Konverter können jetzt für DPT5, DPT5.001, DPT6, DPT7 und DPT8 auch mit mehreren Einzelwerten definiert werden (ähnlich wie die bisherige Definition von Szenen-Convertern)
+* Eingänge können jetzt auch einen DPT-Gerechten konstanten Wert enthalten, der dann in Formeln weiter verarbeitet oder direkt am Ausgang genutzt werden kann^
+* Kapitel "Formeln" samt Unterkapiteln neu hinzugefügt.
+* Kapitel "Wert für EIN senden" um Formelaufrufe ergänzt.
+* Kapitel "Wert für AUS senden" um Formelaufrufe ergänzt.
+* Kapitel "Einzelwert-Konverter" ergänzt.
+* Kapitel "Konstanten" ergänzt.
+
+11.01.2022: Firmware 3.8.0, Applikation 3.8
+
+* Beta wird zu Release
+* Feature: Es wird nicht nur ausgegeben, ob "Heute" bzw. "Morgen" ein Feiertag ist (DPT1), sondern welcher Feiertag es ist (DPT5)
+* Kapitel "Feiertage auf dem Bus verfügbar machen" um das neue Feature ergänzt
+* **Inkompatible Änderung** KO 5 und KO 6 sind jetzt DPT5.010 statt DPT1.001. **Vor einem Upgrade** müssen alle mit diesen KO verknüpften GA entfernt werden.
+* Fix: Eingangskonverter "Differenzintervall" und "Differenzhysterese" für DPT9.x funktionierten nicht, ist jetzt korrigiert
+* **Inkompatible Änderung** Bei einem Update gehen die Parameter für Von-/Bis- bzw. Einschalt-/Ausschalt-Wert bei Eingangskonvertern "Differenzintervall" und "Differenzhysterese" für DPT9 verloren. Diese müssen nach einem Update manuell nachgetragen werden.
 
 <div style="page-break-after: always;"></div>
 
@@ -167,11 +192,11 @@ Das Sensormodul kann 7 verschiedene Standardmesswerte liefern, die von verschied
 * Helligkeit (in Lux)
 * Entfernung (in mm)
 
-Es werden bestimmte Hardware-Sensoren unterstützt, deren Messwerte gelesen und entsprechend auf den Bus geschickt werden können. 
+Es werden bestimmte Hardware-Sensoren unterstützt, deren Messwerte gelesen und entsprechend auf den Bus geschickt werden können.
 
 Die unterstützten Sensoren liefern folgende Messwerte:
 
-Sensorauswahl | Temperatur | Luftfeuchte | Luftdruck | VOC | CO<sub>2</sub> | Helligkeit | Entfernung 
+Sensorauswahl | Temperatur | Luftfeuchte | Luftdruck | VOC | CO<sub>2</sub> | Helligkeit | Entfernung
 ---|:---:|:---:|:---:|:---:|:---:|:---:|:---:
 SHT3x   | X | X |   |   |   |
 BME280  | X | X | X |   |   |
@@ -197,7 +222,7 @@ Falls dieses Feld bei einem zuküftigen Update der Applikation einen anderen Wer
 
 In den folgenden Auswahlfeldern kann man für jeden Standardmesswert bestimmen, von welchem Sensor dieser Messwert geliefert werden soll. Dabei können verschiedene Sensoren kombiniert werden. Bestimmte Kombinatinen beeinflussen die Funktionsweise weiterer am Sensormodul angeschlossener Hardware. Solche Kombinationen führen zu Warnmeldungen.
 
-Die Kombination vom BME280 und BME680 ist nicht möglich, da diese Sensoren die gleiche physikalische Adresse haben und somit nicht beide gleichzeitig angeschlossen werden können. Es ist aber keine Einschränkung, da der BME680 auch alle Messwerte liefern kann, die der BME280 liefert. 
+Die Kombination vom BME280 und BME680 ist nicht möglich, da diese Sensoren die gleiche physikalische Adresse haben und somit nicht beide gleichzeitig angeschlossen werden können. Es ist aber keine Einschränkung, da der BME680 auch alle Messwerte liefern kann, die der BME280 liefert.
 
 Sollten beide Sensoren BME280 und BME680 ausgewählt worden sein, erscheint folgende Fehlermeldung:
 ![Fehler beide BME-Sensoren](FehlerBeideBME.png)
@@ -208,8 +233,7 @@ Die neue Möglichkeit, Sensoren für Standardmesswerte auszuwählen ermöglicht 
 
 Messwerte | Kombi 1 | Kombi 2 | Kombi 3 | Kombi 4 | Kombi 5 | Kombi 6 | Kombi 7
 ---|:---:|:---:|:---:|:---:|:---:|:---:|:---:
-Temperatur     | SHT3x | BME280 | BME680 | 
- |         |         |         |
+Temperatur     | SHT3x | BME280 | BME680 |  |         |         |         |
 Luftfeuchte    | SHT3x | BME280 | BME680 | SCD30 |         |         |         |
 Luftdruck      |       | BME280 | BME680 |       |         |         |         |
 VOC            |       |        | BME680 |       | IAQCore |         |         |

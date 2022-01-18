@@ -459,6 +459,8 @@
 #define     LOG_fTd8DuskDawnShift 0
 #define LOG_fE1LowDelta               23      // int32_t
 #define LOG_fE1HighDelta              27      // int32_t
+#define LOG_fE1LowDeltaFloat          23      // float
+#define LOG_fE1HighDeltaFloat         27      // float
 #define LOG_fE1Low0Valid              30      // 1 Bit, Bit 7
 #define     LOG_fE1Low0ValidMask 0x80
 #define     LOG_fE1Low0ValidShift 7
@@ -547,6 +549,8 @@
 #define LOG_fE1LowDptRGBFix           23      // int32_t
 #define LOG_fE2LowDelta               31      // int32_t
 #define LOG_fE2HighDelta              35      // int32_t
+#define LOG_fE2LowDeltaFloat          31      // float
+#define LOG_fE2HighDeltaFloat         35      // float
 #define LOG_fE2Low0Valid              38      // 1 Bit, Bit 7
 #define     LOG_fE2Low0ValidMask 0x80
 #define     LOG_fE2Low0ValidShift 7
