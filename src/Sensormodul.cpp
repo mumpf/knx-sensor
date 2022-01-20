@@ -1,23 +1,23 @@
-#define SEALEVELPREASURE_HPA (1013.25)
-
-#ifndef __linux__
-#include "SensorSHT3x.h"
-#include "SensorBME280.h"
-#include "SensorBME680.h"
-#include "SensorSCD30.h"
-#include "SensorIAQCore.h"
-#endif
-
+#include "Helper.h"
 #include "Hardware.h"
+
+#include "Sensor.h"
+#include "SensorBME680.h"
+#include "SensorSGP30.h"
+#include "OneWire.h"
+#include "WireDevice.h"
+#include "OneWireDS2482.h"
+#include "IncludeManager.h"
+
 // Reihenfolge beachten damit die Definitionen von Sensormodul.h ...
 #include "Sensormodul.h"
 // ... auf jeden Fall Vorrang haben (beeinflussen auch die Logik)
 // #include "../../knx-logic/src/LogikmodulCore.h"
 #include "Logic.h"
 
-const uint8_t cFirmwareMajor = 2;    // 0-31
-const uint8_t cFirmwareMinor = 5;    // 0-31
-const uint8_t cFirmwareRevision = 1; // 0-63
+const uint8_t cFirmwareMajor = 3;    // 0-31
+const uint8_t cFirmwareMinor = 8;    // 0-31
+const uint8_t cFirmwareRevision = 0; // 0-63
 
 // Achtung: Bitfelder in der ETS haben eine gewöhnungswürdige
 // Semantik: ein 1 Bit-Feld mit einem BitOffset=0 wird in Bit 7(!) geschrieben
@@ -29,54 +29,33 @@ const uint8_t cFirmwareRevision = 1; // 0-63
 #define BIT_Co2 32
 #define BIT_Co2Calc 64
 #define BIT_LOGIC 128
+#define BIT_LUX 256
+#define BIT_TOF 512
 
-#define SENSOR_SHT3X 1
-#define SENSOR_BME280 2
-#define SENSOR_BME280_CO2 3
-#define SENSOR_BME680 4
-#define SENSOR_BME680_CO2 5
-#define SENSOR_CO2 6
-#define SENSOR_CO2_BME280 7
-#define SENSOR_CO2_BME680 8
-#define SENSOR_IAQCORE 9
-#define SENSOR_IAQCORE_SHT3X 10
-#define SENSOR_IAQCORE_BME280 11
-#define SENSOR_MASK 0x7E
+uint32_t gStartupDelay;
+uint32_t gHeartbeatDelay;
+bool gIsRunning = false;
+sSensorInfo gTemp;
+sSensorInfo gHum;
+sSensorInfo gPre;
+sSensorInfo gVoc;
+sSensorInfo gCo2;
+sSensorInfo gCo2b;
+sSensorInfo gDew;
+sSensorInfo gLux;
+sSensorInfo gTof;
+WireDevice gDevice[COUNT_1WIRE_CHANNEL];
+uint16_t gCountSaveInterrupt = 0;
+uint32_t gSaveInterruptTimestamp = 0;
+bool gForceSensorRead = true;
+int8_t gTempOffset = 0;
 
-#ifdef __linux__
-extern KnxFacade<LinuxPlatform, Bau57B0> knx;
-#endif
-
-// runtime information for the whole logik module
-struct sSensorInfo
-{
-    float lastSentValue = NAN;
-    unsigned long sendDelay;
-    unsigned long readDelay;
-};
-
-struct sRuntimeInfo
-{
-    bool isRunning = false;
-    sSensorInfo temp;
-    sSensorInfo hum;
-    sSensorInfo pre;
-    sSensorInfo voc;
-    sSensorInfo co2;
-    sSensorInfo co2b;
-    sSensorInfo dew;
-    sSensorInfo wire[8];
-    unsigned long startupDelay;
-    unsigned long heartbeatDelay;
-    uint32_t saveInterruptTimestamp = 0;
-    bool forceSensorRead = true;
-};
-
-sRuntimeInfo gRuntimeData;
-uint8_t gSensor = 0;
+uint16_t gSensor = 0;
 Logic gLogic;
+OneWireDS2482 *gBusMaster;
 
 typedef bool (*getSensorValue)(MeasureType, float&);
+void ProcessInterrupt();
 
 uint16_t getError() {
     return (uint16_t)knx.getGroupObject(LOG_KoError).value(getDPT(VAL_DPT_7));
@@ -90,18 +69,22 @@ void sendError() {
     knx.getGroupObject(LOG_KoError).objectWritten();
 }
 
+bool callOneWire() {
+    return (boardWithOneWire() && ((knx.paramByte(LOG_Sensor1Wire) & LOG_Sensor1WireMask) >> LOG_Sensor1WireShift));
+}
+
 void ProcessHeartbeat()
 {
     // the first heartbeat is send directly after startup delay of the device
-    if (gRuntimeData.heartbeatDelay == 0 || delayCheck(gRuntimeData.heartbeatDelay, knx.paramInt(LOG_Heartbeat) * 1000))
+    if (gHeartbeatDelay == 0 || delayCheck(gHeartbeatDelay, knx.paramInt(LOG_Heartbeat) * 1000))
     {
         // we waited enough, let's send a heartbeat signal
         knx.getGroupObject(LOG_KoHeartbeat).value(true, getDPT(VAL_DPT_1));
         // if there is an error, we send it with heartbeat, too
-        if (knx.paramByte(LOG_Error) & 128) {
+        if (knx.paramByte(LOG_Error) & LOG_ErrorMask) {
             if (getError()) sendError();
         }
-        gRuntimeData.heartbeatDelay = millis();
+        gHeartbeatDelay = millis();
         // The module prints its firmware version to the console
         printDebug("Firmware-Version [%d] %d.%d\n", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
         // debug-helper for logic module
@@ -118,49 +101,84 @@ void ProcessReadRequests() {
     if (sCalled < 255) {
 
         // we evaluate only Bit 2 here, which holds the information about read external values on startup
-        if (delayCheck(gRuntimeData.startupDelay, 1000) && sCalled == 1) {
+        if (sCalled == 1 && delayCheck(gStartupDelay, sCalled * 1000))
+        {
             sCalled += 1;
-            if (knx.paramByte(LOG_TempExtRead) & 4) {
+            if (knx.paramByte(LOG_TempExtRead) & LOG_TempExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Temp).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Temp).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 2000) && sCalled == 2)
+        if (sCalled == 2 && delayCheck(gStartupDelay, sCalled * 1000))
         {
             sCalled += 1;
-            if (knx.paramByte(LOG_HumExtRead) & 4)
-            {
+            if (knx.paramByte(LOG_HumExtRead) & LOG_HumExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Hum).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Hum).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 3000) && sCalled == 3)
+        if (sCalled == 3 && delayCheck(gStartupDelay, sCalled * 1000))
         {
             sCalled += 1;
-            if (knx.paramByte(LOG_PreExtRead) & 4)
-            {
+            if (knx.paramByte(LOG_PreExtRead) & LOG_PreExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Pre).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Pre).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 4000) && sCalled == 4)
+        if (sCalled == 4 && delayCheck(gStartupDelay, sCalled * 1000))
         {
             sCalled += 1;
-            if (knx.paramByte(LOG_VocExtRead) & 4) {
+            if (knx.paramByte(LOG_VocExtRead) & LOG_VocExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1VOC).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2VOC).requestObjectRead();
             }
         }
-        if (delayCheck(gRuntimeData.startupDelay, 5000) && sCalled == 5)
+        if (sCalled == 5 && delayCheck(gStartupDelay, sCalled * 1000))
         {
-            sCalled = 255;
-            if (knx.paramByte(LOG_Co2ExtRead) & 4)
-            {
+            sCalled += 1;
+            if (knx.paramByte(LOG_Co2ExtRead) & LOG_Co2ExtReadMask) {
                 knx.getGroupObject(LOG_KoExt1Co2).requestObjectRead();
                 knx.getGroupObject(LOG_KoExt2Co2).requestObjectRead();
             }
         }
+        if (sCalled == 6 && delayCheck(gStartupDelay, sCalled * 1000))
+        {
+            sCalled += 1;
+            if (knx.paramByte(LOG_LuxExtRead) & LOG_LuxExtReadMask)
+            {
+                knx.getGroupObject(LOG_KoExt1Lux).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2Lux).requestObjectRead();
+            }
+        }
+        if (sCalled == 7 && delayCheck(gStartupDelay, sCalled * 1000))
+        {
+            sCalled += 1;
+            if (knx.paramByte(LOG_TofExtRead) & LOG_TofExtReadMask)
+            {
+                knx.getGroupObject(LOG_KoExt1Tof).requestObjectRead();
+                knx.getGroupObject(LOG_KoExt2Tof).requestObjectRead();
+            }
+        }
+        if (sCalled == 8)
+        {
+            sCalled = 255;
+        }
     }
+}
+
+void loopSubmodules() {
+    knx.loop();
+    if (callOneWire()) {
+        gBusMaster->loop();
+        WireDevice::loop();
+    }
+    gLogic.loop();
+}
+
+// true solgange der Start des gesamten Moduls verzögert werden soll
+bool startupDelay()
+{
+    return !delayCheck(gStartupDelay, knx.paramInt(LOG_StartupDelay) * 1000);
 }
 
 // this callback is used by BME680 during delays while mesauring
@@ -169,79 +187,102 @@ void sensorDelayCallback(uint32_t iMillis) {
     // printDebug("sensorDelayCallback: Called with a delay of %lu ms\n", iMillis);
     uint32_t lMillis = millis();
     while (millis() - lMillis < iMillis) {
-        if (gRuntimeData.isRunning) {
-            knx.loop();
+        if (gIsRunning) {
             ProcessHeartbeat();
-            gLogic.loop();
+            ProcessInterrupt();
+            loopSubmodules();
         }
     }
     // printDebug("sensorDelayCallback: Left after %lu ms\n", millis() - lMillis);
 }
 
+void AddSensorMetadata(Sensor* iSensor, uint8_t iSensorId, MeasureType iMeasureType) {
+    // additional sensor specific metadata
+    uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & LOG_DeleteDataMask;
+    if (iSensorId == SENS_BME680)
+    {
+        ((SensorBME680*)iSensor)->delayCallback(sensorDelayCallback);
+        ((SensorBME680*)iSensor)->setMagicKeyOffset(lMagicWordOffset);
+    }
+    else if (iSensorId == SENS_SGP30)
+    {
+        ((SensorSGP30*)iSensor)->setMagicKeyOffset(lMagicWordOffset);
+    }
+    if (iMeasureType == Temperature) {
+        int32_t lTempOffsetInt = (int8_t)gTempOffset;
+        float lTempOffset = (float)lTempOffsetInt / 10.0;
+        if (iSensor->prepareTemperatureOffset(lTempOffset)) 
+            gTempOffset = 0; // disable temp offset in software
+    }
+}
+
 // Starting all required sensors, this call may be blocking (with delay)
 void StartSensor()
 {
-#ifdef __linux__
-    return true;
-#else
     Sensor* lSensor;
-    // bool lResult = true;
-    uint8_t lMeasureTypes;
-    // uint16_t lError = (uint16_t)knx.getGroupObject(LOG_KoError).value(getDpt(VAL_DPT_7));
-    uint8_t lSensorInstalled = (knx.paramByte(LOG_SensorDevice) & SENSOR_MASK) >> 1;
-    // usually all sensors have temp and hum
-    gSensor = (lSensorInstalled) ? BIT_Temp | BIT_Hum : 0;
-    if (lSensorInstalled == SENSOR_SHT3X || lSensorInstalled == SENSOR_IAQCORE_SHT3X)
-    {
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity);
-        lSensor = new SensorSHT3x(lMeasureTypes, 0x44);
-        lSensor->begin();
+    
+    gSensor = 0;
+    uint8_t lSensorId = (knx.paramByte(LOG_TempSensor) & LOG_TempSensorMask) >> LOG_TempSensorShift;
+    if (lSensorId > 0) {
+        gSensor |= BIT_Temp;
+        lSensor = Sensor::factory(lSensorId, Temperature);
+        AddSensorMetadata(lSensor, lSensorId, Temperature);
     }
-    if (lSensorInstalled == SENSOR_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_IAQCORE_BME280)
+    lSensorId = (knx.paramByte(LOG_HumSensor) & LOG_HumSensorMask) >> LOG_HumSensorShift;
+    if (lSensorId > 0)
+    {
+        gSensor |= BIT_Hum;
+        lSensor = Sensor::factory(lSensorId, Humidity);
+        AddSensorMetadata(lSensor, lSensorId, Humidity);
+    }
+    lSensorId = (knx.paramByte(LOG_PreSensor) & LOG_PreSensorMask) >> LOG_PreSensorShift;
+    if (lSensorId > 0)
     {
         gSensor |= BIT_Pre;
-        lMeasureTypes = static_cast<MeasureType>(Pressure | Temperature | Humidity);
-        lSensor = new SensorBME280(lMeasureTypes, 0x76);
-        lSensor->begin();
+        lSensor = Sensor::factory(lSensorId, Pressure);
+        AddSensorMetadata(lSensor, lSensorId, Pressure);
     }
-    if (lSensorInstalled == SENSOR_BME680 || lSensorInstalled == SENSOR_BME680_CO2 || lSensorInstalled == SENSOR_CO2_BME680)
+    lSensorId = (knx.paramByte(LOG_VocSensor) & LOG_VocSensorMask) >> LOG_VocSensorShift;
+    if (lSensorId > 0)
     {
-        uint8_t lMagicWordOffset = knx.paramByte(LOG_DeleteData) & 4;
-        gSensor |= BIT_Pre | BIT_Voc | BIT_Co2Calc;
-        // in case temp, hum shoud be taken from co2 sensor, we remove them from known measure types
-        lMeasureTypes = static_cast<MeasureType>(Pressure | Voc | Accuracy | Co2Calc |  Temperature | Humidity);
-        lSensor = new SensorBME680(lMeasureTypes, 0x76, sensorDelayCallback, lMagicWordOffset);
-        lSensor->begin();
+        gSensor |= BIT_Voc | BIT_Co2Calc;
+        lSensor = Sensor::factory(lSensorId, static_cast<MeasureType>(Voc | Accuracy | Co2Calc));
+        AddSensorMetadata(lSensor, lSensorId, static_cast<MeasureType>(Voc | Accuracy | Co2Calc));
     }
-    if (lSensorInstalled == SENSOR_CO2 || lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_BME280_CO2 || lSensorInstalled == SENSOR_CO2_BME680 || lSensorInstalled == SENSOR_BME680_CO2)
+    lSensorId = (knx.paramByte(LOG_Co2Sensor) & LOG_Co2SensorMask) >> LOG_Co2SensorShift;
+    if (lSensorId > 0)
     {
         gSensor |= BIT_Co2;
-        lMeasureTypes = static_cast<MeasureType>(Temperature | Humidity | Co2);
-        lSensor = new SensorSCD30(lMeasureTypes, 0x61);
-        lSensor->begin();
-        if (lSensorInstalled == SENSOR_CO2_BME280 || lSensorInstalled == SENSOR_CO2_BME680) {
-            // if CO2-Sensor should measure Temp/Hum, it has to be set on first position in Sensor array
-            Sensor::changeSensorOrder(lSensor, 0);
-        }
+        lSensor = Sensor::factory(lSensorId, Co2);
+        AddSensorMetadata(lSensor, lSensorId, Co2);
     }
-    if (lSensorInstalled == SENSOR_IAQCORE || lSensorInstalled == SENSOR_IAQCORE_BME280 || lSensorInstalled == SENSOR_IAQCORE_SHT3X)
+    lSensorId = (knx.paramByte(LOG_LuxSensor) & LOG_LuxSensorMask) >> LOG_LuxSensorShift;
+    if (lSensorId > 0)
     {
-        gSensor = BIT_Voc | BIT_Co2Calc;
-        lMeasureTypes = static_cast<MeasureType>(Voc | Co2Calc | Accuracy);
-        lSensor = new SensorIAQCore(lMeasureTypes, 0x5A);
-        lSensor->begin();
+        gSensor |= BIT_LUX;
+        lSensor = Sensor::factory(lSensorId, Lux);
+        AddSensorMetadata(lSensor, lSensorId, Lux);
     }
-#endif
+    lSensorId = (knx.paramByte(LOG_TofSensor) & LOG_TofSensorMask) >> LOG_TofSensorShift;
+    if (lSensorId > 0)
+    {
+        gSensor |= BIT_TOF;
+        lSensor = Sensor::factory(lSensorId, Tof);
+        AddSensorMetadata(lSensor, lSensorId, Tof);
+    }
+    // now start all sensors at the correct speed
+    Sensor::beginSensors();
 }
+
 bool ReadSensorValue(MeasureType iMeasureType, float& eValue) {
     return Sensor::measureValue(iMeasureType, eValue);
 }
 
 // the entries have the same order as the KOs starting with "Ext"
-uint8_t gIsExternalValueValid[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+uint8_t gIsExternalValueValid[14] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 // generic sensor processing
-void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureType iMeasureType, float iOffsetFactor, float iValueFactor, uint16_t iParamIndex, uint16_t iKoNumber)
+void ProcessSensor(sSensorInfo* cData, getSensorValue fGetSensorValue, MeasureType iMeasureType, float iOffsetFactor, float iValueFactor, uint16_t iParamIndex, uint16_t iKoNumber, uint8_t iDpt)
 {   
     // we process just a sensor, which is selected in ETS
     if ((gSensor & iMeasureType) != iMeasureType) return;
@@ -260,7 +301,12 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
     if (lForce || delayCheck(cData->readDelay, 5000))
     {
         // we waited enough, let's read the sensor
-        int32_t lOffset = (int8_t)knx.paramByte(iParamIndex);
+        int32_t lOffset;
+        if (iMeasureType == Temperature) {
+            lOffset = (int8_t)gTempOffset;
+        } else {
+            lOffset = (int8_t)knx.paramByte(iParamIndex);
+        }
         float lValue;
         bool lValid = fGetSensorValue(iMeasureType, lValue);
         if (lValid) {
@@ -272,15 +318,19 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
             float lDivisor = 0.0f;
             float lDivident = 0.0f;
             float lFactor = 0.0f;
+            uint8_t lExtKoIndex = (iKoNumber - LOG_KoTemp) * 2;
+            if (iKoNumber > LOG_KoLux) {
+                lExtKoIndex = (iKoNumber - LOG_KoLux + 5) * 2;
+            }
             switch (lNumExternalValues)
             {
                 case 2:
-                    lFactor = knx.paramByte(iParamIndex + 12) * gIsExternalValueValid[(iKoNumber - LOG_KoTemp) * 2 + 1]; // factor for external value 2
-                    lDivident = (float)knx.getGroupObject((iKoNumber - LOG_KoTemp) * 2 + LOG_KoExt2Temp).value(getDPT(VAL_DPT_9)) * lFactor;
+                    lFactor = knx.paramByte(iParamIndex + 12) * gIsExternalValueValid[lExtKoIndex + 1]; // factor for external value 2
+                    lDivident = (float)knx.getGroupObject(lExtKoIndex + LOG_KoExt2Temp).value(getDPT(iDpt)) * lFactor;
                     lDivisor = lFactor;
                 case 1:
-                    lFactor = knx.paramByte(iParamIndex + 11) * gIsExternalValueValid[(iKoNumber - LOG_KoTemp) * 2]; // factor for external value 1
-                    lDivident += (float)knx.getGroupObject((iKoNumber - LOG_KoTemp) * 2 + LOG_KoExt1Temp).value(getDPT(VAL_DPT_9)) * lFactor;
+                    lFactor = knx.paramByte(iParamIndex + 11) * gIsExternalValueValid[lExtKoIndex]; // factor for external value 1
+                    lDivident += (float)knx.getGroupObject(lExtKoIndex + LOG_KoExt1Temp).value(getDPT(iDpt)) * lFactor;
                     lDivisor += lFactor;
                     lFactor = knx.paramByte(iParamIndex + 10); // factor for internal value
                     lDivident += lValue * lFactor;
@@ -294,12 +344,12 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
             if (lDivisor > 0.1f) {
                 // smoothing (? glätten ?) of the new value
                 // Formel: Value = ValueAlt + (ValueNeu - ValueAlt) / p
-                float lValueAlt = (float)knx.getGroupObject(iKoNumber).value(getDPT(VAL_DPT_9));
+                float lValueAlt = (float)knx.getGroupObject(iKoNumber).value(getDPT(iDpt));
                 if (!(lForce && lValueAlt == 0.0f)) {
                     lValue = lValueAlt + (lValue - lValueAlt) / knx.paramByte(iParamIndex + 8);
                 }
                 // evaluate sending conditions (relative delta / absolute delta)
-                if (cData->lastSentValue != NAN) {
+                if (cData->lastSentValue != 0.0f) {
                     float lDelta = 100.0f - lValue / cData->lastSentValue * 100.0f;
                     uint8_t lPercent = knx.paramByte(iParamIndex + 7);
                     if (lPercent > 0 && (uint8_t)round(abs(lDelta)) >= lPercent)
@@ -309,7 +359,8 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
                         lSend = true;
                 }
                 // we always store the new value in KO, even it it is not sent (to satisfy potential read request)
-                knx.getGroupObject(iKoNumber).valueNoSend(lValue, getDPT(VAL_DPT_9));
+                if (lValue <= -0.01f || lValue >= 0.01f)
+                    knx.getGroupObject(iKoNumber).valueNoSend(lValue, getDPT(iDpt));
             }
         } else {
             lSend = false;
@@ -319,8 +370,11 @@ void ProcessSensor(sSensorInfo *cData, getSensorValue fGetSensorValue, MeasureTy
     if (lSend)
     {
         if ((getError() & iMeasureType) == 0) {
-            knx.getGroupObject(iKoNumber).objectWritten();
-            cData->lastSentValue = (float)knx.getGroupObject(iKoNumber).value(getDPT(VAL_DPT_9));
+            float lValue = (float)knx.getGroupObject(iKoNumber).value(getDPT(iDpt));
+            if (lValue <= -0.01f || lValue >= 0.01f) {
+                knx.getGroupObject(iKoNumber).objectWritten();
+                cData->lastSentValue = lValue;
+            }
         }
         cData->sendDelay = millis();
         if (cData->sendDelay == 0) cData->sendDelay = 1;
@@ -351,18 +405,19 @@ bool InPolygon(sPoint *iPoly, uint8_t iLen, float iX, float iY)
     return lResult;
 }
 
-static bool sTempHumValid = false;
+// static bool sTempHumValid = false;
 
 // Dewpoint is a vitual sensor and might be implemented on sensor class level, but we implement it here (easier and shorter)
 bool CalculateDewValue(MeasureType iMeasureType, float& eValue) {
     float lTemp = knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9));
     float lHum = knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9));
-    sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f && !sTempHumValid);
-    if (sTempHumValid) {
+    bool lTempHumValid = (((lTemp < 0.0f) || (lTemp > 0.0f)) && lHum > 0.0f);
+    if (lTempHumValid) {
         float lLogHum = log(lHum / 100.0f);
-        eValue = 243.12f * ((17.62f * lTemp) / (243.12f + lTemp) + lLogHum) / ((17.62f * 243.12f) / (243.12f + lTemp) - lLogHum);
+        // eValue = 243.12f * ((17.62f * lTemp) / (243.12f + lTemp) + lLogHum) / ((17.62f * 243.12f) / (243.12f + lTemp) - lLogHum);
+        eValue = 243.12f * ((17.62f * lTemp) / (243.12f + lTemp) + lLogHum) / (4283.7744 / (243.12f + lTemp) - lLogHum);
     }
-    return sTempHumValid;
+    return lTempHumValid;
 }
 
 void CalculateComfort(bool iForce = false)
@@ -377,8 +432,8 @@ void CalculateComfort(bool iForce = false)
 
         float lTemp = roundf(knx.getGroupObject(LOG_KoTemp).value(getDPT(VAL_DPT_9)));
         float lHum = roundf(knx.getGroupObject(LOG_KoHum).value(getDPT(VAL_DPT_9)));
-        sTempHumValid = sTempHumValid || (lTemp > 0.0f && lHum > 0.0f);
-        if (sTempHumValid && (knx.paramByte(LOG_Comfort) & 32))
+        bool lTempHumValid = (((lTemp < 0.0f) || lTemp > 0.0f) && lHum > 0.0f);
+        if (lTempHumValid && (knx.paramByte(LOG_Comfort) & LOG_ComfortMask))
         {
             // comfortzone
             uint8_t lComfort = 0;
@@ -408,7 +463,7 @@ void CalculateAccuracy(bool iForce = false)
         // do not calculate if underlying measures are corrupt
         if (getError() & Accuracy) return;
 
-        if (knx.paramByte(LOG_Accuracy) & 8)
+        if (knx.paramByte(LOG_Accuracy) & LOG_AccuracyMask)
         {
             // get accuracy
             float lAccuracyMeasure;
@@ -449,8 +504,8 @@ void CalculateAirquality(bool iForce = false)
         sMillis = millis();
         // do not calculate if underlying measures are corrupt
         if (getError() & (Voc | Co2)) return;
-        
-        if (knx.paramByte(LOG_Airquality) & 16)
+
+        if (knx.paramByte(LOG_Airquality) & LOG_AirqualityMask)
         {
             // do not calculate if underlying measureas are not yet available
             float lValue = 0;
@@ -462,6 +517,8 @@ void CalculateAirquality(bool iForce = false)
                 if (!Sensor::measureValue(Co2, lValue))
                     return;
                 lValue = knx.getGroupObject(LOG_KoCo2).value(getDPT(VAL_DPT_9));
+                if (lValue <= 1.0)
+                    lValue = knx.getGroupObject(LOG_KoCo2b).value(getDPT(VAL_DPT_9));
                 lAirquality = getAirquality(lValue, sCo2Limits);
             } else if ((gSensor & BIT_Voc)) {
                 if (!Sensor::measureValue(Voc, lValue))
@@ -477,12 +534,6 @@ void CalculateAirquality(bool iForce = false)
     }
 }
 
-// true solgange der Start des gesamten Moduls verzögert werden soll
-bool startupDelay()
-{
-    return !delayCheck(gRuntimeData.startupDelay, knx.paramInt(LOG_StartupDelay) * 1000);
-}
-
 void ProcessSensors(bool iForce = false)
 {
     static uint16_t sMeasureType = BIT_Temp;
@@ -492,13 +543,15 @@ void ProcessSensors(bool iForce = false)
 
     if (iForce) {
         // in case we force sending of value, we set all send delays to 0
-        gRuntimeData.temp.sendDelay = 0;
-        gRuntimeData.hum.sendDelay = 0;
-        gRuntimeData.pre.sendDelay = 0;
-        gRuntimeData.voc.sendDelay = 0;
-        gRuntimeData.co2.sendDelay = 0;
-        gRuntimeData.co2b.sendDelay = 0;
-        gRuntimeData.dew.sendDelay = 0;
+        gTemp.sendDelay = 0;
+        gHum.sendDelay = 0;
+        gPre.sendDelay = 0;
+        gVoc.sendDelay = 0;
+        gCo2.sendDelay = 0;
+        gCo2b.sendDelay = 0;
+        gDew.sendDelay = 0;
+        gLux.sendDelay = 0;
+        gTof.sendDelay = 0;
         sForceComfort = true;
         sForceAirquality = true;
         sForceAccuracy = true;
@@ -506,50 +559,55 @@ void ProcessSensors(bool iForce = false)
     switch (sMeasureType)
     {
     case BIT_Temp:
-        ProcessSensor(&gRuntimeData.temp, ReadSensorValue, Temperature, 10.0f, 1.0f, LOG_TempOffset, LOG_KoTemp);
+        ProcessSensor(&gTemp, ReadSensorValue, Temperature, 10.0f, 1.0f, LOG_TempOffset, LOG_KoTemp, VAL_DPT_9);
         break;
     case BIT_Hum:
-        ProcessSensor(&gRuntimeData.hum, ReadSensorValue, Humidity, 1.0f, 1.0f, LOG_HumOffset, LOG_KoHum);
+        ProcessSensor(&gHum, ReadSensorValue, Humidity, 1.0f, 1.0f, LOG_HumOffset, LOG_KoHum, VAL_DPT_9);
         break;
     case BIT_Pre:
-        ProcessSensor(&gRuntimeData.pre, ReadSensorValue, Pressure, 1.0f, 100.0f, LOG_PreOffset, LOG_KoPre);
+        ProcessSensor(&gPre, ReadSensorValue, Pressure, 1.0f, 100.0f, LOG_PreOffset, LOG_KoPre, VAL_DPT_9);
         break;
     case BIT_Voc:
-        ProcessSensor(&gRuntimeData.voc, ReadSensorValue, Voc, 1.0f, 1.0f, LOG_VocOffset, LOG_KoVOC);
+        ProcessSensor(&gVoc, ReadSensorValue, Voc, 1.0f, 1.0f, LOG_VocOffset, LOG_KoVOC, VAL_DPT_9);
         break;
     case BIT_Co2:
-        ProcessSensor(&gRuntimeData.co2, ReadSensorValue, Co2, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2);
+        ProcessSensor(&gCo2, ReadSensorValue, Co2, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2, VAL_DPT_9);
         break;
     case BIT_Co2Calc:
-        ProcessSensor(&gRuntimeData.co2b, ReadSensorValue, Co2Calc, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2b);
+        ProcessSensor(&gCo2b, ReadSensorValue, Co2Calc, 1.0f, 1.0f, LOG_Co2Offset, LOG_KoCo2b, VAL_DPT_9);
         break;
-    case 0x80:
+    case BIT_LOGIC: // dew value, this constant is misleading...
         if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
-            ProcessSensor(&gRuntimeData.dew, CalculateDewValue, static_cast<MeasureType>(Temperature | Humidity), 10.0f, 1.0f, LOG_DewOffset, LOG_KoDewpoint);
+            ProcessSensor(&gDew, CalculateDewValue, static_cast<MeasureType>(Temperature | Humidity), 10.0f, 1.0f, LOG_DewOffset, LOG_KoDewpoint, VAL_DPT_9);
         break;
-    case 0x100:
+    case BIT_LUX:
+        ProcessSensor(&gLux, ReadSensorValue, Lux, 1.0f, 1.0f, LOG_LuxOffset, LOG_KoLux, VAL_DPT_9);
+        break;
+    case BIT_TOF:
+        ProcessSensor(&gTof, ReadSensorValue, Tof, 1.0f, 1.0f, LOG_TofOffset, LOG_KoTof, VAL_DPT_7);
+        break;
+    case 0x400:
         if ((gSensor & (BIT_Temp | BIT_Hum)) == (BIT_Temp | BIT_Hum))
             CalculateComfort(sForceComfort);
         sForceComfort = false;
         break;
-    case 0x200:
+    case 0x800:
         if (gSensor & (BIT_Voc | BIT_Co2 | BIT_Co2Calc)) 
             CalculateAirquality(sForceAirquality);
         sForceAirquality = false;
         break;
-    case 0x400:
+    case 0x1000:
         if (gSensor & BIT_Voc) 
             CalculateAccuracy(sForceAccuracy);
         sForceAccuracy = false;
         break;
-
     default:
         sMeasureType = 1;
         // error processing
         uint8_t lError = Sensor::getError();
         if (lError != getError()) {
             setError(lError);
-            if (knx.paramByte(LOG_Error) & 128)
+            if (knx.paramByte(LOG_Error) & LOG_ErrorMask)
                 sendError();
         }
         break;
@@ -564,6 +622,9 @@ bool processDiagnoseCommand() {
         // Command v: retrun fimware version, do not forward this to logic,
         // because it means firmware version of the outermost module
         sprintf(lBuffer, "VER [%d] %d.%d", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
+        lOutput = true;
+    } else if (lBuffer[0] == 'c') {
+        sprintf(lBuffer, "%d00 kHz", Sensor::getMaxI2cSpeed());
         lOutput = true;
     } else {
         // let's check other modules for this command
@@ -591,27 +652,28 @@ void ProcessDiagnoseCommand(GroupObject &iKo) {
 
 void ProcessKoCallback(GroupObject &iKo) {
     // check if we evaluate own KO
-    if (iKo.asap() == LOG_KoRequestValues) {
+    if (iKo.asap() == LOG_KoDiagnose) {
+        ProcessDiagnoseCommand(iKo);
+    } else if (iKo.asap() == LOG_KoRequestValues) {
         println("Request values called");
         // print("KO-Value is ");
         // println((bool)iKo.value(getDpt(VAL_DPT_1)));
         if ((bool)iKo.value(getDPT(VAL_DPT_1)))
-            gRuntimeData.forceSensorRead = true;
-    } else if (iKo.asap() == LOG_KoDiagnose) {
-        ProcessDiagnoseCommand(iKo);
-    } else if (iKo.asap() >= LOG_KoExt1Temp && iKo.asap() <= LOG_KoExt2Co2) {
+            gForceSensorRead = true;
+    } else if (iKo.asap() >= LOG_KoExt1Temp && iKo.asap() <= LOG_KoExt2Tof) {
         // as soon as we receive any external sensor value, we mark this in our validity map
         gIsExternalValueValid[iKo.asap() - LOG_KoExt1Temp] = 1;
     } else {
+        WireDevice::processKOCallback(iKo);
         // else dispatch to logicmodule
         gLogic.processInputKo(iKo);
     }
 }
 
 void ProcessInterrupt() {
-    if (gRuntimeData.saveInterruptTimestamp) {
-        printDebug("Sensormodul: SAVE-Interrupt processing started after %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
-        gRuntimeData.saveInterruptTimestamp = millis();
+    if (gSaveInterruptTimestamp) {
+        printDebug("Sensormodul: SAVE-Interrupt processing started after %lu ms\n", millis() - gSaveInterruptTimestamp);
+        gSaveInterruptTimestamp = millis();
         // for the moment, we send only an Info on error object in case of an save interrumpt
         uint16_t lError = getError();
         setError(lError | 128);
@@ -621,17 +683,17 @@ void ProcessInterrupt() {
         // call according logic interrupt handler
         gLogic.processInterrupt(true);
         Sensor::saveState();
-        printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gRuntimeData.saveInterruptTimestamp);
+        printDebug("Sensormodul: SAVE-Interrupt processing duration was %lu ms\n", millis() - gSaveInterruptTimestamp);
         // in case, SaveInterrupt was a false positive
         // we restore power and I2C-Bus
         // Wire.end();
         // wait another 200 ms
-        delay(200);
+        delay(2000);
         restorePower();
-        delay(100);
+        delay(1000);
         // Wire.begin();
         // Sensor::restartSensors();
-        gRuntimeData.saveInterruptTimestamp = 0;
+        gSaveInterruptTimestamp = 0;
     }
 }
 
@@ -645,26 +707,28 @@ void appLoop()
     if (startupDelay())
         return;
 
-    gRuntimeData.isRunning = true;
+    gIsRunning = true;
     ProcessInterrupt();
 
     // at this point startup-delay is done
     // we process heartbeat
     ProcessHeartbeat();
     ProcessReadRequests();
-    gLogic.loop();
+    loopSubmodules();
 
     // at Startup, we want to send all values immediately
-    ProcessSensors(gRuntimeData.forceSensorRead);
-    gRuntimeData.forceSensorRead = false;
+    ProcessSensors(gForceSensorRead);
+    gForceSensorRead = false;
+    loopSubmodules();
 
     Sensor::sensorLoop();
+    loopSubmodules();
 }
 
 // handle interrupt from save pin
 void onSafePinInterruptHandler() {
-    gRuntimeData.saveInterruptTimestamp = millis();
-    gLogic.onSafePinInterruptHandler();
+    gCountSaveInterrupt += 1;
+    gSaveInterruptTimestamp = millis();
 }
 
 void beforeRestartHandler() {
@@ -689,19 +753,22 @@ void beforeTableUnloadHandler(TableObject& iTableObject, LoadState& iNewState) {
     }
 }
 
-void appSetup(uint8_t iSavePin)
+void appSetup(bool iSaveSupported)
 {
-
     // try to get rid of occasional I2C lock...
     // savePower();
-    digitalWrite(PROG_LED_PIN, HIGH);
-    digitalWrite(LED_YELLOW_PIN, HIGH);
+    // ledProg(true);
+    ledInfo(true);
     // delay(1000);
     // restorePower();
+    ledProg(true);
     // check hardware availability
     boardCheck();
-    digitalWrite(PROG_LED_PIN, LOW);
-    digitalWrite(LED_YELLOW_PIN, LOW);
+    // moved to sensor lib
+    // Wire.begin();
+    // Wire.setClock(400000);
+    ledInfo(false);
+    ledProg(false);
     // The module prints its firmware version to the console
     printDebug("Firmware-Version [%d] %d.%d\n", cFirmwareMajor, cFirmwareMinor, cFirmwareRevision);
 
@@ -709,16 +776,47 @@ void appSetup(uint8_t iSavePin)
     {
         // 5 bit major, 5 bit minor, 6 bit revision
         knx.bau().deviceObject().version(cFirmwareMajor << 11 | cFirmwareMinor << 6 | cFirmwareRevision);
-        // gSensor = (knx.paramByte(LOG_SensorDevice));
-        gRuntimeData.startupDelay = millis();
-        gRuntimeData.heartbeatDelay = 0;
+        gStartupDelay = millis();
+        gHeartbeatDelay = 0;
+        gCountSaveInterrupt = 0;
+        gTempOffset = (int8_t)knx.paramByte(LOG_TempOffset); // we handle temp offset in Sensor, if possible
         // GroupObject &lKoRequestValues = knx.getGroupObject(LOG_KoRequestValues);
-        if (GroupObject::classCallback() == 0) GroupObject::classCallback(ProcessKoCallback);
+        if (GroupObject::classCallback() == 0)
+            GroupObject::classCallback(ProcessKoCallback);
         if (knx.getBeforeRestartCallback() == 0) knx.addBeforeRestartCallback(beforeRestartHandler);
         if (TableObject::getBeforeTableUnloadCallback() == 0) TableObject::addBeforeTableUnloadCallback(beforeTableUnloadHandler);
         StartSensor();
-        if (iSavePin) 
-            attachInterrupt(digitalPinToInterrupt(iSavePin), onSafePinInterruptHandler, FALLING);
+#ifdef SAVE_INTERRUPT_PIN
+        if (iSaveSupported)
+            attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
+#endif
         gLogic.setup(false);
+        if (callOneWire())
+        {
+            bool lSearchNewDevices = knx.paramByte(LOG_IdSearch) & LOG_IdSearchMask;
+            // Loogic should call busmaster loop as often als knx loop
+            // Logic::addLoopCallback(WireBus::loopCallback, &gBusMaster);
+            // gBusMaster->setup(0, lSearchNewDevices, true);
+            gBusMaster = new OneWireDS2482(WireDevice::processNewIdCallback, WireDevice::knxLoopCallback);
+            gBusMaster->setup(0, 0, lSearchNewDevices);
+            gBusMaster->setupTiming(
+                (knx.paramByte(LOG_Busmaster1RSTL) & LOG_Busmaster1RSTLMask) >> LOG_Busmaster1RSTLShift,
+                (knx.paramByte(LOG_Busmaster1MSP) & LOG_Busmaster1MSPMask) >> LOG_Busmaster1MSPShift,
+                (knx.paramByte(LOG_Busmaster1W0L) & LOG_Busmaster1W0LMask) >> LOG_Busmaster1W0LShift,
+                (knx.paramByte(LOG_Busmaster1REC0) & LOG_Busmaster1REC0Mask) >> LOG_Busmaster1REC0Shift,
+                (knx.paramByte(LOG_Busmaster1WPU) & LOG_Busmaster1WPUMask) >> LOG_Busmaster1WPUShift);
+
+            // initialize all known 1-Wire-sensors from application data
+            for (uint8_t lDeviceIndex = 0; lDeviceIndex < COUNT_1WIRE_CHANNEL; lDeviceIndex++)
+            {
+                // check for family information
+                uint8_t lFamily = knx.paramByte(lDeviceIndex * WIRE_ParamBlockSize + WIRE_ParamBlockOffset + WIRE_sFamilyCode);
+                if (lFamily > 0)
+                {
+                    // looks strange, but all 1-wire devices are handled throug static methods after creation
+                    new WireDevice(lDeviceIndex, &gBusMaster);
+                }
+            }
+        }
     }
 }

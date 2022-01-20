@@ -13,6 +13,7 @@ Update instruction (for an updated firmware or application build) can be also fo
 
 This project depends on following projects:
 
+* [knx-wire](https://github.com/mumpf/knx-wire)
 * [knx-logic](https://github.com/mumpf/knx-logic)
 * [knx-common](https://github.com/mumpf/knx-common)
 * [knx](https://github.com/mumpf/knx)
@@ -24,6 +25,7 @@ With small changes it should be possible to use it on any SAMD21 board.
 There are application descriptions available:
 
 * [Applicasion Sensor](https://github.com/mumpf/knx-sensor/blob/release/doc/Applikationsbeschreibung-Sensor.pdf) describes features of the sensor part of application and firmware (in German).
+* [Application WireGateway](https://github.com/mumpf/knx-wire/blob/release/doc/Applikationsbeschreibung-Wire.pdf) describes features of the one wire part of application and firmware (in German).
 * [Application Logic](https://github.com/mumpf/knx-logic/blob/release/doc/Applikationsbeschreibung-Logik.pdf) describes features of the logic part of application and firmware (in German).
 
 Thanks to all, who made this project successful.

@@ -2,12 +2,8 @@
 #include <Wire.h>
 #include "Hardware.h"
 
-void appSetup(uint8_t iSavePin);
+void appSetup(bool iSaveSupported);
 void appLoop();
-#ifdef WATCHDOG
-#include <Adafruit_SleepyDog.h>
-uint32_t gWatchdogDelay;
-#endif
 
 void setup()
 {
@@ -19,9 +15,9 @@ void setup()
     SerialUSB.println("Startup called...");
     ArduinoPlatform::SerialDebug = &SerialUSB;
 
-#ifdef LED_YELLOW_PIN
-    pinMode(LED_YELLOW_PIN, OUTPUT);
-    digitalWrite(LED_YELLOW_PIN, HIGH);
+#ifdef INFO_LED_PIN
+    pinMode(INFO_LED_PIN, OUTPUT);
+    ledInfo(true);
 #endif    
 
     // moved to checkBoard!!!
@@ -41,28 +37,11 @@ void setup()
 
     // start the framework.
     knx.start();
-#ifdef LED_YELLOW_PIN
-    digitalWrite(LED_YELLOW_PIN, LOW);
-#endif
-#ifdef WATCHDOG
-    // use this in future for Diagnose command?
-    // uint8_t lResetCause = Watchdog.resetCause();
-    // setup watchdog to prevent endless loops
-    int lWatchTime = Watchdog.enable(16384, false);
-    SerialUSB.print("Watchdog started with a watchtime of ");
-    SerialUSB.print(lWatchTime / 1000);
-    SerialUSB.println(" Seconds");
-#endif
+    ledInfo(false);
 }
 
 void loop()
 {
-#ifdef WATCHDOG
-    if (millis() - gWatchdogDelay > 1000) {
-        Watchdog.reset();
-        gWatchdogDelay = millis();
-    }
-#endif
     // don't delay here to much. Otherwise you might lose packages or mess up the timing with ETS
     knx.loop();
 
