@@ -44,13 +44,13 @@ You should be now in a directory ending with ...\Documents\PlatformIO\Projects
     git clone https://github.com/mumpf/knx-sensor.git
     cd knx
     git checkout release
-    cd ..\knx-common
+    cd ../knx-common
     git checkout release
-    cd ..\knx-logic
+    cd ../knx-logic
     git checkout release
-    cd ..\knx-wire
+    cd ../knx-wire
     git checkout release
-    cd ..\knx-sensor
+    cd ../knx-sensor
     git checkout release
     code Sensormodul.code-workspace
 
